@@ -11,7 +11,8 @@ export const Hero: React.FC = () => {
   const isInView = useInView(containerRef, { amount: 0.2 });
   
   // Track if the bottom section is in view to override animation wait time
-  const isBottomVisible = useInView(bottomSectionRef, { amount: 0.3, once: true });
+  // UPDATED: Lowered threshold to 0.1 to ensure map shows up earlier on mobile scroll
+  const isBottomVisible = useInView(bottomSectionRef, { amount: 0.1, once: true });
 
   // --- CYCLING TEXT STATE ---
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
@@ -92,12 +93,14 @@ export const Hero: React.FC = () => {
       <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-16">
         
         {/* MAIN CONTENT AREA: SPLIT SCREEN BENTO GRID */}
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:h-[70vh] min-h-[500px]">
+        {/* UPDATED: Changed mobile layout to flex-col with auto height to prevent video collapse */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:h-[70vh] w-full">
             
             {/* 1. TEXT ANIMATION AREA */}
             <div 
-                // UPDATED: Enhanced shadow (shadow-2xl) and border (border-zinc-200) to match 3D look of video
-                className="h-[40%] lg:h-full w-full flex flex-col order-1 group/text cursor-default relative bg-white rounded-3xl shadow-2xl border border-zinc-200 p-6 md:p-12 overflow-hidden"
+                // UPDATED: Reduced min-h-[350px] to min-h-[260px] to remove white space
+                // UPDATED: Reduced padding p-6 to p-4 on mobile
+                className="min-h-[260px] lg:h-full w-full flex flex-col order-1 group/text cursor-default relative bg-white rounded-3xl shadow-2xl border border-zinc-200 p-4 md:p-12 overflow-hidden"
             >
                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-200 to-transparent opacity-50" />
 
@@ -183,11 +186,12 @@ export const Hero: React.FC = () => {
 
             {/* 2. VIDEO AREA */}
             <motion.div 
-                // UPDATED: Video loads immediately with opacity fade-in, no dependency on isFinished
+                // UPDATED: Video loads immediately with opacity fade-in
                 initial={{ opacity: 0, scale: 0.98, filter: "blur(5px)" }}
                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                 transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-                className="h-[60%] lg:h-full w-full rounded-3xl overflow-hidden relative shadow-2xl bg-black border border-zinc-800 order-2"
+                // UPDATED: Explicit height on mobile (h-[300px]) to ensure visibility below text
+                className="h-[300px] md:h-[400px] lg:h-full w-full rounded-3xl overflow-hidden relative shadow-2xl bg-black border border-zinc-800 order-2"
             >
                 <video 
                     ref={videoRef}

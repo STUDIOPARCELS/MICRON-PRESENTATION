@@ -128,14 +128,12 @@ const getCardData = (id: number): ModalContent => {
         ...base, 
         title: 'PROTOTYPE', 
         subtitle: 'VISION',
-        // Removed aspect-[6/4] to allow vertical flow
         modalLayout: 'default',
-        maxWidth: 'max-w-5xl',
+        maxWidth: 'max-w-7xl', // WIDER LANDSCAPE MODAL
         content: (
-            // REFACTORED LAYOUT: Vertical stack, Video replaces Green Card
             <div className="flex flex-col gap-6 h-full">
                 
-                {/* 1. Description Text (Split Layout) */}
+                {/* 1. Description Text (Full Width Top) */}
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -160,55 +158,48 @@ const getCardData = (id: number): ModalContent => {
                     </div>
                 </motion.div>
 
-                {/* 2. VIDEO (Moved to occupy main slot, replacing Green Card) */}
-                {/* aspect-video ensures 16:9 ratio in the vertical stack */}
-                <div className="w-full aspect-video shrink-0">
-                     <ModalVideo src={VIDEO_PLACEHOLDER} className="h-full w-full">
-                        {/* COSMIC ZOO Overlay */}
-                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 pointer-events-none transition-opacity duration-500 hover:opacity-0">
-                             <div className="bg-white/10 backdrop-blur-md rounded-full p-4 border border-white/20 mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                <Play className="text-white fill-white" size={32} />
-                             </div>
-                             <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white drop-shadow-xl text-center leading-none">
-                                COSMIC<br/>ZOO
-                             </h3>
-                        </div>
-                     </ModalVideo>
-                </div>
+                {/* 2. SPLIT LAYOUT: Video (75%) + Cards (25%) Side-by-Side */}
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-full min-h-0">
+                    
+                    {/* VIDEO COLUMN - Scales down to 75% width (col-span-3) */}
+                    <div className="lg:col-span-3 w-full h-full min-h-[300px] lg:min-h-0">
+                         <ModalVideo src={VIDEO_PLACEHOLDER} className="h-full w-full" />
+                    </div>
 
-                {/* 3. SPLIT BOTTOM */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 shrink-0">
-                    <InnerBento 
-                        title="INTEGRATION" 
-                        gradient="bg-micron-eggplant" 
-                        icon={<Zap className="text-white" />}
-                        direction="up"
-                        delay={0.3}
-                        className="min-h-[140px]"
-                    >
-                        <div className="space-y-2">
-                            <p className="font-bold text-white text-sm">A Venue for Leadership.</p>
-                            <p className="text-white/80 text-xs leading-relaxed">
-                                A residential venue for the leaders building the future and the policymakers governing it. Guests meet to experience the shift to autonomous systems directly.
-                            </p>
-                        </div>
-                    </InnerBento>
+                    {/* SIDE COLUMN - Integration & Inflection stacked vertically */}
+                    <div className="lg:col-span-1 flex flex-col gap-4 h-full">
+                        <InnerBento 
+                            title="INTEGRATION" 
+                            gradient="bg-micron-eggplant" 
+                            icon={<Zap className="text-white" />}
+                            direction="left"
+                            delay={0.3}
+                            className="flex-1 min-h-[160px]"
+                        >
+                            <div className="space-y-3">
+                                <p className="font-bold text-white text-sm">A Venue for Leadership.</p>
+                                <p className="text-white/80 text-xs leading-relaxed">
+                                    A residential venue for the leaders building the future and the policymakers governing it. Guests meet to experience the shift to autonomous systems directly.
+                                </p>
+                            </div>
+                        </InnerBento>
 
-                    <InnerBento 
-                        title="INFLECTION POINT" 
-                        gradient="bg-micron-grey1" 
-                        icon={<TrendingUp className="text-white" />}
-                        direction="up"
-                        delay={0.4}
-                        className="min-h-[140px]"
-                    >
-                        <div className="space-y-2">
-                            <p className="font-bold text-white text-sm">Scaling to Billions.</p>
-                            <p className="text-white/80 text-xs leading-relaxed">
-                                Autonomous systems are scaling from thousands to billions. Daily life transforms permanently. The leaders building that future meet here to confront the profound questions it demands.
-                            </p>
-                        </div>
-                    </InnerBento>
+                        <InnerBento 
+                            title="INFLECTION POINT" 
+                            gradient="bg-micron-grey1" 
+                            icon={<TrendingUp className="text-white" />}
+                            direction="left"
+                            delay={0.4}
+                            className="flex-1 min-h-[160px]"
+                        >
+                            <div className="space-y-3">
+                                <p className="font-bold text-white text-sm">Scaling to Billions.</p>
+                                <p className="text-white/80 text-xs leading-relaxed">
+                                    Autonomous systems are scaling from thousands to billions. Daily life transforms permanently. The leaders building that future meet here to confront the profound questions it demands.
+                                </p>
+                            </div>
+                        </InnerBento>
+                    </div>
                 </div>
             </div>
         )
@@ -449,21 +440,25 @@ export const SectionPrototype: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 1.0 }}
-        className="pointer-events-auto w-full bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-zinc-100 ring-1 ring-zinc-50"
+        // UPDATED: Reduced padding on mobile from p-8 to p-5 to match request
+        className="pointer-events-auto w-full bg-white rounded-[2.5rem] p-5 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-zinc-100 ring-1 ring-zinc-50"
       >
         <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8 md:border-b-0 md:pb-0"
+            // UPDATED: Reduced header gap from gap-12 to gap-6 on mobile
+            // UPDATED: Reduced bottom padding from pb-8 to pb-4 on mobile
+            className="mb-6 flex flex-col md:flex-row md:items-end gap-6 md:gap-12 border-b border-zinc-100 pb-4 md:border-b-0 md:pb-0"
         >
-            <div className="flex-shrink-0 bg-zinc-50 p-6 rounded-2xl border border-zinc-100 shadow-sm md:bg-transparent md:p-0 md:border-0 md:shadow-none md:rounded-none">
+            {/* UPDATED: Reduced padding inside header boxes from p-6 to p-4 on mobile */}
+            <div className="flex-shrink-0 bg-zinc-50 p-4 md:p-6 rounded-2xl border border-zinc-100 shadow-sm md:bg-transparent md:p-0 md:border-0 md:shadow-none md:rounded-none">
                 <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">01 / VISION</span>
                 <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant leading-none font-sans">A NEW DAY</h2>
             </div>
 
-            <div className="md:ml-auto max-w-2xl pb-1 bg-white p-6 rounded-2xl border border-zinc-100 shadow-sm md:bg-transparent md:p-0 md:border-0 md:shadow-none md:rounded-none">
+            <div className="md:ml-auto max-w-2xl pb-1 bg-white p-4 md:p-6 rounded-2xl border border-zinc-100 shadow-sm md:bg-transparent md:p-0 md:border-0 md:shadow-none md:rounded-none">
                 <div className="md:pl-6 md:border-l-4 md:border-micron-eggplant/20 md:hover:border-micron-eggplant md:transition-colors md:duration-500">
                     <div className="text-base font-light text-zinc-600 leading-snug font-body">
                         <span className="font-bold text-micron-eggplant block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans cursor-default">
@@ -505,7 +500,8 @@ export const SectionPrototype: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
             <BentoCard 
-                className="flex flex-col min-h-[500px] p-6 relative overflow-hidden group" 
+                // UPDATED: Reduced min-height on mobile from 500px to 320px
+                className="flex flex-col min-h-[320px] md:min-h-[500px] p-6 relative overflow-hidden group" 
                 gradient="bg-micron-grey1" 
                 textColor="text-white"
                 borderColor="border-white/10"
@@ -528,7 +524,7 @@ export const SectionPrototype: React.FC = () => {
             </BentoCard>
 
             <BentoCard 
-                className="flex flex-col min-h-[500px] p-6 relative overflow-hidden group" 
+                className="flex flex-col min-h-[320px] md:min-h-[500px] p-6 relative overflow-hidden group" 
                 gradient="bg-micron-eggplant-light" 
                 textColor="text-white"
                 borderColor="border-white/10"
@@ -551,7 +547,7 @@ export const SectionPrototype: React.FC = () => {
             </BentoCard>
 
             <BentoCard 
-                className="flex flex-col min-h-[500px] p-6 relative overflow-hidden group" 
+                className="flex flex-col min-h-[320px] md:min-h-[500px] p-6 relative overflow-hidden group" 
                 gradient="bg-micron-eggplant"
                 textColor="text-white"
                 borderColor="border-white/10"
@@ -575,7 +571,7 @@ export const SectionPrototype: React.FC = () => {
             </BentoCard>
 
             <BentoCard 
-                className="flex flex-col min-h-[500px] p-6 relative overflow-hidden group" 
+                className="flex flex-col min-h-[320px] md:min-h-[500px] p-6 relative overflow-hidden group" 
                 gradient="bg-micron-green" 
                 textColor="text-white" 
                 borderColor="border-white/10" 
