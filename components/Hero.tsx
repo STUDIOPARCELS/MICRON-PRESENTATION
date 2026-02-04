@@ -178,7 +178,13 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* 2. VIDEO AREA */}
-            <div className="h-[60%] lg:h-full w-full rounded-3xl overflow-hidden relative shadow-2xl bg-black border border-zinc-800 order-2">
+            <motion.div 
+                // UPDATED: Video loads immediately with opacity fade-in, no dependency on isFinished
+                initial={{ opacity: 0, scale: 0.98, filter: "blur(5px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+                className="h-[60%] lg:h-full w-full rounded-3xl overflow-hidden relative shadow-2xl bg-black border border-zinc-800 order-2"
+            >
                 <video 
                     ref={videoRef}
                     autoPlay 
@@ -191,16 +197,24 @@ export const Hero: React.FC = () => {
                      <source src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4" type="video/mp4" />
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 pointer-events-none"></div>
-            </div>
+            </motion.div>
 
         </div>
 
         {/* BOTTOM SECTION: PARADIGM & MAP */}
         <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            // UPDATED: Container waits for isFinished, then orchestrates children
+            initial="hidden"
+            animate={isFinished ? "visible" : "hidden"}
+            variants={{
+                hidden: { opacity: 0, y: 50, filter: "blur(10px)" },
+                visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    filter: "blur(0px)",
+                    transition: { duration: 1.5, ease: "easeOut" } 
+                }
+            }}
             className="w-full bg-white rounded-3xl shadow-[0_40px_80px_-12px_rgba(0,0,0,0.2)] ring-1 ring-black/5 relative overflow-hidden flex flex-col md:flex-row h-auto md:h-[300px] mt-0 group"
         >
             {/* Top Light Highlight for 3D effect */}
@@ -214,7 +228,18 @@ export const Hero: React.FC = () => {
                      <InteractiveParadigmTitle />
                  </div>
                 
-                <div className="flex gap-6 border-l-[4px] border-zinc-200 pl-6 transition-colors duration-500 group-hover:border-micron-green">
+                {/* Address Block - Sequence: 3rd (After Map) */}
+                <motion.div 
+                    variants={{
+                        hidden: { opacity: 0, x: -20 },
+                        visible: { 
+                            opacity: 1, 
+                            x: 0,
+                            transition: { delay: 3.5, duration: 1.0, ease: "easeOut" }
+                        }
+                    }}
+                    className="flex gap-6 border-l-[4px] border-zinc-200 pl-6 transition-colors duration-500 group-hover:border-micron-green"
+                >
                      <div className="flex flex-col justify-center">
                         <p className="text-xs md:text-sm font-black uppercase tracking-widest text-micron-green mb-1">
                             Micron House
@@ -226,11 +251,21 @@ export const Hero: React.FC = () => {
                             Boise, Idaho 83712
                         </p>
                      </div>
-                </div>
+                </motion.div>
             </div>
 
-            {/* Map Side (Right) */}
-            <div className="relative w-full md:w-1/2 min-h-[300px] md:h-auto md:min-h-0 p-4 md:p-6 flex items-center justify-center bg-white">
+            {/* Map Side (Right) - Sequence: 2nd (After Title) */}
+            <motion.div 
+                variants={{
+                    hidden: { opacity: 0, scale: 0.95 },
+                    visible: { 
+                        opacity: 1, 
+                        scale: 1,
+                        transition: { delay: 2.2, duration: 1.0, ease: "easeOut" }
+                    }
+                }}
+                className="relative w-full md:w-1/2 min-h-[300px] md:h-auto md:min-h-0 p-4 md:p-6 flex items-center justify-center bg-white"
+            >
                 <div className="w-full h-full rounded-3xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 relative bg-zinc-100 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)]">
                      <iframe 
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.234!2d-116.1898!3d43.6088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54aef8d1b0b3b8e7%3A0x0!2s1020%20E%20Warm%20Springs%20Ave%2C%20Boise%2C%20ID%2083712!5e0!3m2!1sen!2sus!4v1706000000000"
@@ -252,7 +287,7 @@ export const Hero: React.FC = () => {
                         loading="lazy"
                      />
                 </div>
-            </div>
+            </motion.div>
         </motion.div>
 
       </div>
@@ -262,18 +297,55 @@ export const Hero: React.FC = () => {
 
 // Sub-component for Independent Word Coloring with Complex State
 const InteractiveParadigmTitle: React.FC = () => {
+    // Sequence 1: Words appear staggered
+    const wordDelayStart = 0.5; // Start after container starts appearing
+    const wordStagger = 0.3;
+
     return (
         <div className="flex flex-col items-start select-none">
             {/* Line 1 */}
             <div className="flex gap-x-2 md:gap-x-4 mb-2">
                 {["THE", "PARADIGM"].map((word, i) => (
-                    <InteractiveWord key={i} word={word} />
+                    <motion.div
+                        key={i}
+                        variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: { 
+                                opacity: 1, 
+                                y: 0,
+                                transition: { 
+                                    delay: wordDelayStart + (i * wordStagger),
+                                    duration: 0.8,
+                                    ease: "easeOut"
+                                }
+                            }
+                        }}
+                    >
+                        <InteractiveWord word={word} />
+                    </motion.div>
                 ))}
             </div>
             {/* Line 2 */}
             <div className="flex gap-x-2 md:gap-x-4">
                 {["SHIFTS."].map((word, i) => (
-                    <InteractiveWord key={i} word={word} />
+                    <motion.div
+                        key={i}
+                        variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: { 
+                                opacity: 1, 
+                                y: 0,
+                                transition: { 
+                                    // Offset by previous line length (2 words)
+                                    delay: wordDelayStart + ((2 + i) * wordStagger),
+                                    duration: 0.8,
+                                    ease: "easeOut"
+                                }
+                            }
+                        }}
+                    >
+                        <InteractiveWord word={word} />
+                    </motion.div>
                 ))}
             </div>
         </div>
@@ -300,7 +372,7 @@ const InteractiveWord: React.FC<{ word: string }> = ({ word }) => {
                 times: isChanged ? [0, 0.3, 0.7, 1] : [1], 
                 ease: "easeInOut"
             }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] cursor-pointer"
+            className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] cursor-pointer inline-block"
         >
             {word}
         </motion.span>
