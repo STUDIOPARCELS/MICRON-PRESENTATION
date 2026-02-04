@@ -1,261 +1,297 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { BentoCard } from './BentoCard';
-import { Play } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, amount: 0.1 });
+  const videoRef = useRef<HTMLVideoElement>(null);
   
   // --- CYCLING TEXT STATE ---
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
+  // State to control alignment: starts at top ('start'), slides to bottom ('end')
+  const [alignment, setAlignment] = useState<'start' | 'end'>('start');
   
   const sentences = [
-    { 
-        words: ["WITHOUT", "MEMORY,", "THERE'S", "NO", "MEANING."],
-        highlights: ["MEMORY,", "MEANING."]
+    {
+        line1: ["WITHOUT", "MEMORY,"],
+        line2: ["THERE'S", "NO", "MEANING."],
+        highlights: ["MEMORY,", "MEANING."],
+        highlightColor: "text-micron-eggplant", // Eggplant
+        baseColor: "text-[#878d9f]" // GRAY
     },
-    { 
-        words: ["WITHOUT", "VISION,", "THERE'S", "NO", "VELOCITY."],
-        highlights: ["VISION,", "VELOCITY."]
+    {
+        line1: ["WITHOUT", "VISION,"],
+        line2: ["THERE'S", "NO", "VELOCITY."],
+        highlights: ["VISION,", "VELOCITY."],
+        highlightColor: "text-[#878d9f]", // Light Gray
+        baseColor: "text-zinc-900" // BLACK
     },
-    { 
-        words: ["WITHOUT", "PLACE,", "THERE'S", "NO", "PERSPECTIVE."],
-        highlights: ["PLACE,", "PERSPECTIVE."]
+    {
+        line1: ["WITHOUT", "PLACE,"],
+        line2: ["THERE'S", "NO", "PERSPECTIVE."],
+        highlights: ["PLACE,", "PERSPECTIVE."],
+        highlightColor: "text-micron-green", // Green
+        baseColor: "text-[#878d9f]" // GRAY
     }
   ];
 
+  // 1. Slow Video Down by 50%
   useEffect(() => {
-    if (!isInView) return;
+    if (videoRef.current) {
+        videoRef.current.playbackRate = 0.5;
+    }
+  }, []);
+
+  // 2. Animation Logic: Play once, then stop.
+  useEffect(() => {
+    if (isFinished) {
+        // After finishing the last sentence, start slide down almost immediately (500ms)
+        const timer = setTimeout(() => {
+            setAlignment('end');
+        }, 500); 
+        return () => clearTimeout(timer);
+    }
+
+    // Interval increased to 8000ms for even slower pacing
     const interval = setInterval(() => {
-      setCurrentSentenceIndex((prev) => (prev + 1) % sentences.length);
-    }, 6000); // Slow cycle to allow reading
+      setCurrentSentenceIndex((prev) => {
+        if (prev === sentences.length - 1) {
+            clearInterval(interval);
+            setIsFinished(true); // Stop at the last index
+            return prev;
+        }
+        return prev + 1;
+      });
+    }, 8000); 
+
     return () => clearInterval(interval);
-  }, [isInView]);
+  }, [isFinished]);
 
-  // --- STATIC TEXT CONFIG ---
-  const paradigmLine1 = ["THE", "PARADIGM"];
-  const paradigmLine2 = ["SHIFTS."];
-  const paradigmWords = [...paradigmLine1, ...paradigmLine2];
-  
-  // Reverted to the smooth staggered delay
-  const paradigmWordDelays = paradigmWords.map((_, i) => 0.2 + (i * 0.15));
+  // Restart animation on hover if finished
+  const handleReplay = () => {
+     if (isFinished) {
+         setAlignment('start'); // Reset to top immediately
+         setCurrentSentenceIndex(0);
+         setIsFinished(false);
+     }
+  };
 
-  const addressLine1 = "Micron House";
-  const addressLine2 = "1020 East Warm Springs Ave";
-  const addressLine3 = "Boise, Idaho 83712";
+  // Helper to determine if a word should be colored
+  const getWordClass = (word: string, currentSentence: typeof sentences[0]) => {
+      if (currentSentence.highlights.includes(word)) {
+          return currentSentence.highlightColor;
+      }
+      return currentSentence.baseColor;
+  };
 
   return (
     <section 
         ref={containerRef}
-        className="relative w-full bg-white text-zinc-900 pt-28 pb-12 md:pt-32 md:pb-20 flex flex-col justify-center"
+        className="relative w-full bg-white text-zinc-900 pt-20 pb-8 md:pt-28 md:pb-20 flex flex-col justify-center min-h-[90vh]"
     >
-      <div className="container mx-auto px-4 md:px-12 flex flex-col gap-8">
+      <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-6 md:gap-8">
         
-        {/* --- ROW 1: CYCLING TEXT & VIDEO --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 min-h-[450px]">
+        {/* MAIN CONTENT AREA: SPLIT SCREEN */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-6 h-[75vh] lg:h-[60vh] min-h-[600px] lg:min-h-[500px]">
             
-            {/* LEFT: Cycling Text Animation */}
-            <div className="flex flex-col justify-center items-start relative min-h-[300px] lg:min-h-full pl-2">
-                <AnimatePresence mode="wait">
-                    <motion.div 
-                        key={currentSentenceIndex}
-                        className="w-full flex flex-wrap content-center gap-x-4 gap-y-2"
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        variants={{
-                            hidden: { opacity: 0 },
-                            visible: { 
-                                opacity: 1,
-                                transition: { staggerChildren: 0.5 } // Slow stagger for one-by-one reveal
-                            },
-                            exit: { 
-                                opacity: 0,
-                                transition: { duration: 0.5 }
-                            }
-                        }}
-                    >
-                        {sentences[currentSentenceIndex].words.map((word, i) => {
-                            const isHighlight = sentences[currentSentenceIndex].highlights.includes(word);
-                            return (
-                                <motion.span
-                                    key={i}
-                                    variants={{
-                                        hidden: { opacity: 0, filter: "blur(10px)" },
-                                        visible: { opacity: 1, filter: "blur(0px)" },
-                                        exit: { opacity: 0, filter: "blur(10px)" }
-                                    }}
-                                    transition={{ duration: 1.0, ease: "easeOut" }} // Slow fade in
-                                    whileHover={isHighlight ? { scale: 1.05, y: -2, color: '#008f25', transition: { duration: 0.2 } } : {}}
-                                    className={`
-                                        text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black uppercase tracking-tighter leading-[0.9] cursor-default
-                                        ${isHighlight ? 'text-zinc-900' : 'text-zinc-200'}
-                                    `}
-                                >
-                                    {word}
-                                </motion.span>
-                            );
-                        })}
-                    </motion.div>
-                </AnimatePresence>
+            {/* 1. TEXT ANIMATION AREA */}
+            <div 
+                className="h-[40%] lg:h-full w-full flex flex-col order-1 group/text cursor-default pb-2 lg:pb-0 relative pl-8 md:pl-12"
+                onMouseEnter={handleReplay}
+            >
+                 {/* Layout container that handles the slide from top (start) to bottom (end) */}
+                 <motion.div 
+                    className={`flex flex-col h-full w-full ${alignment === 'start' ? 'justify-start pt-4 lg:pt-8' : 'justify-end'}`}
+                    layout
+                    // CHANGED: Duration increased to 10s
+                    transition={{ duration: 10.0, ease: [0.25, 0.1, 0.25, 1] }} 
+                 >
+                     <AnimatePresence mode="wait">
+                       <motion.div 
+                          key={currentSentenceIndex} 
+                          // Apply layout='position' to inner content to smooth the flow
+                          layout="position"
+                          className="flex flex-col gap-y-1 md:gap-y-2 items-start w-full"
+                          initial="hidden"
+                          animate="visible"
+                          exit="exit"
+                          variants={{
+                              hidden: { opacity: 1 },
+                              visible: { 
+                                  opacity: 1,
+                                  // Even slower stagger for readability
+                                  transition: { staggerChildren: 0.8 } 
+                              },
+                              exit: { opacity: 0, transition: { duration: 0.5 } }
+                          }}
+                       >
+                         {/* LINE 1 */}
+                         <div className="flex flex-wrap gap-x-2 md:gap-x-4">
+                              {sentences[currentSentenceIndex].line1.map((word, i) => (
+                                  <motion.span
+                                      key={`l1-${i}`}
+                                      variants={{
+                                          hidden: { x: -20, opacity: 0 },
+                                          visible: { 
+                                              x: 0, 
+                                              opacity: 1, 
+                                              transition: { duration: 1.5, ease: "easeOut" } 
+                                          }
+                                      }}
+                                      className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] ${getWordClass(word, sentences[currentSentenceIndex])}`}
+                                  >
+                                      {word}
+                                  </motion.span>
+                              ))}
+                         </div>
+
+                         {/* LINE 2 */}
+                         <div className="flex flex-wrap gap-x-2 md:gap-x-4">
+                              {sentences[currentSentenceIndex].line2.map((word, i) => (
+                                  <motion.span
+                                      key={`l2-${i}`}
+                                      variants={{
+                                          hidden: { x: -20, opacity: 0 },
+                                          visible: { 
+                                              x: 0, 
+                                              opacity: 1, 
+                                              transition: { duration: 1.5, ease: "easeOut" } 
+                                          }
+                                      }}
+                                      className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] ${getWordClass(word, sentences[currentSentenceIndex])}`}
+                                  >
+                                      {word}
+                                  </motion.span>
+                              ))}
+                         </div>
+
+                       </motion.div>
+                     </AnimatePresence>
+                 </motion.div>
             </div>
 
-            {/* RIGHT: Video Bento Card */}
-            <BentoCard
-                gradient="bg-black"
-                className="w-full h-full min-h-[350px] lg:min-h-[500px] overflow-hidden !p-0 shadow-2xl relative group"
-                textColor="text-white"
-                borderColor="border-white/10"
-                delay={0.2}
-                hoverEffect={true}
-            >
-                 <video 
+            {/* 2. VIDEO AREA */}
+            <div className="h-[60%] lg:h-full w-full rounded-3xl overflow-hidden relative shadow-2xl bg-black border border-zinc-800 order-2">
+                <video 
+                    ref={videoRef}
                     autoPlay 
                     loop 
                     muted 
                     playsInline 
-                    className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700"
+                    className="absolute inset-0 w-full h-full object-cover opacity-90"
                     poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
                 >
-                    <source src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4" type="video/mp4" />
+                     <source src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4" type="video/mp4" />
                 </video>
-                
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none"></div>
-
-                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
-                     <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-[0_0_50px_rgba(255,255,255,0.1)] group-hover:scale-110 transition-transform duration-500">
-                        <Play className="text-white fill-white ml-1.5 opacity-80" size={32} />
-                     </div>
-                     <h3 className="mt-6 text-lg font-bold text-white uppercase tracking-[0.3em] opacity-80">Cosmic Zoo</h3>
-                </div>
-            </BentoCard>
-
-        </div>
-
-
-        {/* --- ROW 2: PARADIGM (Left) & MAP (Right) --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch mt-0">
-            
-            {/* Left: Text and Address */}
-            <div className="flex flex-col justify-center py-2 pl-2">
-                <h2 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-zinc-900 leading-[0.85] mb-8 cursor-default flex flex-col items-start">
-                    {/* Line 1 */}
-                    <div className="flex flex-wrap gap-x-4">
-                        {paradigmLine1.map((word, i) => (
-                            <motion.span
-                                key={`l1-${i}`}
-                                initial={{ opacity: 0, y: 15 }} 
-                                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-                                whileHover={{ scale: 1.05, y: -2, color: '#008f25', transition: { duration: 0.2 } }}
-                                transition={{ duration: 0.8, ease: "easeOut", delay: paradigmWordDelays[i] }}
-                                className="inline-block"
-                            >
-                                {word}
-                            </motion.span>
-                        ))}
-                    </div>
-                    {/* Line 2 */}
-                    <div className="flex flex-wrap gap-x-4">
-                        {paradigmLine2.map((word, i) => (
-                            <motion.span
-                                key={`l2-${i}`}
-                                initial={{ opacity: 0, y: 15 }} 
-                                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-                                whileHover={{ scale: 1.05, y: -2, color: '#008f25', transition: { duration: 0.2 } }}
-                                transition={{ duration: 0.8, ease: "easeOut", delay: paradigmWordDelays[paradigmLine1.length + i] }}
-                                className="inline-block"
-                            >
-                                {word}
-                            </motion.span>
-                        ))}
-                    </div>
-                </h2>
-                
-                {/* ADDRESS BLOCK */}
-                <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-                    transition={{ delay: 0.8, duration: 0.8 }}
-                    className="flex gap-5 border-l-4 border-micron-green pl-6"
-                >
-                    <div className="flex flex-col justify-center">
-                        <h3 className="text-micron-green font-bold text-lg md:text-xl tracking-[0.2em] uppercase mb-1 flex flex-wrap gap-x-2">
-                             {addressLine1.split(" ").map((word, i) => (
-                                <motion.span
-                                    key={i}
-                                    initial={{ opacity: 0 }}
-                                    animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.9 + (i * 0.05) }}
-                                >
-                                    {word}
-                                </motion.span>
-                             ))}
-                        </h3>
-                        <p className="text-zinc-900 font-bold text-base md:text-lg tracking-widest uppercase leading-snug flex flex-wrap gap-x-2">
-                             {addressLine2.split(" ").map((word, i) => (
-                                <motion.span
-                                    key={i}
-                                    initial={{ opacity: 0 }}
-                                    animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                                    transition={{ duration: 0.5, delay: 1.0 + (i * 0.05) }}
-                                >
-                                    {word}
-                                </motion.span>
-                             ))}
-                        </p>
-                        <p className="text-zinc-400 text-sm md:text-base tracking-widest uppercase flex flex-wrap gap-x-2">
-                             {addressLine3.split(" ").map((word, i) => (
-                                <motion.span
-                                    key={i}
-                                    initial={{ opacity: 0 }}
-                                    animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                                    transition={{ duration: 0.5, delay: 1.1 + (i * 0.05) }}
-                                >
-                                    {word}
-                                </motion.span>
-                             ))}
-                        </p>
-                    </div>
-                </motion.div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 pointer-events-none"></div>
             </div>
 
-            {/* Right: Map Bento Box */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ 
-                    duration: 1.0, 
-                    delay: 0.4
-                }}
-                className="h-full min-h-[300px]"
-            >
-                <BentoCard 
-                    className="p-0 overflow-hidden relative group shadow-xl h-full"
-                    gradient="bg-white"
-                    borderColor="border-zinc-200"
-                    hoverEffect={true}
-                    delay={0}
-                >
-                     <div className="absolute inset-0 w-full h-full bg-zinc-200">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.234!2d-116.1898!3d43.6088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54aef8d1b0b3b8e7%3A0x0!2s1020%20E%20Warm%20Springs%20Ave%2C%20Boise%2C%20ID%2083712!5e0!3m2!1sen!2sus!4v1706000000000"
-                            width="100%"
-                            height="100%"
-                            style={{ border: 0, filter: 'grayscale(100%) contrast(100%)' }}
-                            allowFullScreen={false}
-                            loading="lazy"
-                            title="Map"
-                            className="absolute inset-0 w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-700"
-                        />
-                         <div className="absolute inset-0 pointer-events-none border border-black/5" />
-                     </div>
-                </BentoCard>
-            </motion.div>
-
         </div>
+
+        {/* BOTTOM SECTION: PARADIGM & MAP */}
+        {/* CHANGED: Now a fully styled Bento Box with 3D shadow and hover lift */}
+        <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-full bg-white rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)] border border-zinc-100 relative overflow-hidden flex flex-col md:flex-row h-auto md:h-[400px] mt-4 group hover:shadow-[0_40px_80px_-12px_rgba(0,0,0,0.4)] hover:-translate-y-2 transition-all duration-500"
+        >
+            {/* Top Light Highlight for 3D effect */}
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-100 z-20" />
+
+            {/* Text Side (Left) */}
+            <div className="p-8 md:p-12 flex flex-col justify-center md:w-1/2 z-10 relative bg-white">
+                 
+                 {/* Interactive Title Component */}
+                 <div className="mb-8 md:mb-10">
+                     <InteractiveParadigmTitle />
+                 </div>
+                
+                <div className="flex gap-6 border-l-[4px] border-zinc-200 pl-6 transition-colors duration-500 group-hover:border-micron-green">
+                     <div className="flex flex-col justify-center">
+                        <p className="text-xs md:text-sm font-black uppercase tracking-widest text-micron-green mb-1">
+                            Micron House
+                        </p>
+                        <p className="font-bold text-zinc-900 text-sm md:text-base uppercase tracking-wide leading-tight">
+                            1020 East Warm Springs Ave
+                        </p>
+                        <p className="font-bold text-zinc-400 text-sm md:text-base uppercase tracking-wide leading-tight">
+                            Boise, Idaho 83712
+                        </p>
+                     </div>
+                </div>
+            </div>
+
+            {/* Map Side (Right) */}
+            {/* CHANGED: Not full bleed anymore. Added padding and contained border radius. */}
+            <div className="relative md:w-1/2 min-h-[300px] md:min-h-0 bg-zinc-50 p-4 md:p-6">
+                <div className="w-full h-full rounded-2xl overflow-hidden shadow-inner border border-zinc-200 relative">
+                     <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.234!2d-116.1898!3d43.6088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54aef8d1b0b3b8e7%3A0x0!2s1020%20E%20Warm%20Springs%20Ave%2C%20Boise%2C%20ID%2083712!5e0!3m2!1sen!2sus!4v1706000000000"
+                        className="absolute inset-0 w-full h-full grayscale opacity-60 hover:opacity-100 transition-opacity duration-700 mix-blend-multiply"
+                        title="Map"
+                        loading="lazy"
+                     />
+                </div>
+            </div>
+        </motion.div>
+
       </div>
     </section>
   );
+};
+
+// Sub-component for Independent Word Coloring with Complex State
+// CHANGED: Logic updated to independent interaction with slow color evolution.
+const InteractiveParadigmTitle: React.FC = () => {
+    return (
+        <div className="flex flex-col items-start select-none">
+            {/* Line 1 */}
+            <div className="flex gap-x-2 md:gap-x-4 mb-2">
+                {["THE", "PARADIGM"].map((word, i) => (
+                    <InteractiveWord key={i} word={word} />
+                ))}
+            </div>
+            {/* Line 2 */}
+            <div className="flex gap-x-2 md:gap-x-4">
+                {["SHIFTS."].map((word, i) => (
+                    <InteractiveWord key={i} word={word} />
+                ))}
+            </div>
+        </div>
+    );
+};
+
+// Individual Interactive Word Component
+const InteractiveWord: React.FC<{ word: string }> = ({ word }) => {
+    // State: false = Original (Eggplant), true = Changed (Dark Sequence)
+    const [isChanged, setIsChanged] = useState(false);
+
+    // Toggle state on interaction
+    const handleInteraction = () => {
+        setIsChanged(prev => !prev);
+    };
+
+    return (
+        <motion.span
+            onMouseEnter={handleInteraction}
+            animate={{
+                // Color Transition Logic:
+                // If !isChanged: Stay Eggplant (#2c0f38).
+                // If isChanged: Transition Green -> Dark Green -> Dark Eggplant.
+                color: isChanged 
+                    ? ["#2c0f38", "#008f25", "#0f5916", "#1a0921"] // Sequence
+                    : "#2c0f38", // Reset
+            }}
+            transition={{ 
+                duration: isChanged ? 3.0 : 0.5, // Slow transition forward, fast reset
+                times: isChanged ? [0, 0.3, 0.7, 1] : [1], // Keyframe timing
+                ease: "easeInOut"
+            }}
+            className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] cursor-pointer"
+        >
+            {word}
+        </motion.span>
+    );
 };

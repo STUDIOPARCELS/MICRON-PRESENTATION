@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
@@ -440,7 +441,8 @@ export const SectionPrototype: React.FC = () => {
         >
             <div className="flex-shrink-0">
                 <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">01 / VISION</span>
-                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-green leading-none font-sans">A NEW DAY</h2>
+                {/* CHANGED: Text Color to Eggplant */}
+                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant leading-none font-sans">A NEW DAY</h2>
             </div>
             <div className="md:ml-auto max-w-2xl pb-1">
                 <div className="pl-6 border-l-4 border-micron-eggplant/20 hover:border-micron-eggplant transition-colors duration-500">
@@ -488,8 +490,9 @@ export const SectionPrototype: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             
             {/* Card 1: PROTOTYPE (Black) */}
+            {/* ADDED: aspect-[2/3] for 4x6 Portrait Ratio */}
             <BentoCard 
-            className="flex flex-col min-h-[320px] md:h-[480px] p-8 relative overflow-hidden group" 
+            className="flex flex-col aspect-[2/3] p-8 relative overflow-hidden group" 
             gradient="bg-micron-black" 
             textColor="text-white"
             borderColor="border-white/10"
@@ -498,7 +501,8 @@ export const SectionPrototype: React.FC = () => {
             onClick={() => setModalData(getCardData(1))}
             >
                 <div className="relative z-10 mt-auto">
-                    <h3 className="text-4xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-micron-green transition-colors duration-300 mb-4">
+                    {/* CHANGED: Reduced font size to text-3xl */}
+                    <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-micron-green transition-colors duration-300 mb-4">
                         PROTOTYPE
                     </h3>
                     <p className="text-xs font-bold uppercase tracking-widest text-white/50 group-hover:text-white transition-colors">
@@ -508,8 +512,9 @@ export const SectionPrototype: React.FC = () => {
             </BentoCard>
 
             {/* Card 2: COLLABORATION (Blue) */}
+            {/* ADDED: aspect-[2/3] for 4x6 Portrait Ratio */}
             <BentoCard 
-            className="flex flex-col min-h-[320px] md:h-[480px] p-8 relative overflow-hidden group" 
+            className="flex flex-col aspect-[2/3] p-8 relative overflow-hidden group" 
             gradient="bg-micron-eggplant-light" 
             textColor="text-white"
             borderColor="border-white/10"
@@ -518,7 +523,8 @@ export const SectionPrototype: React.FC = () => {
             onClick={() => setModalData(getCardData(3))}
             >
                 <div className="relative z-10 mt-auto">
-                    <h3 className="text-4xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-micron-black transition-colors duration-300 mb-4">
+                    {/* CHANGED: Reduced font size to text-3xl */}
+                    <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-micron-black transition-colors duration-300 mb-4">
                         COLLABORATION
                     </h3>
                     <p className="text-xs font-bold uppercase tracking-widest text-white/50 group-hover:text-white transition-colors">
@@ -528,8 +534,9 @@ export const SectionPrototype: React.FC = () => {
             </BentoCard>
 
             {/* Card 3: TIMING (Green) */}
+            {/* ADDED: aspect-[2/3] for 4x6 Portrait Ratio */}
             <BentoCard 
-                className="flex flex-col min-h-[320px] md:h-[480px] p-8 relative overflow-hidden group" 
+                className="flex flex-col aspect-[2/3] p-8 relative overflow-hidden group" 
                 gradient="bg-micron-green"
                 textColor="text-white"
                 borderColor="border-white/10"
@@ -538,7 +545,9 @@ export const SectionPrototype: React.FC = () => {
                 onClick={() => setModalData(getCardData(2))}
             >
             <div className="relative z-10 mt-auto">
-                    <h3 className="text-4xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-micron-eggplant transition-colors duration-300 mb-4">
+                    {/* CHANGED: group-hover text color from micron-eggplant to text-zinc-500 (Gray) */}
+                    {/* CHANGED: Reduced font size to text-3xl */}
+                    <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-zinc-500 transition-colors duration-300 mb-4">
                         TIMING
                     </h3>
                     <p className="text-xs font-bold uppercase tracking-widest text-white/70 group-hover:text-white transition-colors">
@@ -548,8 +557,9 @@ export const SectionPrototype: React.FC = () => {
             </BentoCard>
 
             {/* Card 4: PLACE (Eggplant) - CHANGED FROM FOUNDATION */}
+            {/* ADDED: aspect-[2/3] for 4x6 Portrait Ratio */}
             <BentoCard 
-            className="flex flex-col min-h-[320px] md:h-[480px] p-8 relative overflow-hidden group" 
+            className="flex flex-col aspect-[2/3] p-8 relative overflow-hidden group" 
             gradient="bg-micron-eggplant" 
             textColor="text-white" 
             borderColor="border-white/10"
@@ -559,7 +569,8 @@ export const SectionPrototype: React.FC = () => {
             >
                 <div className="relative z-10 mt-auto">
                     {/* CHANGED: group-hover text color from micron-green to micron-eggplant-light (blue) */}
-                    <h3 className="text-4xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-micron-eggplant-light transition-colors duration-300 mb-4">
+                    {/* CHANGED: Reduced font size to text-3xl */}
+                    <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-micron-eggplant-light transition-colors duration-300 mb-4">
                         PLACE
                     </h3>
                     <p className="text-xs font-bold uppercase tracking-widest text-white/50 group-hover:text-white transition-colors">

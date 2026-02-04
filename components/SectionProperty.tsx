@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { MapPin, Plane, Building2, Trees, GraduationCap, Stethoscope, Utensils, Sprout, BedDouble, Images, ArrowUpRight, Home, Zap, Leaf, Map, Car, Thermometer, Waves, Activity, Bot, History, Droplets, DoorOpen, ArrowUp, Flower2 } from 'lucide-react';
@@ -267,11 +268,8 @@ export const SectionProperty: React.FC = () => {
                    <span className="font-bold text-micron-eggplant-light block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                        HISTORIC CONTEXT
                    </span>
-                   <p className="mb-4">
-                        A modest home drawing on North America’s oldest continuously operating geothermal district (est. 1890). This site taps into the nation's largest historic direct-use aquifer.
-                   </p>
-                   <p className="text-micron-eggplant font-semibold">
-                        A profound convergence of harnessed earth energy and energy from the stars.
+                   <p className="mb-0">
+                        A modest home within North America's oldest continuously operating geothermal district (est. 1890), tapping the nation's largest historic direct-use aquifer. <span className="text-micron-eggplant font-semibold">Where earth's heat meets light from the stars.</span>
                    </p>
                 </div>
              </div>
@@ -383,6 +381,7 @@ export const SectionProperty: React.FC = () => {
                     onClick={() => openLevelGallery('main')}
                     hoverEffect={true}
                     delay={0.1}
+                    hideArrow={true}
                 >
                     <div className="flex items-center gap-3 mb-4">
                         <DoorOpen className="text-micron-green" />
@@ -410,8 +409,10 @@ export const SectionProperty: React.FC = () => {
                             <span>Antique Fir Throughout</span>
                         </li>
                     </ul>
-                    <div className="mt-auto pt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-micron-green opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Images size={14} /> View Gallery
+                    {/* UPDATED: Absolute positioning in bottom right with ArrowUpRight icon */}
+                    <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="text-xs font-bold uppercase tracking-widest text-micron-green">View Gallery</span>
+                        <ArrowUpRight className="text-micron-green" size={20} />
                     </div>
                 </BentoCard>
 
@@ -424,6 +425,7 @@ export const SectionProperty: React.FC = () => {
                     onClick={() => openLevelGallery('upper')}
                     hoverEffect={true}
                     delay={0.2}
+                    hideArrow={true}
                 >
                     <div className="flex items-center gap-3 mb-4">
                         <ArrowUp className="text-micron-eggplant-light" />
@@ -447,8 +449,10 @@ export const SectionProperty: React.FC = () => {
                             <span>Laundry Facilities</span>
                         </li>
                     </ul>
-                    <div className="mt-auto pt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-micron-eggplant-light opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Images size={14} /> View Gallery
+                    {/* UPDATED: Absolute positioning in bottom right with ArrowUpRight icon */}
+                    <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="text-xs font-bold uppercase tracking-widest text-micron-eggplant-light">View Gallery</span>
+                        <ArrowUpRight className="text-micron-eggplant-light" size={20} />
                     </div>
                 </BentoCard>
 
@@ -461,6 +465,7 @@ export const SectionProperty: React.FC = () => {
                     onClick={() => openLevelGallery('grounds')}
                     hoverEffect={true}
                     delay={0.3}
+                    hideArrow={true}
                 >
                     <div className="flex items-center gap-3 mb-4">
                         <Flower2 className="text-micron-eggplant" />
@@ -484,8 +489,10 @@ export const SectionProperty: React.FC = () => {
                             <span>Geothermal Jacuzzi on Private Way</span>
                         </li>
                     </ul>
-                    <div className="mt-auto pt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-micron-eggplant opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Images size={14} /> View Gallery
+                    {/* UPDATED: Absolute positioning in bottom right with ArrowUpRight icon */}
+                    <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="text-xs font-bold uppercase tracking-widest text-micron-eggplant">View Gallery</span>
+                        <ArrowUpRight className="text-micron-eggplant" size={20} />
                     </div>
                 </BentoCard>
              </div>
@@ -567,3 +574,4 @@ export const SectionProperty: React.FC = () => {
       <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
     </section>
   );
+};

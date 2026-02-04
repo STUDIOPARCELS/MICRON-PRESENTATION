@@ -1,9 +1,10 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CardProps } from '../types';
 import { ArrowUpRight } from 'lucide-react';
 
-export const BentoCard: React.FC<CardProps & { textColor?: string; borderColor?: string; arrowPosition?: 'top-right' | 'bottom-right' }> = ({ 
+export const BentoCard: React.FC<CardProps & { textColor?: string; borderColor?: string; arrowPosition?: 'top-right' | 'bottom-right'; hideArrow?: boolean }> = ({ 
   className = "", 
   children, 
   delay = 0, 
@@ -15,7 +16,8 @@ export const BentoCard: React.FC<CardProps & { textColor?: string; borderColor?:
   textColor = "text-white",
   // CHANGED: Global override to ensure no black borders, only subtle white/alpha
   borderColor = "border-white/10",
-  arrowPosition = "top-right"
+  arrowPosition = "top-right",
+  hideArrow = false
 }) => {
   // Determine arrow color based on text color prop
   const arrowColor = textColor.includes('black') || textColor.includes('zinc-900') ? 'text-zinc-900' : 'text-white';
@@ -61,7 +63,7 @@ export const BentoCard: React.FC<CardProps & { textColor?: string; borderColor?:
       </div>
       
       {/* Hover Arrow */}
-      {onClick && hoverEffect && (
+      {onClick && hoverEffect && !hideArrow && (
         <div className={`absolute ${arrowPosClass} z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0`}>
              <ArrowUpRight className={`${arrowColor} opacity-70`} size={20} />
         </div>
