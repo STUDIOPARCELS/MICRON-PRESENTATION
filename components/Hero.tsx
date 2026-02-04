@@ -11,8 +11,8 @@ export const Hero: React.FC = () => {
   const isInView = useInView(containerRef, { amount: 0.2 });
   
   // Track if the bottom section is in view to override animation wait time
-  // UPDATED: Lowered threshold to 0.1 to ensure map shows up earlier on mobile scroll
-  const isBottomVisible = useInView(bottomSectionRef, { amount: 0.1, once: true });
+  // UPDATED: Changed amount to 0 to trigger map loading immediately when any part is visible on mobile
+  const isBottomVisible = useInView(bottomSectionRef, { amount: 0, once: true });
 
   // --- CYCLING TEXT STATE ---
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
@@ -75,7 +75,7 @@ export const Hero: React.FC = () => {
                     }
                     return prev + 1;
                 });
-            }, 4500); 
+            }, 5500); // Increased interval to allow for logo animation on 3rd slide
         }
     } else {
         setIsFinished(false);
@@ -88,9 +88,11 @@ export const Hero: React.FC = () => {
   return (
     <section 
         ref={containerRef}
-        className="relative w-full bg-white text-zinc-900 pt-24 pb-8 flex flex-col justify-center min-h-screen"
+        // UPDATED: Removed min-h-screen on mobile to prevent layout stretching that hides map
+        className="relative w-full bg-white text-zinc-900 pt-24 pb-8 flex flex-col justify-center md:min-h-screen"
     >
-      <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-16">
+      {/* UPDATED: Reduced gap-16 to gap-6 on mobile to bring Paradigm Shifts closer */}
+      <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-6 md:gap-16">
         
         {/* MAIN CONTENT AREA: SPLIT SCREEN BENTO GRID */}
         {/* UPDATED: Changed mobile layout to flex-col with auto height to prevent video collapse */}
@@ -98,11 +100,43 @@ export const Hero: React.FC = () => {
             
             {/* 1. TEXT ANIMATION AREA */}
             <div 
-                // UPDATED: Reduced min-h-[350px] to min-h-[260px] to remove white space
-                // UPDATED: Reduced padding p-6 to p-4 on mobile
-                className="min-h-[260px] lg:h-full w-full flex flex-col order-1 group/text cursor-default relative bg-white rounded-3xl shadow-2xl border border-zinc-200 p-4 md:p-12 overflow-hidden"
+                // UPDATED: Reduced min-h-[350px] to min-h-[180px] to remove huge padding
+                // UPDATED: Reduced padding p-6 to p-3 on mobile
+                className="min-h-[180px] lg:h-full w-full flex flex-col order-1 group/text cursor-default relative bg-white rounded-3xl shadow-2xl border border-zinc-200 p-3 md:p-12 overflow-hidden"
             >
                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-200 to-transparent opacity-50" />
+                 
+                 {/* ANIMATED LOGO HEADER (Only on 3rd Sentence) */}
+                 <AnimatePresence>
+                    {currentSentenceIndex === 2 && (
+                        <div className="absolute top-6 right-6 md:top-12 md:right-12 z-20 flex flex-col items-end gap-2">
+                            {/* Logo separate and larger */}
+                            <motion.img 
+                                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/LOGO%20MH.png"
+                                alt="Micron House Logo"
+                                className="h-20 w-20 md:h-32 md:w-32 object-contain"
+                                initial={{ x: -250, rotate: -720, opacity: 0 }}
+                                animate={{ x: 0, rotate: 0, opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ 
+                                    duration: 1.5, 
+                                    ease: "circOut",
+                                    delay: 2.0 // Wait for text to populate
+                                }}
+                            />
+                            {/* Text separate and massive */}
+                            <motion.span 
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ delay: 3.2, duration: 1.0 }} // Appear after logo lands
+                                className="text-3xl sm:text-4xl md:text-6xl font-black uppercase tracking-tighter text-micron-eggplant text-right leading-none"
+                            >
+                                Micron<br/>House
+                            </motion.span>
+                        </div>
+                    )}
+                 </AnimatePresence>
 
                  <div className="flex flex-col h-full w-full justify-end pb-2">
                      <AnimatePresence mode="wait">
@@ -122,7 +156,7 @@ export const Hero: React.FC = () => {
                           }}
                        >
                          {/* LINE 1 */}
-                         <div className="flex flex-wrap gap-x-3 md:gap-x-4">
+                         <div className="flex flex-wrap gap-x-2 md:gap-x-4">
                               {sentences[currentSentenceIndex].line1.map((word, i) => {
                                   const currentSet = sentences[currentSentenceIndex];
                                   const isHighlight = currentSet.highlights.includes(word);
@@ -151,7 +185,7 @@ export const Hero: React.FC = () => {
                          </div>
 
                          {/* LINE 2 */}
-                         <div className="flex flex-wrap gap-x-3 md:gap-x-4">
+                         <div className="flex flex-wrap gap-x-2 md:gap-x-4">
                               {sentences[currentSentenceIndex].line2.map((word, i) => {
                                   const currentSet = sentences[currentSentenceIndex];
                                   const isHighlight = currentSet.highlights.includes(word);
@@ -190,8 +224,8 @@ export const Hero: React.FC = () => {
                 initial={{ opacity: 0, scale: 0.98, filter: "blur(5px)" }}
                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                 transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-                // UPDATED: Explicit height on mobile (h-[300px]) to ensure visibility below text
-                className="h-[300px] md:h-[400px] lg:h-full w-full rounded-3xl overflow-hidden relative shadow-2xl bg-black border border-zinc-800 order-2"
+                // UPDATED: Explicit height on mobile h-[220px] to prevent huge vertical space
+                className="h-[220px] md:h-[400px] lg:h-full w-full rounded-3xl overflow-hidden relative shadow-2xl bg-black border border-zinc-800 order-2"
             >
                 <video 
                     ref={videoRef}
@@ -293,7 +327,7 @@ export const Hero: React.FC = () => {
                            e.currentTarget.style.filter = 'grayscale(100%) contrast(100%) brightness(100%)';
                         }}
                         title="Map"
-                        loading="lazy"
+                        loading="eager" // UPDATED: Eager load on mobile to prevent white space
                      />
                 </div>
             </motion.div>
@@ -372,13 +406,21 @@ const InteractiveWord: React.FC<{ word: string }> = ({ word }) => {
         <motion.span
             onMouseEnter={handleInteraction}
             animate={{
+                // Color Sequence: Green -> Dark Green -> Burgundy (Eggplant)
                 color: isChanged 
-                    ? ["#2c0f38", "#008f25", "#0f5916", "#1a0921"] 
+                    ? ["#2c0f38", "#008f25", "#004d14", "#2c0f38"] 
                     : "#2c0f38", 
+            }}
+            // Added slight movement on hover
+            whileHover={{ 
+                y: -4, 
+                x: 2, 
+                scale: 1.05,
+                transition: { duration: 0.2, ease: "easeOut" } 
             }}
             transition={{ 
                 duration: isChanged ? 3.0 : 0.5,
-                times: isChanged ? [0, 0.3, 0.7, 1] : [1], 
+                times: isChanged ? [0, 0.3, 0.6, 1] : [1], 
                 ease: "easeInOut"
             }}
             className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] cursor-pointer inline-block"

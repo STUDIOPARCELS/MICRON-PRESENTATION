@@ -262,7 +262,8 @@ export const SectionProperty: React.FC = () => {
          className="w-full bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-zinc-100 ring-1 ring-zinc-50"
        >
 
-          <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8 md:border-b-0 md:pb-0">
+          {/* UPDATED: Reduced padding pb-8 -> pb-4 and margin mb-12 -> mb-6 on mobile */}
+          <div className="mb-6 md:mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-4 md:border-b-0 md:pb-0">
             <div className="flex-shrink-0">
                <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">02 / ASSET</span>
                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant-light leading-none font-sans">PROPERTY</h2>
@@ -275,7 +276,9 @@ export const SectionProperty: React.FC = () => {
                            HISTORIC CONTEXT
                        </span>
                        <p className="mb-0">
-                            A modest home within North America's oldest continuously operating geothermal district (est. 1890), tapping the nation's largest historic direct-use aquifer. <span className="text-micron-eggplant font-semibold">Where earth's heat meets light from the stars.</span>
+                            A modest home within North America's oldest continuously operating geothermal district (est. 1890), tapping the nation's largest historic direct-use aquifer. 
+                            {/* UPDATED TEXT */}
+                            <span className="text-micron-eggplant font-semibold"> Where geothermal legacy meets autonomous future.</span>
                        </p>
                     </div>
                  </div>

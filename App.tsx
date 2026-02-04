@@ -43,12 +43,33 @@ function App() {
       {/* Navigation Overlay - Z-50 to stay on top */}
       {/* UPDATED: Removed padding/flex from outer nav to allow inner container to handle alignment */}
       <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/95 backdrop-blur-xl border-b border-zinc-200 shadow-sm transition-all duration-300">
-        <div className="container mx-auto px-4 md:px-12 py-5 flex items-center justify-between">
+        <div className="container mx-auto px-4 md:px-12 py-3 flex items-center justify-between">
+            {/* ANIMATED BRAND LOGO */}
             <div 
-              className="text-2xl font-bold tracking-tight text-micron-eggplant uppercase font-sans cursor-pointer hover:opacity-80 transition-opacity z-50 relative" 
+              className="flex items-center gap-3 cursor-pointer z-50 relative group" 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              Micron House
+              <motion.img 
+                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-house-transparent-v3.png"
+                alt="Micron House Logo"
+                className="h-10 w-10 md:h-12 md:w-12 object-contain"
+                initial={{ x: -60, rotate: -360, opacity: 0 }}
+                animate={{ x: 0, rotate: 0, opacity: 1 }}
+                transition={{ 
+                  duration: 1.2, 
+                  ease: "easeOut",
+                  type: "spring",
+                  damping: 15
+                }}
+              />
+              <motion.span 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.0, duration: 0.8 }}
+                className="text-xl md:text-2xl font-bold tracking-tight text-micron-eggplant uppercase font-sans"
+              >
+                Micron House
+              </motion.span>
             </div>
             
             {/* Desktop Menu - Font Size Increased to text-base */}

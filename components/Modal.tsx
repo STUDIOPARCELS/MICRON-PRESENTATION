@@ -176,22 +176,24 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
         </div>
 
       <div className={`
-          relative z-10 px-5 py-4 md:px-6 md:py-5 flex-shrink-0
+          relative z-10 px-5 pt-8 pb-4 md:px-6 md:pt-10 md:pb-5 flex-shrink-0
           ${isLight ? 'bg-gradient-to-b from-white to-zinc-50' : 'bg-gradient-to-b from-zinc-800 to-zinc-900'}
           pr-12 
       `}>
          <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }}>
+            {/* UPDATED: Title first */}
+            <h2 className={`text-2xl md:text-3xl font-black uppercase tracking-tight leading-none ${isLight ? 'text-zinc-900' : 'text-white drop-shadow-lg'}`}>
+            {data.title}
+            </h2>
+            {/* UPDATED: Subtitle second */}
             {data.subtitle && (
-            <div className={`flex items-center gap-2 mb-1`}>
+            <div className={`flex items-center gap-2 mt-2`}>
                 <span className={`hidden md:block h-px w-6 ${isLight ? 'bg-zinc-300' : 'bg-zinc-600'}`}></span>
                 <span className={`text-[10px] font-bold uppercase tracking-[0.2em] ${isLight ? 'text-zinc-400' : 'text-zinc-500'}`}>
                     {data.subtitle}
                 </span>
             </div>
             )}
-            <h2 className={`text-2xl md:text-3xl font-black uppercase tracking-tight leading-none ${isLight ? 'text-zinc-900' : 'text-white drop-shadow-lg'}`}>
-            {data.title}
-            </h2>
          </motion.div>
       </div>
 
@@ -199,7 +201,8 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
         <motion.div 
             initial="hidden" animate="visible"
             variants={{ visible: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } } }}
-            className="p-5 md:p-6 h-full"
+            // UPDATED: Doubled padding from p-5 md:p-6 to p-8 md:p-12
+            className="p-8 md:p-12 h-full"
         >
             {data.content}
         </motion.div>

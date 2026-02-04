@@ -363,11 +363,13 @@ export const SectionServing: React.FC = () => {
                 onClick={() => openDeptModal(dept)}
               >
                 <div className="mt-2">
-                   <h3 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">
+                   {/* UPDATED: Title text color to text-white/70 (lighter) */}
+                   <h3 className="text-xl font-bold text-white/70 mb-2 uppercase tracking-tight">
                      {dept.title}
                    </h3>
                    
-                   <p className="text-xs font-bold uppercase tracking-widest text-white/60 font-sans">
+                   {/* UPDATED: Value/Subtext text color to text-white (whiter/brighter) */}
+                   <p className="text-xs font-bold uppercase tracking-widest text-white font-sans">
                       {dept.value}
                    </p>
                 </div>

@@ -26,7 +26,7 @@ const InnerBento = ({ title, children, gradient, icon, className = "", delay = 0
             transition={{ delay, duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
             className={`
                 ${gradient} rounded-xl p-5 ${textColor} relative overflow-hidden group 
-                shadow-sm h-full flex flex-col justify-between
+                shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] h-full flex flex-col justify-between
                 border-t border-l border-white/20 border-b border-white/10 border-r border-white/5
                 ${className}
             `}
@@ -36,13 +36,15 @@ const InnerBento = ({ title, children, gradient, icon, className = "", delay = 0
             <div className="relative z-10 h-full flex flex-col justify-between gap-3">
                 {(title || icon) && (
                     <div className="mb-1">
-                        <h3 className="text-sm md:text-base font-black uppercase tracking-tight flex items-center gap-2 drop-shadow-md leading-none">
+                        {/* UPDATED: Title color is now text-white/70 (lighter) if textColor is white */}
+                        <h3 className={`text-sm md:text-base font-black uppercase tracking-tight flex items-center gap-2 drop-shadow-md leading-none ${textColor === 'text-white' ? 'text-white/70' : ''}`}>
                             {icon && React.cloneElement(icon, { size: 18, strokeWidth: 2 })}
                             {title}
                         </h3>
                     </div>
                 )}
-                <div className={`text-xs md:text-sm leading-relaxed font-body font-medium flex-1 drop-shadow-sm ${textColor === 'text-zinc-900' ? 'text-zinc-600' : 'text-white/90'}`}>
+                {/* UPDATED: Changed font-medium to font-normal and removed drop-shadow-sm for better readability on dark cards */}
+                <div className={`leading-relaxed font-body font-normal flex-1 ${textColor === 'text-zinc-900' ? 'text-zinc-600' : 'text-white/80'}`}>
                     {children}
                 </div>
             </div>
@@ -101,13 +103,13 @@ const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: st
 const getCardData = (id: number): ModalContent => {
   const base = { category: 'showcase' as const, theme: 'light' as const, maxWidth: 'max-w-6xl' };
 
-  // UPDATED: ModalVideo now uses object-contain and avoids absolute positioning constraints
+  // UPDATED: ModalVideo now uses stronger shadow for floating effect
   const ModalVideo = ({ src, className = "", children }: { src: string; className?: string; children?: React.ReactNode }) => (
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className={`w-full bg-black rounded-xl overflow-hidden shadow-sm relative border border-zinc-200 group ${className}`}
+        className={`w-full bg-black rounded-xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative border border-zinc-200 group ${className}`}
       >
         <video 
             key={src} 
@@ -127,33 +129,32 @@ const getCardData = (id: number): ModalContent => {
     case 1: return { 
         ...base, 
         title: 'PROTOTYPE', 
-        subtitle: 'VISION',
+        subtitle: undefined, 
         modalLayout: 'default',
         maxWidth: 'max-w-7xl', // WIDER LANDSCAPE MODAL
         content: (
             <div className="flex flex-col gap-6 h-full">
                 
-                {/* 1. Description Text (Full Width Top) */}
+                {/* 1. Combined Floating Description Card - WHITE BOX STYLING REMOVED */}
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="bg-white rounded-xl border border-zinc-200 shadow-sm shrink-0 overflow-hidden flex flex-col md:flex-row"
+                    whileHover={{ scale: 1.005 }}
+                    // REMOVED: bg-white rounded-xl border border-zinc-200 shadow-xl
+                    // KEPT: Padding and structure for floating text effect
+                    className="shrink-0 p-2 md:p-3 flex flex-col items-start"
                 >
-                    {/* Part 1: Definition */}
-                    <div className="p-6 md:p-8 flex-1 border-b md:border-b-0 md:border-r border-zinc-200 relative">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-zinc-900 hidden md:block"></div> {/* Accent Line */}
-                        <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-4">The Vision</span>
-                        <p className="text-zinc-900 text-lg font-medium leading-relaxed">
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-4 font-sans">
+                        AUTONOMOUS HUB
+                    </h3>
+                    <div className="text-zinc-900 text-lg font-medium leading-relaxed max-w-5xl">
+                        {/* UPDATED: Reduced bottom margin from mb-6 to mb-3 */}
+                        <p className="mb-3">
                             A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building.
                         </p>
-                    </div>
-
-                    {/* Part 2: Execution */}
-                    <div className="p-6 md:p-8 flex-1 bg-zinc-50/50">
-                        <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-4">The Autonomous Hub</span>
-                        <p className="text-zinc-600 text-sm leading-relaxed mb-0">
-                            A secure, autonomous property for executive hosting, strategic entertaining, and confidential events. <strong className="text-zinc-900">Optimus and Cybercab units execute all logistics</strong>, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
+                        <p>
+                            Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
                         </p>
                     </div>
                 </motion.div>
@@ -169,34 +170,53 @@ const getCardData = (id: number): ModalContent => {
                     {/* SIDE COLUMN - Integration & Inflection stacked vertically */}
                     <div className="lg:col-span-1 flex flex-col gap-4 h-full">
                         <InnerBento 
-                            title="INTEGRATION" 
                             gradient="bg-micron-eggplant" 
-                            icon={<Zap className="text-white" />}
                             direction="left"
                             delay={0.3}
                             className="flex-1 min-h-[160px]"
                         >
-                            <div className="space-y-3">
-                                <p className="font-bold text-white text-sm">A Venue for Leadership.</p>
-                                <p className="text-white/80 text-xs leading-relaxed">
-                                    A residential venue for the leaders building the future and the policymakers governing it. Guests meet to experience the shift to autonomous systems directly.
-                                </p>
+                            <div className="flex flex-col h-full">
+                                {/* Custom Header matching Autonomous Hub style */}
+                                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-4 font-sans">
+                                    INTEGRATION
+                                </h3>
+                                
+                                {/* Content split into paragraphs */}
+                                <div className="space-y-4 text-white/80 text-sm md:text-base leading-relaxed flex-1">
+                                    <p className="font-bold text-white text-sm">A Venue for Leadership.</p>
+                                    <p>
+                                        A residential venue for the leaders building the future and the policymakers governing it. 
+                                    </p>
+                                    <p>
+                                        Guests meet to experience the shift to autonomous systems directly.
+                                    </p>
+                                </div>
                             </div>
                         </InnerBento>
 
                         <InnerBento 
-                            title="INFLECTION POINT" 
                             gradient="bg-micron-grey1" 
-                            icon={<TrendingUp className="text-white" />}
                             direction="left"
                             delay={0.4}
                             className="flex-1 min-h-[160px]"
                         >
-                            <div className="space-y-3">
-                                <p className="font-bold text-white text-sm">Scaling to Billions.</p>
-                                <p className="text-white/80 text-xs leading-relaxed">
-                                    Autonomous systems are scaling from thousands to billions. Daily life transforms permanently. The leaders building that future meet here to confront the profound questions it demands.
-                                </p>
+                            <div className="flex flex-col h-full">
+                                {/* Custom Header matching Autonomous Hub style */}
+                                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-4 font-sans">
+                                    INFLECTION POINT
+                                </h3>
+                                
+                                {/* Content split into paragraphs & text removed */}
+                                <div className="space-y-4 text-white/80 text-sm md:text-base leading-relaxed flex-1">
+                                    <p className="font-bold text-white text-sm">Scaling to Billions.</p>
+                                    {/* Deleted "Autonomous systems are scaling from thousands to billions." */}
+                                    <p>
+                                        Daily life transforms permanently. 
+                                    </p>
+                                    <p>
+                                        The leaders building that future meet here to confront the profound questions it demands.
+                                    </p>
+                                </div>
                             </div>
                         </InnerBento>
                     </div>
@@ -213,7 +233,7 @@ const getCardData = (id: number): ModalContent => {
         content: (
             <div className="flex flex-col gap-4 h-full">
                 {/* 1. HERO VIDEO TOP - Aspect Video Container */}
-                <div className="w-full aspect-video relative rounded-xl overflow-hidden shrink-0 bg-black">
+                <div className="w-full aspect-video relative rounded-xl overflow-hidden shrink-0 bg-black shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)]">
                     <ModalVideo src={VIDEO_TIMING} className="h-full w-full" />
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <div className="bg-white/10 backdrop-blur-md rounded-full p-4 border border-white/20">
@@ -233,10 +253,10 @@ const getCardData = (id: number): ModalContent => {
                         icon={<TrendingUp />}
                         className="h-full"
                      >
-                        <p className="mb-3">
+                        <p className="mb-3 text-sm">
                             Boise has arrived. A city once known primarily for potatoes and public land now supports a James Beard-nominated culinary scene, world-class wineries across the Snake River Valley, a thriving arts and entertainment scene, and the kind of civic energy that comes with a Division I University town.
                         </p>
-                        <p>
+                        <p className="text-sm">
                             The Boise River Greenbelt connects 25 miles of parkland through the city center. Bogus Basin is 45 minutes from downtown. Some of the best fly fishing, whitewater, and backcountry skiing in North America are all within reach.
                         </p>
                      </InnerBento>
@@ -247,10 +267,10 @@ const getCardData = (id: number): ModalContent => {
                         icon={<Activity />}
                         className="h-full"
                      >
-                        <p className="mb-3">
+                        <p className="mb-3 text-sm">
                             There are no Optimus robots operating in private residences today. The window to build, test, and refine the first autonomous corporate residence exists right now — before the technology scales to mass production and the conversation shifts from design to regulation.
                         </p>
-                        <p className="font-bold text-white">
+                        <p className="font-bold text-white text-sm">
                             This is a unique moment in the timeline of automation where a prototype can still define the standard.
                         </p>
                      </InnerBento>
@@ -287,7 +307,7 @@ const getCardData = (id: number): ModalContent => {
             <div className="flex flex-col gap-4 h-full">
                 
                 {/* UPDATED: HERO VIDEO TOP - Aspect Video to prevent cropping */}
-                <div className="w-full aspect-video shrink-0 rounded-xl overflow-hidden relative border border-zinc-200 bg-black">
+                <div className="w-full aspect-video shrink-0 rounded-xl overflow-hidden relative border border-zinc-200 bg-black shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)]">
                     <ModalVideo src={VIDEO_COLLAB} className="h-full w-full" />
                 </div>
 
@@ -295,7 +315,7 @@ const getCardData = (id: number): ModalContent => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
                     
                     {/* MICRON CARD */}
-                    <div className="bg-micron-eggplant rounded-xl p-6 md:p-8 text-white relative overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div className="bg-micron-eggplant rounded-xl p-6 md:p-8 text-white relative overflow-hidden flex flex-col justify-between shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)]">
                         <div className="absolute top-6 right-6 opacity-30">
                             <Cpu size={32} />
                         </div>
@@ -304,16 +324,21 @@ const getCardData = (id: number): ModalContent => {
                             <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-6">Sanjay Mehrotra, CEO</p>
                             
                             <div className="mb-6 pl-4 border-l-2 border-white/30">
-                                <p className="text-lg font-bold italic text-white/90">"Transform how the world uses information to enrich life for all."</p>
+                                {/* UPDATED: Reduced quote font size to text-sm md:text-base */}
+                                <p className="text-sm md:text-base font-bold italic text-white/90">"Transform how the world uses information to enrich life for all."</p>
                             </div>
                         </div>
-                        <p className="text-sm text-white/70 leading-relaxed font-medium">
-                            Founded 1978, Boise. Today, every Tesla vehicle carries 20 Micron memory chips delivering a 30x bandwidth leap. The chips enabling Optimus originate here.
-                        </p>
+                        {/* UPDATED: Increased 'Founded' font size */}
+                        <div className="text-white/70 leading-relaxed font-medium">
+                            <p className="text-xl md:text-2xl font-black text-white mb-2">Founded 1978, Boise.</p>
+                            <p className="text-sm md:text-base">
+                                Today, every Tesla vehicle carries 20 Micron memory chips delivering a 30x bandwidth leap. The chips enabling Optimus originate here.
+                            </p>
+                        </div>
                     </div>
 
                     {/* TESLA CARD */}
-                    <div className="bg-black rounded-xl p-6 md:p-8 text-white relative overflow-hidden flex flex-col justify-between shadow-sm">
+                    <div className="bg-black rounded-xl p-6 md:p-8 text-white relative overflow-hidden flex flex-col justify-between shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)]">
                         <div className="absolute top-6 right-6 opacity-30">
                             <Bot size={32} />
                         </div>
@@ -322,18 +347,23 @@ const getCardData = (id: number): ModalContent => {
                             <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-6">Elon Musk, CEO</p>
                             
                             <div className="mb-6 pl-4 border-l-2 border-white/30">
-                                <p className="text-lg font-bold italic text-white/90">"Accelerate the world's transition to sustainable energy" & "Build a world of amazing abundance."</p>
+                                {/* UPDATED: Reduced quote font size to text-sm md:text-base */}
+                                <p className="text-sm md:text-base font-bold italic text-white/90">"Accelerate the world's transition to sustainable energy" & "Build a world of amazing abundance."</p>
                             </div>
                         </div>
-                        <p className="text-sm text-white/70 leading-relaxed font-medium">
-                            Founded 2003. Leading the world in autonomous robotics. Optimus and Cybercab require Micron's advanced memory infrastructure.
-                        </p>
+                        {/* UPDATED: Increased 'Founded' font size */}
+                        <div className="text-white/70 leading-relaxed font-medium">
+                            <p className="text-xl md:text-2xl font-black text-white mb-2">Founded 2003.</p>
+                            <p className="text-sm md:text-base">
+                                Leading the world in autonomous robotics. Optimus and Cybercab require Micron's advanced memory infrastructure.
+                            </p>
+                        </div>
                     </div>
 
                 </div>
 
                 {/* BOTTOM ROW: FUTURE SCALE */}
-                <div className="bg-zinc-100 rounded-xl p-6 md:p-8 text-zinc-900 border border-zinc-200">
+                <div className="bg-zinc-100 rounded-xl p-6 md:p-8 text-zinc-900 border border-zinc-200 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.2)]">
                     <div className="flex items-center gap-3 mb-6">
                         <TrendingUp className="text-zinc-400" />
                         <h3 className="text-2xl font-black uppercase tracking-tight">FUTURE SCALE</h3>
@@ -380,7 +410,7 @@ const getCardData = (id: number): ModalContent => {
            
            {/* LEFT: IMAGE (Span 5) */}
            <div className="lg:col-span-5 relative h-full min-h-[300px] lg:min-h-0">
-                <div className="w-full h-full rounded-xl overflow-hidden relative">
+                <div className="w-full h-full rounded-xl overflow-hidden relative shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)]">
                     <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover" alt="Historic Bedrock" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent lg:hidden"></div>
                     <div className="absolute bottom-6 left-6 z-10">
