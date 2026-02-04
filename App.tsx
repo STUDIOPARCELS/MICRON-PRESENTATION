@@ -50,7 +50,8 @@ function App() {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
               <motion.img 
-                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-house-transparent-v3.png"
+                // UPDATED: New Logo URL
+                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/LOGO%20MH.png"
                 alt="Micron House Logo"
                 className="h-10 w-10 md:h-12 md:w-12 object-contain"
                 initial={{ x: -60, rotate: -360, opacity: 0 }}
@@ -66,7 +67,8 @@ function App() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.0, duration: 0.8 }}
-                className="text-xl md:text-2xl font-bold tracking-tight text-micron-eggplant uppercase font-sans"
+                // UPDATED: Increased boldness from font-bold to font-black
+                className="text-xl md:text-2xl font-black tracking-tight text-micron-eggplant uppercase font-sans"
               >
                 Micron House
               </motion.span>

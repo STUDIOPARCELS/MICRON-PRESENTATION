@@ -34,11 +34,11 @@ export const Hero: React.FC = () => {
         line1: ["WITHOUT", "VISION,"],
         line2: ["THERE'S", "NO", "VELOCITY."],
         highlights: ["VISION,", "VELOCITY."],
-        baseColorClass: "text-zinc-900",
+        baseColorClass: "text-zinc-700", // Dark Gray (Modified)
         highlightColorClass: "text-[#878d9f]",
-        baseHex: "#18181b",
+        // UPDATED: Base hex to #3f3f46 (Zinc 700) to be between gray and black
+        baseHex: "#3f3f46", 
         highlightHex: "#878d9f",
-        // UPDATED: Hover color is now almost black (Zinc 800) instead of light gray
         hoverHighlightHex: "#27272a", 
     },
     {
@@ -109,12 +109,27 @@ export const Hero: React.FC = () => {
                  {/* ANIMATED LOGO HEADER (Only on 3rd Sentence) */}
                  <AnimatePresence>
                     {currentSentenceIndex === 2 && (
-                        <div className="absolute top-6 right-6 md:top-12 md:right-12 z-20 flex flex-col items-end gap-2">
-                            {/* Logo separate and larger */}
+                        // UPDATED: Flex-row to put text beside logo to the left. Increased top/right positioning.
+                        <div className="absolute top-6 right-6 md:top-12 md:right-12 z-20 flex flex-row items-center gap-6">
+                            
+                            {/* Text separate, massive, and to the LEFT of logo */}
+                            <motion.span 
+                                initial={{ opacity: 0, x: -30 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ delay: 3.2, duration: 1.0 }} // Appear after logo lands
+                                // UPDATED: Size increased to match "Without Place" treatment (text-5xl to 8xl range)
+                                className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter text-micron-eggplant text-right leading-[0.85]"
+                            >
+                                Micron<br/>House
+                            </motion.span>
+
+                            {/* Logo separate and massive (60% bigger) */}
                             <motion.img 
                                 src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/LOGO%20MH.png"
                                 alt="Micron House Logo"
-                                className="h-20 w-20 md:h-32 md:w-32 object-contain"
+                                // UPDATED: Size increased significantly (~50-60% larger than previous h-32)
+                                className="h-32 w-32 md:h-52 md:w-52 object-contain"
                                 initial={{ x: -250, rotate: -720, opacity: 0 }}
                                 animate={{ x: 0, rotate: 0, opacity: 1 }}
                                 exit={{ opacity: 0 }}
@@ -124,16 +139,6 @@ export const Hero: React.FC = () => {
                                     delay: 2.0 // Wait for text to populate
                                 }}
                             />
-                            {/* Text separate and massive */}
-                            <motion.span 
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ delay: 3.2, duration: 1.0 }} // Appear after logo lands
-                                className="text-3xl sm:text-4xl md:text-6xl font-black uppercase tracking-tighter text-micron-eggplant text-right leading-none"
-                            >
-                                Micron<br/>House
-                            </motion.span>
                         </div>
                     )}
                  </AnimatePresence>

@@ -135,7 +135,7 @@ const getCardData = (id: number): ModalContent => {
         content: (
             <div className="flex flex-col gap-6 h-full">
                 
-                {/* 1. Combined Floating Description Card - WHITE BOX STYLING REMOVED */}
+                {/* 1. Combined Floating Description Card - WHITE BOX STYLING REMOVED & COMBINED TEXT */}
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -143,18 +143,16 @@ const getCardData = (id: number): ModalContent => {
                     whileHover={{ scale: 1.005 }}
                     // REMOVED: bg-white rounded-xl border border-zinc-200 shadow-xl
                     // KEPT: Padding and structure for floating text effect
-                    className="shrink-0 p-2 md:p-3 flex flex-col items-start"
+                    // UPDATED: Added max-w-4xl to restrict width slightly "reduce size of bento box"
+                    className="shrink-0 p-2 md:p-3 flex flex-col items-start max-w-4xl border-none shadow-none bg-transparent"
                 >
                     <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-4 font-sans">
                         AUTONOMOUS HUB
                     </h3>
-                    <div className="text-zinc-900 text-lg font-medium leading-relaxed max-w-5xl">
-                        {/* UPDATED: Reduced bottom margin from mb-6 to mb-3 */}
-                        <p className="mb-3">
-                            A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building.
-                        </p>
+                    <div className="text-zinc-900 text-lg font-medium leading-relaxed">
+                        {/* UPDATED: Combined into one paragraph */}
                         <p>
-                            Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
+                            A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
                         </p>
                     </div>
                 </motion.div>
@@ -485,7 +483,8 @@ export const SectionPrototype: React.FC = () => {
             {/* UPDATED: Reduced padding inside header boxes from p-6 to p-4 on mobile */}
             <div className="flex-shrink-0 bg-zinc-50 p-4 md:p-6 rounded-2xl border border-zinc-100 shadow-sm md:bg-transparent md:p-0 md:border-0 md:shadow-none md:rounded-none">
                 <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">01 / VISION</span>
-                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant leading-none font-sans">A NEW DAY</h2>
+                {/* UPDATED: Changed text-micron-eggplant to text-micron-green */}
+                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-green leading-none font-sans">A NEW DAY</h2>
             </div>
 
             <div className="md:ml-auto max-w-2xl pb-1 bg-white p-4 md:p-6 rounded-2xl border border-zinc-100 shadow-sm md:bg-transparent md:p-0 md:border-0 md:shadow-none md:rounded-none">
