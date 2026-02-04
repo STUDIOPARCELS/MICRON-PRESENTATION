@@ -91,8 +91,7 @@ export const SectionProperty: React.FC = () => {
                 ...base,
                 title: "WELLNESS & NATURE",
                 subtitle: "RESTORATIVE INFRASTRUCTURE",
-                // ADDED: Width control to match screenshot layout (3 cols side by side)
-                maxWidth: "max-w-6xl", 
+                maxWidth: "max-w-7xl", 
                 content: (
                     <div className="flex flex-col gap-6 h-full">
                         <p className="text-lg md:text-xl text-zinc-600 font-light leading-relaxed border-l-4 border-micron-green pl-6 py-1">
@@ -159,7 +158,7 @@ export const SectionProperty: React.FC = () => {
                 ...base,
                 title: "AUTONOMOUS SERVICE",
                 subtitle: "LIVING LAB",
-                maxWidth: "max-w-6xl", 
+                maxWidth: "max-w-7xl", 
                 content: (
                     <div className="flex flex-col gap-6 h-full">
                         <p className="text-lg md:text-xl text-zinc-600 font-light leading-relaxed border-l-4 border-micron-grey1 pl-6 py-1">
@@ -209,7 +208,7 @@ export const SectionProperty: React.FC = () => {
                 ...base,
                 title: "HISTORIC LEGACY",
                 subtitle: "1890 - PRESENT",
-                maxWidth: "max-w-6xl", 
+                maxWidth: "max-w-7xl", 
                 content: (
                     <div className="flex flex-col gap-6 h-full">
                         <p className="text-lg md:text-xl text-zinc-600 font-light leading-relaxed border-l-4 border-micron-eggplant pl-6 py-1">
@@ -254,7 +253,6 @@ export const SectionProperty: React.FC = () => {
        
        {/* 
         SECTION CONTAINER BENTO BOX 
-        Wraps the Header and the Grid in a "Floating" container 
        */}
        <motion.div
          initial={{ opacity: 0, y: 30 }}
@@ -286,7 +284,7 @@ export const SectionProperty: React.FC = () => {
 
           <div className="flex flex-col gap-5">
             
-            {/* METRIC ROW: Removed Gallery Card, Adjusted Grid to 4 cols */}
+            {/* METRIC ROW */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                  <BentoCard gradient="bg-micron-eggplant" className="min-h-[120px] flex flex-col items-center justify-center text-center" delay={0.1}>
                      <h3 className="text-3xl md:text-5xl font-black text-white mb-2">1906</h3>
@@ -381,21 +379,23 @@ export const SectionProperty: React.FC = () => {
                  
                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Main Level */}
+                    {/* REDUCED PADDING: p-6 -> p-4 (Half) to maximize space */}
                     <BentoCard 
                         gradient="bg-white" 
                         borderColor="border-zinc-200" 
                         textColor="text-zinc-900" 
-                        className="min-h-[200px] shadow-sm hover:shadow-xl group" 
+                        className="min-h-[200px] shadow-sm hover:shadow-xl group !p-4" 
                         onClick={() => openLevelGallery('main')}
                         hoverEffect={true}
                         delay={0.1}
                         hideArrow={true}
                     >
-                        <div className="flex items-center gap-3 mb-4">
+                        <div className="flex items-center gap-3 mb-3">
                             <DoorOpen className="text-micron-green" />
                             <h4 className="text-lg font-bold uppercase tracking-tight text-zinc-900">Main Level</h4>
                         </div>
-                        <ul className="space-y-3 text-sm font-medium text-zinc-600 font-body">
+                        {/* TIGHTER SPACING: space-y-2 -> space-y-1.5 */}
+                        <ul className="space-y-1.5 text-sm font-medium text-zinc-600 font-body">
                             <li className="flex items-start gap-3">
                                 <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-1.5 shrink-0"/>
                                 <span>Foyer Entry</span>
@@ -417,10 +417,10 @@ export const SectionProperty: React.FC = () => {
                                 <span>Antique Fir Throughout</span>
                             </li>
                         </ul>
-                        {/* UPDATED: Absolute positioning in bottom right with ArrowUpRight icon */}
-                        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span className="text-xs font-bold uppercase tracking-widest text-micron-green">View Gallery</span>
-                            <ArrowUpRight className="text-micron-green" size={20} />
+                        {/* UPDATED: Closer to corner (bottom-2 right-2) */}
+                        <div className="absolute bottom-2 right-2 z-20 flex items-center gap-2 opacity-100 transition-opacity">
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-micron-green">View Gallery</span>
+                            <ArrowUpRight className="text-micron-green" size={16} />
                         </div>
                     </BentoCard>
 
@@ -429,17 +429,17 @@ export const SectionProperty: React.FC = () => {
                         gradient="bg-white" 
                         borderColor="border-zinc-200" 
                         textColor="text-zinc-900" 
-                        className="min-h-[200px] shadow-sm hover:shadow-xl group" 
+                        className="min-h-[200px] shadow-sm hover:shadow-xl group !p-4" 
                         onClick={() => openLevelGallery('upper')}
                         hoverEffect={true}
                         delay={0.2}
                         hideArrow={true}
                     >
-                        <div className="flex items-center gap-3 mb-4">
+                        <div className="flex items-center gap-3 mb-3">
                             <ArrowUp className="text-micron-eggplant-light" />
                             <h4 className="text-lg font-bold uppercase tracking-tight text-zinc-900">Upper Level</h4>
                         </div>
-                        <ul className="space-y-3 text-sm font-medium text-zinc-600 font-body">
+                        <ul className="space-y-1.5 text-sm font-medium text-zinc-600 font-body">
                             <li className="flex items-start gap-3">
                                 <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant-light mt-1.5 shrink-0"/>
                                 <span>3 Bedrooms</span>
@@ -457,10 +457,10 @@ export const SectionProperty: React.FC = () => {
                                 <span>Laundry Facilities</span>
                             </li>
                         </ul>
-                        {/* UPDATED: Absolute positioning in bottom right with ArrowUpRight icon */}
-                        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span className="text-xs font-bold uppercase tracking-widest text-micron-eggplant-light">View Gallery</span>
-                            <ArrowUpRight className="text-micron-eggplant-light" size={20} />
+                        {/* UPDATED: Closer to corner (bottom-2 right-2) */}
+                        <div className="absolute bottom-2 right-2 z-20 flex items-center gap-2 opacity-100 transition-opacity">
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-micron-eggplant-light">View Gallery</span>
+                            <ArrowUpRight className="text-micron-eggplant-light" size={16} />
                         </div>
                     </BentoCard>
 
@@ -469,17 +469,17 @@ export const SectionProperty: React.FC = () => {
                         gradient="bg-white" 
                         borderColor="border-zinc-200" 
                         textColor="text-zinc-900" 
-                        className="min-h-[200px] shadow-sm hover:shadow-xl group" 
+                        className="min-h-[200px] shadow-sm hover:shadow-xl group !p-4" 
                         onClick={() => openLevelGallery('grounds')}
                         hoverEffect={true}
                         delay={0.3}
                         hideArrow={true}
                     >
-                        <div className="flex items-center gap-3 mb-4">
+                        <div className="flex items-center gap-3 mb-3">
                             <Flower2 className="text-micron-eggplant" />
                             <h4 className="text-lg font-bold uppercase tracking-tight text-zinc-900">Grounds</h4>
                         </div>
-                        <ul className="space-y-3 text-sm font-medium text-zinc-600 font-body">
+                        <ul className="space-y-1.5 text-sm font-medium text-zinc-600 font-body">
                             <li className="flex items-start gap-3">
                                 <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant mt-1.5 shrink-0"/>
                                 <span>Historic East End / Warm Springs</span>
@@ -497,10 +497,10 @@ export const SectionProperty: React.FC = () => {
                                 <span>Geothermal Jacuzzi on Private Way</span>
                             </li>
                         </ul>
-                        {/* UPDATED: Absolute positioning in bottom right with ArrowUpRight icon */}
-                        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span className="text-xs font-bold uppercase tracking-widest text-micron-eggplant">View Gallery</span>
-                            <ArrowUpRight className="text-micron-eggplant" size={20} />
+                        {/* UPDATED: Closer to corner (bottom-2 right-2) */}
+                        <div className="absolute bottom-2 right-2 z-20 flex items-center gap-2 opacity-100 transition-opacity">
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-micron-eggplant">View Gallery</span>
+                            <ArrowUpRight className="text-micron-eggplant" size={16} />
                         </div>
                     </BentoCard>
                  </div>

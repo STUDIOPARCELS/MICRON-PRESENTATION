@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 export type ModalCategory = 'cinematic' | 'showcase' | 'reference' | 'gallery';
@@ -16,6 +17,7 @@ export interface ModalContent {
   theme?: 'light' | 'dark'; // Added for modal theming (white backgrounds)
   headerClassName?: string; // Optional override for header text color
   maxWidth?: string; // Added for dynamic modal width control
+  aspectRatio?: string; // Added for forcing specific modal shapes (e.g., 'aspect-square', 'aspect-[6/4]')
 }
 
 export interface CardProps {
@@ -25,6 +27,11 @@ export interface CardProps {
   onClick?: () => void;
   hoverEffect?: boolean;
   gradient?: string; // Explicit gradient control
+  // Animation Overrides
+  initial?: any;
+  whileInView?: any;
+  viewport?: any;
+  duration?: number;
 }
 
 export interface SectionProps {

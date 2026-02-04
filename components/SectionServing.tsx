@@ -193,8 +193,8 @@ const departments: Department[] = [
     title: "Family Support", 
     value: "St. Luke's lodging", 
     detail: "Less than 1 mile to medical center, home environment during difficult times, compassionate use.", 
-    gradient: "bg-micron-grey3", 
-    modalHeaderColor: "text-micron-grey1", 
+    gradient: "bg-micron-eggplant", // UPDATED TO EGGPLANT
+    modalHeaderColor: "text-micron-eggplant", // UPDATED TO EGGPLANT
     modalIconColor: "text-zinc-400", 
     modalTagColor: "border-micron-eggplant",
     experiences: [
@@ -237,8 +237,6 @@ export const SectionServing: React.FC = () => {
 
   const openDeptModal = (dept: Department) => {
       // FORCE PORTRAIT STYLE & NO EXTRA SPACE
-      // Strategy: Use a narrow max-width (max-w-2xl) and always stack items in 1 column.
-      // This ensures short text lines, no wasted horizontal space, and a vertical "portrait" feel.
       const maxWidth = "max-w-2xl";
 
       setModalData({
@@ -250,11 +248,7 @@ export const SectionServing: React.FC = () => {
         maxWidth: maxWidth,
         content: (
             <div className="flex flex-col gap-6">
-                 {/* 
-                    DESCRIPTION HEADER 
-                    Left-aligned as requested. No mx-auto.
-                    Clean, simple typography.
-                 */}
+                 {/* DESCRIPTION HEADER */}
                  <motion.div 
                     variants={{ hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1 } }}
                     className="w-full bg-white rounded-xl p-5 shadow-sm border border-zinc-100 flex flex-col items-start justify-center text-left"
@@ -272,10 +266,6 @@ export const SectionServing: React.FC = () => {
                         Curated Experiences
                     </motion.h3>
                     
-                    {/* 
-                        PORTRAIT STACK LAYOUT
-                        Always 1 column to maintain portrait orientation and density.
-                    */}
                     <div className="grid grid-cols-1 gap-4">
                         {dept.experiences.map((exp, i) => {
                              return (
@@ -311,7 +301,6 @@ export const SectionServing: React.FC = () => {
 
                                         <div className="h-px w-full bg-white/20 my-1"></div>
                                         
-                                        {/* UPDATED: Increased font size to text-base/text-lg to match Property/Wellness sections */}
                                         <div className="text-white/95 text-base md:text-lg leading-relaxed font-medium drop-shadow-sm">
                                             {exp.description}
                                         </div>
@@ -363,7 +352,7 @@ export const SectionServing: React.FC = () => {
             {departments.map((dept, i) => (
               <BentoCard 
                 key={dept.id} 
-                className="flex flex-col justify-between min-h-[180px] relative overflow-hidden group" 
+                className="flex flex-col justify-between min-h-[100px] !p-6 relative overflow-hidden group" 
                 gradient={dept.gradient}
                 textColor="text-white"
                 borderColor="border-white/10"
