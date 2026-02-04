@@ -361,7 +361,7 @@ export const SectionServing: React.FC = () => {
                 onClick={() => openDeptModal(dept)}
               >
                 <div className="mt-2">
-                   <h3 className="text-2xl font-bold text-white mb-2 uppercase tracking-tight">
+                   <h3 className="text-xl font-bold text-white mb-2 uppercase tracking-tight">
                      {dept.title}
                    </h3>
                    

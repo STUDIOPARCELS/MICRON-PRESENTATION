@@ -514,7 +514,7 @@ export const SectionProperty: React.FC = () => {
                  
                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <BentoCard 
-                        gradient="bg-micron-green" 
+                        gradient="bg-micron-eggplant-light" // CHANGED to Light Blue
                         textColor="text-white" 
                         borderColor="border-white/10" 
                         className="min-h-[220px] group cursor-pointer hover:shadow-2xl transition-all" 
@@ -556,7 +556,7 @@ export const SectionProperty: React.FC = () => {
                     </BentoCard>
 
                     <BentoCard 
-                        gradient="bg-micron-eggplant" 
+                        gradient="bg-micron-green" // CHANGED to Green
                         textColor="text-white" 
                         borderColor="border-white/10" 
                         className="min-h-[220px] group cursor-pointer hover:shadow-2xl transition-all"

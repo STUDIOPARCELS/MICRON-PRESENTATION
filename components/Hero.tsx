@@ -5,9 +5,13 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 export const Hero: React.FC = () => {
   const containerRef = useRef(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const bottomSectionRef = useRef(null);
   
   // Track if the section is in view to handle auto-replay on scroll
   const isInView = useInView(containerRef, { amount: 0.2 });
+  
+  // Track if the bottom section is in view to override animation wait time
+  const isBottomVisible = useInView(bottomSectionRef, { amount: 0.3, once: true });
 
   // --- CYCLING TEXT STATE ---
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
@@ -203,9 +207,10 @@ export const Hero: React.FC = () => {
 
         {/* BOTTOM SECTION: PARADIGM & MAP */}
         <motion.div 
-            // UPDATED: Container waits for isFinished, then orchestrates children
+            ref={bottomSectionRef}
+            // UPDATED: Container now triggers if text finishes OR if user scrolls to it
             initial="hidden"
-            animate={isFinished ? "visible" : "hidden"}
+            animate={(isFinished || isBottomVisible) ? "visible" : "hidden"}
             variants={{
                 hidden: { opacity: 0, y: 50, filter: "blur(10px)" },
                 visible: { 

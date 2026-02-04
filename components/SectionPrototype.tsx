@@ -101,21 +101,25 @@ const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: st
 const getCardData = (id: number): ModalContent => {
   const base = { category: 'showcase' as const, theme: 'light' as const, maxWidth: 'max-w-6xl' };
 
-  const ModalVideo = ({ src, className = "" }: { src: string; className?: string }) => (
+  // UPDATED: ModalVideo now uses object-contain and avoids absolute positioning constraints
+  const ModalVideo = ({ src, className = "", children }: { src: string; className?: string; children?: React.ReactNode }) => (
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className={`w-full bg-black rounded-xl overflow-hidden shadow-sm relative border border-zinc-200 min-h-[250px] lg:min-h-0 ${className}`}
+        className={`w-full bg-black rounded-xl overflow-hidden shadow-sm relative border border-zinc-200 group ${className}`}
       >
         <video 
             key={src} 
             src={src} 
-            className="w-full h-full object-cover absolute inset-0 lg:static" 
+            // Changed from object-cover to object-contain to ensure full view
+            className="w-full h-full object-contain" 
             autoPlay 
             muted 
+            loop
             playsInline 
         />
+        {children}
       </motion.div>
   );
 
@@ -124,80 +128,87 @@ const getCardData = (id: number): ModalContent => {
         ...base, 
         title: 'PROTOTYPE', 
         subtitle: 'VISION',
-        aspectRatio: 'aspect-[6/4]',
+        // Removed aspect-[6/4] to allow vertical flow
+        modalLayout: 'default',
+        maxWidth: 'max-w-5xl',
         content: (
-            // UPDATED: Reduced gap-4 to gap-3 and optimized grid layout for tighter fit
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 h-full">
-                {/* LEFT: VIDEO (Span 5) */}
-                <div className="lg:col-span-5 h-full">
-                     <ModalVideo src={VIDEO_PLACEHOLDER} className="h-full" />
-                </div>
-
-                {/* RIGHT: CONTENT STACK (Span 7) */}
-                <div className="lg:col-span-7 flex flex-col gap-3 h-full">
-                    {/* 1. Description Text */}
-                    <motion.div 
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="bg-white rounded-xl p-4 border border-zinc-100 shadow-sm shrink-0"
-                    >
-                        <p className="text-zinc-600 text-sm leading-relaxed">
+            // REFACTORED LAYOUT: Vertical stack, Video replaces Green Card
+            <div className="flex flex-col gap-6 h-full">
+                
+                {/* 1. Description Text (Split Layout) */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="bg-white rounded-xl border border-zinc-200 shadow-sm shrink-0 overflow-hidden flex flex-col md:flex-row"
+                >
+                    {/* Part 1: Definition */}
+                    <div className="p-6 md:p-8 flex-1 border-b md:border-b-0 md:border-r border-zinc-200 relative">
+                        <div className="absolute top-0 left-0 w-1 h-full bg-zinc-900 hidden md:block"></div> {/* Accent Line */}
+                        <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-4">The Vision</span>
+                        <p className="text-zinc-900 text-lg font-medium leading-relaxed">
                             A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building.
                         </p>
-                    </motion.div>
+                    </div>
 
-                    {/* 2. THE AUTONOMOUS HUB (Green) */}
-                    {/* UPDATED: flex-1 to fill space properly without excess gaps */}
-                    <div className="flex-1">
-                        <InnerBento 
-                            title="THE AUTONOMOUS HUB" 
-                            gradient="bg-micron-green" 
-                            icon={<ShieldCheck className="text-white" />}
-                            direction="left"
-                            delay={0.2}
-                            className="h-full"
-                        >
-                            <p className="text-white/95">
-                                A secure, autonomous property for executive hosting, strategic entertaining, and confidential events — centrally located within a historic neighborhood. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
+                    {/* Part 2: Execution */}
+                    <div className="p-6 md:p-8 flex-1 bg-zinc-50/50">
+                        <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-4">The Autonomous Hub</span>
+                        <p className="text-zinc-600 text-sm leading-relaxed mb-0">
+                            A secure, autonomous property for executive hosting, strategic entertaining, and confidential events. <strong className="text-zinc-900">Optimus and Cybercab units execute all logistics</strong>, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
+                        </p>
+                    </div>
+                </motion.div>
+
+                {/* 2. VIDEO (Moved to occupy main slot, replacing Green Card) */}
+                {/* aspect-video ensures 16:9 ratio in the vertical stack */}
+                <div className="w-full aspect-video shrink-0">
+                     <ModalVideo src={VIDEO_PLACEHOLDER} className="h-full w-full">
+                        {/* COSMIC ZOO Overlay */}
+                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 pointer-events-none transition-opacity duration-500 hover:opacity-0">
+                             <div className="bg-white/10 backdrop-blur-md rounded-full p-4 border border-white/20 mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                <Play className="text-white fill-white" size={32} />
+                             </div>
+                             <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white drop-shadow-xl text-center leading-none">
+                                COSMIC<br/>ZOO
+                             </h3>
+                        </div>
+                     </ModalVideo>
+                </div>
+
+                {/* 3. SPLIT BOTTOM */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 shrink-0">
+                    <InnerBento 
+                        title="INTEGRATION" 
+                        gradient="bg-micron-eggplant" 
+                        icon={<Zap className="text-white" />}
+                        direction="up"
+                        delay={0.3}
+                        className="min-h-[140px]"
+                    >
+                        <div className="space-y-2">
+                            <p className="font-bold text-white text-sm">A Venue for Leadership.</p>
+                            <p className="text-white/80 text-xs leading-relaxed">
+                                A residential venue for the leaders building the future and the policymakers governing it. Guests meet to experience the shift to autonomous systems directly.
                             </p>
-                        </InnerBento>
-                    </div>
+                        </div>
+                    </InnerBento>
 
-                    {/* 3. SPLIT BOTTOM */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 shrink-0">
-                        <InnerBento 
-                            title="INTEGRATION" 
-                            gradient="bg-micron-eggplant" 
-                            icon={<Zap className="text-white" />}
-                            direction="up"
-                            delay={0.3}
-                            className="h-full"
-                        >
-                            <div className="space-y-2">
-                                <p className="font-bold text-white text-sm">A Venue for Leadership.</p>
-                                <p className="text-white/80 text-xs">
-                                    A residential venue for the leaders building the future and the policymakers governing it. Guests meet to experience the shift to autonomous systems directly.
-                                </p>
-                            </div>
-                        </InnerBento>
-
-                        <InnerBento 
-                            title="INFLECTION POINT" 
-                            gradient="bg-micron-grey1" 
-                            icon={<TrendingUp className="text-white" />}
-                            direction="up"
-                            delay={0.4}
-                            className="h-full"
-                        >
-                            <div className="space-y-2">
-                                <p className="font-bold text-white text-sm">Scaling to Billions.</p>
-                                <p className="text-white/80 text-xs">
-                                    Autonomous systems are scaling from thousands to billions. Daily life transforms permanently. The leaders building that future meet here to confront the profound questions it demands.
-                                </p>
-                            </div>
-                        </InnerBento>
-                    </div>
+                    <InnerBento 
+                        title="INFLECTION POINT" 
+                        gradient="bg-micron-grey1" 
+                        icon={<TrendingUp className="text-white" />}
+                        direction="up"
+                        delay={0.4}
+                        className="min-h-[140px]"
+                    >
+                        <div className="space-y-2">
+                            <p className="font-bold text-white text-sm">Scaling to Billions.</p>
+                            <p className="text-white/80 text-xs leading-relaxed">
+                                Autonomous systems are scaling from thousands to billions. Daily life transforms permanently. The leaders building that future meet here to confront the profound questions it demands.
+                            </p>
+                        </div>
+                    </InnerBento>
                 </div>
             </div>
         )
@@ -210,15 +221,15 @@ const getCardData = (id: number): ModalContent => {
         maxWidth: 'max-w-4xl',
         content: (
             <div className="flex flex-col gap-4 h-full">
-                {/* 1. HERO VIDEO TOP */}
-                <div className="w-full h-[250px] md:h-[300px] relative rounded-xl overflow-hidden shrink-0">
-                    <ModalVideo src={VIDEO_TIMING} className="h-full w-full object-cover" />
-                    <div className="absolute inset-0 flex items-center justify-center">
+                {/* 1. HERO VIDEO TOP - Aspect Video Container */}
+                <div className="w-full aspect-video relative rounded-xl overflow-hidden shrink-0 bg-black">
+                    <ModalVideo src={VIDEO_TIMING} className="h-full w-full" />
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <div className="bg-white/10 backdrop-blur-md rounded-full p-4 border border-white/20">
                              <Play className="text-white fill-white" size={32} />
                         </div>
                     </div>
-                    <div className="absolute bottom-6 left-6 z-10">
+                    <div className="absolute bottom-6 left-6 z-10 pointer-events-none">
                          <h3 className="text-2xl font-black uppercase text-white drop-shadow-md">The Window of Opportunity</h3>
                     </div>
                 </div>
@@ -284,9 +295,9 @@ const getCardData = (id: number): ModalContent => {
         content: (
             <div className="flex flex-col gap-4 h-full">
                 
-                {/* UPDATED: ADDED HERO VIDEO TOP */}
-                <div className="w-full h-[200px] shrink-0 rounded-xl overflow-hidden relative border border-zinc-200">
-                    <ModalVideo src={VIDEO_COLLAB} className="h-full w-full object-cover" />
+                {/* UPDATED: HERO VIDEO TOP - Aspect Video to prevent cropping */}
+                <div className="w-full aspect-video shrink-0 rounded-xl overflow-hidden relative border border-zinc-200 bg-black">
+                    <ModalVideo src={VIDEO_COLLAB} className="h-full w-full" />
                 </div>
 
                 {/* TOP ROW: MICRON & TESLA SIDE BY SIDE */}
