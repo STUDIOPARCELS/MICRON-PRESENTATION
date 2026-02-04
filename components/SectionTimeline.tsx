@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -46,87 +47,94 @@ const roadmapItems = [
 
 export const SectionTimeline: React.FC = () => {
   return (
-    <section id="timeline" className="container mx-auto px-4 md:px-12 py-8 md:py-16 mb-20 bg-white text-zinc-900">
+    // REDUCED PADDING: py-16 -> py-10
+    <section id="timeline" className="container mx-auto px-4 md:px-12 py-8 md:py-12 mb-20 bg-white text-zinc-900">
       
-      {/* Header Row - UPDATED STRUCTURE */}
-      <motion.div 
-         initial={{ opacity: 0, y: 30 }}
-         whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true, amount: 0.2 }}
-         transition={{ duration: 0.8, ease: "easeOut" }}
-         className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-200 pb-8"
+      {/* 
+        SECTION CONTAINER BENTO BOX 
+        Wraps the Header and the Grid in a "Floating" container 
+       */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 1.0 }}
+        className="w-full bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-zinc-100 ring-1 ring-zinc-50"
       >
-          <div className="flex-shrink-0">
-              <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">06 / DEPLOYMENT</span>
-              {/* Changed from EXECUTION ROADMAP to ROADMAP */}
-              <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-zinc-800 leading-none font-sans">
-                  ROADMAP
-              </h2>
+          {/* Header Row - UPDATED STRUCTURE */}
+          <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8 md:border-b-0 md:pb-0">
+              <div className="flex-shrink-0">
+                  <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">06 / DEPLOYMENT</span>
+                  {/* Changed from EXECUTION ROADMAP to ROADMAP */}
+                  <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-zinc-800 leading-none font-sans">
+                      ROADMAP
+                  </h2>
+              </div>
+              
+              <div className="md:ml-auto max-w-2xl pb-1">
+                 {/* Updated Header Structure to match other sections */}
+                 <div className="pl-6 border-l-4 border-zinc-900/20 hover:border-zinc-900 transition-colors duration-500">
+                    <p className="text-base font-light text-zinc-600 leading-snug font-body">
+                       {/* Increased text size to 2xl/3xl and removed period from TIMELINE */}
+                       <span className="font-bold text-zinc-900 block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
+                           TIMELINE
+                       </span>
+                       {/* Increased description size to text-base */}
+                       From agreement to installation, then testing to full autonomy as Cybercab and Optimus deploy to the property.
+                    </p>
+                 </div>
+              </div>
           </div>
-          
-          <div className="md:ml-auto max-w-2xl pb-1">
-             {/* Updated Header Structure to match other sections */}
-             <div className="pl-6 border-l-4 border-zinc-900/20 hover:border-zinc-900 transition-colors duration-500">
-                <p className="text-base font-light text-zinc-600 leading-snug font-body">
-                   {/* Increased text size to 2xl/3xl and removed period from TIMELINE */}
-                   <span className="font-bold text-zinc-900 block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
-                       TIMELINE
-                   </span>
-                   {/* Increased description size to text-base */}
-                   From agreement to installation, then testing to full autonomy as Cybercab and Optimus deploy to the property.
-                </p>
-             </div>
+
+          {/* Horizontal Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {roadmapItems.map((item, i) => (
+                <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1, duration: 0.5 }}
+                    // Added deeper shadows, 3D borders, and hover effects
+                    className={`
+                        ${item.bg} ${item.text} 
+                        aspect-square rounded-2xl p-6 flex flex-col justify-between 
+                        relative overflow-hidden group 
+                        shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)]
+                        hover:shadow-[0_40px_80px_-12px_rgba(0,0,0,0.6)] 
+                        hover:-translate-y-2
+                        transition-all duration-300
+                        border-t border-white/20 border-l border-white/10
+                    `}
+                >
+                    {/* 3D Bevel Highlight */}
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-100" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+
+                    {/* Top Left Icon/Number Indicator */}
+                    <div className="w-8 h-8 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm flex items-center justify-center text-xs font-bold shadow-sm group-hover:bg-white/20 transition-colors">
+                        {item.id}
+                    </div>
+
+                    {/* Center Content */}
+                    <div className="mt-auto relative z-10">
+                        <div className="flex items-center gap-2 mb-3">
+                            <span className="text-xs font-bold uppercase tracking-widest opacity-90">{item.date}</span>
+                            <div className="h-px bg-white/40 flex-1"></div>
+                        </div>
+                        
+                        <h3 className="text-2xl font-black uppercase leading-[0.9] mb-2 tracking-tight drop-shadow-md">
+                            {item.title}
+                        </h3>
+                        
+                        <p className="text-[10px] font-bold uppercase tracking-widest opacity-70">
+                            {item.subtitle}
+                        </p>
+                    </div>
+                </motion.div>
+            ))}
           </div>
       </motion.div>
-
-      {/* Horizontal Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {roadmapItems.map((item, i) => (
-            <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                // Added deeper shadows, 3D borders, and hover effects
-                className={`
-                    ${item.bg} ${item.text} 
-                    aspect-square rounded-2xl p-6 flex flex-col justify-between 
-                    relative overflow-hidden group 
-                    shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)]
-                    hover:shadow-[0_40px_80px_-12px_rgba(0,0,0,0.6)] 
-                    hover:-translate-y-2
-                    transition-all duration-300
-                    border-t border-white/20 border-l border-white/10
-                `}
-            >
-                {/* 3D Bevel Highlight */}
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-100" />
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
-
-                {/* Top Left Icon/Number Indicator */}
-                <div className="w-8 h-8 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm flex items-center justify-center text-xs font-bold shadow-sm group-hover:bg-white/20 transition-colors">
-                    {item.id}
-                </div>
-
-                {/* Center Content */}
-                <div className="mt-auto relative z-10">
-                    <div className="flex items-center gap-2 mb-3">
-                        <span className="text-xs font-bold uppercase tracking-widest opacity-90">{item.date}</span>
-                        <div className="h-px bg-white/40 flex-1"></div>
-                    </div>
-                    
-                    <h3 className="text-2xl font-black uppercase leading-[0.9] mb-2 tracking-tight drop-shadow-md">
-                        {item.title}
-                    </h3>
-                    
-                    <p className="text-[10px] font-bold uppercase tracking-widest opacity-70">
-                        {item.subtitle}
-                    </p>
-                </div>
-            </motion.div>
-        ))}
-      </div>
 
     </section>
   );

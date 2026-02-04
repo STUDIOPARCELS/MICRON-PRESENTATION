@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
@@ -326,57 +327,63 @@ export const SectionServing: React.FC = () => {
   };
 
   return (
-    <section id="serving" className="container mx-auto px-4 md:px-12 py-8 md:py-16 bg-white text-zinc-900">
+    // REDUCED PADDING: py-16 -> py-10
+    <section id="serving" className="container mx-auto px-4 md:px-12 py-8 md:py-12 bg-white text-zinc-900">
       
+      {/* 
+        SECTION CONTAINER BENTO BOX 
+        Wraps the Header and the Grid in a "Floating" container 
+       */}
       <motion.div 
          initial={{ opacity: 0, y: 30 }}
          whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true, amount: 0.2 }}
+         viewport={{ once: true, amount: 0.1 }}
          transition={{ duration: 0.8, ease: "easeOut" }}
-         className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-200 pb-8"
+         className="w-full bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-zinc-100 ring-1 ring-zinc-50"
       >
-        <div className="flex-shrink-0">
-           <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">04 / ENGAGEMENT</span>
-           <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant leading-none">SERVING MICRON</h2>
-        </div>
-        
-        <div className="md:ml-auto max-w-2xl pb-1">
-             <div className="pl-6 border-l-4 border-micron-eggplant/20 hover:border-micron-eggplant transition-colors duration-500">
-                <p className="text-base font-light text-zinc-600 leading-snug font-body">
-                   <span className="font-bold text-micron-eggplant block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
-                       STRATEGIC ALIGNMENT
-                   </span>
-                   Integrating the residence into Micron's operational fabric. It serves not just as accommodation, but as a strategic asset for talent acquisition, executive privacy, and brand equity.
-                </p>
-             </div>
-        </div>
-      </motion.div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {departments.map((dept, i) => (
-          <BentoCard 
-            key={dept.id} 
-            className="flex flex-col justify-between min-h-[180px] relative overflow-hidden group" 
-            gradient={dept.gradient}
-            textColor="text-white"
-            borderColor="border-white/10"
-            delay={i * 0.05}
-            hoverEffect={true}
-            onClick={() => openDeptModal(dept)}
-          >
-            <div className="mt-2">
-               <h3 className="text-2xl font-bold text-white mb-2 uppercase tracking-tight">
-                 {dept.title}
-               </h3>
-               
-               <p className="text-xs font-bold uppercase tracking-widest text-white/60 font-sans">
-                  {dept.value}
-               </p>
+          <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8 md:border-b-0 md:pb-0">
+            <div className="flex-shrink-0">
+               <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">04 / ENGAGEMENT</span>
+               <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant leading-none">SERVING MICRON</h2>
             </div>
-          </BentoCard>
-        ))}
-      </div>
+            
+            <div className="md:ml-auto max-w-2xl pb-1">
+                 <div className="pl-6 border-l-4 border-micron-eggplant/20 hover:border-micron-eggplant transition-colors duration-500">
+                    <p className="text-base font-light text-zinc-600 leading-snug font-body">
+                       <span className="font-bold text-micron-eggplant block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
+                           STRATEGIC ALIGNMENT
+                       </span>
+                       Integrating the residence into Micron's operational fabric. It serves not just as accommodation, but as a strategic asset for talent acquisition, executive privacy, and brand equity.
+                    </p>
+                 </div>
+            </div>
+          </div>
 
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {departments.map((dept, i) => (
+              <BentoCard 
+                key={dept.id} 
+                className="flex flex-col justify-between min-h-[180px] relative overflow-hidden group" 
+                gradient={dept.gradient}
+                textColor="text-white"
+                borderColor="border-white/10"
+                delay={i * 0.05}
+                hoverEffect={true}
+                onClick={() => openDeptModal(dept)}
+              >
+                <div className="mt-2">
+                   <h3 className="text-2xl font-bold text-white mb-2 uppercase tracking-tight">
+                     {dept.title}
+                   </h3>
+                   
+                   <p className="text-xs font-bold uppercase tracking-widest text-white/60 font-sans">
+                      {dept.value}
+                   </p>
+                </div>
+              </BentoCard>
+            ))}
+          </div>
+      </motion.div>
       <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
     </section>
   );

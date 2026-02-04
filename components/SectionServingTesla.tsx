@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
@@ -190,84 +191,90 @@ export const SectionServingTesla: React.FC = () => {
   };
 
   return (
-    // Reduced Vertical Padding: py-16 instead of py-24, px-4 mobile
-    <section id="serving-tesla" className="container mx-auto px-4 md:px-12 py-8 md:py-16 bg-zinc-50 text-zinc-900">
-      {/* Header - Animated Reveal */}
-      <motion.div 
-         initial={{ opacity: 0, y: 30 }}
-         whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true, amount: 0.2 }}
-         transition={{ duration: 0.8, ease: "easeOut" }}
-         className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-200 pb-8"
+    // REDUCED PADDING: py-16 -> py-10
+    <section id="serving-tesla" className="container mx-auto px-4 md:px-12 py-8 md:py-12 bg-zinc-50 text-zinc-900">
+      
+      {/* 
+        SECTION CONTAINER BENTO BOX 
+        Wraps the Header and the Grid in a "Floating" container 
+       */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 1.0 }}
+        className="w-full bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-zinc-100 ring-1 ring-zinc-50"
       >
-        <div className="flex-shrink-0">
-           <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">05 / PARTNERSHIP</span>
-           {/* UPDATED HEADER: "LIVING LAB" */}
-           <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-zinc-900 leading-none">LIVING LAB</h2>
-        </div>
 
-        {/* Added Description */}
-        <div className="md:ml-auto max-w-2xl pb-1">
-             <div className="pl-6 border-l-4 border-zinc-900/20 hover:border-zinc-900 transition-colors duration-500">
-                <p className="text-base font-light text-zinc-600 leading-snug font-body">
-                   {/* REMOVED: Period from "AUTONOMOUS FUTURE" */}
-                   <span className="font-bold text-zinc-900 block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
-                       AUTONOMOUS FUTURE
-                   </span>
-                   A living laboratory where the future of robotics meets the reality of daily life. Optimus and Cybercab aren't just tested here—they are the operating system of the home.
-                </p>
-             </div>
-        </div>
+          <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8 md:border-b-0 md:pb-0">
+            <div className="flex-shrink-0">
+               <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">05 / PARTNERSHIP</span>
+               {/* UPDATED HEADER: "LIVING LAB" */}
+               <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-zinc-900 leading-none">LIVING LAB</h2>
+            </div>
+
+            {/* Added Description */}
+            <div className="md:ml-auto max-w-2xl pb-1">
+                 <div className="pl-6 border-l-4 border-zinc-900/20 hover:border-zinc-900 transition-colors duration-500">
+                    <p className="text-base font-light text-zinc-600 leading-snug font-body">
+                       {/* REMOVED: Period from "AUTONOMOUS FUTURE" */}
+                       <span className="font-bold text-zinc-900 block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
+                           AUTONOMOUS FUTURE
+                       </span>
+                       A living laboratory where the future of robotics meets the reality of daily life. Optimus and Cybercab aren't just tested here—they are the operating system of the home.
+                    </p>
+                 </div>
+            </div>
+          </div>
+
+          {/* Two Column Landscape Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+            {teslaCards.map((card, i) => (
+              <BentoCard 
+                key={card.id} 
+                className={`
+                    flex flex-col justify-between min-h-[400px] relative group overflow-hidden
+                `}
+                gradient={card.gradient} 
+                borderColor={card.border}
+                textColor="text-white"
+                delay={i * 0.1}
+                onClick={() => setModalData({
+                    title: card.title,
+                    subtitle: card.subtitle,
+                    category: 'showcase',
+                    tags: ['Tesla', 'Anthropology', 'Future'],
+                    // Apply LIGHT THEME for white background wide modal
+                    theme: 'light',
+                    content: getModalContent(card.id)
+                })}
+              >
+                {/* Top Right Arrow */}
+                <div className="absolute top-8 right-8 z-20 opacity-100 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                   {/* Custom arrow if needed, BentoCard handles default */}
+                </div>
+
+                {/* Content aligned to bottom */}
+                <div className="relative z-10 mt-auto p-2">
+                   {/* Larger, colored Title */}
+                   <h3 className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter text-white mb-3 font-sans">
+                       {card.title}
+                   </h3>
+                   
+                   {/* Colored Subtitle */}
+                   <p className={`text-sm md:text-base font-bold uppercase tracking-widest mb-4 font-sans ${card.subtitleColor}`}>
+                      {card.subtitle}
+                   </p>
+
+                   {/* Added Description Text to Card Face */}
+                   <p className={`text-base md:text-lg leading-relaxed font-body font-medium max-w-md ${card.descriptionColor}`}>
+                      {card.content}
+                   </p>
+                </div>
+              </BentoCard>
+            ))}
+          </div>
       </motion.div>
-
-      {/* Two Column Landscape Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-        {teslaCards.map((card, i) => (
-          <BentoCard 
-            key={card.id} 
-            className={`
-                flex flex-col justify-between min-h-[400px] relative group overflow-hidden
-            `}
-            gradient={card.gradient} 
-            borderColor={card.border}
-            textColor="text-white"
-            delay={i * 0.1}
-            onClick={() => setModalData({
-                title: card.title,
-                subtitle: card.subtitle,
-                category: 'showcase',
-                tags: ['Tesla', 'Anthropology', 'Future'],
-                // Apply LIGHT THEME for white background wide modal
-                theme: 'light',
-                content: getModalContent(card.id)
-            })}
-          >
-            {/* Top Right Arrow */}
-            <div className="absolute top-8 right-8 z-20 opacity-100 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-               {/* Custom arrow if needed, BentoCard handles default */}
-            </div>
-
-            {/* Content aligned to bottom */}
-            <div className="relative z-10 mt-auto p-2">
-               {/* Larger, colored Title */}
-               <h3 className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter text-white mb-3 font-sans">
-                   {card.title}
-               </h3>
-               
-               {/* Colored Subtitle */}
-               <p className={`text-sm md:text-base font-bold uppercase tracking-widest mb-4 font-sans ${card.subtitleColor}`}>
-                  {card.subtitle}
-               </p>
-
-               {/* Added Description Text to Card Face */}
-               <p className={`text-base md:text-lg leading-relaxed font-body font-medium max-w-md ${card.descriptionColor}`}>
-                  {card.content}
-               </p>
-            </div>
-          </BentoCard>
-        ))}
-      </div>
-
       <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
     </section>
   );

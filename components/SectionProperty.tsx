@@ -249,328 +249,338 @@ export const SectionProperty: React.FC = () => {
   };
 
   return (
-    <section id="property" className="container mx-auto px-4 md:px-12 py-8 md:py-16 bg-zinc-50 text-zinc-900">
-       <motion.div 
+    // REDUCED PADDING: py-16 -> py-10
+    <section id="property" className="container mx-auto px-4 md:px-12 py-8 md:py-12 bg-zinc-50 text-zinc-900">
+       
+       {/* 
+        SECTION CONTAINER BENTO BOX 
+        Wraps the Header and the Grid in a "Floating" container 
+       */}
+       <motion.div
          initial={{ opacity: 0, y: 30 }}
          whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: false, amount: 0.2 }}
+         viewport={{ once: false, amount: 0.1 }}
          transition={{ duration: 0.8, ease: "easeOut" }}
-         className="mb-10 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-200 pb-10"
-      >
-        <div className="flex-shrink-0">
-           <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">02 / ASSET</span>
-           <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant-light leading-none font-sans">PROPERTY</h2>
-        </div>
-        
-        <div className="md:ml-auto max-w-2xl pb-1">
-             <div className="pl-6 border-l-4 border-micron-eggplant/20 hover:border-micron-eggplant transition-colors duration-500">
-                <div className="text-base font-light text-zinc-600 leading-snug font-body">
-                   <span className="font-bold text-micron-eggplant-light block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
-                       HISTORIC CONTEXT
-                   </span>
-                   <p className="mb-0">
-                        A modest home within North America's oldest continuously operating geothermal district (est. 1890), tapping the nation's largest historic direct-use aquifer. <span className="text-micron-eggplant font-semibold">Where earth's heat meets light from the stars.</span>
-                   </p>
-                </div>
-             </div>
-        </div>
-      </motion.div>
+         className="w-full bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-zinc-100 ring-1 ring-zinc-50"
+       >
 
-      <div className="flex flex-col gap-5">
-        
-        {/* METRIC ROW: Removed Gallery Card, Adjusted Grid to 4 cols */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-             <BentoCard gradient="bg-micron-eggplant" className="min-h-[120px] flex flex-col items-center justify-center text-center" delay={0.1}>
-                 <h3 className="text-3xl md:text-5xl font-black text-white mb-2">1906</h3>
-                 <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Year Built</p>
-             </BentoCard>
-             <BentoCard gradient="bg-micron-grey1" className="min-h-[120px] flex flex-col items-center justify-center text-center" delay={0.2}>
-                 <h3 className="text-3xl md:text-5xl font-black text-white mb-2">3,374</h3>
-                 <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Square Feet</p>
-             </BentoCard>
-             <BentoCard gradient="bg-micron-green" className="min-h-[120px] flex flex-col items-center justify-center text-center" delay={0.3}>
-                 <h3 className="text-3xl md:text-5xl font-black text-white mb-2">3 / 4</h3>
-                 <p className="text-[10px] font-bold uppercase tracking-widest text-white/80">Bed / Bath</p>
-             </BentoCard>
-             <BentoCard gradient="bg-micron-eggplant-light" className="min-h-[120px] flex flex-col items-center justify-center text-center" delay={0.4}>
-                 <h3 className="text-3xl md:text-5xl font-black text-white mb-2">1892</h3>
-                 <p className="text-[10px] font-bold uppercase tracking-widest text-white/80">Geothermal Rights</p>
-             </BentoCard>
-        </div>
-
-        <div className="mt-6">
-             <div className="flex items-center gap-2 mb-3">
-                <MapPin className="text-micron-eggplant" size={20} />
-                <h3 className="font-bold uppercase tracking-widest text-sm text-micron-eggplant">Location Details</h3>
-             </div>
-             
-             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-4">
-                 <BentoCard gradient="bg-micron-green" className="min-h-[100px] flex flex-col justify-between p-4" hoverEffect={true} delay={0.1}>
-                    <div className="flex justify-between items-start">
-                        <MapPin size={16} className="text-white"/>
-                        <span className="text-xl md:text-2xl font-bold text-white">15<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
+          <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8 md:border-b-0 md:pb-0">
+            <div className="flex-shrink-0">
+               <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">02 / ASSET</span>
+               <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant-light leading-none font-sans">PROPERTY</h2>
+            </div>
+            
+            <div className="md:ml-auto max-w-2xl pb-1">
+                 <div className="pl-6 border-l-4 border-micron-eggplant/20 hover:border-micron-eggplant transition-colors duration-500">
+                    <div className="text-base font-light text-zinc-600 leading-snug font-body">
+                       <span className="font-bold text-micron-eggplant-light block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
+                           HISTORIC CONTEXT
+                       </span>
+                       <p className="mb-0">
+                            A modest home within North America's oldest continuously operating geothermal district (est. 1890), tapping the nation's largest historic direct-use aquifer. <span className="text-micron-eggplant font-semibold">Where earth's heat meets light from the stars.</span>
+                       </p>
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">Micron HQ</span>
+                 </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-5">
+            
+            {/* METRIC ROW: Removed Gallery Card, Adjusted Grid to 4 cols */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                 <BentoCard gradient="bg-micron-eggplant" className="min-h-[120px] flex flex-col items-center justify-center text-center" delay={0.1}>
+                     <h3 className="text-3xl md:text-5xl font-black text-white mb-2">1906</h3>
+                     <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Year Built</p>
                  </BentoCard>
-
-                 <BentoCard gradient="bg-micron-eggplant" className="min-h-[100px] flex flex-col justify-between p-4" hoverEffect={true} delay={0.15}>
-                    <div className="flex justify-between items-start">
-                        <Plane size={16} className="text-white"/>
-                        <span className="text-xl md:text-2xl font-bold text-white">10<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">Airport</span>
+                 <BentoCard gradient="bg-micron-grey1" className="min-h-[120px] flex flex-col items-center justify-center text-center" delay={0.2}>
+                     <h3 className="text-3xl md:text-5xl font-black text-white mb-2">3,374</h3>
+                     <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Square Feet</p>
                  </BentoCard>
-
-                 <BentoCard gradient="bg-micron-eggplant-light" className="min-h-[100px] flex flex-col justify-between p-4" hoverEffect={true} delay={0.2}>
-                    <div className="flex justify-between items-start">
-                        <Building2 size={16} className="text-white"/>
-                        <span className="text-xl md:text-2xl font-bold text-white">3<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">Downtown</span>
+                 <BentoCard gradient="bg-micron-green" className="min-h-[120px] flex flex-col items-center justify-center text-center" delay={0.3}>
+                     <h3 className="text-3xl md:text-5xl font-black text-white mb-2">3 / 4</h3>
+                     <p className="text-[10px] font-bold uppercase tracking-widest text-white/80">Bed / Bath</p>
                  </BentoCard>
-
-                 <BentoCard gradient="bg-zinc-800" className="min-h-[100px] flex flex-col justify-between p-4" hoverEffect={true} delay={0.25}>
-                    <div className="flex justify-between items-start">
-                        <Stethoscope size={16} className="text-white"/>
-                        <span className="text-xl md:text-2xl font-bold text-white">2<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">St. Luke's</span>
+                 <BentoCard gradient="bg-micron-eggplant-light" className="min-h-[120px] flex flex-col items-center justify-center text-center" delay={0.4}>
+                     <h3 className="text-3xl md:text-5xl font-black text-white mb-2">1892</h3>
+                     <p className="text-[10px] font-bold uppercase tracking-widest text-white/80">Geothermal Rights</p>
                  </BentoCard>
+            </div>
 
-                 <BentoCard gradient="bg-micron-grey2" className="min-h-[100px] flex flex-col justify-between p-4" hoverEffect={true} delay={0.3}>
-                    <div className="flex justify-between items-start">
-                        <Building2 size={16} className="text-white"/>
-                        <span className="text-xl md:text-2xl font-bold text-white">5<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">Capitol</span>
-                 </BentoCard>
+            <div className="mt-6">
+                 <div className="flex items-center gap-2 mb-3">
+                    <MapPin className="text-micron-eggplant" size={20} />
+                    <h3 className="font-bold uppercase tracking-widest text-sm text-micron-eggplant">Location Details</h3>
+                 </div>
+                 
+                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-4">
+                     <BentoCard gradient="bg-micron-green" className="min-h-[100px] flex flex-col justify-between p-4" hoverEffect={true} delay={0.1}>
+                        <div className="flex justify-between items-start">
+                            <MapPin size={16} className="text-white"/>
+                            <span className="text-xl md:text-2xl font-bold text-white">15<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">Micron HQ</span>
+                     </BentoCard>
 
-                 <BentoCard gradient="bg-micron-black" className="min-h-[100px] flex flex-col justify-between p-4" hoverEffect={true} delay={0.35}>
-                    <div className="flex justify-between items-start">
-                        <GraduationCap size={16} className="text-white"/>
-                        <span className="text-xl md:text-2xl font-bold text-white">4<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">Boise State</span>
-                 </BentoCard>
+                     <BentoCard gradient="bg-micron-eggplant" className="min-h-[100px] flex flex-col justify-between p-4" hoverEffect={true} delay={0.15}>
+                        <div className="flex justify-between items-start">
+                            <Plane size={16} className="text-white"/>
+                            <span className="text-xl md:text-2xl font-bold text-white">10<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">Airport</span>
+                     </BentoCard>
 
-                 <BentoCard gradient="bg-micron-green" className="min-h-[100px] flex flex-col justify-between p-4 relative overflow-hidden" hoverEffect={true} delay={0.4}>
-                     <div className="absolute top-0 right-0 w-16 h-16 bg-white/20 blur-xl -mr-4 -mt-4 rounded-full pointer-events-none"></div>
-                     <div className="flex justify-between items-start relative z-10">
-                         <Trees size={16} className="text-white"/>
-                         <span className="text-xl md:text-2xl font-bold text-white">1<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
-                     </div>
-                     <span className="text-[10px] font-bold uppercase tracking-widest text-white/90 relative z-10">River</span>
-                 </BentoCard>
-             </div>
-        </div>
+                     <BentoCard gradient="bg-micron-eggplant-light" className="min-h-[100px] flex flex-col justify-between p-4" hoverEffect={true} delay={0.2}>
+                        <div className="flex justify-between items-start">
+                            <Building2 size={16} className="text-white"/>
+                            <span className="text-xl md:text-2xl font-bold text-white">3<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">Downtown</span>
+                     </BentoCard>
 
-        {/* RESTORED: RESIDENCE SPECIFICATIONS */}
-        <div className="mt-8">
-             <div className="flex items-center gap-2 mb-3">
-                <Home className="text-micron-eggplant" size={20} />
-                <h3 className="font-bold uppercase tracking-widest text-sm text-micron-eggplant">Residence Specifications</h3>
-             </div>
-             
-             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Main Level */}
-                <BentoCard 
-                    gradient="bg-white" 
-                    borderColor="border-zinc-200" 
-                    textColor="text-zinc-900" 
-                    className="min-h-[200px] shadow-sm hover:shadow-xl group" 
-                    onClick={() => openLevelGallery('main')}
-                    hoverEffect={true}
-                    delay={0.1}
-                    hideArrow={true}
-                >
-                    <div className="flex items-center gap-3 mb-4">
-                        <DoorOpen className="text-micron-green" />
-                        <h4 className="text-lg font-bold uppercase tracking-tight text-zinc-900">Main Level</h4>
-                    </div>
-                    <ul className="space-y-3 text-sm font-medium text-zinc-600 font-body">
-                        <li className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-1.5 shrink-0"/>
-                            <span>Foyer Entry</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-1.5 shrink-0"/>
-                            <span>Living / Dining w/ Fireplaces</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-1.5 shrink-0"/>
-                            <span>Office on Ground Deck</span>
-                        </li>
-                         <li className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-1.5 shrink-0"/>
-                            <span>Guest Down / Access to Deck</span>
-                        </li>
-                         <li className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-1.5 shrink-0"/>
-                            <span>Antique Fir Throughout</span>
-                        </li>
-                    </ul>
-                    {/* UPDATED: Absolute positioning in bottom right with ArrowUpRight icon */}
-                    <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span className="text-xs font-bold uppercase tracking-widest text-micron-green">View Gallery</span>
-                        <ArrowUpRight className="text-micron-green" size={20} />
-                    </div>
-                </BentoCard>
+                     <BentoCard gradient="bg-zinc-800" className="min-h-[100px] flex flex-col justify-between p-4" hoverEffect={true} delay={0.25}>
+                        <div className="flex justify-between items-start">
+                            <Stethoscope size={16} className="text-white"/>
+                            <span className="text-xl md:text-2xl font-bold text-white">2<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">St. Luke's</span>
+                     </BentoCard>
 
-                {/* Upper Level */}
-                <BentoCard 
-                    gradient="bg-white" 
-                    borderColor="border-zinc-200" 
-                    textColor="text-zinc-900" 
-                    className="min-h-[200px] shadow-sm hover:shadow-xl group" 
-                    onClick={() => openLevelGallery('upper')}
-                    hoverEffect={true}
-                    delay={0.2}
-                    hideArrow={true}
-                >
-                    <div className="flex items-center gap-3 mb-4">
-                        <ArrowUp className="text-micron-eggplant-light" />
-                        <h4 className="text-lg font-bold uppercase tracking-tight text-zinc-900">Upper Level</h4>
-                    </div>
-                    <ul className="space-y-3 text-sm font-medium text-zinc-600 font-body">
-                        <li className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant-light mt-1.5 shrink-0"/>
-                            <span>3 Bedrooms</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant-light mt-1.5 shrink-0"/>
-                            <span>2 Baths (En Suite Primary)</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant-light mt-1.5 shrink-0"/>
-                            <span>Playroom / Executive Retreat</span>
-                        </li>
-                         <li className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant-light mt-1.5 shrink-0"/>
-                            <span>Laundry Facilities</span>
-                        </li>
-                    </ul>
-                    {/* UPDATED: Absolute positioning in bottom right with ArrowUpRight icon */}
-                    <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span className="text-xs font-bold uppercase tracking-widest text-micron-eggplant-light">View Gallery</span>
-                        <ArrowUpRight className="text-micron-eggplant-light" size={20} />
-                    </div>
-                </BentoCard>
+                     <BentoCard gradient="bg-micron-grey2" className="min-h-[100px] flex flex-col justify-between p-4" hoverEffect={true} delay={0.3}>
+                        <div className="flex justify-between items-start">
+                            <Building2 size={16} className="text-white"/>
+                            <span className="text-xl md:text-2xl font-bold text-white">5<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">Capitol</span>
+                     </BentoCard>
 
-                {/* Grounds */}
-                <BentoCard 
-                    gradient="bg-white" 
-                    borderColor="border-zinc-200" 
-                    textColor="text-zinc-900" 
-                    className="min-h-[200px] shadow-sm hover:shadow-xl group" 
-                    onClick={() => openLevelGallery('grounds')}
-                    hoverEffect={true}
-                    delay={0.3}
-                    hideArrow={true}
-                >
-                    <div className="flex items-center gap-3 mb-4">
-                        <Flower2 className="text-micron-eggplant" />
-                        <h4 className="text-lg font-bold uppercase tracking-tight text-zinc-900">Grounds</h4>
-                    </div>
-                    <ul className="space-y-3 text-sm font-medium text-zinc-600 font-body">
-                        <li className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant mt-1.5 shrink-0"/>
-                            <span>Historic East End / Warm Springs</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant mt-1.5 shrink-0"/>
-                            <span>Covered Carport</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant mt-1.5 shrink-0"/>
-                            <span>Auto Court for +10 Cars / Events</span>
-                        </li>
-                         <li className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant mt-1.5 shrink-0"/>
-                            <span>Geothermal Jacuzzi on Private Way</span>
-                        </li>
-                    </ul>
-                    {/* UPDATED: Absolute positioning in bottom right with ArrowUpRight icon */}
-                    <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span className="text-xs font-bold uppercase tracking-widest text-micron-eggplant">View Gallery</span>
-                        <ArrowUpRight className="text-micron-eggplant" size={20} />
-                    </div>
-                </BentoCard>
-             </div>
-        </div>
+                     <BentoCard gradient="bg-micron-black" className="min-h-[100px] flex flex-col justify-between p-4" hoverEffect={true} delay={0.35}>
+                        <div className="flex justify-between items-start">
+                            <GraduationCap size={16} className="text-white"/>
+                            <span className="text-xl md:text-2xl font-bold text-white">4<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">Boise State</span>
+                     </BentoCard>
 
-        <div className="mt-8">
-             <div className="flex items-center gap-2 mb-3">
-                <Zap className="text-micron-eggplant" size={20} />
-                <h3 className="font-bold uppercase tracking-widest text-sm text-micron-eggplant">Technology, Wellness & Legacy</h3>
-             </div>
-             
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <BentoCard 
-                    gradient="bg-micron-green" 
-                    textColor="text-white" 
-                    borderColor="border-white/10" 
-                    className="min-h-[220px] group cursor-pointer hover:shadow-2xl transition-all" 
-                    delay={0.1}
-                    onClick={() => setModalData(getModalContent('wellness'))}
-                    hoverEffect={true}
-                    arrowPosition="bottom-right"
-                >
-                    <div className="flex justify-between items-start mb-4">
-                        <Leaf className="text-white" />
-                        <span className="text-xs font-bold uppercase tracking-widest text-white/80">Nature</span>
-                    </div>
-                    <h4 className="text-xl font-bold uppercase tracking-tight mb-2">Wellness</h4>
-                    <div className="h-px w-full bg-white/20 my-3"></div>
-                    <p className="text-base text-white/70 font-medium leading-relaxed font-body">
-                        Powered by a 177°F direct-use aquifer. Geothermal water flows through the home’s radiators and feeds the outdoor soaking tub. The grounds feature mature fruit trees and a Concord grapevine.
-                    </p>
-                </BentoCard>
+                     <BentoCard gradient="bg-micron-green" className="min-h-[100px] flex flex-col justify-between p-4 relative overflow-hidden" hoverEffect={true} delay={0.4}>
+                         <div className="absolute top-0 right-0 w-16 h-16 bg-white/20 blur-xl -mr-4 -mt-4 rounded-full pointer-events-none"></div>
+                         <div className="flex justify-between items-start relative z-10">
+                             <Trees size={16} className="text-white"/>
+                             <span className="text-xl md:text-2xl font-bold text-white">1<span className="text-[10px] font-normal align-top ml-0.5">min</span></span>
+                         </div>
+                         <span className="text-[10px] font-bold uppercase tracking-widest text-white/90 relative z-10">River</span>
+                     </BentoCard>
+                 </div>
+            </div>
 
-                <BentoCard 
-                    gradient="bg-micron-grey1" 
-                    textColor="text-white" 
-                    borderColor="border-white/10" 
-                    className="min-h-[220px] group cursor-pointer hover:shadow-2xl transition-all" 
-                    delay={0.2}
-                    onClick={() => setModalData(getModalContent('autonomous'))}
-                    hoverEffect={true}
-                    arrowPosition="bottom-right"
-                >
-                    <div className="flex justify-between items-start mb-4">
-                        <Car className="text-white scale-x-[-1]" />
-                        <span className="text-xs font-bold uppercase tracking-widest text-white/80">Intelligence</span>
-                    </div>
-                    <h4 className="text-xl font-bold uppercase tracking-tight mb-2">Autonomous Service</h4>
-                    <div className="h-px w-full bg-white/20 my-3"></div>
-                    <p className="text-base text-white/70 font-medium leading-relaxed font-body">
-                        Autonomous service via Cybercab and Optimus. A functional proving ground where abstract technology becomes a seamless, daily reality.
-                    </p>
-                </BentoCard>
+            {/* RESTORED: RESIDENCE SPECIFICATIONS */}
+            <div className="mt-8">
+                 <div className="flex items-center gap-2 mb-3">
+                    <Home className="text-micron-eggplant" size={20} />
+                    <h3 className="font-bold uppercase tracking-widest text-sm text-micron-eggplant">Residence Specifications</h3>
+                 </div>
+                 
+                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Main Level */}
+                    <BentoCard 
+                        gradient="bg-white" 
+                        borderColor="border-zinc-200" 
+                        textColor="text-zinc-900" 
+                        className="min-h-[200px] shadow-sm hover:shadow-xl group" 
+                        onClick={() => openLevelGallery('main')}
+                        hoverEffect={true}
+                        delay={0.1}
+                        hideArrow={true}
+                    >
+                        <div className="flex items-center gap-3 mb-4">
+                            <DoorOpen className="text-micron-green" />
+                            <h4 className="text-lg font-bold uppercase tracking-tight text-zinc-900">Main Level</h4>
+                        </div>
+                        <ul className="space-y-3 text-sm font-medium text-zinc-600 font-body">
+                            <li className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-1.5 shrink-0"/>
+                                <span>Foyer Entry</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-1.5 shrink-0"/>
+                                <span>Living / Dining w/ Fireplaces</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-1.5 shrink-0"/>
+                                <span>Office on Ground Deck</span>
+                            </li>
+                             <li className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-1.5 shrink-0"/>
+                                <span>Guest Down / Access to Deck</span>
+                            </li>
+                             <li className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-1.5 shrink-0"/>
+                                <span>Antique Fir Throughout</span>
+                            </li>
+                        </ul>
+                        {/* UPDATED: Absolute positioning in bottom right with ArrowUpRight icon */}
+                        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="text-xs font-bold uppercase tracking-widest text-micron-green">View Gallery</span>
+                            <ArrowUpRight className="text-micron-green" size={20} />
+                        </div>
+                    </BentoCard>
 
-                <BentoCard 
-                    gradient="bg-micron-eggplant" 
-                    textColor="text-white" 
-                    borderColor="border-white/10" 
-                    className="min-h-[220px] group cursor-pointer hover:shadow-2xl transition-all"
-                    delay={0.3}
-                    onClick={() => setModalData(getModalContent('historic'))}
-                    hoverEffect={true}
-                    arrowPosition="bottom-right"
-                >
-                    <div className="flex justify-between items-start mb-4">
-                        <Map className="text-white" />
-                        <span className="text-xs font-bold uppercase tracking-widest text-white/80">Legacy</span>
-                    </div>
-                    <h4 className="text-xl font-bold uppercase tracking-tight mb-2">National Register of Historic Places</h4>
-                    <div className="h-px w-full bg-white/20 my-3"></div>
-                    <p className="text-base text-white/70 font-medium leading-relaxed font-body">
-                        Anchored by the C.W. Moore House (1891) and the neighboring George Whitfield Russell House. A corridor defined by the legacy of Western pioneers and energy ingenuity.
-                    </p>
-                </BentoCard>
-             </div>
-        </div>
+                    {/* Upper Level */}
+                    <BentoCard 
+                        gradient="bg-white" 
+                        borderColor="border-zinc-200" 
+                        textColor="text-zinc-900" 
+                        className="min-h-[200px] shadow-sm hover:shadow-xl group" 
+                        onClick={() => openLevelGallery('upper')}
+                        hoverEffect={true}
+                        delay={0.2}
+                        hideArrow={true}
+                    >
+                        <div className="flex items-center gap-3 mb-4">
+                            <ArrowUp className="text-micron-eggplant-light" />
+                            <h4 className="text-lg font-bold uppercase tracking-tight text-zinc-900">Upper Level</h4>
+                        </div>
+                        <ul className="space-y-3 text-sm font-medium text-zinc-600 font-body">
+                            <li className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant-light mt-1.5 shrink-0"/>
+                                <span>3 Bedrooms</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant-light mt-1.5 shrink-0"/>
+                                <span>2 Baths (En Suite Primary)</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant-light mt-1.5 shrink-0"/>
+                                <span>Playroom / Executive Retreat</span>
+                            </li>
+                             <li className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant-light mt-1.5 shrink-0"/>
+                                <span>Laundry Facilities</span>
+                            </li>
+                        </ul>
+                        {/* UPDATED: Absolute positioning in bottom right with ArrowUpRight icon */}
+                        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="text-xs font-bold uppercase tracking-widest text-micron-eggplant-light">View Gallery</span>
+                            <ArrowUpRight className="text-micron-eggplant-light" size={20} />
+                        </div>
+                    </BentoCard>
 
-      </div>
+                    {/* Grounds */}
+                    <BentoCard 
+                        gradient="bg-white" 
+                        borderColor="border-zinc-200" 
+                        textColor="text-zinc-900" 
+                        className="min-h-[200px] shadow-sm hover:shadow-xl group" 
+                        onClick={() => openLevelGallery('grounds')}
+                        hoverEffect={true}
+                        delay={0.3}
+                        hideArrow={true}
+                    >
+                        <div className="flex items-center gap-3 mb-4">
+                            <Flower2 className="text-micron-eggplant" />
+                            <h4 className="text-lg font-bold uppercase tracking-tight text-zinc-900">Grounds</h4>
+                        </div>
+                        <ul className="space-y-3 text-sm font-medium text-zinc-600 font-body">
+                            <li className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant mt-1.5 shrink-0"/>
+                                <span>Historic East End / Warm Springs</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant mt-1.5 shrink-0"/>
+                                <span>Covered Carport</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant mt-1.5 shrink-0"/>
+                                <span>Auto Court for +10 Cars / Events</span>
+                            </li>
+                             <li className="flex items-start gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-micron-eggplant mt-1.5 shrink-0"/>
+                                <span>Geothermal Jacuzzi on Private Way</span>
+                            </li>
+                        </ul>
+                        {/* UPDATED: Absolute positioning in bottom right with ArrowUpRight icon */}
+                        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="text-xs font-bold uppercase tracking-widest text-micron-eggplant">View Gallery</span>
+                            <ArrowUpRight className="text-micron-eggplant" size={20} />
+                        </div>
+                    </BentoCard>
+                 </div>
+            </div>
+
+            <div className="mt-8">
+                 <div className="flex items-center gap-2 mb-3">
+                    <Zap className="text-micron-eggplant" size={20} />
+                    <h3 className="font-bold uppercase tracking-widest text-sm text-micron-eggplant">Technology, Wellness & Legacy</h3>
+                 </div>
+                 
+                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <BentoCard 
+                        gradient="bg-micron-green" 
+                        textColor="text-white" 
+                        borderColor="border-white/10" 
+                        className="min-h-[220px] group cursor-pointer hover:shadow-2xl transition-all" 
+                        delay={0.1}
+                        onClick={() => setModalData(getModalContent('wellness'))}
+                        hoverEffect={true}
+                        arrowPosition="bottom-right"
+                    >
+                        <div className="flex justify-between items-start mb-4">
+                            <Leaf className="text-white" />
+                            <span className="text-xs font-bold uppercase tracking-widest text-white/80">Nature</span>
+                        </div>
+                        <h4 className="text-xl font-bold uppercase tracking-tight mb-2">Wellness</h4>
+                        <div className="h-px w-full bg-white/20 my-3"></div>
+                        <p className="text-base text-white/70 font-medium leading-relaxed font-body">
+                            Powered by a 177°F direct-use aquifer. Geothermal water flows through the home’s radiators and feeds the outdoor soaking tub. The grounds feature mature fruit trees and a Concord grapevine.
+                        </p>
+                    </BentoCard>
+
+                    <BentoCard 
+                        gradient="bg-micron-grey1" 
+                        textColor="text-white" 
+                        borderColor="border-white/10" 
+                        className="min-h-[220px] group cursor-pointer hover:shadow-2xl transition-all" 
+                        delay={0.2}
+                        onClick={() => setModalData(getModalContent('autonomous'))}
+                        hoverEffect={true}
+                        arrowPosition="bottom-right"
+                    >
+                        <div className="flex justify-between items-start mb-4">
+                            <Car className="text-white scale-x-[-1]" />
+                            <span className="text-xs font-bold uppercase tracking-widest text-white/80">Intelligence</span>
+                        </div>
+                        <h4 className="text-xl font-bold uppercase tracking-tight mb-2">Autonomous Service</h4>
+                        <div className="h-px w-full bg-white/20 my-3"></div>
+                        <p className="text-base text-white/70 font-medium leading-relaxed font-body">
+                            Autonomous service via Cybercab and Optimus. A functional proving ground where abstract technology becomes a seamless, daily reality.
+                        </p>
+                    </BentoCard>
+
+                    <BentoCard 
+                        gradient="bg-micron-eggplant" 
+                        textColor="text-white" 
+                        borderColor="border-white/10" 
+                        className="min-h-[220px] group cursor-pointer hover:shadow-2xl transition-all"
+                        delay={0.3}
+                        onClick={() => setModalData(getModalContent('historic'))}
+                        hoverEffect={true}
+                        arrowPosition="bottom-right"
+                    >
+                        <div className="flex justify-between items-start mb-4">
+                            <Map className="text-white" />
+                            <span className="text-xs font-bold uppercase tracking-widest text-white/80">Legacy</span>
+                        </div>
+                        <h4 className="text-xl font-bold uppercase tracking-tight mb-2">National Register of Historic Places</h4>
+                        <div className="h-px w-full bg-white/20 my-3"></div>
+                        <p className="text-base text-white/70 font-medium leading-relaxed font-body">
+                            Anchored by the C.W. Moore House (1891) and the neighboring George Whitfield Russell House. A corridor defined by the legacy of Western pioneers and energy ingenuity.
+                        </p>
+                    </BentoCard>
+                 </div>
+            </div>
+
+          </div>
+       </motion.div>
+
       <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
     </section>
   );

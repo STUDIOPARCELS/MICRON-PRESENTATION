@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
@@ -96,15 +97,15 @@ export const SectionUseCases: React.FC = () => {
   };
 
   return (
-    // Reduced padding: py-16 instead of py-24, px-4 mobile
-    <section id="use-cases" className="container mx-auto px-4 md:px-12 py-8 md:py-16 bg-white text-zinc-900">
+    // REDUCED PADDING: py-16 -> py-10
+    <section id="use-cases" className="container mx-auto px-4 md:px-12 py-8 md:py-10 bg-white text-zinc-900">
       {/* Header */}
       <motion.div 
          initial={{ opacity: 0, y: 30 }}
          whileInView={{ opacity: 1, y: 0 }}
          viewport={{ once: true, amount: 0.2 }}
          transition={{ duration: 0.8, ease: "easeOut" }}
-         className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-200 pb-8"
+         className="mb-8 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-200 pb-8"
       >
         <div className="flex-shrink-0">
            <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">03 / USE CASE</span>
