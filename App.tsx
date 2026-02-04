@@ -1,6 +1,6 @@
+
 import React, { useState } from 'react';
 import { Hero } from './components/Hero';
-import { SectionIntro } from './components/SectionIntro';
 import { SectionPrototype } from './components/SectionPrototype';
 import { SectionProperty } from './components/SectionProperty';
 import { SectionServing } from './components/SectionServing';
@@ -103,8 +103,7 @@ function App() {
 
       <main>
         <Hero />
-        {/* Removed onAnimationComplete as Prototype section is now independent */}
-        <SectionIntro />
+        
         <div className="relative z-20 bg-white">
           <SectionPrototype />
           <SectionProperty />
