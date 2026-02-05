@@ -252,9 +252,9 @@ export const SectionProperty: React.FC = () => {
               ))}
           </ul>
           
-          {/* REVERTED: Standard Outline Button */}
+          {/* UPDATED: Subtle hover effect on button instead of white block */}
           <button 
-            className={`w-full py-4 border rounded-xl text-xs font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 group-hover:bg-white group-hover:text-zinc-900 border-white/20 text-white/70 hover:bg-white/10`}
+            className={`w-full py-4 border rounded-xl text-xs font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 group-hover:border-white/60 group-hover:text-white group-hover:bg-white/10 border-white/20 text-white/70 hover:bg-white/5`}
           >
               View Gallery
               <ArrowUpRight size={14} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />

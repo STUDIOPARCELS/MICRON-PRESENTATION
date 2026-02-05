@@ -10,7 +10,7 @@ import { motion, useInView } from 'framer-motion';
 const VIDEO_TIMING = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/cropped%20POTATO%20MICRON%20SEQUENCE.mp4";
 const VIDEO_COLLAB = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/FINAL%20FINAL.mp4";
 const VIDEO_PLACE = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/FINAL%20CW%20MOORE%20FULL.mp4"; 
-const VIDEO_PLACEHOLDER = VIDEO_COLLAB; 
+const VIDEO_PROTOTYPE = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/CYPEROPTIMUS%20FINAL.mp4";
 
 // --- HELPER COMPONENTS ---
 
@@ -165,49 +165,49 @@ const getCardData = (id: number): ModalContent => {
         maxWidth: 'max-w-7xl', 
         content: (
             <div className="flex flex-col gap-6 h-auto">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
-                    <motion.div 
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="shrink-0 p-1 md:p-2 flex flex-col items-start w-full border-none shadow-none bg-transparent"
-                    >
-                        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">
-                            AUTONOMOUS HUB
-                        </h3>
-                        <div className="w-full h-px bg-zinc-200 mb-4" /> 
-                        <div className="text-zinc-900 text-lg font-medium leading-relaxed">
-                            <p>
-                                A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
-                            </p>
-                        </div>
-                    </motion.div>
+                {/* 1. AUTONOMOUS HUB (Full Width) */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="w-full flex flex-col items-start"
+                >
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">
+                        AUTONOMOUS HUB
+                    </h3>
+                    <div className="w-full h-px bg-zinc-200 mb-4" /> 
+                    <div className="text-zinc-900 text-lg font-medium leading-relaxed">
+                        <p>
+                            A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
+                        </p>
+                    </div>
+                </motion.div>
 
-                    <motion.div 
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="bg-zinc-50 rounded-xl p-6 text-zinc-900 shadow-2xl border border-zinc-200 relative overflow-hidden group transform lg:translate-y-2"
-                    >
-                        <div className="absolute top-0 right-0 p-6 opacity-10 text-micron-green">
-                            <ShieldCheck size={48} />
-                        </div>
-                        <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green">SERVICE & SECURITY LAYER</h3>
-                        <div className="space-y-4 text-zinc-600 text-base font-medium leading-relaxed">
-                            <p>
-                                Five minutes from downtown. Fifteen from the airport. Fifteen from Micron headquarters. The home sits at the center of everything Boise offers — and Optimus and Cybercab are the mechanism that brings it through the front door.
-                            </p>
-                            <p>
-                                Culinary, wellness, recreation, entertainment — each delivered into an intimate, private setting with a level of coordination and discretion that the autonomous infrastructure sustains across every event.
-                            </p>
-                        </div>
-                    </motion.div>
-                </div>
+                {/* 2. SERVICE & SECURITY LAYER (Full Width, Underneath) */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="w-full bg-white rounded-xl px-6 py-5 md:px-8 md:py-6 text-zinc-900 shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] relative overflow-hidden group"
+                >
+                    <div className="absolute top-4 right-4 opacity-10 text-micron-green">
+                        <ShieldCheck size={64} />
+                    </div>
+                    <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green relative z-10">SERVICE & SECURITY LAYER</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-zinc-600 text-base font-medium leading-relaxed relative z-10">
+                        <p>
+                            Five minutes from downtown. Fifteen from the airport. Fifteen from Micron headquarters. The home sits at the center of everything Boise offers — and Optimus and Cybercab are the mechanism that brings it through the front door.
+                        </p>
+                        <p>
+                            Culinary, wellness, recreation, entertainment — each delivered into an intimate, private setting with a level of coordination and discretion that the autonomous infrastructure sustains across every event.
+                        </p>
+                    </div>
+                </motion.div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-2 w-full h-full">
                          <ModalVideo 
-                            src={VIDEO_PLACEHOLDER}
+                            src={VIDEO_PROTOTYPE}
                             className="w-full aspect-[1.5/1.1] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group"
                          />
                     </div>
@@ -380,6 +380,7 @@ const getCardData = (id: number): ModalContent => {
         title: 'PLACE',
         subtitle: 'GROUNDING THE TECHNOLOGY', 
         maxWidth: 'max-w-7xl',
+        aspectRatio: 'aspect-square',
         content: (
         <div className="flex flex-col gap-4 h-full">
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
@@ -402,7 +403,6 @@ const getCardData = (id: number): ModalContent => {
                    <div className="text-white/60 text-base md:text-lg font-medium leading-relaxed">
                        <p>In 1892, C.W. Moore piped 177°F geothermal water into his mansion — the <span className="font-bold text-white drop-shadow-sm">first home in America heated by natural hot water</span>. The idea spread down the avenue, then downtown, and by 1982 to the State Capitol.</p>
                        <p className="mt-3">Today, the same system delivers to roughly 300 homes — operational for over 130 years, the water temperature unchanged within one degree.</p>
-                       <p className="mt-3"><span className="font-bold text-white">The oldest residential energy system in the country meeting the newest</span> — on a street that has been absorbing the future for 130 years.</p>
                    </div>
                </InnerBento>
            </div>
@@ -418,7 +418,7 @@ const getCardData = (id: number): ModalContent => {
                    </h3>
                    <div className="w-full h-px bg-white/20 mb-4" />
                    <div className="text-white/60 text-base md:text-lg font-medium leading-relaxed">
-                       <p>Heat from an aquifer tapped in 1892. Data from a satellite constellation powered by solar energy in space. Hot water rising from below. Signal arriving from above.</p>
+                       <p><span className="font-bold text-white">The oldest residential energy system in the country meeting the newest</span> — on a street that has been absorbing the future for 130 years.</p>
                    </div>
                </InnerBento>
 
@@ -514,7 +514,7 @@ export const SectionPrototype: React.FC = () => {
                 onMouseEnter={() => setHoveredCard(1)}
                 onMouseLeave={() => setHoveredCard(null)}
             >
-                <HoverVideoPlayer src={VIDEO_PLACEHOLDER} isHovering={hoveredCard === 1} />
+                <HoverVideoPlayer src={VIDEO_PROTOTYPE} isHovering={hoveredCard === 1} />
                 <div className="relative z-10 mt-auto pt-6">
                     <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-micron-green transition-colors duration-300 mb-4">
                         PROTOTYPE

@@ -12,9 +12,10 @@ const teslaCards = [
     id: 2, 
     title: "REAL-WORLD INFERENCE", 
     subtitle: "A Living Laboratory",
-    // UPDATED TEXT: 1020 E Warm Springs -> Micron House
-    content: "The Convergence Zone. Micron House is the neutral ground where the digital code of AI meets the legal code of the nation.",
-    icon: <Scan />,
+    // UPDATED TEXT: New conversational description
+    content: "Where the people building the systems sit down with the people governing them. The conversations that happen here shape how this technology enters the world.",
+    // Removed icon
+    icon: null,
     gradient: "bg-micron-black",
     // REMOVED: hoverClass for background change
     border: "border-white/10",
@@ -26,10 +27,11 @@ const teslaCards = [
   // CARD 2: THE TECTONIC SHIFT
   {
     id: 1,
-    title: "THE TECTONIC SHIFT",
+    title: "A TECTONIC SHIFT", // Changed from THE to A
     subtitle: "Anthropology of the Future",
     content: "Moving beyond laws and sidewalks into the anthropology of the future. How humanity adapts to the 'Crisis of Shared Reality' in the age of ubiquitous robotics.",
-    icon: <Cpu />,
+    // Removed icon
+    icon: null,
     gradient: "bg-micron-grey1",
     // REMOVED: hoverClass for background change
     border: "border-white/10",
@@ -257,9 +259,11 @@ export const SectionServingTesla: React.FC = () => {
                 >
                     <div className="relative z-10 flex flex-col h-full justify-between">
                         <div>
-                            <div className={`mb-6 p-3 rounded-full bg-white/10 w-fit backdrop-blur-md border border-white/10 ${card.descriptionColor}`}>
-                                {React.cloneElement(card.icon as React.ReactElement<any>, { size: 28 })}
-                            </div>
+                            {card.icon && (
+                                <div className={`mb-6 p-3 rounded-full bg-white/10 w-fit backdrop-blur-md border border-white/10 ${card.descriptionColor}`}>
+                                    {React.cloneElement(card.icon as React.ReactElement<any>, { size: 28 })}
+                                </div>
+                            )}
                             <h3 className={`text-3xl font-black uppercase tracking-tight mb-2 leading-none text-white drop-shadow-lg transition-colors duration-300 ${card.titleHoverColor}`}>
                                 {card.title}
                             </h3>
