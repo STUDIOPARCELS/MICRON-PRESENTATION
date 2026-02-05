@@ -131,15 +131,15 @@ const getCardData = (id: number): ModalContent => {
         modalLayout: 'default', 
         maxWidth: 'max-w-7xl', 
         content: (
-            <div className="flex flex-col gap-8 h-auto">
-                {/* Intro Text - Expanded to w-full per request */}
+            <div className="flex flex-col gap-6 h-auto">
+                {/* Intro Text - Compacted padding/spacing based on screenshot arrows */}
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="shrink-0 p-2 md:p-3 flex flex-col items-start w-full border-none shadow-none bg-transparent"
+                    className="shrink-0 p-1 md:p-2 flex flex-col items-start w-full border-none shadow-none bg-transparent"
                 >
-                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-4 font-sans">
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">
                         AUTONOMOUS HUB
                     </h3>
                     <div className="text-zinc-900 text-lg font-medium leading-relaxed">
@@ -151,8 +151,8 @@ const getCardData = (id: number): ModalContent => {
 
                 {/* Main Content Grid: Video Left, Stack Right */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Column 1: Video (Takes 2 cols) - UPDATED ASPECT RATIO 1.5/1.1 */}
-                    <div className="lg:col-span-2 w-full">
+                    {/* Column 1: Video (Takes 2 cols) - ASPECT 1.5/1.1 */}
+                    <div className="lg:col-span-2 w-full h-full">
                          <div className="w-full aspect-[1.5/1.1] bg-black rounded-xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative border border-zinc-200 group">
                               <video 
                                   src={VIDEO_PLACEHOLDER} 
@@ -166,8 +166,8 @@ const getCardData = (id: number): ModalContent => {
                     </div>
                     
                     {/* Column 2: Stacked Bentos (Takes 1 col) */}
-                    <div className="lg:col-span-1 flex flex-col gap-4">
-                        {/* Box 1: Integration - UPDATED FONT SIZE */}
+                    <div className="lg:col-span-1 flex flex-col gap-4 h-full">
+                        {/* Box 1: Integration */}
                         <InnerBento 
                             gradient="bg-micron-eggplant" 
                             direction="left" 
@@ -182,7 +182,7 @@ const getCardData = (id: number): ModalContent => {
                             </div>
                         </InnerBento>
 
-                        {/* Box 2: Humanoids - UPDATED FONT SIZE */}
+                        {/* Box 2: Humanoids - TEXT REMOVED TO BALANCE LAYOUT */}
                         <InnerBento 
                             gradient="bg-micron-grey1" 
                             direction="left" 
@@ -193,7 +193,6 @@ const getCardData = (id: number): ModalContent => {
                             <div className="space-y-4 text-white/90 text-lg font-medium leading-relaxed">
                                 <p className="font-bold text-white text-lg">Scaling to Billions.</p>
                                 <p>Daily life transforms permanently. This setting invites the architects of tomorrow to navigate the profound questions involved in bringing this future to the world.</p>
-                                <p>Does the constant sight of robots create comfort or anxiety? Where is the boundary between helpful anticipation and intrusive surveillance?</p>
                             </div>
                         </InnerBento>
                     </div>

@@ -25,16 +25,14 @@ const sentences = [
         layout: "default"
     },
     {
-        // Sentence 3
-        // UPDATED: Split "THERE'S NO" to handle spacing, increased font size by ~15%
+        // Sentence 3 - Standardized to match others
         words: ["WITHOUT", "PLACE,", "THERE'S", "NO", "PERSPECTIVE."], 
         color: "text-zinc-400",
         highlightColor: "text-micron-green",
         hoverColor: "hover:text-green-900", 
         highlights: ["PLACE,", "PERSPECTIVE."],
-        // Font size increased from 5.5rem to 6.5rem (~15%)
-        textSize: "text-6xl sm:text-7xl md:text-7xl lg:text-[6.5rem]",
-        layout: "vertical_complex" // New flag for custom spacing logic
+        textSize: "text-6xl sm:text-7xl md:text-7xl lg:text-8xl",
+        layout: "default"
     }
 ];
 
@@ -113,19 +111,31 @@ export const Hero: React.FC = () => {
   
   const isInView = useInView(containerRef, { amount: 0.2 });
 
-  const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+  // Start as null for blank state
+  const [currentSentenceIndex, setCurrentSentenceIndex] = useState<number | null>(null);
   const [key, setKey] = useState(0); 
 
   // Icon Controls
   const iconControls = useAnimation();
-  
-  // Effect to cycle through sentences - SPEED INCREASED
+
+  // Start the sequence after mount
   useEffect(() => {
+    const startTimer = setTimeout(() => {
+        setCurrentSentenceIndex(0);
+    }, 100);
+    return () => clearTimeout(startTimer);
+  }, []);
+  
+  // Effect to cycle through sentences
+  useEffect(() => {
+    if (currentSentenceIndex === null) return;
+
     // Reduced from 12000 to 8000 for faster cycling
     const cycleDuration = 8000; 
 
     const interval = setInterval(() => {
         setCurrentSentenceIndex((prev) => {
+            if (prev === null) return 0;
             if (prev < sentences.length - 1) {
                 return prev + 1;
             } else {
@@ -136,13 +146,12 @@ export const Hero: React.FC = () => {
     }, cycleDuration);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [currentSentenceIndex]);
 
   // Effect for Icon Roll-In Logic
   useEffect(() => {
       if (currentSentenceIndex === 2) {
           // Trigger ONLY after the last word "PERSPECTIVE" is done.
-          // 4 lines * 0.1s stagger (faster now) + buffer = ~2.0s delay
           const totalDelay = 2.0; 
 
           iconControls.start({
@@ -196,23 +205,9 @@ export const Hero: React.FC = () => {
       const colorClass = isHighlight ? currentSet.highlightColor : currentSet.color;
       const hoverClass = isHighlight ? currentSet.hoverColor : "";
       
-      // Layout Logic
+      // Default Layout Class (removed custom vertical_complex logic)
       let layoutClass = "";
-      
-      // Default vertical stack for sentences 1 & 2 if needed (currently they use default)
-      // Special logic for Sentence 3 "vertical_complex"
-      if (currentSet.layout === "vertical_complex") {
-          if (word === "THERE'S") {
-              // Add large right margin to create 10% space gap between THERE'S and NO
-              layoutClass = "inline-block mr-12 md:mr-24"; 
-          } else if (word === "NO") {
-              // Sits on same line as THERE'S
-              layoutClass = "inline-block";
-          } else {
-              // WITHOUT, PLACE, PERSPECTIVE - Full width lines
-              layoutClass = "w-full basis-full mb-1 block"; 
-          }
-      } else if (currentSet.layout === "vertical_all") {
+      if (currentSet.layout === "vertical_all") {
           layoutClass = "w-full basis-full mb-1";
       }
 
@@ -270,29 +265,31 @@ export const Hero: React.FC = () => {
                  
                  <div className="w-full relative z-10 mt-12 md:mt-0">
                      <AnimatePresence mode="wait">
-                       <motion.div 
-                          key={`${currentSentenceIndex}-${key}`}
-                          className="flex flex-wrap gap-x-4 md:gap-x-6 gap-y-2 w-full max-w-5xl"
-                          initial="hidden"
-                          animate="visible"
-                          exit="exit"
-                          variants={{
-                              hidden: { opacity: 1 },
-                              visible: { 
-                                  opacity: 1,
-                                  transition: { staggerChildren: 0.1 } // Faster Stagger (0.8 -> 0.1)
-                              },
-                              exit: { 
-                                  opacity: 1, 
-                                  transition: { staggerChildren: 0.05, staggerDirection: -1 } 
-                              }
-                          }}
-                       >
-                         {sentences[currentSentenceIndex].words.map((wordOrGroup, i) => {
-                             const currentSet = sentences[currentSentenceIndex];
-                             return renderWord(wordOrGroup as string, i, currentSet);
-                         })}
-                       </motion.div>
+                       {currentSentenceIndex !== null && (
+                           <motion.div 
+                              key={`${currentSentenceIndex}-${key}`}
+                              className="flex flex-wrap gap-x-4 md:gap-x-6 gap-y-2 w-full max-w-5xl"
+                              initial="hidden"
+                              animate="visible"
+                              exit="exit"
+                              variants={{
+                                  hidden: { opacity: 1 },
+                                  visible: { 
+                                      opacity: 1,
+                                      transition: { staggerChildren: 0.1 } // Faster Stagger (0.8 -> 0.1)
+                                  },
+                                  exit: { 
+                                      opacity: 1, 
+                                      transition: { staggerChildren: 0.05, staggerDirection: -1 } 
+                                  }
+                              }}
+                           >
+                             {sentences[currentSentenceIndex].words.map((wordOrGroup, i) => {
+                                 const currentSet = sentences[currentSentenceIndex];
+                                 return renderWord(wordOrGroup as string, i, currentSet);
+                             })}
+                           </motion.div>
+                       )}
                      </AnimatePresence>
                  </div>
             </div>
