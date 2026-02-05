@@ -279,8 +279,9 @@ const getCardData = (id: number): ModalContent => {
                     </InnerBento>
                     <InnerBento title="RUNWAY" gradient="bg-micron-green" icon={<Activity />} className="flex-1">
                         <div className="w-full h-px bg-white/20 mb-4" />
+                        {/* UPDATED: "Micron executives" lower case e */}
                         <p className="mb-2 text-base md:text-lg text-white/90 leading-relaxed">
-                            Micron Executives, employees, and their guests live alongside, interact, and engage with the technology before the world does.
+                            Micron executives, employees, and their guests live alongside, interact, and engage with the technology before the world does.
                         </p>
                     </InnerBento>
                     <InnerBento title="3 ARCS CONVERGING" gradient="bg-micron-eggplant" icon={<Zap />} className="flex-1">
@@ -385,7 +386,8 @@ const getCardData = (id: number): ModalContent => {
         content: (
         <div className="flex flex-col gap-4 h-full">
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
-               <div className="w-full min-h-[300px] lg:min-h-[360px]">
+               {/* UPDATED: Changed from min-h-[500px] to aspect-[9/16] to fit full vertical video */}
+               <div className="w-full h-auto aspect-[9/16]">
                     <ModalVideo 
                         src={VIDEO_PLACE} 
                         className="w-full h-full shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200"

@@ -233,6 +233,12 @@ export const Hero: React.FC = () => {
       );
   }
 
+  // Quote words for animation
+  const quoteWords = [
+      "“A", "convergence", "of", "historic", "stewardship", "and", "autonomous", "future.", 
+      "The", "first", "corporate", "residence", "designed", "for", "the", "era", "of", "artificial", "intelligence.”"
+  ];
+
   return (
     <section 
         ref={containerRef}
@@ -333,25 +339,26 @@ export const Hero: React.FC = () => {
             <div className="p-8 md:p-10 flex flex-col justify-center md:w-1/2 z-10 relative">
                  <InteractiveParadigmTitle />
                 
-                {/* Address Block - Updated Colors */}
-                <motion.div 
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 1.5, duration: 1.0 }}
-                    className="flex gap-6 border-l-[4px] border-micron-eggplant pl-6 mt-6"
-                >
-                     <div className="flex flex-col justify-center">
-                        <p className="text-xs md:text-sm font-black uppercase tracking-widest mb-1 text-white opacity-90">
-                            Micron House
-                        </p>
-                        <p className="font-bold text-sm md:text-base uppercase tracking-wide leading-tight text-micron-eggplant">
-                            1020 East Warm Springs Ave
-                        </p>
-                        <p className="font-bold text-sm md:text-base uppercase tracking-wide leading-tight opacity-80 text-micron-eggplant">
-                            Boise, Idaho 83712
-                        </p>
-                     </div>
-                </motion.div>
+                {/* UPDATED: Removed Address Block and floating signature. Added animated cursive quote. */}
+                <div className="mt-8 border-l-4 border-micron-eggplant pl-6">
+                    <p className="flex flex-wrap gap-x-2 text-xl md:text-2xl text-white font-micron leading-relaxed">
+                        {quoteWords.map((word, i) => (
+                            <motion.span
+                                key={i}
+                                initial={{ opacity: 0, filter: 'blur(5px)' }}
+                                whileInView={{ opacity: 1, filter: 'blur(0px)' }}
+                                viewport={{ once: true }}
+                                transition={{ 
+                                    duration: 0.8, 
+                                    delay: 1.5 + (i * 0.1), // Stagger word by word
+                                    ease: "easeOut" 
+                                }}
+                            >
+                                {word}
+                            </motion.span>
+                        ))}
+                    </p>
+                </div>
             </div>
 
             {/* Map Side (Right) */}

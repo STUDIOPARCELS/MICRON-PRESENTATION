@@ -207,8 +207,8 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
         <motion.div 
             initial="hidden" animate="visible"
             variants={{ visible: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } } }}
-            // UPDATED: Body padding - Reduced top padding significantly
-            className="pl-8 pr-8 pt-0 pb-8 md:pl-12 md:pr-12 md:pt-0 md:pb-12 h-full"
+            // UPDATED: Removed bottom padding as requested (pb-0)
+            className="pl-8 pr-8 pt-0 pb-0 md:pl-12 md:pr-12 md:pt-0 md:pb-0 h-full"
         >
             {data.content}
         </motion.div>

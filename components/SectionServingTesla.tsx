@@ -3,36 +3,51 @@ import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
 import { ModalContent } from '../types';
-import { Scan, Cpu, MessageSquare, ShieldCheck, Users, Eye, Info, Activity } from 'lucide-react';
+import { Scan, Cpu, MessageSquare, ShieldCheck, Users, Eye, Info, Activity, Feather, FileSignature, Palette, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const teslaCards = [
   // CARD 1: REAL-WORLD INFERENCE
+  // Updated Color: Dark Gray (#353942) -> bg-micron-grey1
   { 
     id: 2, 
     title: "REAL-WORLD INFERENCE", 
     subtitle: "A Living Laboratory",
     content: "Where the people building the systems sit down with the people governing them. The conversations that happen here shape how this technology enters the world.",
     icon: null,
-    gradient: "bg-micron-black",
+    gradient: "bg-micron-grey1", 
     border: "border-white/10",
     subtitleColor: "text-micron-green", 
-    descriptionColor: "text-zinc-400 group-hover:text-white transition-colors duration-300",
+    descriptionColor: "text-zinc-300 group-hover:text-white transition-colors duration-300",
     titleHoverColor: "group-hover:text-micron-eggplant-light"
   },
   // CARD 2: THE TECTONIC SHIFT
+  // Updated Color: Mid Gray (#5d6270) -> bg-micron-grey2
   {
     id: 1,
     title: "A TECTONIC SHIFT", 
     subtitle: "Anthropology of the Future",
     content: "Moving beyond laws and sidewalks into the anthropology of the future. How humanity adapts to the 'Crisis of Shared Reality' in the age of ubiquitous robotics.",
     icon: null,
-    gradient: "bg-micron-grey1",
+    gradient: "bg-micron-grey2",
     border: "border-white/10",
     subtitleColor: "text-micron-eggplant-light", 
-    // UPDATED: Ensuring bright white on hover for readability
-    descriptionColor: "text-zinc-400 group-hover:text-white transition-colors duration-300",
-    titleHoverColor: "group-hover:text-zinc-300"
+    descriptionColor: "text-zinc-300 group-hover:text-white transition-colors duration-300",
+    titleHoverColor: "group-hover:text-zinc-100"
+  },
+  // CARD 3: GENESIS (NEW)
+  // Updated Color: Deep Aubergine (#2c0f38) -> bg-micron-eggplant
+  {
+    id: 3,
+    title: "GENESIS", 
+    subtitle: "Origin & Intent",
+    content: "The strategy, design, and stewardship behind the Micron House concept. Aligning a historic asset with the future Micron and Tesla are leading.",
+    icon: null,
+    gradient: "bg-micron-eggplant",
+    border: "border-white/10",
+    subtitleColor: "text-micron-eggplant-light", 
+    descriptionColor: "text-zinc-300 group-hover:text-white transition-colors duration-300",
+    titleHoverColor: "group-hover:text-micron-green"
   },
 ];
 
@@ -40,6 +55,148 @@ export const SectionServingTesla: React.FC = () => {
   const [modalData, setModalData] = useState<ModalContent | null>(null);
 
   const getModalContent = (id: number) => {
+    // CONTENT FOR "GENESIS" (ID 3)
+    if (id === 3) {
+        return (
+            <div className="flex flex-col gap-6">
+                 {/* INTRO */}
+                 <div className="border-l-4 border-micron-eggplant pl-6 py-1 mb-4">
+                    <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
+                        A proposal to partner a historic asset with the autonomous future.
+                    </p>
+                </div>
+
+                {/* THREE TILES GRID */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+                    
+                    {/* TILE 1: STEWARDSHIP & VISION */}
+                    <motion.div 
+                        variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
+                        className="bg-micron-grey1 text-white rounded-2xl p-6 shadow-xl flex flex-col h-full border border-white/10"
+                    >
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="p-2 bg-white/10 rounded-full">
+                                <User size={20} className="text-white" />
+                            </div>
+                            <h3 className="text-lg font-black uppercase tracking-tight text-white/90">STEWARDSHIP & VISION</h3>
+                        </div>
+                        
+                        <div className="mb-4">
+                            <h4 className="text-xl font-bold text-white mb-1">Lisa Wood</h4>
+                            <p className="text-xs uppercase tracking-widest text-micron-eggplant-light mb-1">Sun Valley since '92 | Warm Springs since 2000</p>
+                            <p className="text-xs text-white/60 italic">Three decades in tech. Retired 2023. Artist, athlete, researcher.</p>
+                        </div>
+
+                        <div className="h-px w-full bg-white/20 mb-4"></div>
+
+                        <div className="space-y-4 text-sm leading-relaxed text-white/80 font-medium flex-grow">
+                            <p>
+                                This Boise property has been a second home for 25 years — barely used. I love what Micron and Tesla are building. I also respect what it demands of us.
+                            </p>
+                            <p>
+                                After 25 years of light use, I recognized this property has a highest and best use that goes beyond a personal residence.
+                            </p>
+                            <p>
+                                I created the <span className="text-white font-bold">Micron House concept</span> — the strategy, the design, the branding — to propose a partnership. This project aligns a historic asset with the future Micron and Tesla are leading, offering a secure, innovative foothold for the autonomous era.
+                            </p>
+                        </div>
+                    </motion.div>
+
+                    {/* TILE 2: ICON CONCEPT & DESIGN */}
+                    <motion.div 
+                        variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
+                        className="bg-white text-zinc-900 rounded-2xl p-6 shadow-xl flex flex-col h-full border border-zinc-200"
+                    >
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="p-2 bg-zinc-100 rounded-full">
+                                <Palette size={20} className="text-zinc-900" />
+                            </div>
+                            <h3 className="text-lg font-black uppercase tracking-tight text-zinc-900">ICON CONCEPT & DESIGN</h3>
+                        </div>
+
+                        <p className="text-sm font-medium text-zinc-600 mb-6 leading-relaxed">
+                            I designed this emblem to represent the convergence at play in this house. A visual map of the autonomous home.
+                        </p>
+
+                        <div className="space-y-3 flex-grow">
+                             {/* Earth & Sky */}
+                             <div className="flex items-start gap-3">
+                                 <div className="w-4 h-4 rounded-full bg-gradient-to-br from-micron-green to-micron-eggplant-light shrink-0 mt-1 shadow-sm ring-1 ring-zinc-200"></div>
+                                 <div className="text-sm">
+                                     <span className="font-bold text-zinc-900 uppercase text-xs tracking-wider block mb-0.5">Earth & Sky (Green / Blue)</span>
+                                     <span className="text-zinc-500 leading-snug">The foundation. Geothermal energy, water, natural resources.</span>
+                                 </div>
+                             </div>
+
+                             {/* Memory */}
+                             <div className="flex items-start gap-3">
+                                 <div className="w-4 h-4 rounded-full bg-micron-eggplant shrink-0 mt-1 shadow-sm ring-1 ring-zinc-200"></div>
+                                 <div className="text-sm">
+                                     <span className="font-bold text-zinc-900 uppercase text-xs tracking-wider block mb-0.5">Memory (Eggplant)</span>
+                                     <span className="text-zinc-500 leading-snug">The intelligence. Micron. Silicon memory and processing power.</span>
+                                 </div>
+                             </div>
+
+                             {/* Velocity */}
+                             <div className="flex items-start gap-3">
+                                 <div className="w-4 h-4 rounded-full bg-micron-grey1 shrink-0 mt-1 shadow-sm ring-1 ring-zinc-200"></div>
+                                 <div className="text-sm">
+                                     <span className="font-bold text-zinc-900 uppercase text-xs tracking-wider block mb-0.5">Velocity (Dark Gray)</span>
+                                     <span className="text-zinc-500 leading-snug">The autonomy. Tesla. SpaceX. The service and security layer — Cybercab, Optimus.</span>
+                                 </div>
+                             </div>
+
+                             {/* Diamond */}
+                             <div className="flex items-start gap-3">
+                                 <div className="w-4 h-4 rotate-45 border-2 border-zinc-900 bg-white shrink-0 mt-1 shadow-sm"></div>
+                                 <div className="text-sm">
+                                     <span className="font-bold text-zinc-900 uppercase text-xs tracking-wider block mb-0.5">Diamond Center</span>
+                                     <span className="text-zinc-500 leading-snug">Convergence under pressure.</span>
+                                 </div>
+                             </div>
+                        </div>
+                        
+                        <div className="mt-4 pt-4 border-t border-zinc-100 text-xs text-zinc-400 italic">
+                            "As autonomous residences emerge, this emblem captures the foundational elements and where it all started."
+                        </div>
+                    </motion.div>
+
+                    {/* TILE 3: PROPOSAL */}
+                    <motion.div 
+                        variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
+                        className="bg-micron-eggplant text-white rounded-2xl p-6 shadow-xl flex flex-col h-full border border-white/10"
+                    >
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="p-2 bg-white/10 rounded-full">
+                                <FileSignature size={20} className="text-white" />
+                            </div>
+                            <h3 className="text-lg font-black uppercase tracking-tight text-white/90">PROPOSAL</h3>
+                        </div>
+
+                        <div className="flex-grow flex flex-col justify-center">
+                            <h4 className="text-2xl font-black uppercase tracking-tight text-micron-green mb-4">A Strategic Agreement</h4>
+                            
+                            <p className="text-base text-white/80 font-medium leading-relaxed mb-4">
+                                The objective of this presentation is to formalize a long-term agreement.
+                            </p>
+                            
+                            <p className="text-base text-white/80 font-medium leading-relaxed">
+                                Micron and Tesla stakeholders utilize this residence as a <span className="text-white font-bold border-b border-micron-eggplant-light/50">premier corporate amenity</span> and entertainment hub.
+                            </p>
+                            
+                            <div className="mt-6 bg-white/5 rounded-lg p-4 border border-white/10">
+                                <p className="text-sm text-micron-eggplant-light font-bold leading-relaxed">
+                                    "The security and service layers enabled by your technology turn a second home into a strategic asset."
+                                </p>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                </div>
+            </div>
+        )
+    }
+
     // CONTENT FOR "REAL-WORLD INFERENCE" (ID 2)
     if (id === 2) {
         return (
@@ -231,12 +388,13 @@ export const SectionServingTesla: React.FC = () => {
             </div>
         </motion.div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Cards - UPDATED to 3 columns grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {teslaCards.map((card, i) => (
                 <BentoCard
                     key={card.id}
-                    className={`flex flex-col min-h-[400px] p-8 relative overflow-hidden group shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] ${card.gradient} ${card.border} transition-colors duration-500`}
+                    // UPDATED: Adjusted Aspect Ratio to be Square-ish (aspect-square)
+                    className={`flex flex-col min-h-[400px] aspect-square p-8 relative overflow-hidden group shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] ${card.gradient} ${card.border} transition-colors duration-500`}
                     gradient={card.gradient}
                     textColor="text-white"
                     borderColor="border-white/10"
@@ -247,7 +405,8 @@ export const SectionServingTesla: React.FC = () => {
                         subtitle: card.subtitle,
                         category: 'showcase',
                         theme: 'light',
-                        maxWidth: 'max-w-7xl',
+                        // UPDATED: Increased max width for the Genesis modal
+                        maxWidth: card.id === 3 ? 'max-w-[1400px]' : 'max-w-7xl',
                         content: getModalContent(card.id)
                     })}
                 >
@@ -258,7 +417,8 @@ export const SectionServingTesla: React.FC = () => {
                                     {React.cloneElement(card.icon as React.ReactElement<any>, { size: 28 })}
                                 </div>
                             )}
-                            <h3 className={`text-3xl font-black uppercase tracking-tight mb-2 leading-none text-white drop-shadow-lg transition-colors duration-300 ${card.titleHoverColor}`}>
+                            {/* Title size adjusted for square layout */}
+                            <h3 className={`text-3xl font-black uppercase tracking-tight mb-2 leading-[0.9] text-white drop-shadow-lg transition-colors duration-300 ${card.titleHoverColor}`}>
                                 {card.title}
                             </h3>
                             <p className={`text-xs font-bold uppercase tracking-widest mb-6 ${card.subtitleColor}`}>
@@ -268,7 +428,7 @@ export const SectionServingTesla: React.FC = () => {
                         
                         <div className="mt-auto">
                             <div className="h-px w-full bg-white/20 mb-4" />
-                            <p className={`text-lg font-medium leading-relaxed ${card.descriptionColor}`}>
+                            <p className={`text-base font-medium leading-relaxed ${card.descriptionColor}`}>
                                 {card.content}
                             </p>
                         </div>

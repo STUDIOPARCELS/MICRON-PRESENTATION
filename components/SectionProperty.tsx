@@ -64,14 +64,14 @@ export const SectionProperty: React.FC = () => {
                         </p>
                     </div>
 
-                    {/* Three Cards - UPDATED: Square ratio, micro-interactions, spacing */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                    {/* Three Cards - UPDATED: Consistent height, lighter grey, square alignment */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-stretch">
                         {/* Card 1: Blue */}
                         <div className="
                             bg-micron-eggplant-light/90 text-white 
                             p-8 rounded-3xl shadow-lg 
                             flex flex-col gap-6 
-                            aspect-auto md:aspect-square justify-between
+                            h-full aspect-auto md:aspect-square justify-between
                             group hover:-translate-y-2 hover:shadow-2xl hover:bg-micron-eggplant-light transition-all duration-300
                             border border-white/10 hover:border-white/30
                         ">
@@ -89,13 +89,13 @@ export const SectionProperty: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Card 2: Gray/Dark */}
+                        {/* Card 2: Lighter Grey (Updated from grey1 to grey2) */}
                         <div className="
-                            bg-micron-grey1 text-white 
+                            bg-micron-grey2 text-white 
                             p-8 rounded-3xl shadow-lg 
                             flex flex-col gap-6 
-                            aspect-auto md:aspect-square justify-between
-                            group hover:-translate-y-2 hover:shadow-2xl hover:bg-zinc-700 transition-all duration-300
+                            h-full aspect-auto md:aspect-square justify-between
+                            group hover:-translate-y-2 hover:shadow-2xl hover:bg-zinc-500 transition-all duration-300
                             border border-white/10 hover:border-white/30
                         ">
                             <div>
@@ -112,12 +112,12 @@ export const SectionProperty: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Card 3: Green */}
+                        {/* Card 3: Green (Unchanged color) */}
                         <div className="
                             bg-micron-green text-white 
                             p-8 rounded-3xl shadow-lg 
                             flex flex-col gap-6 
-                            aspect-auto md:aspect-square justify-between
+                            h-full aspect-auto md:aspect-square justify-between
                             group hover:-translate-y-2 hover:shadow-2xl hover:bg-green-700 transition-all duration-300
                             border border-white/10 hover:border-white/30
                         ">
@@ -198,14 +198,15 @@ export const SectionProperty: React.FC = () => {
             content: (
                 <div className="flex flex-col gap-8">
                     <div className="border-l-4 border-micron-black pl-6 py-1">
-                        <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
-                            Autonomous service via Cybercab, Optimus, and Starlink. A functional proving ground where abstract technology becomes a seamless, daily reality.
+                        {/* UPDATED: Text content updated, font size reduced to text-base md:text-lg */}
+                        <p className="text-base md:text-lg font-light text-zinc-600 leading-relaxed font-body">
+                            Service and security via Cybercab, Optimus, and Starlink. A functional proving ground where abstract technology becomes a seamless, daily reality.
                         </p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* CYBERCAB CARD */}
-                        <div className="bg-micron-black text-white rounded-2xl p-8 shadow-xl flex flex-col">
+                        {/* CYBERCAB CARD - Taller Min-Height */}
+                        <div className="bg-micron-black text-white rounded-2xl p-8 shadow-xl flex flex-col min-h-[520px]">
                             <div className="flex items-center gap-3 mb-6">
                                 <Car size={24} className="text-white" />
                                 <h3 className="text-3xl font-black uppercase tracking-tight text-white/90">CYBERCAB</h3>
@@ -214,7 +215,8 @@ export const SectionProperty: React.FC = () => {
                             <p className="text-white/70 text-base mb-8 leading-relaxed">
                                 Tesla's first fully autonomous vehicle — a two-passenger cabin with butterfly doors, inductive charging, and a 20.5-inch display. Cybercab manages all airport transfers, downtown shuttles, and guest logistics autonomously.
                             </p>
-                            <div className="mt-auto rounded-xl overflow-hidden h-64 w-full relative">
+                            {/* UPDATED: Taller Image Container (h-80) */}
+                            <div className="mt-auto rounded-xl overflow-hidden h-80 w-full relative">
                                 <img 
                                     src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/cybercab%20photo.JPG" 
                                     alt="Tesla Cybercab" 
@@ -223,8 +225,8 @@ export const SectionProperty: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* OPTIMUS CARD */}
-                        <div className="bg-micron-eggplant-light text-white rounded-2xl p-8 shadow-xl flex flex-col">
+                        {/* OPTIMUS CARD - Taller Min-Height */}
+                        <div className="bg-micron-eggplant-light text-white rounded-2xl p-8 shadow-xl flex flex-col min-h-[520px]">
                             <div className="flex items-center gap-3 mb-6">
                                 <Bot size={24} className="text-white" />
                                 <h3 className="text-3xl font-black uppercase tracking-tight text-white/90">OPTIMUS</h3>
@@ -233,7 +235,8 @@ export const SectionProperty: React.FC = () => {
                             <p className="text-white/70 text-base mb-8 leading-relaxed">
                                 Tesla's Gen 3 humanoid — 5'8", 125 lbs, with 22 degrees of freedom in each hand and vision-based autonomy. Optimus manages property maintenance, perimeter monitoring, and routine service tasks within defined geofenced zones across the residence.
                             </p>
-                            <div className="mt-auto rounded-xl overflow-hidden h-64 w-full relative">
+                            {/* UPDATED: Taller Image Container (h-80) */}
+                            <div className="mt-auto rounded-xl overflow-hidden h-80 w-full relative">
                                 <img 
                                     src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/tesla-optimus-gen-3-delay.png" 
                                     alt="Tesla Optimus Robot" 
