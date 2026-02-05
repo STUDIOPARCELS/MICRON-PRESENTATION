@@ -9,7 +9,8 @@ const sentences = [
         words: ["WITHOUT", "MEMORY,", "THERE'S", "NO", "MEANING."],
         color: "text-zinc-400",
         highlightColor: "text-micron-eggplant",
-        hoverColor: "hover:text-micron-eggplant/80", 
+        // UPDATED: More transparent/lighter eggplant as requested
+        hoverColor: "hover:text-micron-eggplant/60", 
         highlights: ["MEMORY,", "MEANING."],
         textSize: "text-6xl sm:text-7xl md:text-7xl lg:text-8xl",
         layout: "default"
@@ -300,7 +301,7 @@ export const Hero: React.FC = () => {
                     loop 
                     muted 
                     playsInline 
-                    className="absolute inset-0 w-full h-full object-cover opacity-80"
+                    className="absolute inset-0 w-full h-full object-cover opacity-100"
                 >
                      <source src="https://assets.mixkit.co/videos/preview/mixkit-rotating-earth-from-space-1616-large.mp4" type="video/mp4" />
                 </video>

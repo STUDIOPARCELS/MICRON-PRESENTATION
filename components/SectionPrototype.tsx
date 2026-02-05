@@ -111,17 +111,22 @@ const getCardData = (id: number): ModalContent => {
         maxWidth: 'max-w-7xl', 
         content: (
             <div className="flex flex-col gap-6 h-auto">
-                {/* Intro Section - Text Removed per request, Header remains as section anchor */}
+                {/* Intro Section - RESTORED */}
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
                     className="shrink-0 p-1 md:p-2 flex flex-col items-start w-full border-none shadow-none bg-transparent"
                 >
-                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-1 font-sans">
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">
                         AUTONOMOUS HUB
                     </h3>
-                    <div className="w-full h-px bg-zinc-200" /> {/* Divider Line */}
+                    <div className="w-full h-px bg-zinc-200 mb-4" /> {/* Divider Line */}
+                    <div className="text-zinc-900 text-lg font-medium leading-relaxed">
+                        <p>
+                            A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
+                        </p>
+                    </div>
                 </motion.div>
 
                 {/* Main Content Grid: Video Left, Stack Right */}
@@ -142,7 +147,7 @@ const getCardData = (id: number): ModalContent => {
                     
                     {/* Column 2: Stacked Bentos (Takes 1 col) */}
                     <div className="lg:col-span-1 flex flex-col gap-4 h-full">
-                        {/* Box 1: Integration - Updated Content moved from Autonomous Hub */}
+                        {/* Box 1: Integration - RESTORED ORIGINAL TEXT */}
                         <InnerBento 
                             gradient="bg-micron-eggplant" 
                             direction="left" 
@@ -152,23 +157,26 @@ const getCardData = (id: number): ModalContent => {
                             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">INTEGRATION</h3>
                             <div className="w-full h-px bg-white/20 mb-4" />
                             <div className="space-y-4 text-white/90 text-base font-medium leading-relaxed">
-                                <p>
-                                    A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
-                                </p>
+                                <p className="font-bold text-white text-base">A Venue for Leadership.</p>
+                                <p>A residential venue for the leaders and policy makers building and governing the future.</p>
+                                <p>Guests meet to experience the shift to autonomous systems directly.</p>
                             </div>
                         </InnerBento>
-                    </div>
-                </div>
 
-                {/* Bottom Section: Inflection Point (Moved from Stack) */}
-                <div className="bg-micron-grey1 rounded-xl p-6 text-white border border-white/10 shadow-md">
-                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">INFLECTION POINT</h3>
-                    <div className="w-full h-px bg-white/20 mb-4" />
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-                         <div className="md:col-span-12 flex flex-col gap-3 text-base font-medium text-white/90 leading-relaxed">
-                            <p className="font-bold text-white text-lg">Scaling to Billions.</p>
-                            <p>Daily life transforms permanently. This setting invites the architects of tomorrow to navigate the profound questions involved in bringing this future to the world.</p>
-                         </div>
+                        {/* Box 2: Inflection Point - RESTORED TO STACK */}
+                        <InnerBento 
+                            gradient="bg-micron-grey1" 
+                            direction="left" 
+                            delay={0.4} 
+                            className="flex-grow" 
+                        >
+                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">INFLECTION POINT</h3>
+                            <div className="w-full h-px bg-white/20 mb-4" />
+                            <div className="space-y-4 text-white/90 text-base font-medium leading-relaxed">
+                                <p className="font-bold text-white text-base">Scaling to Billions.</p>
+                                <p>Daily life transforms permanently. This setting invites the architects of tomorrow to navigate the profound questions involved in bringing this future to the world.</p>
+                            </div>
+                        </InnerBento>
                     </div>
                 </div>
             </div>
@@ -323,12 +331,7 @@ const getCardData = (id: number): ModalContent => {
                 <div className="w-full aspect-video rounded-xl overflow-hidden relative shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)]">
                     <video src={VIDEO_PLACE} className="absolute inset-0 w-full h-full object-cover" autoPlay muted loop playsInline />
                     
-                    {/* Added Overlay Text for Place Video */}
-                    <div className="absolute bottom-6 left-6 z-10 pointer-events-none max-w-[80%]">
-                         <h3 className="text-lg md:text-xl font-black text-white drop-shadow-lg leading-tight">
-                            The oldest residential energy system in the country meeting the newest.
-                         </h3>
-                    </div>
+                    {/* REMOVED Overlay Text for Place Video */}
                 </div>
            </div>
            
@@ -413,7 +416,7 @@ export const SectionPrototype: React.FC = () => {
                                 transition={{ duration: 0.8, delay: (mainTitleWords.length * 0.2) + 0.2 }}
                                 className="text-micron-eggplant block text-base"
                         >
-                            Creating the first autonomous corporate residence. Where Micron's semiconductor revolution, Tesla's autonomous ecosystem, and Boise's emergence as a global tech hub converge at an inflection point to deliver the first tangible glimpse of the autonomous era.
+                            Creating the first autonomous corporate residence. Where Micron's semiconductor revolution, Tesla's autonomous ecosystem, and Boise's emergence as a global tech hub <strong className="font-bold">converge at an inflection point to deliver the first tangible glimpse of the autonomous era</strong>.
                         </motion.span>
                     </div>
                 </div>
