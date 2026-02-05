@@ -82,7 +82,8 @@ const InteractiveParadigmTitle: React.FC = () => {
                         whileInView={{ 
                             y: 0, 
                             opacity: 1, 
-                            color: '#008f25' // Settles on Green
+                            // UPDATED: Settles on WHITE
+                            color: '#ffffff' 
                         }}
                         whileHover={{
                             scale: 1.05,
@@ -135,8 +136,8 @@ export const Hero: React.FC = () => {
     if (currentSentenceIndex === null) return;
     if (currentSentenceIndex >= sentences.length - 1) return;
 
-    // Increased duration to accommodate slower word animation
-    const cycleDuration = 9000; 
+    // UPDATED: Reduced cycle duration for faster speed (9000 -> 4500)
+    const cycleDuration = 4500; 
 
     const timer = setTimeout(() => {
         setCurrentSentenceIndex((prev) => {
@@ -156,8 +157,8 @@ export const Hero: React.FC = () => {
   useEffect(() => {
       if (currentSentenceIndex === 2) {
           // Trigger ONLY after the last word "PERSPECTIVE" is done.
-          // Stagger 0.4 * 4 words = 1.6s offset + 1.5s duration ~ 3.1s finish.
-          const totalDelay = 3.2; 
+          // Stagger 0.15 * 4 words = 0.6s offset + 0.8s duration ~ 1.4s finish.
+          const totalDelay = 1.5; 
 
           iconControls.start({
               x: 0,
@@ -216,13 +217,13 @@ export const Hero: React.FC = () => {
                    visible: { 
                        y: 0, 
                        opacity: 1, 
-                       // Slowed down duration (0.8 -> 1.5)
-                       transition: { duration: 1.5, ease: "easeOut" } 
+                       // UPDATED: Faster duration (1.5 -> 0.8) for snappier reveal
+                       transition: { duration: 0.8, ease: "easeOut" } 
                    },
                    exit: {
                        y: -30,
                        opacity: 0,
-                       transition: { duration: 0.5, ease: "easeIn" }
+                       transition: { duration: 0.3, ease: "easeIn" }
                    }
                }}
                className={`${currentSet.textSize} ${layoutClass} font-black uppercase tracking-tighter leading-[0.9] cursor-default transition-colors duration-300 ${colorClass} ${hoverClass}`}
@@ -277,8 +278,8 @@ export const Hero: React.FC = () => {
                                   hidden: { opacity: 1 },
                                   visible: { 
                                       opacity: 1,
-                                      // Much slower stagger for "One Word by One Word" effect (0.1 -> 0.4)
-                                      transition: { staggerChildren: 0.4 } 
+                                      // UPDATED: Much faster stagger (0.4 -> 0.15) for faster sentence flow
+                                      transition: { staggerChildren: 0.15 } 
                                   },
                                   exit: { 
                                       opacity: 1, 

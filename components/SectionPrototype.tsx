@@ -589,7 +589,7 @@ export const SectionPrototype: React.FC = () => {
                         PLACE
                     </h3>
                     <p className="text-xs font-bold uppercase tracking-widest text-white/50 group-hover:text-white transition-colors">
-                        Place & Perspective
+                        GROUNDING THE TECHNOLOGY
                     </p>
                 </div>
             </BentoCard>

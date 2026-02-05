@@ -12,33 +12,27 @@ const teslaCards = [
     id: 2, 
     title: "REAL-WORLD INFERENCE", 
     subtitle: "A Living Laboratory",
-    // UPDATED TEXT: New conversational description
     content: "Where the people building the systems sit down with the people governing them. The conversations that happen here shape how this technology enters the world.",
-    // Removed icon
     icon: null,
     gradient: "bg-micron-black",
-    // REMOVED: hoverClass for background change
     border: "border-white/10",
     subtitleColor: "text-micron-green", 
     descriptionColor: "text-zinc-400 group-hover:text-white transition-colors duration-300",
-    // ADDED: Title hover color
     titleHoverColor: "group-hover:text-micron-eggplant-light"
   },
   // CARD 2: THE TECTONIC SHIFT
   {
     id: 1,
-    title: "A TECTONIC SHIFT", // Changed from THE to A
+    title: "A TECTONIC SHIFT", 
     subtitle: "Anthropology of the Future",
     content: "Moving beyond laws and sidewalks into the anthropology of the future. How humanity adapts to the 'Crisis of Shared Reality' in the age of ubiquitous robotics.",
-    // Removed icon
     icon: null,
     gradient: "bg-micron-grey1",
-    // REMOVED: hoverClass for background change
     border: "border-white/10",
     subtitleColor: "text-micron-eggplant-light", 
-    descriptionColor: "text-zinc-300 group-hover:text-zinc-800 transition-colors duration-300",
-    // ADDED: Title hover color
-    titleHoverColor: "group-hover:text-zinc-400"
+    // UPDATED: Ensuring bright white on hover for readability
+    descriptionColor: "text-zinc-400 group-hover:text-white transition-colors duration-300",
+    titleHoverColor: "group-hover:text-zinc-300"
   },
 ];
 

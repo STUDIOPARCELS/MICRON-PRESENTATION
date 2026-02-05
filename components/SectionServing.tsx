@@ -302,7 +302,7 @@ export const SectionServing: React.FC = () => {
 
                                         <div className="h-px w-full bg-white/20 my-1"></div>
                                         
-                                        <div className="text-white/95 text-base md:text-lg leading-relaxed font-medium drop-shadow-sm">
+                                        <div className="text-white/70 text-base md:text-lg leading-relaxed font-medium drop-shadow-sm group-hover:text-white transition-colors duration-300">
                                             {exp.description}
                                         </div>
                                     </div>
