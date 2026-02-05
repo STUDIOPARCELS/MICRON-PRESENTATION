@@ -38,14 +38,14 @@ const InnerBento = ({ title, children, gradient, icon, className = "", delay = 0
 
             <div className="relative z-10 h-full flex flex-col gap-3">
                 {(title || icon) && (
-                    <div className="mb-1">
+                    <div className="mb-1 shrink-0">
                         <h3 className={`text-sm md:text-base font-black uppercase tracking-tight flex items-center gap-2 drop-shadow-md leading-none ${textColor === 'text-white' ? 'text-white/70' : ''}`}>
                             {icon && React.cloneElement(icon, { size: 18, strokeWidth: 2 })}
                             {title}
                         </h3>
                     </div>
                 )}
-                <div className={`leading-relaxed font-body font-normal ${textColor === 'text-zinc-900' ? 'text-zinc-600' : 'text-white/80'}`}>
+                <div className={`leading-relaxed font-body font-normal flex-1 ${textColor === 'text-zinc-900' ? 'text-zinc-600' : 'text-white/80'}`}>
                     {children}
                 </div>
             </div>
@@ -111,7 +111,6 @@ const getCardData = (id: number): ModalContent => {
         maxWidth: 'max-w-7xl', 
         content: (
             <div className="flex flex-col gap-6 h-auto">
-                {/* Intro Section - RESTORED */}
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -121,7 +120,7 @@ const getCardData = (id: number): ModalContent => {
                     <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">
                         AUTONOMOUS HUB
                     </h3>
-                    <div className="w-full h-px bg-zinc-200 mb-4" /> {/* Divider Line */}
+                    <div className="w-full h-px bg-zinc-200 mb-4" /> 
                     <div className="text-zinc-900 text-lg font-medium leading-relaxed">
                         <p>
                             A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
@@ -129,9 +128,7 @@ const getCardData = (id: number): ModalContent => {
                     </div>
                 </motion.div>
 
-                {/* Main Content Grid: Video Left, Stack Right */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Column 1: Video (Takes 2 cols) - ASPECT 1.5/1.1 */}
                     <div className="lg:col-span-2 w-full h-full">
                          <div className="w-full aspect-[1.5/1.1] bg-black rounded-xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative border border-zinc-200 group">
                               <video 
@@ -145,9 +142,7 @@ const getCardData = (id: number): ModalContent => {
                          </div>
                     </div>
                     
-                    {/* Column 2: Stacked Bentos (Takes 1 col) */}
                     <div className="lg:col-span-1 flex flex-col gap-4 h-full">
-                        {/* Box 1: Integration - RESTORED ORIGINAL TEXT */}
                         <InnerBento 
                             gradient="bg-micron-eggplant" 
                             direction="left" 
@@ -163,7 +158,6 @@ const getCardData = (id: number): ModalContent => {
                             </div>
                         </InnerBento>
 
-                        {/* Box 2: Inflection Point - RESTORED TO STACK */}
                         <InnerBento 
                             gradient="bg-micron-grey1" 
                             direction="left" 
@@ -188,39 +182,46 @@ const getCardData = (id: number): ModalContent => {
         subtitle: "BOISE'S MOMENT",
         maxWidth: 'max-w-7xl',
         content: (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-auto">
-               <div className="w-full">
+            // GRID ADJUSTED: 5 Columns to give video more horizontal space (3 cols vs 2 cols)
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 h-full">
+               <div className="w-full h-full min-h-[300px] lg:min-h-0 lg:col-span-3">
                     <motion.div 
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         transition={{ duration: 0.8 }}
-                        className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative border border-zinc-200"
+                        // Ensure it fills height without aspect ratio constraint to avoid gaps
+                        className="w-full h-full bg-black rounded-xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative border border-zinc-200"
                     >
                          <video 
                             src={VIDEO_TIMING} 
                             className="w-full h-full object-cover" 
                             autoPlay muted loop playsInline 
                         />
-                        {/* Play Button Removed */}
-                        <div className="absolute bottom-6 left-6 z-10 pointer-events-none">
-                             <h3 className="text-2xl font-black uppercase text-white drop-shadow-md">The Window of Opportunity</h3>
-                        </div>
                     </motion.div>
                </div>
                
-               <div className="flex flex-col gap-4 h-full">
-                    {/* Updated Content Matches Screenshot */}
-                    <InnerBento title="BOISE'S MOMENT" gradient="bg-micron-eggplant-light" icon={<TrendingUp />} className="h-auto">
-                        <p className="mb-2 text-sm">Boise has arrived. A city once known primarily for potatoes now supports a James Beard-nominated culinary scene, world-class wineries, and a thriving arts scene.</p>
-                        <p className="text-sm">The Boise River Greenbelt connects 25 miles of parkland. Bogus Basin is 45 minutes away.</p>
+               <div className="flex flex-col gap-4 h-full justify-between lg:col-span-2">
+                    <InnerBento title="BOISE'S MOMENT" gradient="bg-micron-eggplant-light" icon={<TrendingUp />} className="flex-1">
+                        <div className="w-full h-px bg-white/20 mb-4" />
+                        <div className="space-y-4 text-base md:text-lg text-white/90 leading-relaxed">
+                            <p>
+                                Boise has arrived. A city once known primarily for potatoes and public land now supports a James Beard-nominated culinary scene, world-class wineries across the Snake River Valley.
+                            </p>
+                        </div>
                     </InnerBento>
-                    <InnerBento title="RUNWAY" gradient="bg-micron-green" icon={<Activity />} className="h-auto">
-                        <p className="mb-2 text-sm">There are no Optimus robots operating in private residences today. The window to build, test, and refine exists right now.</p>
-                        <p className="font-bold text-white text-sm">This is a unique moment where a prototype can still define the standard.</p>
+                    <InnerBento title="RUNWAY" gradient="bg-micron-green" icon={<Activity />} className="flex-1">
+                        <div className="w-full h-px bg-white/20 mb-4" />
+                        <p className="mb-2 text-base md:text-lg text-white/90 leading-relaxed">
+                            There are no Optimus robots operating in private residences today. The window to build, test, and refine exists right now.
+                        </p>
                     </InnerBento>
-                    <InnerBento title="3 ARCS CONVERGING" gradient="bg-micron-eggplant" icon={<Zap />} className="h-auto">
-                         <p className="text-white/90 text-sm mb-3">A city reaching cultural maturity. A semiconductor company deploying historic investment. A robotics company entering the home.</p>
-                         <p className="text-white/80 text-sm border-l border-white/20 pl-4">These trajectories converge on the same street where geothermal water first heated homes in 1892.</p>
+                    <InnerBento title="3 ARCS CONVERGING" gradient="bg-micron-eggplant" icon={<Zap />} className="flex-1">
+                         <div className="w-full h-px bg-white/20 mb-4" />
+                         <div className="space-y-4 text-white/90 text-base md:text-lg mb-3 leading-relaxed">
+                            <p>
+                                A city reaching cultural maturity. A semiconductor company deploying historic investment. A robotics company placing autonomous systems.
+                            </p>
+                         </div>
                     </InnerBento>
                </div>
             </div>
@@ -233,13 +234,10 @@ const getCardData = (id: number): ModalContent => {
         maxWidth: 'max-w-7xl',
         content: (
             <div className="flex flex-col gap-6 h-auto">
-               {/* TOP SECTION: Video & Cards Side-by-Side to eliminate whitespace */}
-               {/* Updated Grid: 7/5 Split to give text cards more width relative to video */}
-               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full items-stretch">
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full items-stretch">
                    
-                   {/* LEFT: Video - Aspect Video (16:9) */}
-                   <div className="lg:col-span-7 w-full h-full">
-                        <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative border border-zinc-200 group h-full">
+                   <div className="w-full h-full min-h-[300px] lg:min-h-0">
+                        <div className="w-full h-full bg-black rounded-xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative border border-zinc-200 group">
                              <video 
                                 src={VIDEO_COLLAB} 
                                 className="w-full h-full object-cover" 
@@ -248,52 +246,49 @@ const getCardData = (id: number): ModalContent => {
                         </div>
                    </div>
 
-                   {/* RIGHT: Stacked Cards - Slightly wider now (5 columns) */}
-                   <div className="lg:col-span-5 flex flex-col gap-4 h-full">
-                        {/* MICRON CARD */}
-                        <div className="bg-micron-eggplant rounded-xl p-5 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1">
+                   <div className="flex flex-col gap-4 h-full">
+                        <div className="bg-micron-eggplant rounded-xl p-6 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
                             <div className="absolute top-4 right-4 opacity-30"><Cpu size={24} /></div>
                             <div>
                                 <h3 className="text-2xl font-black uppercase mb-1">MICRON</h3>
-                                <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-3">Sanjay Mehrotra, CEO</p>
+                                <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-4">Sanjay Mehrotra, CEO</p>
                                 <div className="mb-2 pl-3 border-l-2 border-white/30">
-                                    {/* FONT SIZE INCREASED to text-base */}
-                                    <p className="text-sm md:text-base font-bold italic text-white/90">"Transform how the world uses information to enrich life for all."</p>
+                                    <p className="text-base md:text-lg font-bold italic text-white/90 leading-relaxed">"Transform how the world uses information to enrich life for all."</p>
                                 </div>
                             </div>
-                            <div className="text-white/70 font-medium">
-                                {/* Updated Text: Removed ", Boise" */}
-                                <p className="text-base font-black text-white">Founded 1978.</p>
+                            <div className="text-white/70 font-medium mt-4">
+                                {/* UPDATED: Removed bold, set to font-medium */}
+                                <p className="text-base font-medium text-white">Founded 1978.</p>
                             </div>
                         </div>
 
-                        {/* TESLA CARD */}
-                        <div className="bg-black rounded-xl p-5 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1">
+                        <div className="bg-black rounded-xl p-6 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
                             <div className="absolute top-4 right-4 opacity-30"><Bot size={24} /></div>
                             <div>
                                 <h3 className="text-2xl font-black uppercase mb-1">TESLA</h3>
-                                <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-3">Elon Musk, CEO</p>
+                                <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-4">Elon Musk, CEO</p>
                                 <div className="mb-2 pl-3 border-l-2 border-white/30">
-                                    {/* FONT SIZE INCREASED to text-base */}
-                                    <p className="text-sm md:text-base font-bold italic text-white/90">"Accelerate the world's transition to sustainable energy."</p>
+                                    <p className="text-base md:text-lg font-bold italic text-white/90 leading-relaxed">
+                                        "Accelerate the world's transition to sustainable energy. Build a world of amazing abundance."
+                                    </p>
                                 </div>
                             </div>
-                            {/* Updated Text: Removed "Founded 2003." */}
-                            <div className="text-white/70 font-medium min-h-[1.5em]">
-                                
+                            <div className="text-white/70 font-medium mt-4">
+                                {/* UPDATED: Removed bold, set to font-medium */}
+                                <p className="text-base font-medium text-white">Founded 2003.</p>
                             </div>
                         </div>
                    </div>
                </div>
                
-               {/* BOTTOM SECTION: Future Scale (Full Width) */}
-               <div className="bg-zinc-100 rounded-xl p-6 text-zinc-900 border border-zinc-200 shadow-md">
-                    <div className="flex items-center gap-3 mb-4">
-                        <TrendingUp className="text-zinc-400" size={20} />
-                        <h3 className="text-xl font-black uppercase tracking-tight">FUTURE SCALE</h3>
+               <div className="bg-zinc-100 rounded-xl p-6 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300">
+                    {/* UPDATED: FUTURE SCALE - Eggplant color, Larger Font, Bottom Border */}
+                    <div className="flex items-center gap-3 mb-4 pb-4 border-b border-zinc-200">
+                        <TrendingUp className="text-micron-eggplant" size={24} />
+                        <h3 className="text-3xl font-black uppercase tracking-tight text-micron-eggplant">FUTURE SCALE</h3>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-                        <div className="md:col-span-4 flex flex-col gap-4 border-b md:border-b-0 md:border-r border-zinc-300 pb-4 md:pb-0 justify-center">
+                        <div className="md:col-span-4 flex flex-col gap-4 border-b md:border-b-0 md:border-r border-zinc-200 pb-4 md:pb-0 justify-center">
                             <div>
                                 <h4 className="text-4xl font-black text-micron-eggplant tracking-tighter">$200B</h4>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Micron Investment</p>
@@ -307,7 +302,6 @@ const getCardData = (id: number): ModalContent => {
                             <p>
                                 In June 2025, Micron announced <strong className="text-zinc-900">$200 billion</strong> in U.S. semiconductor manufacturing — the largest memory infrastructure commitment in American history.
                             </p>
-                            {/* Updated Text: Removed "beyond that" */}
                             <p>
                                 Tesla is targeting <strong className="text-zinc-900">50,000 Optimus units by this year and million-unit annual capacity</strong>. Every unit is a mobile supercomputer requiring Micron silicon.
                             </p>
@@ -326,37 +320,69 @@ const getCardData = (id: number): ModalContent => {
         subtitle: 'GROUNDING THE TECHNOLOGY', 
         maxWidth: 'max-w-7xl',
         content: (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-auto">
-           <div className="w-full">
-                <div className="w-full aspect-video rounded-xl overflow-hidden relative shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)]">
-                    <video src={VIDEO_PLACE} className="absolute inset-0 w-full h-full object-cover" autoPlay muted loop playsInline />
-                    
-                    {/* REMOVED Overlay Text for Place Video */}
-                </div>
+        <div className="flex flex-col gap-4 h-full">
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
+               <div className="w-full min-h-[300px] lg:min-h-[360px]">
+                    <div className="w-full h-full bg-black rounded-xl overflow-hidden relative shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200">
+                        <video src={VIDEO_PLACE} className="absolute inset-0 w-full h-full object-cover" autoPlay muted loop playsInline />
+                    </div>
+               </div>
+               
+               {/* SWAPPED: Was ENERGY, Now ENERGY (This block stays Energy on top right in prompt, 
+                  BUT prompt says swap Green (Address) and Gray (Confluence) at bottom.
+                  Wait, Energy is currently Top Right. Address is Bottom Left. Confluence is Bottom Right.
+                  User arrow points Address -> Confluence. And Confluence -> Address?
+                  "Swap the green tile with the gray tile"
+                  Green = Address. Gray = Confluence.
+                  So Address goes to Bottom Right. Confluence goes to Bottom Left.
+               */}
+               <InnerBento 
+                    gradient="bg-micron-eggplant-light" 
+                    className="h-full flex flex-col"
+                    delay={0.2}
+               >
+                   <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/90 mb-3 font-sans flex items-center gap-2">
+                        <Activity size={18} strokeWidth={2.5} /> ENERGY
+                   </h3>
+                   <div className="w-full h-px bg-white/30 mb-4" />
+                   <div className="text-white text-base md:text-lg font-medium leading-relaxed">
+                       <p>In 1892, C.W. Moore piped 177°F geothermal water into his mansion — the <span className="font-bold text-white drop-shadow-sm">first home in America heated by natural hot water</span>. The idea spread down the avenue, then downtown, and by 1982 to the State Capitol.</p>
+                       <p className="mt-3">Today, the same system delivers to roughly 300 homes — operational for over 130 years, the water temperature unchanged within one degree.</p>
+                   </div>
+               </InnerBento>
            </div>
            
-           <div className="flex flex-col gap-4 h-full">
-               <div className="flex-1">
-                   <InnerBento title="ADDRESS" gradient="bg-micron-green" icon={<Globe />} direction="left" delay={0.2} className="h-full">
-                       <p className="text-sm md:text-base font-medium leading-relaxed">
-                           Warm Springs Avenue is a tree-lined corridor on the <span className="font-bold text-white">National Register of Historic Places</span> — where Boise's wealthiest families built estates heated by the city's most radical technology: hot water from the ground.
-                       </p>
-                   </InnerBento>
-               </div>
-               <div className="flex-1">
-                   <InnerBento title="ENERGY" gradient="bg-micron-eggplant-light" icon={<Activity />} direction="right" delay={0.3} className="h-full">
-                       <p className="text-sm leading-relaxed">
-                           In 1892, C.W. Moore piped 177°F geothermal water into his mansion — the <span className="font-bold text-white">first home in America heated by natural hot water</span>. The idea spread down the avenue, then downtown, and by 1982 to the State Capitol — now the only capitol building in the country on geothermal. Today, the same system delivers to roughly 300 homes — operational for over 130 years, the water temperature unchanged within one degree.
-                       </p>
-                   </InnerBento>
-               </div>
-               <div className="flex-1">
-                   <InnerBento title="CONFLUENCE" gradient="bg-micron-grey1" icon={<Zap />} direction="up" delay={0.4} className="h-full">
-                       <p className="text-sm leading-relaxed">
-                           Heat from an aquifer tapped in 1892. Data from a satellite constellation powered by solar energy in space. Hot water rising from below. Signal arriving from above. <span className="font-bold text-white">The oldest residential energy system in the country meeting the newest</span> — on a street that has been absorbing the future for 130 years.
-                       </p>
-                   </InnerBento>
-               </div>
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
+               {/* SWAPPED: Was ADDRESS (Green). Now CONFLUENCE (Gray). */}
+               <InnerBento 
+                    gradient="bg-micron-grey1" 
+                    className="h-full flex flex-col"
+                    delay={0.3}
+               >
+                   <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans flex items-center gap-2">
+                        <Zap size={18} strokeWidth={2.5} /> CONFLUENCE
+                   </h3>
+                   <div className="w-full h-px bg-white/20 mb-4" />
+                   <div className="text-white/90 text-base md:text-lg font-medium leading-relaxed">
+                       <p>Heat from an aquifer tapped in 1892. Data from a satellite constellation powered by solar energy in space. Hot water rising from below. Signal arriving from above.</p>
+                       <p className="mt-3"><span className="font-bold text-white">The oldest residential energy system in the country meeting the newest</span> — on a street that has been absorbing the future for 130 years.</p>
+                   </div>
+               </InnerBento>
+
+               {/* SWAPPED: Was CONFLUENCE (Gray). Now ADDRESS (Green). */}
+               <InnerBento 
+                    gradient="bg-micron-green" 
+                    className="h-full flex flex-col"
+                    delay={0.4}
+               >
+                   <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/90 mb-3 font-sans flex items-center gap-2">
+                        <Globe size={18} strokeWidth={2.5} /> ADDRESS
+                   </h3>
+                   <div className="w-full h-px bg-white/30 mb-5" />
+                   <div className="text-white text-base md:text-lg font-medium leading-relaxed">
+                       <p>Warm Springs Avenue is a tree-lined corridor on the <span className="font-bold text-white drop-shadow-sm">National Register of Historic Places</span> — where Boise's wealthiest families built estates heated by the city's most radical technology: hot water from the ground.</p>
+                   </div>
+               </InnerBento>
            </div>
         </div>
     )};

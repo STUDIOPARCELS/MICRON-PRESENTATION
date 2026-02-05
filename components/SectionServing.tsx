@@ -349,7 +349,7 @@ export const SectionServing: React.FC = () => {
             {departments.map((dept, i) => (
               <BentoCard 
                 key={dept.id} 
-                className="flex flex-col justify-between min-h-[160px] md:min-h-[180px] !p-6 relative overflow-hidden group shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)]" 
+                className="flex flex-col justify-between min-h-[100px] md:min-h-[120px] !py-5 !pl-8 !pr-5 relative overflow-hidden group shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)]" 
                 gradient={dept.gradient}
                 textColor="text-white"
                 borderColor="border-white/10"

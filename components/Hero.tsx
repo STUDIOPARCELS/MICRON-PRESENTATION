@@ -12,7 +12,8 @@ const sentences = [
         // UPDATED: More transparent/lighter eggplant as requested
         hoverColor: "hover:text-micron-eggplant/60", 
         highlights: ["MEMORY,", "MEANING."],
-        textSize: "text-6xl sm:text-7xl md:text-7xl lg:text-8xl",
+        // UPDATED: Reduced mobile size from text-6xl to text-4xl
+        textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
         layout: "default"
     },
     {
@@ -22,7 +23,7 @@ const sentences = [
         highlightColor: "text-zinc-700",
         hoverColor: "hover:text-black", 
         highlights: ["VISION,", "VELOCITY."],
-        textSize: "text-6xl sm:text-7xl md:text-7xl lg:text-8xl",
+        textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
         layout: "default"
     },
     {
@@ -32,7 +33,7 @@ const sentences = [
         highlightColor: "text-micron-green",
         hoverColor: "hover:text-green-900", 
         highlights: ["PLACE,", "PERSPECTIVE."],
-        textSize: "text-6xl sm:text-7xl md:text-7xl lg:text-8xl",
+        textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
         layout: "default"
     }
 ];
@@ -234,7 +235,8 @@ export const Hero: React.FC = () => {
   return (
     <section 
         ref={containerRef}
-        className="relative w-full bg-white text-zinc-900 pt-48 pb-32 flex flex-col justify-end"
+        // REDUCED PADDING: pt-48 pb-16
+        className="relative w-full bg-white text-zinc-900 pt-48 pb-16 flex flex-col justify-end"
     >
       <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4">
         
@@ -243,8 +245,9 @@ export const Hero: React.FC = () => {
             
             {/* 1. TEXT ANIMATION AREA */}
             <div 
-                onMouseEnter={handleReplay}
-                className="h-[400px] md:h-full w-full flex flex-col justify-end items-start order-1 bg-white rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 border border-zinc-100 p-6 md:p-12 relative overflow-hidden group"
+                // FLOATING 3D EFFECT: Removed border, Enhanced shadow, Enhanced Hover Lift
+                // INCREASED PADDING ON LEFT FOR MOBILE: px-6 instead of p-6/px-2
+                className="h-[400px] md:h-full w-full flex flex-col justify-end items-start order-1 bg-white rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] hover:shadow-[0_50px_100px_-10px_rgba(0,0,0,0.3)] hover:-translate-y-2 transition-all duration-500 px-6 py-6 md:p-12 relative overflow-hidden group"
             >
                  {/* Logo Top Right - Rolling in from Right */}
                  <motion.div 

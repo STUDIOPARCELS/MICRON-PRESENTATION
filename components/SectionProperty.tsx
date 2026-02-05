@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, ArrowUp, ArrowUpRight } from 'lucide-react';
+import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, ArrowUp, ArrowUpRight, Cpu, TreeDeciduous, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Modal } from './Modal';
 import { ModalContent } from '../types';
@@ -59,27 +59,42 @@ export const SectionProperty: React.FC = () => {
     </div>
   );
 
-  const SpecCard = ({ title, icon, items, onGallery }: any) => (
-      <div className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.2)] transition-shadow flex flex-col h-full">
+  const SpecCard = ({ title, icon, items, onGallery, className, titleColor = "text-zinc-900", textColor = "text-zinc-600", iconColor = "text-zinc-900", buttonStyle }: any) => (
+      <div className={`rounded-2xl border border-white/10 p-6 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.2)] transition-shadow flex flex-col h-full ${className}`}>
           <div className="flex items-center gap-3 mb-6">
-              {icon}
-              <h4 className="text-xl font-black uppercase tracking-tight text-zinc-900">{title}</h4>
+              <div className={iconColor}>{icon}</div>
+              <h4 className={`text-xl font-black uppercase tracking-tight ${titleColor}`}>{title}</h4>
           </div>
           <ul className="space-y-3 mb-8 flex-1">
               {items.map((item: string, i: number) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-zinc-600 font-medium leading-snug">
-                      <div className="w-1.5 h-1.5 rounded-full bg-zinc-300 mt-1.5 shrink-0" />
+                  <li key={i} className={`flex items-start gap-2 text-sm font-medium leading-snug ${textColor}`}>
+                      <div className={`w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 bg-current opacity-60`} />
                       {item}
                   </li>
               ))}
           </ul>
           <button 
             onClick={onGallery}
-            className="w-full py-3 border border-zinc-200 rounded-xl text-xs font-bold uppercase tracking-widest text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 transition-colors flex items-center justify-center gap-2 group"
+            className={`w-full py-3 border rounded-xl text-xs font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 group ${buttonStyle}`}
           >
               View Gallery
               <ArrowUpRight size={14} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
           </button>
+      </div>
+  );
+
+  const InfoCard = ({ title, subtitle, icon, text, className, iconColor = "text-zinc-400" }: any) => (
+      <div className={`bg-white rounded-2xl p-6 border border-zinc-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.2)] transition-all h-full ${className}`}>
+          <div className="flex justify-between items-start mb-4">
+               <div className="flex items-center gap-3">
+                   <div className={iconColor}>{icon}</div>
+                   <h4 className="text-xl font-black uppercase tracking-tight text-zinc-900">{title}</h4>
+               </div>
+               <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">{subtitle}</span>
+          </div>
+          <p className="text-sm text-zinc-600 font-medium leading-relaxed">
+             {text}
+          </p>
       </div>
   );
 
@@ -145,7 +160,7 @@ export const SectionProperty: React.FC = () => {
             </div>
 
             {/* 4. SPECIFICATIONS */}
-            <div>
+            <div className="mb-12">
                  <div className="flex items-center gap-2 mb-4">
                       <Home className="text-micron-eggplant" size={16} />
                       <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-micron-eggplant font-sans">RESIDENCE SPECIFICATIONS</h3>
@@ -153,38 +168,82 @@ export const SectionProperty: React.FC = () => {
                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                       <SpecCard 
                         title="MAIN LEVEL" 
-                        icon={<Home className="text-micron-green" size={24}/>} 
+                        icon={<Home size={24}/>} 
+                        className="bg-micron-grey1/90 backdrop-blur-sm"
+                        titleColor="text-white"
+                        textColor="text-white/90"
+                        iconColor="text-white"
+                        buttonStyle="border-white/30 text-white/70 hover:bg-white/10 hover:text-white"
                         items={[
-                            "Foyer Entry",
-                            "Living / Dining w/ Fireplaces",
-                            "Office on Ground Deck",
-                            "Guest Down / Access to Deck",
-                            "Antique Fir Throughout"
+                            "Living, Dining, & Fully Equipped Kitchen",
+                            "Main Floor Office w/ Ensuite Bath",
+                            "French Door Access to Deck",
+                            "Antiques & Art Throughout"
                         ]} 
                         onGallery={() => openLevelGallery('main')} 
                       />
                       <SpecCard 
                         title="UPPER LEVEL" 
-                        icon={<ArrowUp className="text-micron-eggplant-light" size={24}/>} 
+                        icon={<ArrowUp size={24}/>} 
+                        className="bg-micron-eggplant-light/90 backdrop-blur-sm"
+                        titleColor="text-white"
+                        textColor="text-white/90"
+                        iconColor="text-white"
+                        buttonStyle="border-white/30 text-white/70 hover:bg-white/10 hover:text-white"
                         items={[
-                            "3 Bedrooms",
-                            "2 Baths (En Suite Primary)",
-                            "Playroom / Executive Retreat",
-                            "Laundry Facilities"
+                            "2 Bedrooms",
+                            "2 Private En-Suite Baths",
+                            "1 Bedroom Served by Hall Bath"
                         ]} 
                         onGallery={() => openLevelGallery('upper')} 
                       />
                       <SpecCard 
                         title="GROUNDS" 
-                        icon={<Leaf className="text-micron-eggplant" size={24}/>} 
+                        icon={<Leaf size={24}/>} 
+                        className="bg-micron-green/90 backdrop-blur-sm"
+                        titleColor="text-white"
+                        textColor="text-white/90"
+                        iconColor="text-white"
+                        buttonStyle="border-white/30 text-white/70 hover:bg-white/10 hover:text-white"
                         items={[
-                            "Historic East End / Warm Springs",
-                            "Covered Carport",
-                            "Auto Court for +10 Cars / Events",
-                            "Geothermal Jacuzzi on Private Way"
+                            "Mature Fruit Trees (Peach, Plum, Cherry)",
+                            "Concord Grapevine",
+                            "Fully Fenced Yard & ~200 sq ft Deck",
+                            "Attached Carport via Private Alley"
                         ]} 
                         onGallery={() => openLevelGallery('grounds')} 
                       />
+                 </div>
+            </div>
+            
+            {/* 5. TECHNOLOGY, WELLNESS & HISTORY (RESTORED) */}
+            <div>
+                 <div className="flex items-center gap-2 mb-4">
+                      <Zap size={16} className="text-micron-eggplant" />
+                      <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-micron-eggplant font-sans">TECHNOLOGY, WELLNESS & HISTORY</h3>
+                 </div>
+                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <InfoCard 
+                        title="GEOTHERMAL & WELLNESS"
+                        subtitle="NATURE"
+                        icon={<Leaf size={24} />}
+                        iconColor="text-micron-green"
+                        text="Geothermal radiant heat heating the district's 1890s mansions. The grounds feature mature producing fruit trees (peach, plum, cherry) and a historic Concord grapevine — wellness rooted in the earth."
+                    />
+                    <InfoCard 
+                        title="AUTONOMOUS SERVICE"
+                        subtitle="INTELLIGENCE"
+                        icon={<Cpu size={24} />}
+                        iconColor="text-micron-eggplant"
+                        text="Autonomous service via Cybercab, Optimus, and Starlink. A living lab where abstract technology becomes a tangible, lived experience."
+                    />
+                    <InfoCard 
+                        title="TREE-LINED AVENUE"
+                        subtitle="HERITAGE"
+                        icon={<TreeDeciduous size={24} />}
+                        iconColor="text-micron-eggplant-light"
+                        text="Anchored by the memory of horse and buggies and the C.W. Moore House — the oldest residence in Boise — directly across the street. A corridor defined by the legacy of the West's first geothermal pioneers."
+                    />
                  </div>
             </div>
 

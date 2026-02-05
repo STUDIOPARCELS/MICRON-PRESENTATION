@@ -14,7 +14,9 @@ const teslaCards = [
     subtitle: "A Living Laboratory",
     content: "The Convergence Zone. 1020 E Warm Springs is the neutral ground where the digital code of AI meets the legal code of the nation.",
     icon: <Scan />,
-    gradient: "bg-micron-black hover:bg-micron-eggplant-light transition-colors duration-500", 
+    gradient: "bg-micron-black",
+    // ADDED: Light Blue on hover
+    hoverClass: "hover:bg-micron-eggplant-light", 
     border: "border-white/10",
     subtitleColor: "text-micron-green", 
     descriptionColor: "text-zinc-400 group-hover:text-white transition-colors duration-300"
@@ -26,7 +28,9 @@ const teslaCards = [
     subtitle: "Anthropology of the Future",
     content: "Moving beyond laws and sidewalks into the anthropology of the future. How humanity adapts to the 'Crisis of Shared Reality' in the age of ubiquitous robotics.",
     icon: <Cpu />,
-    gradient: "bg-micron-grey1 hover:bg-zinc-200 transition-colors duration-500", 
+    gradient: "bg-micron-grey1",
+    // ADDED: Light Gray on hover
+    hoverClass: "hover:bg-zinc-400",  
     border: "border-white/10",
     subtitleColor: "text-micron-eggplant-light", 
     descriptionColor: "text-zinc-300 group-hover:text-zinc-800 transition-colors duration-300" 
@@ -164,105 +168,115 @@ export const SectionServingTesla: React.FC = () => {
             {/* RIGHT COLUMN: The Open Questions */}
             <motion.div 
                 variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
-                className="bg-zinc-50 rounded-[2rem] p-8 md:p-10 border border-zinc-200 shadow-inner flex flex-col justify-center h-full"
+                className="bg-zinc-50 rounded-[2rem] p-8 md:p-10 border border-zinc-200 shadow-inner flex flex-col justify-center gap-6"
             >
-                <div className="mb-8 border-b border-zinc-200 pb-4">
-                    <h3 className="text-micron-eggplant font-bold uppercase tracking-widest text-sm">
-                        Societal Reaction: Two Questions
-                    </h3>
+                <div className="flex items-center gap-3 mb-2">
+                    <Info size={24} className="text-zinc-400" />
+                    <h4 className="text-micron-eggplant-light font-bold uppercase text-sm tracking-[0.2em]">Open Questions</h4>
                 </div>
                 
-                <div className="space-y-10">
-                    <div className="group">
-                        <div className="flex items-center gap-4 mb-3">
-                             <div className="w-8 h-8 rounded-full bg-micron-eggplant text-white flex items-center justify-center font-bold text-sm shadow-md group-hover:scale-110 transition-transform">1</div>
-                             <span className="text-zinc-900 font-black text-xl uppercase tracking-wide">Visual Rights</span>
-                        </div>
-                        <p className="text-zinc-600 text-lg font-medium pl-12 border-l-2 border-zinc-200 group-hover:border-micron-eggplant transition-colors">
-                            Should robots be required to look obviously non-human to prevent manipulation?
+                <ul className="space-y-6">
+                    <li className="flex flex-col gap-2">
+                        <span className="text-zinc-900 font-bold uppercase text-xs tracking-widest">Empathy</span>
+                        <p className="text-zinc-600 font-medium leading-relaxed">
+                            Does the presence of humanoid robots in domestic spaces alter human empathy?
                         </p>
-                    </div>
-
-                    <div className="group">
-                        <div className="flex items-center gap-4 mb-3">
-                             <div className="w-8 h-8 rounded-full bg-micron-green text-white flex items-center justify-center font-bold text-sm shadow-md group-hover:scale-110 transition-transform">2</div>
-                             <span className="text-zinc-900 font-black text-xl uppercase tracking-wide">Liability</span>
-                        </div>
-                        <p className="text-zinc-600 text-lg font-medium pl-12 border-l-2 border-zinc-200 group-hover:border-micron-green transition-colors">
-                            Who is responsible when a robot causes psychological distress by mere presence?
+                    </li>
+                    <div className="h-px w-full bg-zinc-200" />
+                    <li className="flex flex-col gap-2">
+                        <span className="text-zinc-900 font-bold uppercase text-xs tracking-widest">Privacy</span>
+                        <p className="text-zinc-600 font-medium leading-relaxed">
+                             What is the legal definition of "home" when it is monitored by sensors for autonomous navigation?
                         </p>
-                    </div>
-                </div>
+                    </li>
+                    <div className="h-px w-full bg-zinc-200" />
+                    <li className="flex flex-col gap-2">
+                        <span className="text-zinc-900 font-bold uppercase text-xs tracking-widest">Etiquette</span>
+                        <p className="text-zinc-600 font-medium leading-relaxed">
+                            How do we encode "politeness" and "personal space" into autonomous movement protocols?
+                        </p>
+                    </li>
+                </ul>
             </motion.div>
-
         </div>
     );
   };
 
   return (
-    // UPDATED: bg-white instead of bg-zinc-50
     <section id="serving-tesla" className="container mx-auto px-4 md:px-12 py-12 bg-white text-zinc-900">
-          {/* REMOVED: Outer white wrapper */}
-          <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-200 pb-8">
+        
+        {/* Header */}
+        <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8"
+        >
             <div className="flex-shrink-0">
-               <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">05 / PARTNERSHIP</span>
-               <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-zinc-900 leading-none">LIVING LAB</h2>
+                <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">05 / LIVING LAB</span>
+                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant-light leading-none font-sans">
+                    LIVING LAB
+                </h2>
             </div>
-
-            {/* Added Description */}
+            
             <div className="md:ml-auto max-w-2xl pb-1">
-                 <div className="pl-6 border-l-4 border-zinc-900/20 hover:border-zinc-900 transition-colors duration-500">
+                 <div className="pl-6 border-l-4 border-micron-eggplant-light/20 hover:border-micron-eggplant-light transition-colors duration-500">
                     <p className="text-base font-light text-zinc-600 leading-snug font-body">
-                       <span className="font-bold text-zinc-900 block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
-                           AUTONOMOUS FUTURE
+                       <span className="font-bold text-micron-eggplant-light block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
+                           BEYOND SILICON
                        </span>
-                       A living laboratory where the future of robotics meets the reality of daily life. Optimus and Cybercab aren't just tested here—they are the operating system of the home.
+                       Where Micron's memory powers the inference, and the residence itself tests the integration. A living laboratory for the societal impact of embodied AI.
                     </p>
                  </div>
             </div>
-          </div>
+        </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {teslaCards.map((card, i) => (
-              <BentoCard 
-                key={card.id} 
-                className={`
-                    flex flex-col justify-between min-h-[400px] relative group overflow-hidden
-                `}
-                gradient={card.gradient} 
-                borderColor={card.border}
-                textColor="text-white"
-                delay={i * 0.1}
-                onClick={() => setModalData({
-                    title: card.title,
-                    subtitle: card.subtitle,
-                    category: 'showcase',
-                    tags: ['Tesla', 'Anthropology', 'Future'],
-                    theme: 'light',
-                    content: getModalContent(card.id)
-                })}
-              >
-                <div className="absolute top-8 right-8 z-20 opacity-100 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-                   {/* Custom arrow if needed, BentoCard handles default */}
-                </div>
-
-                <div className="relative z-10 mt-auto p-2">
-                   <h3 className={`text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-3 font-sans transition-colors duration-300 ${card.id === 1 ? 'text-white group-hover:text-zinc-900' : 'text-white'}`}>
-                       {card.title}
-                   </h3>
-                   
-                   <p className={`text-sm md:text-base font-bold uppercase tracking-widest mb-4 font-sans ${card.subtitleColor}`}>
-                      {card.subtitle}
-                   </p>
-
-                   <p className={`text-base md:text-lg leading-relaxed font-body font-medium max-w-md ${card.descriptionColor}`}>
-                      {card.content}
-                   </p>
-                </div>
-              </BentoCard>
+                <BentoCard
+                    key={card.id}
+                    className={`flex flex-col min-h-[400px] p-8 relative overflow-hidden group shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] ${card.gradient} ${card.border} ${card.hoverClass} transition-colors duration-500`}
+                    gradient={card.gradient}
+                    textColor="text-white"
+                    borderColor="border-white/10"
+                    delay={i * 0.1}
+                    hoverEffect={true}
+                    onClick={() => setModalData({
+                        title: card.title,
+                        subtitle: card.subtitle,
+                        category: 'showcase',
+                        theme: 'light',
+                        maxWidth: 'max-w-7xl',
+                        content: getModalContent(card.id)
+                    })}
+                >
+                    <div className="relative z-10 flex flex-col h-full justify-between">
+                        <div>
+                            <div className={`mb-6 p-3 rounded-full bg-white/10 w-fit backdrop-blur-md border border-white/10 ${card.descriptionColor}`}>
+                                {React.cloneElement(card.icon as React.ReactElement<any>, { size: 28 })}
+                            </div>
+                            <h3 className="text-3xl font-black uppercase tracking-tight mb-2 leading-none text-white drop-shadow-lg">
+                                {card.title}
+                            </h3>
+                            <p className={`text-xs font-bold uppercase tracking-widest mb-6 ${card.subtitleColor}`}>
+                                {card.subtitle}
+                            </p>
+                        </div>
+                        
+                        <div className="mt-auto">
+                            <div className="h-px w-full bg-white/20 mb-4" />
+                            <p className={`text-lg font-medium leading-relaxed ${card.descriptionColor}`}>
+                                {card.content}
+                            </p>
+                        </div>
+                    </div>
+                </BentoCard>
             ))}
-          </div>
-      <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
+        </div>
+
+        <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
     </section>
   );
 };

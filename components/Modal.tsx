@@ -177,10 +177,12 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
 
       <div className={`
           relative z-10 
-          /* UPDATED PADDING: Increased left padding to align with top/double previous */
-          pl-8 pr-5 pt-8 pb-4 
-          md:pl-12 md:pr-6 md:pt-10 md:pb-5
+          /* UPDATED PADDING: Equalized vertical padding and added min-height for centering */
+          pl-8 pr-12 py-8
+          md:pl-12 md:pr-16 md:py-10
           flex-shrink-0
+          flex flex-col justify-center
+          min-h-[120px] md:min-h-[150px]
           ${isLight ? 'bg-gradient-to-b from-white to-zinc-50' : 'bg-gradient-to-b from-zinc-800 to-zinc-900'}
       `}>
          <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }}>
@@ -204,7 +206,7 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
         <motion.div 
             initial="hidden" animate="visible"
             variants={{ visible: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } } }}
-            // UPDATED: Body padding also doubled on left (p-8 -> pl-8, md:p-12 -> md:pl-12 already existed but making sure left aligns)
+            // UPDATED: Body padding
             className="pl-8 pr-8 pt-8 pb-8 md:pl-12 md:pr-12 md:pt-12 md:pb-12 h-full"
         >
             {data.content}
@@ -232,7 +234,7 @@ const ReferenceModalContent: React.FC<{ data: ModalContent; onClose: () => void 
       transition={{ duration: 0.2 }}
       className={`pointer-events-auto relative w-full max-w-5xl h-auto max-h-[85vh] md:max-h-[95vh] flex flex-col overflow-hidden rounded-2xl md:rounded-3xl ${containerClasses}`}
     >
-      <div className={`p-5 flex justify-between items-start flex-shrink-0 ${headerClasses}`}>
+      <div className={`p-6 md:p-8 flex justify-between items-center flex-shrink-0 ${headerClasses}`}>
         <div className="pr-6">
           <h2 className={`text-2xl font-bold uppercase tracking-tight mb-1 ${titleColor}`}>
             {data.title}
