@@ -131,7 +131,7 @@ export const SectionProperty: React.FC = () => {
                             
                             <div className="space-y-4 text-sm md:text-base font-medium leading-relaxed text-white/70 group-hover:text-white/80 transition-colors">
                                 <p>2025 research on the <strong className="text-white">"Soil-Plant-Gut Axis"</strong> confirms fresh-harvested produce delivers essential soil-based probiotics.</p>
-                                <p>Homegrown crops retain up to <strong className="text-white">50% more nutrient density</strong> than store-bought options, directly fueling the gut microbiome.</p>
+                                <p>Homegrown crops retain up to <strong className="text-white">50% of nutrient density</strong> than store-bought options, directly fueling the gut microbiome.</p>
                             </div>
                         </div>
                     </div>
@@ -285,7 +285,8 @@ export const SectionProperty: React.FC = () => {
           </ul>
           
           <button 
-            className={`w-full py-4 border rounded-xl text-xs font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 group-hover:border-white/60 group-hover:text-white group-hover:bg-white/10 border-white/20 text-white/70 hover:bg-white/5`}
+            // UPDATED: Reduced padding (py-2) and font size (text-[10px]) for 50% smaller button feel
+            className={`w-full py-2 border rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 group-hover:border-white/60 group-hover:text-white group-hover:bg-white/10 border-white/20 text-white/70 hover:bg-white/5`}
           >
               View Gallery
               <ArrowUpRight size={14} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />

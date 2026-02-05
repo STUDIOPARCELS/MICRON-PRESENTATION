@@ -177,13 +177,11 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
 
       <div className={`
           relative z-10 
-          /* UPDATED PADDING: Reduced vertical padding by half (py-8 -> py-4, md:py-10 -> md:py-5) */
-          pl-8 pr-12 py-4
-          md:pl-12 md:pr-16 md:py-5
+          /* UPDATED PADDING: Tripled padding as requested (py-4 -> py-8, md:py-5 -> md:py-10) and increased horizontal */
+          px-8 py-6 md:px-12 md:py-8
           flex-shrink-0
           flex flex-col justify-center
-          /* Reduced min-height slightly to match tighter padding */
-          min-h-[100px] md:min-h-[120px]
+          min-h-[100px] md:min-h-[140px]
           ${isLight ? 'bg-gradient-to-b from-white to-zinc-50' : 'bg-gradient-to-b from-zinc-800 to-zinc-900'}
       `}>
          <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }}>
@@ -207,8 +205,8 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
         <motion.div 
             initial="hidden" animate="visible"
             variants={{ visible: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } } }}
-            // UPDATED: Removed bottom padding as requested (pb-0)
-            className="pl-8 pr-8 pt-0 pb-0 md:pl-12 md:pr-12 md:pt-0 md:pb-0 h-full"
+            // UPDATED: Removed top padding (pt-0) to "Delete this space" as requested, while keeping side/bottom padding
+            className="px-6 md:px-12 pb-6 md:pb-12 pt-0 h-full"
         >
             {data.content}
         </motion.div>

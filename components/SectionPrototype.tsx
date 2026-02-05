@@ -162,8 +162,8 @@ const getCardData = (id: number): ModalContent => {
         // UPDATED: Added aspect-ratio to lengthen the modal box vertically, removing need to scroll
         aspectRatio: 'aspect-[3/4]', 
         content: (
-            // UPDATED: Reduced gap from gap-6 to gap-5 for tighter packing
-            <div className="flex flex-col gap-5 h-auto">
+            // UPDATED: Added pb-12 for bottom padding and increased gap to gap-8
+            <div className="flex flex-col gap-8 h-auto pb-12">
                 {/* 1. AUTONOMOUS HUB (Full Width) */}
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
@@ -253,45 +253,58 @@ const getCardData = (id: number): ModalContent => {
         subtitle: "BOISE'S MOMENT",
         maxWidth: 'max-w-7xl',
         content: (
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 h-full">
-               <div className="w-full h-full min-h-[300px] lg:min-h-0 lg:col-span-3">
-                    <motion.div 
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ duration: 0.8 }}
-                        className="w-full h-full"
-                    >
-                         <ModalVideo 
-                            src={VIDEO_TIMING} 
-                            className="w-full h-full shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200"
-                        />
-                    </motion.div>
-               </div>
+            // UPDATED: Added Flex col wrapper to stack the new intro text
+            <div className="flex flex-col gap-10 h-full pb-12">
                
-               <div className="flex flex-col gap-4 h-full justify-between lg:col-span-2">
-                    <InnerBento title="BOISE'S MOMENT" gradient="bg-micron-eggplant-light" icon={<TrendingUp />} className="flex-1">
-                        <div className="w-full h-px bg-white/20 mb-4" />
-                        <div className="space-y-4 text-base md:text-lg text-white/90 leading-relaxed">
-                            <p>
-                                Boise has arrived. A city once known primarily for potatoes and public land now supports a James Beard-nominated culinary scene, world-class wineries across the Snake River Valley.
+               {/* NEW SUBTEXT ADDED HERE */}
+               <div className="w-full max-w-5xl">
+                    <p className="text-lg md:text-xl text-zinc-600 font-light leading-relaxed">
+                        Boise has arrived. A city once known primarily for potatoes and public land now supports a James Beard-nominated culinary scene, world-class wineries across the Snake River Valley, a thriving arts and entertainment scene, and the kind of civic energy that comes with a Division I University town.
+                    </p>
+               </div>
+
+               <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 h-full">
+                   <div className="w-full h-full min-h-[300px] lg:min-h-0 lg:col-span-3">
+                        <motion.div 
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            transition={{ duration: 0.8 }}
+                            className="w-full h-full"
+                        >
+                             <ModalVideo 
+                                src={VIDEO_TIMING} 
+                                className="w-full h-full shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200"
+                            />
+                        </motion.div>
+                   </div>
+                   
+                   <div className="flex flex-col gap-4 h-full justify-between lg:col-span-2">
+                        {/* UPDATED: Blue Bento Box Text Replaced */}
+                        <InnerBento title="BOISE'S MOMENT" gradient="bg-micron-eggplant-light" icon={<TrendingUp />} className="flex-1">
+                            <div className="w-full h-px bg-white/20 mb-4" />
+                            <div className="space-y-4 text-base md:text-lg text-white/90 leading-relaxed">
+                                <p>
+                                    The Boise River Greenbelt connects 25 miles of parkland through the city center. Bogus Basin is 45 minutes from downtown. Some of the best fly fishing, whitewater, and backcountry skiing in North America are all within reach.
+                                </p>
+                            </div>
+                        </InnerBento>
+
+                        <InnerBento title="RUNWAY" gradient="bg-micron-green" icon={<Activity />} className="flex-1">
+                            <div className="w-full h-px bg-white/20 mb-4" />
+                            {/* UPDATED: "Micron executives" lower case e */}
+                            <p className="mb-2 text-base md:text-lg text-white/90 leading-relaxed">
+                                Micron executives, employees, and their guests live alongside, interact, and engage with the technology before the world does.
                             </p>
-                        </div>
-                    </InnerBento>
-                    <InnerBento title="RUNWAY" gradient="bg-micron-green" icon={<Activity />} className="flex-1">
-                        <div className="w-full h-px bg-white/20 mb-4" />
-                        {/* UPDATED: "Micron executives" lower case e */}
-                        <p className="mb-2 text-base md:text-lg text-white/90 leading-relaxed">
-                            Micron executives, employees, and their guests live alongside, interact, and engage with the technology before the world does.
-                        </p>
-                    </InnerBento>
-                    <InnerBento title="3 ARCS CONVERGING" gradient="bg-micron-eggplant" icon={<Zap />} className="flex-1">
-                         <div className="w-full h-px bg-white/20 mb-4" />
-                         <div className="space-y-4 text-white/90 text-base md:text-lg mb-3 leading-relaxed">
-                            <p>
-                                A city reaching cultural maturity. A semiconductor company deploying historic investment. A robotics company placing autonomous systems.
-                            </p>
-                         </div>
-                    </InnerBento>
+                        </InnerBento>
+                        <InnerBento title="3 ARCS CONVERGING" gradient="bg-micron-eggplant" icon={<Zap />} className="flex-1">
+                             <div className="w-full h-px bg-white/20 mb-4" />
+                             <div className="space-y-4 text-white/90 text-base md:text-lg mb-3 leading-relaxed">
+                                <p>
+                                    A city reaching cultural maturity. A semiconductor company deploying historic investment. A robotics company placing autonomous systems.
+                                </p>
+                             </div>
+                        </InnerBento>
+                   </div>
                </div>
             </div>
         )
@@ -302,7 +315,8 @@ const getCardData = (id: number): ModalContent => {
         subtitle: 'SHARED MISSIONS',
         maxWidth: 'max-w-7xl',
         content: (
-            <div className="flex flex-col gap-6 h-auto">
+            // UPDATED: Added pb-12 for bottom padding
+            <div className="flex flex-col gap-6 h-auto pb-12">
                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full items-stretch">
                    
                    <div className="w-full h-full min-h-[300px] lg:min-h-0">
@@ -384,10 +398,11 @@ const getCardData = (id: number): ModalContent => {
         maxWidth: 'max-w-7xl',
         aspectRatio: 'aspect-square',
         content: (
-        <div className="flex flex-col gap-4 h-full">
+        // UPDATED: Added negative bottom margin (-mb-6 md:-mb-10) to remove bottom space as requested
+        <div className="flex flex-col gap-4 h-full -mb-6 md:-mb-10">
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
-               {/* UPDATED: Changed from min-h-[500px] to aspect-[9/16] to fit full vertical video */}
-               <div className="w-full h-auto aspect-[9/16]">
+               {/* UPDATED: Changed from aspect-video to aspect-[4/3] to show full head of figure */}
+               <div className="w-full h-auto aspect-[4/3]">
                     <ModalVideo 
                         src={VIDEO_PLACE} 
                         className="w-full h-full shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200"

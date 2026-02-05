@@ -273,86 +273,87 @@ export const SectionServingTesla: React.FC = () => {
     }
     
     // CONTENT FOR "THE TECTONIC SHIFT" (ID 1)
+    // UPDATED LAYOUT: Same line for Thesis/Psych, All Blue Cards, Icons removed.
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
-            {/* LEFT COLUMN: Thesis Cards */}
-            <div className="flex flex-col gap-6">
-                <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
-                     <h3 className="text-zinc-400 font-bold uppercase tracking-widest text-xs mb-4 ml-2 flex items-center gap-3">
-                        The Zoom Out
-                        <svg width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-80 hover:opacity-100 transition-opacity cursor-help">
-                            <path d="M9 2C5 2 2 8 2 14C2 19.5 5 22 9 22C13 22 16 19.5 16 14C16 8 13 2 9 2Z" fill="#7db0d3"/>
-                            <circle cx="6" cy="10" r="1.5" fill="#353942"/>
-                            <circle cx="12" cy="8" r="1.2" fill="#353942"/>
-                            <circle cx="9" cy="14" r="1.8" fill="#353942"/>
-                            <circle cx="5" cy="16" r="1" fill="#353942"/>
-                            <circle cx="13" cy="15" r="1.3" fill="#353942"/>
-                            <circle cx="8" cy="7" r="1" fill="#353942"/>
-                        </svg>
-                     </h3>
-                </motion.div>
+        <div className="flex flex-col gap-6 h-full pb-8">
+            <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+                 <h3 className="text-zinc-400 font-bold uppercase tracking-widest text-xs mb-4 ml-2 flex items-center gap-3">
+                    The Zoom Out
+                    <svg width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-80 hover:opacity-100 transition-opacity cursor-help">
+                        <path d="M9 2C5 2 2 8 2 14C2 19.5 5 22 9 22C13 22 16 19.5 16 14C16 8 13 2 9 2Z" fill="#7db0d3"/>
+                        <circle cx="6" cy="10" r="1.5" fill="#353942"/>
+                        <circle cx="12" cy="8" r="1.2" fill="#353942"/>
+                        <circle cx="9" cy="14" r="1.8" fill="#353942"/>
+                        <circle cx="5" cy="16" r="1" fill="#353942"/>
+                        <circle cx="13" cy="15" r="1.3" fill="#353942"/>
+                        <circle cx="8" cy="7" r="1" fill="#353942"/>
+                    </svg>
+                 </h3>
+            </motion.div>
 
+            {/* TOP ROW: Thesis and Psychology side-by-side */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
                 <motion.div 
                     variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                    className="bg-white rounded-3xl p-8 border border-zinc-200 shadow-xl border-b-4 border-zinc-300 group hover:border-micron-green/30 transition-colors"
+                    // UPDATED: All Blue (micron-eggplant-light) background, White Text, No Icons
+                    className="bg-micron-eggplant-light text-white rounded-3xl p-8 border border-white/20 shadow-xl relative overflow-hidden flex flex-col justify-between"
                 >
-                    <div className="flex justify-between items-start mb-4">
-                        <h4 className="text-micron-green font-bold uppercase text-xs tracking-[0.2em]">The Thesis</h4>
-                        <Info size={20} className="text-zinc-300" />
+                    <div className="mb-4">
+                        <h4 className="text-white/80 font-bold uppercase text-xs tracking-[0.2em] mb-4">The Thesis</h4>
+                        <h5 className="text-3xl font-black text-white mb-4 uppercase leading-none">Crisis of<br/>"Shared Reality"</h5>
                     </div>
-                    <h5 className="text-3xl font-black text-zinc-900 mb-4 uppercase leading-none">Crisis of<br/>"Shared Reality"</h5>
-                    <p className="text-zinc-600 font-medium leading-relaxed">
+                    <p className="text-white/90 font-medium leading-relaxed">
                         For 200,000 years, a bipedal figure meant a mind. That certainty is vanishing. We risk a conceptual disruption regarding personhood and moral agency.
                     </p>
                 </motion.div>
 
                 <motion.div 
                     variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                    className="bg-zinc-900 rounded-3xl p-8 border border-zinc-700 shadow-xl border-b-4 border-zinc-950 group"
+                    // UPDATED: All Blue (micron-eggplant-light) background, White Text, No Icons
+                    className="bg-micron-eggplant-light text-white rounded-3xl p-8 border border-white/20 shadow-xl relative overflow-hidden flex flex-col justify-between"
                 >
-                    <div className="flex justify-between items-start mb-4">
-                        <h4 className="text-micron-eggplant-light font-bold uppercase text-xs tracking-[0.2em]">The Psychology</h4>
-                        <Eye size={20} className="text-zinc-600" />
+                    <div className="mb-4">
+                        <h4 className="text-white/80 font-bold uppercase text-xs tracking-[0.2em] mb-4">The Psychology</h4>
+                        <h5 className="text-3xl font-black text-white mb-4 uppercase leading-none">Uncanny<br/>Stress</h5>
                     </div>
-                    <h5 className="text-3xl font-black text-white mb-4 uppercase leading-none">Uncanny<br/>Stress</h5>
-                    <p className="text-zinc-400 font-medium leading-relaxed">
+                    <p className="text-white/90 font-medium leading-relaxed">
                         Flooding the "Face Network" with synthetic entities causes "Social Inflammation." At what density does human psychological comfort break down?
                     </p>
                 </motion.div>
             </div>
 
-            {/* RIGHT COLUMN: The Open Questions */}
+            {/* BOTTOM ROW: The Open Questions (Full Width) */}
             <motion.div 
-                variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
-                className="bg-zinc-50 rounded-[2rem] p-8 md:p-10 border border-zinc-200 shadow-inner flex flex-col justify-center gap-6"
+                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                className="bg-zinc-50 rounded-[2rem] p-8 md:p-10 border border-zinc-200 shadow-inner flex flex-col justify-center gap-6 mt-2"
             >
                 <div className="flex items-center gap-3 mb-2">
                     <Info size={24} className="text-zinc-400" />
                     <h4 className="text-micron-eggplant-light font-bold uppercase text-sm tracking-[0.2em]">Open Questions</h4>
                 </div>
                 
-                <ul className="space-y-6">
-                    <li className="flex flex-col gap-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="flex flex-col gap-2">
                         <span className="text-zinc-900 font-bold uppercase text-xs tracking-widest">Empathy</span>
-                        <p className="text-zinc-600 font-medium leading-relaxed">
+                        <p className="text-zinc-600 font-medium leading-relaxed text-sm">
                             Does the presence of humanoid robots in domestic spaces alter human empathy?
                         </p>
-                    </li>
-                    <div className="h-px w-full bg-zinc-200" />
-                    <li className="flex flex-col gap-2">
+                    </div>
+                    
+                    <div className="flex flex-col gap-2 md:border-l md:border-zinc-200 md:pl-8">
                         <span className="text-zinc-900 font-bold uppercase text-xs tracking-widest">Privacy</span>
-                        <p className="text-zinc-600 font-medium leading-relaxed">
+                        <p className="text-zinc-600 font-medium leading-relaxed text-sm">
                              What is the legal definition of "home" when it is monitored by sensors for autonomous navigation?
                         </p>
-                    </li>
-                    <div className="h-px w-full bg-zinc-200" />
-                    <li className="flex flex-col gap-2">
+                    </div>
+                    
+                    <div className="flex flex-col gap-2 md:border-l md:border-zinc-200 md:pl-8">
                         <span className="text-zinc-900 font-bold uppercase text-xs tracking-widest">Etiquette</span>
-                        <p className="text-zinc-600 font-medium leading-relaxed">
+                        <p className="text-zinc-600 font-medium leading-relaxed text-sm">
                             How do we encode "politeness" and "personal space" into autonomous movement protocols?
                         </p>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </motion.div>
         </div>
     );
