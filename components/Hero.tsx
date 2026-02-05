@@ -2,6 +2,70 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 
+const InteractiveParadigmTitle: React.FC = () => {
+    const paradigmLine1 = ["THE", "PARADIGM"];
+    const paradigmLine2 = ["SHIFTS."];
+
+    return (
+        <div 
+            className="flex flex-col items-start cursor-default"
+        >
+            <div className="flex flex-wrap gap-x-2 md:gap-x-4">
+                {paradigmLine1.map((word, i) => (
+                    <motion.span
+                        key={i}
+                        initial={{ y: 20, opacity: 0, color: '#008f25' }}
+                        animate={{ 
+                            y: 0, 
+                            opacity: 1, 
+                            color: '#008f25' 
+                        }}
+                        transition={{ 
+                            delay: 0.5 + (i * 0.15), 
+                            duration: 0.8, 
+                            ease: "easeOut" 
+                        }}
+                        whileHover={{ 
+                            scale: 1.05, 
+                            color: '#2c0f38', 
+                            transition: { duration: 0.2 } 
+                        }}
+                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block transition-colors duration-300"
+                    >
+                        {word}
+                    </motion.span>
+                ))}
+            </div>
+            <div className="flex flex-wrap gap-x-2 md:gap-x-4">
+                {paradigmLine2.map((word, i) => (
+                    <motion.span
+                        key={i}
+                        initial={{ y: 20, opacity: 0, color: '#008f25' }}
+                        animate={{ 
+                            y: 0, 
+                            opacity: 1,
+                            color: '#008f25'
+                        }}
+                        transition={{ 
+                            delay: 0.8 + (i * 0.15), 
+                            duration: 0.8, 
+                            ease: "easeOut" 
+                        }}
+                        whileHover={{ 
+                            scale: 1.05,
+                            color: '#2c0f38',
+                            transition: { duration: 0.2 } 
+                        }}
+                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block transition-colors duration-300"
+                    >
+                        {word}
+                    </motion.span>
+                ))}
+            </div>
+        </div>
+    );
+};
+
 export const Hero: React.FC = () => {
   const containerRef = useRef(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -11,45 +75,52 @@ export const Hero: React.FC = () => {
   const isInView = useInView(containerRef, { amount: 0.2 });
   
   // Track if the bottom section is in view to override animation wait time
-  // UPDATED: Changed amount to 0 to trigger map loading immediately when any part is visible on mobile
   const isBottomVisible = useInView(bottomSectionRef, { amount: 0, once: true });
 
   // --- CYCLING TEXT STATE ---
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   
+  // UPDATED ORDER: Memory -> Vision -> Place
+  // UPDATED STRUCTURE: Support variable lines per sentence
   const sentences = [
     {
-        line1: ["WITHOUT", "MEMORY,"],
-        line2: ["THERE'S", "NO", "MEANING."],
+        lines: [
+            ["WITHOUT", "MEMORY,"],
+            ["THERE'S", "NO", "MEANING."]
+        ],
         highlights: ["MEMORY,", "MEANING."],
-        highlightColorClass: "text-micron-eggplant", // Eggplant
-        baseColorClass: "text-[#878d9f]", // GRAY
-        // Interaction Colors (Hex)
+        highlightColorClass: "text-micron-eggplant", 
+        baseColorClass: "text-[#878d9f]", 
         baseHex: "#878d9f",
         highlightHex: "#2c0f38",
-        hoverHighlightHex: "#6a3d8a", // Lighter Eggplant/Purple
+        hoverHighlightHex: "#6a3d8a", 
     },
     {
-        line1: ["WITHOUT", "VISION,"],
-        line2: ["THERE'S", "NO", "VELOCITY."],
+        lines: [
+            ["WITHOUT", "VISION,"],
+            ["THERE'S", "NO", "VELOCITY."]
+        ],
         highlights: ["VISION,", "VELOCITY."],
-        baseColorClass: "text-zinc-700", // Dark Gray (Modified)
-        highlightColorClass: "text-[#878d9f]",
-        // UPDATED: Base hex to #3f3f46 (Zinc 700) to be between gray and black
-        baseHex: "#3f3f46", 
-        highlightHex: "#878d9f",
+        baseColorClass: "text-[#878d9f]", 
+        highlightColorClass: "text-zinc-700",
+        baseHex: "#878d9f", 
+        highlightHex: "#3f3f46", 
         hoverHighlightHex: "#27272a", 
     },
     {
-        line1: ["WITHOUT", "PLACE,"],
-        line2: ["THERE'S", "NO", "PERSPECTIVE."],
+        lines: [
+            ["WITHOUT"],
+            ["PLACE,"],
+            ["THERE'S", "NO"],
+            ["PERSPECTIVE."]
+        ],
         highlights: ["PLACE,", "PERSPECTIVE."],
-        highlightColorClass: "text-micron-green", // Green
-        baseColorClass: "text-[#878d9f]", // GRAY
+        highlightColorClass: "text-micron-green",
+        baseColorClass: "text-[#878d9f]",
         baseHex: "#878d9f",
         highlightHex: "#008f25",
-        hoverHighlightHex: "#004d14", // Dark Green
+        hoverHighlightHex: "#004d14",
     }
   ];
 
@@ -66,6 +137,7 @@ export const Hero: React.FC = () => {
 
     if (isInView) {
         if (!isFinished) {
+            // UPDATED: Decreased interval from 6800ms to 4000ms (~40% reduction in pause)
             interval = setInterval(() => {
                 setCurrentSentenceIndex((prev) => {
                     if (prev === sentences.length - 1) {
@@ -75,7 +147,7 @@ export const Hero: React.FC = () => {
                     }
                     return prev + 1;
                 });
-            }, 5500); // Increased interval to allow for logo animation on 3rd slide
+            }, 4000); 
         }
     } else {
         setIsFinished(false);
@@ -88,62 +160,44 @@ export const Hero: React.FC = () => {
   return (
     <section 
         ref={containerRef}
-        // UPDATED: Removed min-h-screen on mobile to prevent layout stretching that hides map
-        className="relative w-full bg-white text-zinc-900 pt-24 pb-8 flex flex-col justify-center md:min-h-screen"
+        // UPDATED: Reduced pb-4 to pb-1 to decrease gap
+        className="relative w-full bg-white text-zinc-900 pt-20 pb-1 flex flex-col justify-center md:min-h-screen"
     >
-      {/* UPDATED: Reduced gap-16 to gap-6 on mobile to bring Paradigm Shifts closer */}
-      <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-6 md:gap-16">
+      <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-3 md:gap-3">
         
         {/* MAIN CONTENT AREA: SPLIT SCREEN BENTO GRID */}
-        {/* UPDATED: Changed mobile layout to flex-col with auto height to prevent video collapse */}
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:h-[70vh] w-full">
+        {/* CHANGED: Reduced height from 450px to 380px to remove padding/whitespace at top */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-3 h-auto md:h-[380px] w-full">
             
             {/* 1. TEXT ANIMATION AREA */}
             <div 
-                // UPDATED: Reduced min-h-[350px] to min-h-[180px] to remove huge padding
-                // UPDATED: Reduced padding p-6 to p-3 on mobile
-                className="min-h-[180px] lg:h-full w-full flex flex-col order-1 group/text cursor-default relative bg-white rounded-3xl shadow-2xl border border-zinc-200 p-3 md:p-12 overflow-hidden"
+                className="min-h-[180px] lg:h-full w-full flex flex-col order-1 group/text cursor-default relative bg-white rounded-3xl shadow-2xl border border-zinc-200 p-3 md:p-5 overflow-hidden"
             >
                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-200 to-transparent opacity-50" />
+
+                 {/* 
+                    LOGO ANIMATION:
+                    - Only animates in when isFinished is true (which implies we are on the final slide "Place").
+                    - Delay is set to 3.0s to ensure "Perspective" text has populated first.
+                    - Hover: Rotate 15deg and back to 0 (ping-pong) to "shift back".
+                    - UPDATED: Moved logo to top-4 right-4 md:top-6 md:right-6 to prevent cutoff.
+                 */}
+                 <div className="absolute top-4 right-4 md:top-6 md:right-6 z-20 flex flex-row items-center gap-3">
+                    <motion.img 
+                        src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
+                        alt="Micron House Logo"
+                        className="h-24 w-24 md:h-44 md:w-44 object-contain"
+                        initial={{ opacity: 0, x: 100, rotate: 180 }}
+                        // Only animate when the cycle is finished (last slide is active)
+                        animate={isFinished ? { opacity: 1, x: 0, rotate: 0 } : { opacity: 0, x: 100, rotate: 180 }}
+                        // "Shift back once it rotate" -> Rotate to 15 then back to 0
+                        whileHover={{ rotate: [0, 15, 0], scale: 1.05, transition: { duration: 0.6 } }}
+                        transition={{ delay: 3.0, duration: 1.5, ease: "easeOut" }}
+                    />
+                 </div>
                  
-                 {/* ANIMATED LOGO HEADER (Only on 3rd Sentence) */}
-                 <AnimatePresence>
-                    {currentSentenceIndex === 2 && (
-                        // UPDATED: Flex-row to put text beside logo to the left. Increased top/right positioning.
-                        <div className="absolute top-6 right-6 md:top-12 md:right-12 z-20 flex flex-row items-center gap-6">
-                            
-                            {/* Text separate, massive, and to the LEFT of logo */}
-                            <motion.span 
-                                initial={{ opacity: 0, x: -30 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ delay: 3.2, duration: 1.0 }} // Appear after logo lands
-                                // UPDATED: Size increased to match "Without Place" treatment (text-5xl to 8xl range)
-                                className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter text-micron-eggplant text-right leading-[0.85]"
-                            >
-                                Micron<br/>House
-                            </motion.span>
-
-                            {/* Logo separate and massive (60% bigger) */}
-                            <motion.img 
-                                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/LOGO%20MH.png"
-                                alt="Micron House Logo"
-                                // UPDATED: Size increased significantly (~50-60% larger than previous h-32)
-                                className="h-32 w-32 md:h-52 md:w-52 object-contain"
-                                initial={{ x: -250, rotate: -720, opacity: 0 }}
-                                animate={{ x: 0, rotate: 0, opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ 
-                                    duration: 1.5, 
-                                    ease: "circOut",
-                                    delay: 2.0 // Wait for text to populate
-                                }}
-                            />
-                        </div>
-                    )}
-                 </AnimatePresence>
-
-                 <div className="flex flex-col h-full w-full justify-end pb-2">
+                 {/* Bottom Alignment */}
+                 <div className="flex flex-col h-full w-full justify-end pt-2 md:pt-0 pb-2">
                      <AnimatePresence mode="wait">
                        <motion.div 
                           key={currentSentenceIndex} 
@@ -155,68 +209,60 @@ export const Hero: React.FC = () => {
                               hidden: { opacity: 1 },
                               visible: { 
                                   opacity: 1,
-                                  transition: { staggerChildren: 0.4 } 
+                                  transition: { staggerChildren: 0.5 } // Stagger lines
                               },
-                              exit: { opacity: 0, transition: { duration: 0.3 } }
+                              exit: { 
+                                  opacity: 1, 
+                                  transition: { staggerChildren: 0.1, staggerDirection: 1 } 
+                              }
                           }}
                        >
-                         {/* LINE 1 */}
-                         <div className="flex flex-wrap gap-x-2 md:gap-x-4">
-                              {sentences[currentSentenceIndex].line1.map((word, i) => {
-                                  const currentSet = sentences[currentSentenceIndex];
-                                  const isHighlight = currentSet.highlights.includes(word);
-                                  const textColor = isHighlight ? currentSet.highlightHex : currentSet.baseHex;
-                                  const hoverColor = isHighlight ? currentSet.hoverHighlightHex : currentSet.baseHex;
+                         {/* DYNAMIC LINE RENDERING */}
+                         {sentences[currentSentenceIndex].lines.map((line, lineIndex) => (
+                             <motion.div 
+                                key={lineIndex} 
+                                className="flex flex-wrap gap-x-2 md:gap-x-4"
+                                variants={{
+                                    hidden: { opacity: 1 },
+                                    visible: {
+                                        opacity: 1,
+                                        transition: { staggerChildren: 0.12 } // Stagger words inside line
+                                    },
+                                    exit: { opacity: 0 }
+                                }}
+                             >
+                                  {line.map((word, wordIndex) => {
+                                      const currentSet = sentences[currentSentenceIndex];
+                                      const isHighlight = currentSet.highlights.includes(word);
+                                      const textColor = isHighlight ? currentSet.highlightHex : currentSet.baseHex;
+                                      const hoverColor = isHighlight ? currentSet.hoverHighlightHex : currentSet.baseHex;
 
-                                  return (
-                                      <motion.span
-                                          key={`l1-${i}`}
-                                          variants={{
-                                              hidden: { y: 20, opacity: 0 },
-                                              visible: { 
-                                                  y: 0, 
-                                                  opacity: 1, 
-                                                  transition: { duration: 0.6, ease: "easeOut" } 
-                                              }
-                                          }}
-                                          style={{ color: textColor }} // Set base color via style for Motion interpolation
-                                          whileHover={{ color: hoverColor, transition: { duration: 0.3 } }}
-                                          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] cursor-default"
-                                      >
-                                          {word}
-                                      </motion.span>
-                                  );
-                              })}
-                         </div>
-
-                         {/* LINE 2 */}
-                         <div className="flex flex-wrap gap-x-2 md:gap-x-4">
-                              {sentences[currentSentenceIndex].line2.map((word, i) => {
-                                  const currentSet = sentences[currentSentenceIndex];
-                                  const isHighlight = currentSet.highlights.includes(word);
-                                  const textColor = isHighlight ? currentSet.highlightHex : currentSet.baseHex;
-                                  const hoverColor = isHighlight ? currentSet.hoverHighlightHex : currentSet.baseHex;
-
-                                  return (
-                                      <motion.span
-                                          key={`l2-${i}`}
-                                          variants={{
-                                              hidden: { y: 20, opacity: 0 },
-                                              visible: { 
-                                                  y: 0, 
-                                                  opacity: 1, 
-                                                  transition: { duration: 0.6, ease: "easeOut" } 
-                                              }
-                                          }}
-                                          style={{ color: textColor }}
-                                          whileHover={{ color: hoverColor, transition: { duration: 0.3 } }}
-                                          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] cursor-default"
-                                      >
-                                          {word}
-                                      </motion.span>
-                                  );
-                              })}
-                         </div>
+                                      return (
+                                          <motion.span
+                                              key={`${lineIndex}-${wordIndex}`}
+                                              variants={{
+                                                  hidden: { y: 20, opacity: 0 },
+                                                  visible: { 
+                                                      y: 0, 
+                                                      opacity: 1, 
+                                                      transition: { duration: 0.8, ease: "easeOut" } 
+                                                  },
+                                                  exit: {
+                                                      y: -20,
+                                                      opacity: 0,
+                                                      transition: { duration: 0.3, ease: "easeIn" }
+                                                  }
+                                              }}
+                                              style={{ color: textColor }} 
+                                              whileHover={{ color: hoverColor, transition: { duration: 0.1 } }}
+                                              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] cursor-default"
+                                          >
+                                              {word}
+                                          </motion.span>
+                                      );
+                                  })}
+                             </motion.div>
+                         ))}
 
                        </motion.div>
                      </AnimatePresence>
@@ -225,12 +271,10 @@ export const Hero: React.FC = () => {
 
             {/* 2. VIDEO AREA */}
             <motion.div 
-                // UPDATED: Video loads immediately with opacity fade-in
                 initial={{ opacity: 0, scale: 0.98, filter: "blur(5px)" }}
                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                 transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-                // UPDATED: Explicit height on mobile h-[220px] to prevent huge vertical space
-                className="h-[220px] md:h-[400px] lg:h-full w-full rounded-3xl overflow-hidden relative shadow-2xl bg-black border border-zinc-800 order-2"
+                className="h-[220px] md:h-full lg:h-full w-full rounded-3xl overflow-hidden relative shadow-2xl bg-black border border-zinc-800 order-2"
             >
                 <video 
                     ref={videoRef}
@@ -251,7 +295,6 @@ export const Hero: React.FC = () => {
         {/* BOTTOM SECTION: PARADIGM & MAP */}
         <motion.div 
             ref={bottomSectionRef}
-            // UPDATED: Container now triggers if text finishes OR if user scrolls to it
             initial="hidden"
             animate={(isFinished || isBottomVisible) ? "visible" : "hidden"}
             variants={{
@@ -269,14 +312,14 @@ export const Hero: React.FC = () => {
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-100 z-20" />
 
             {/* Text Side (Left) */}
-            <div className="p-8 md:p-12 flex flex-col justify-center md:w-1/2 z-10 relative bg-white">
+            <div className="p-4 md:p-6 flex flex-col justify-center md:w-1/2 z-10 relative bg-white">
                  
                  {/* Interactive Title Component */}
-                 <div className="mb-8 md:mb-6">
+                 <div className="mb-4 md:mb-4">
                      <InteractiveParadigmTitle />
                  </div>
                 
-                {/* Address Block - Sequence: 3rd (After Map) */}
+                {/* Address Block */}
                 <motion.div 
                     variants={{
                         hidden: { opacity: 0, x: -20 },
@@ -302,7 +345,7 @@ export const Hero: React.FC = () => {
                 </motion.div>
             </div>
 
-            {/* Map Side (Right) - Sequence: 2nd (After Title) */}
+            {/* Map Side (Right) */}
             <motion.div 
                 variants={{
                     hidden: { opacity: 0, scale: 0.95 },
@@ -312,27 +355,19 @@ export const Hero: React.FC = () => {
                         transition: { delay: 2.2, duration: 1.0, ease: "easeOut" }
                     }
                 }}
-                className="relative w-full md:w-1/2 min-h-[300px] md:h-auto md:min-h-0 p-4 md:p-6 flex items-center justify-center bg-white"
+                className="relative w-full md:w-1/2 min-h-[300px] md:h-auto md:min-h-0 p-2 md:p-3 flex items-center justify-center bg-white"
             >
-                <div className="w-full h-full rounded-3xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 relative bg-zinc-100 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)]">
+                <div 
+                    className="w-full h-full rounded-3xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative bg-zinc-100 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] group/map"
+                >
                      <iframe 
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.234!2d-116.1898!3d43.6088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54aef8d1b0b3b8e7%3A0x0!2s1020%20E%20Warm%20Springs%20Ave%2C%20Boise%2C%20ID%2083712!5e0!3m2!1sen!2sus!4v1706000000000"
-                        className="absolute inset-0 w-full h-full mix-blend-normal"
+                        className="absolute inset-0 w-full h-full mix-blend-normal grayscale opacity-60 transition-all duration-700 hover:opacity-100 hover:contrast-110"
                         style={{
-                            // Default: High Contrast Grayscale (White/Light Gray base)
-                            filter: 'grayscale(100%) contrast(100%) brightness(100%)', 
-                            transition: 'filter 500ms ease-in-out',
-                            pointerEvents: 'none' // Disable scroll interaction and overlays
-                        }}
-                        onMouseEnter={(e) => {
-                           // Hover: Darker "Negative" effect (but still grayscale)
-                           e.currentTarget.style.filter = 'grayscale(100%) contrast(120%) brightness(70%)'; 
-                        }}
-                        onMouseLeave={(e) => {
-                           e.currentTarget.style.filter = 'grayscale(100%) contrast(100%) brightness(100%)';
+                            pointerEvents: 'none'
                         }}
                         title="Map"
-                        loading="eager" // UPDATED: Eager load on mobile to prevent white space
+                        loading="eager"
                      />
                 </div>
             </motion.div>
@@ -342,95 +377,4 @@ export const Hero: React.FC = () => {
     </section>
   );
 };
-
-// Sub-component for Independent Word Coloring with Complex State
-const InteractiveParadigmTitle: React.FC = () => {
-    // Sequence 1: Words appear staggered
-    const wordDelayStart = 0.5; // Start after container starts appearing
-    const wordStagger = 0.3;
-
-    return (
-        <div className="flex flex-col items-start select-none">
-            {/* Line 1 */}
-            <div className="flex gap-x-2 md:gap-x-4 mb-2">
-                {["THE", "PARADIGM"].map((word, i) => (
-                    <motion.div
-                        key={i}
-                        variants={{
-                            hidden: { opacity: 0, y: 20 },
-                            visible: { 
-                                opacity: 1, 
-                                y: 0,
-                                transition: { 
-                                    delay: wordDelayStart + (i * wordStagger),
-                                    duration: 0.8,
-                                    ease: "easeOut"
-                                }
-                            }
-                        }}
-                    >
-                        <InteractiveWord word={word} />
-                    </motion.div>
-                ))}
-            </div>
-            {/* Line 2 */}
-            <div className="flex gap-x-2 md:gap-x-4">
-                {["SHIFTS."].map((word, i) => (
-                    <motion.div
-                        key={i}
-                        variants={{
-                            hidden: { opacity: 0, y: 20 },
-                            visible: { 
-                                opacity: 1, 
-                                y: 0,
-                                transition: { 
-                                    // Offset by previous line length (2 words)
-                                    delay: wordDelayStart + ((2 + i) * wordStagger),
-                                    duration: 0.8,
-                                    ease: "easeOut"
-                                }
-                            }
-                        }}
-                    >
-                        <InteractiveWord word={word} />
-                    </motion.div>
-                ))}
-            </div>
-        </div>
-    );
-};
-
-const InteractiveWord: React.FC<{ word: string }> = ({ word }) => {
-    const [isChanged, setIsChanged] = useState(false);
-
-    const handleInteraction = () => {
-        setIsChanged(prev => !prev);
-    };
-
-    return (
-        <motion.span
-            onMouseEnter={handleInteraction}
-            animate={{
-                // Color Sequence: Green -> Dark Green -> Burgundy (Eggplant)
-                color: isChanged 
-                    ? ["#2c0f38", "#008f25", "#004d14", "#2c0f38"] 
-                    : "#2c0f38", 
-            }}
-            // Added slight movement on hover
-            whileHover={{ 
-                y: -4, 
-                x: 2, 
-                scale: 1.05,
-                transition: { duration: 0.2, ease: "easeOut" } 
-            }}
-            transition={{ 
-                duration: isChanged ? 3.0 : 0.5,
-                times: isChanged ? [0, 0.3, 0.6, 1] : [1], 
-                ease: "easeInOut"
-            }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] cursor-pointer inline-block"
-        >
-            {word}
-        </motion.span>
-    );
-};
+    

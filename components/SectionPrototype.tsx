@@ -9,6 +9,7 @@ import { motion, useInView } from 'framer-motion';
 // --- VIDEO ASSETS ---
 const VIDEO_TIMING = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/cropped%20POTATO%20MICRON%20SEQUENCE.mp4";
 const VIDEO_COLLAB = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/FINAL%20FINAL.mp4";
+const VIDEO_PLACE = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/FINAL%20CW%20MOORE%20FULL.mp4"; // NEW PLACE VIDEO
 const VIDEO_PLACEHOLDER = VIDEO_COLLAB; 
 
 // Helper component for inner bento cards within the modal
@@ -406,10 +407,18 @@ const getCardData = (id: number): ModalContent => {
         content: (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-full">
            
-           {/* LEFT: IMAGE (Span 5) */}
+           {/* LEFT: VIDEO (Span 5) - UPDATED TO VIDEO */}
            <div className="lg:col-span-5 relative h-full min-h-[300px] lg:min-h-0">
                 <div className="w-full h-full rounded-xl overflow-hidden relative shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)]">
-                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover" alt="Historic Bedrock" />
+                    <video 
+                        src={VIDEO_PLACE} 
+                        className="absolute inset-0 w-full h-full object-cover" 
+                        autoPlay 
+                        muted 
+                        loop 
+                        playsInline 
+                    />
+                    {/* Dark gradient overlay for text readability, only on mobile if needed, or keeping it subtle */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent lg:hidden"></div>
                     <div className="absolute bottom-6 left-6 z-10">
                         <h3 className="text-2xl font-black uppercase text-white leading-none">THE HISTORIC<br/>BEDROCK</h3>
@@ -462,32 +471,33 @@ export const SectionPrototype: React.FC = () => {
   const mainTitleWords = ["MICRON.", "TESLA.", "BOISE."];
 
   return (
-    <section id="prototype" className="container mx-auto px-4 md:px-12 py-8 md:py-12 bg-white text-zinc-900">
+    // REDUCED PADDING: py-4 md:py-6 -> pt-1 pb-4 md:pt-2 md:pb-6 to reduce gap to previous section
+    <section id="prototype" className="container mx-auto px-4 md:px-12 pt-1 pb-4 md:pt-2 md:pb-6 bg-white text-zinc-900">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 1.0 }}
-        // UPDATED: Reduced padding on mobile from p-8 to p-5 to match request
-        className="pointer-events-auto w-full bg-white rounded-[2.5rem] p-5 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-zinc-100 ring-1 ring-zinc-50"
+        // REDUCED PADDING: p-5 md:p-12 -> p-4 md:p-6
+        className="pointer-events-auto w-full bg-white rounded-[2.5rem] p-4 md:p-6 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-zinc-100 ring-1 ring-zinc-50"
       >
         <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            // UPDATED: Reduced header gap from gap-12 to gap-6 on mobile
-            // UPDATED: Reduced bottom padding from pb-8 to pb-4 on mobile
-            className="mb-6 flex flex-col md:flex-row md:items-end gap-6 md:gap-12 border-b border-zinc-100 pb-4 md:border-b-0 md:pb-0"
+            // REDUCED GAP: gap-6 md:gap-12 -> gap-4 md:gap-6
+            // REDUCED MARGIN: mb-6 -> mb-4
+            className="mb-4 flex flex-col md:flex-row md:items-end gap-4 md:gap-6 border-b border-zinc-100 pb-4 md:border-b-0 md:pb-0"
         >
-            {/* UPDATED: Reduced padding inside header boxes from p-6 to p-4 on mobile */}
-            <div className="flex-shrink-0 bg-zinc-50 p-4 md:p-6 rounded-2xl border border-zinc-100 shadow-sm md:bg-transparent md:p-0 md:border-0 md:shadow-none md:rounded-none">
+            {/* REDUCED PADDING: p-4 md:p-6 -> p-3 md:p-4 */}
+            <div className="flex-shrink-0 bg-zinc-50 p-3 md:p-4 rounded-2xl border border-zinc-100 shadow-sm md:bg-transparent md:p-0 md:border-0 md:shadow-none md:rounded-none">
                 <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">01 / VISION</span>
-                {/* UPDATED: Changed text-micron-eggplant to text-micron-green */}
-                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-green leading-none font-sans">A NEW DAY</h2>
+                {/* UPDATED: Reverted text-micron-green to text-micron-eggplant as requested */}
+                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant leading-none font-sans">A NEW DAY</h2>
             </div>
 
-            <div className="md:ml-auto max-w-2xl pb-1 bg-white p-4 md:p-6 rounded-2xl border border-zinc-100 shadow-sm md:bg-transparent md:p-0 md:border-0 md:shadow-none md:rounded-none">
+            <div className="md:ml-auto max-w-2xl pb-1 bg-white p-3 md:p-4 rounded-2xl border border-zinc-100 shadow-sm md:bg-transparent md:p-0 md:border-0 md:shadow-none md:rounded-none">
                 <div className="md:pl-6 md:border-l-4 md:border-micron-eggplant/20 md:hover:border-micron-eggplant md:transition-colors md:duration-500">
                     <div className="text-base font-light text-zinc-600 leading-snug font-body">
                         <span className="font-bold text-micron-eggplant block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans cursor-default">
@@ -612,7 +622,8 @@ export const SectionPrototype: React.FC = () => {
                 onMouseEnter={() => setHoveredCard(4)}
                 onMouseLeave={() => setHoveredCard(null)}
             >
-                <HoverVideoPlayer src={VIDEO_PLACEHOLDER} isHovering={hoveredCard === 4} />
+                {/* UPDATED: Use VIDEO_PLACE instead of placeholder */}
+                <HoverVideoPlayer src={VIDEO_PLACE} isHovering={hoveredCard === 4} />
                 <div className="relative z-10 mt-auto pt-6">
                     <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-micron-eggplant-light transition-colors duration-300 mb-4">
                         PLACE

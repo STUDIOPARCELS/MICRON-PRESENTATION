@@ -7,17 +7,18 @@ import { ScanFace, BrainCircuit, MessageSquare, ShieldCheck, Users, Eye, HelpCir
 import { motion } from 'framer-motion';
 
 const teslaCards = [
-  // CARD 1: REAL-WORLD INFERENCE (Moved to first position per request context "Move real world inference")
+  // CARD 1: REAL-WORLD INFERENCE
   { 
     id: 2, 
     title: "REAL-WORLD INFERENCE", 
     subtitle: "A Living Laboratory",
     content: "The Convergence Zone. 1020 E Warm Springs is the neutral ground where the digital code of AI meets the legal code of the nation.",
     icon: <ScanFace />,
-    gradient: "bg-micron-black", 
+    // UPDATED: Hover to Light Blue (eggplant-light) with transition
+    gradient: "bg-micron-black hover:bg-micron-eggplant-light transition-colors duration-500", 
     border: "border-white/10",
-    subtitleColor: "text-micron-green", // Explicit color
-    descriptionColor: "text-zinc-400"
+    subtitleColor: "text-micron-green", 
+    descriptionColor: "text-zinc-400 group-hover:text-white transition-colors duration-300" // Ensure text pops on light blue
   },
   // CARD 2: THE TECTONIC SHIFT
   {
@@ -26,10 +27,11 @@ const teslaCards = [
     subtitle: "Anthropology of the Future",
     content: "Moving beyond laws and sidewalks into the anthropology of the future. How humanity adapts to the 'Crisis of Shared Reality' in the age of ubiquitous robotics.",
     icon: <BrainCircuit />,
-    gradient: "bg-micron-grey1", // Dark Gray
+    // UPDATED: Hover to Light Gray (zinc-200) with transition
+    gradient: "bg-micron-grey1 hover:bg-zinc-200 transition-colors duration-500", 
     border: "border-white/10",
-    subtitleColor: "text-micron-eggplant-light", // Explicit color
-    descriptionColor: "text-zinc-300"
+    subtitleColor: "text-micron-eggplant-light", 
+    descriptionColor: "text-zinc-300 group-hover:text-zinc-800 transition-colors duration-300" // Text must darken on light background
   },
 ];
 
@@ -118,7 +120,19 @@ export const SectionServingTesla: React.FC = () => {
             {/* LEFT COLUMN: Thesis Cards */}
             <div className="flex flex-col gap-6">
                 <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
-                     <h3 className="text-zinc-400 font-bold uppercase tracking-widest text-xs mb-4 ml-2">The Zoom Out</h3>
+                     <h3 className="text-zinc-400 font-bold uppercase tracking-widest text-xs mb-4 ml-2 flex items-center gap-3">
+                        The Zoom Out
+                        {/* EASTER EGG SVG */}
+                        <svg width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-80 hover:opacity-100 transition-opacity cursor-help">
+                            <path d="M9 2C5 2 2 8 2 14C2 19.5 5 22 9 22C13 22 16 19.5 16 14C16 8 13 2 9 2Z" fill="#7db0d3"/>
+                            <circle cx="6" cy="10" r="1.5" fill="#353942"/>
+                            <circle cx="12" cy="8" r="1.2" fill="#353942"/>
+                            <circle cx="9" cy="14" r="1.8" fill="#353942"/>
+                            <circle cx="5" cy="16" r="1" fill="#353942"/>
+                            <circle cx="13" cy="15" r="1.3" fill="#353942"/>
+                            <circle cx="8" cy="7" r="1" fill="#353942"/>
+                        </svg>
+                     </h3>
                 </motion.div>
 
                 {/* Card A */}
@@ -209,7 +223,6 @@ export const SectionServingTesla: React.FC = () => {
           <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8 md:border-b-0 md:pb-0">
             <div className="flex-shrink-0">
                <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">05 / PARTNERSHIP</span>
-               {/* UPDATED HEADER: "LIVING LAB" */}
                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-zinc-900 leading-none">LIVING LAB</h2>
             </div>
 
@@ -217,7 +230,6 @@ export const SectionServingTesla: React.FC = () => {
             <div className="md:ml-auto max-w-2xl pb-1">
                  <div className="pl-6 border-l-4 border-zinc-900/20 hover:border-zinc-900 transition-colors duration-500">
                     <p className="text-base font-light text-zinc-600 leading-snug font-body">
-                       {/* REMOVED: Period from "AUTONOMOUS FUTURE" */}
                        <span className="font-bold text-zinc-900 block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                            AUTONOMOUS FUTURE
                        </span>
@@ -256,8 +268,8 @@ export const SectionServingTesla: React.FC = () => {
 
                 {/* Content aligned to bottom */}
                 <div className="relative z-10 mt-auto p-2">
-                   {/* Larger, colored Title */}
-                   <h3 className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter text-white mb-3 font-sans">
+                   {/* Larger, colored Title - Adds dark text on hover for light backgrounds */}
+                   <h3 className={`text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-3 font-sans transition-colors duration-300 ${card.id === 1 ? 'text-white group-hover:text-zinc-900' : 'text-white'}`}>
                        {card.title}
                    </h3>
                    

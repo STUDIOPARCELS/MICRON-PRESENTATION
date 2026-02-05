@@ -41,34 +41,32 @@ function App() {
   return (
     <div className="min-h-screen w-full bg-white text-zinc-900 font-sans">
       {/* Navigation Overlay - Z-50 to stay on top */}
-      {/* UPDATED: Removed padding/flex from outer nav to allow inner container to handle alignment */}
       <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/95 backdrop-blur-xl border-b border-zinc-200 shadow-sm transition-all duration-300">
-        <div className="container mx-auto px-4 md:px-12 py-3 flex items-center justify-between">
+        <div className="container mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
             {/* ANIMATED BRAND LOGO */}
             <div 
-              className="flex items-center gap-3 cursor-pointer z-50 relative group" 
+              // UPDATED: Reduced gap from gap-2 (8px) to gap-1.5 (6px) -> 20% closer
+              className="flex items-center gap-1.5 cursor-pointer z-50 relative group" 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
               <motion.img 
-                // UPDATED: New Logo URL
-                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/LOGO%20MH.png"
+                // UPDATED: New Transparent Overlap Logo
+                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-transparent.png"
                 alt="Micron House Logo"
-                className="h-10 w-10 md:h-12 md:w-12 object-contain"
-                initial={{ x: -60, rotate: -360, opacity: 0 }}
-                animate={{ x: 0, rotate: 0, opacity: 1 }}
+                // UPDATED: Increased size by ~20% (h-[3.6rem] mobile, h-[4.2rem] desktop)
+                className="h-[3.6rem] w-[3.6rem] md:h-[4.2rem] md:w-[4.2rem] object-contain"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ 
-                  duration: 1.2, 
-                  ease: "easeOut",
-                  type: "spring",
-                  damping: 15
+                  duration: 1.5, 
+                  ease: "easeOut"
                 }}
               />
               <motion.span 
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.0, duration: 0.8 }}
-                // UPDATED: Increased boldness from font-bold to font-black
-                className="text-xl md:text-2xl font-black tracking-tight text-micron-eggplant uppercase font-sans"
+                className="text-lg md:text-xl font-black tracking-tight text-micron-eggplant uppercase font-sans"
               >
                 Micron House
               </motion.span>
@@ -142,11 +140,9 @@ function App() {
                     {/* Brand Column */}
                     <div className="col-span-1 md:col-span-2">
                         <h3 className="text-4xl font-bold text-white mb-6 uppercase tracking-tight">Micron House</h3>
-                        {/* Increased text size */}
                         <p className="text-zinc-500 text-lg max-w-md mb-8 leading-relaxed">
                             A convergence of historic stewardship and autonomous future. The first corporate residence designed for the era of artificial intelligence.
                         </p>
-                        {/* Increased text size */}
                         <div className="flex items-start gap-4 mb-2 group cursor-pointer text-base">
                             <MapPin className="text-micron-green mt-1 group-hover:text-white transition-colors flex-shrink-0" size={20} />
                             <span className="text-zinc-300 group-hover:text-white transition-colors leading-relaxed">1020 E Warm Springs Ave<br/>Boise, ID 83712</span>
@@ -155,9 +151,7 @@ function App() {
 
                     {/* Navigation Column */}
                     <div>
-                        {/* Increased Header Size */}
                         <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-8">Explore</h4>
-                        {/* Increased Link Size */}
                         <ul className="space-y-4 text-base">
                             {navLinks.map(link => (
                                 <li key={link.id}>
@@ -171,9 +165,7 @@ function App() {
 
                     {/* Contact Column */}
                     <div>
-                        {/* Increased Header Size */}
                         <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-8">Contact</h4>
-                        {/* Increased Content Size */}
                         <ul className="space-y-4 text-base">
                             <li className="flex items-center gap-3">
                                 <Mail size={20} />

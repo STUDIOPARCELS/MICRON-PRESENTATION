@@ -65,8 +65,8 @@ export const SectionTimeline: React.FC = () => {
           <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8 md:border-b-0 md:pb-0">
               <div className="flex-shrink-0">
                   <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">06 / DEPLOYMENT</span>
-                  {/* Changed from EXECUTION ROADMAP to ROADMAP */}
-                  <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-zinc-800 leading-none font-sans">
+                  {/* UPDATED: Changed color to text-micron-green */}
+                  <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-green leading-none font-sans">
                       ROADMAP
                   </h2>
               </div>
@@ -75,8 +75,8 @@ export const SectionTimeline: React.FC = () => {
                  {/* Updated Header Structure to match other sections */}
                  <div className="pl-6 border-l-4 border-zinc-900/20 hover:border-zinc-900 transition-colors duration-500">
                     <p className="text-base font-light text-zinc-600 leading-snug font-body">
-                       {/* Increased text size to 2xl/3xl and removed period from TIMELINE */}
-                       <span className="font-bold text-zinc-900 block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
+                       {/* UPDATED: Changed color to text-micron-green */}
+                       <span className="font-bold text-micron-green block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                            TIMELINE
                        </span>
                        {/* Increased description size to text-base */}
