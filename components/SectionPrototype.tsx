@@ -99,27 +99,6 @@ const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: st
     );
 };
 
-// MODAL VIDEO WRAPPER - Forces aspect-video (16:9) to fit content exactly
-const ModalVideo = ({ src, className = "", children }: { src: string; className?: string; children?: React.ReactNode }) => (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      className={`w-full aspect-video bg-black rounded-xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative border border-zinc-200 group ${className}`}
-    >
-      <video 
-          key={src} 
-          src={src} 
-          className="w-full h-full object-cover" 
-          autoPlay 
-          muted 
-          loop
-          playsInline 
-      />
-      {children}
-    </motion.div>
-);
-
 const getCardData = (id: number): ModalContent => {
   const base = { category: 'showcase' as const, theme: 'light' as const, maxWidth: 'max-w-6xl' };
 
@@ -132,21 +111,17 @@ const getCardData = (id: number): ModalContent => {
         maxWidth: 'max-w-7xl', 
         content: (
             <div className="flex flex-col gap-6 h-auto">
-                {/* Intro Text - Compacted padding/spacing based on screenshot arrows */}
+                {/* Intro Section - Text Removed per request, Header remains as section anchor */}
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
                     className="shrink-0 p-1 md:p-2 flex flex-col items-start w-full border-none shadow-none bg-transparent"
                 >
-                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-1 font-sans">
                         AUTONOMOUS HUB
                     </h3>
-                    <div className="text-zinc-900 text-lg font-medium leading-relaxed">
-                        <p>
-                            A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
-                        </p>
-                    </div>
+                    <div className="w-full h-px bg-zinc-200" /> {/* Divider Line */}
                 </motion.div>
 
                 {/* Main Content Grid: Video Left, Stack Right */}
@@ -167,34 +142,33 @@ const getCardData = (id: number): ModalContent => {
                     
                     {/* Column 2: Stacked Bentos (Takes 1 col) */}
                     <div className="lg:col-span-1 flex flex-col gap-4 h-full">
-                        {/* Box 1: Integration */}
+                        {/* Box 1: Integration - Updated Content moved from Autonomous Hub */}
                         <InnerBento 
                             gradient="bg-micron-eggplant" 
                             direction="left" 
                             delay={0.3} 
-                            className="flex-shrink-0" 
-                        >
-                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">INTEGRATION</h3>
-                            <div className="space-y-4 text-white/90 text-lg font-medium leading-relaxed">
-                                <p className="font-bold text-white text-lg">A Venue for Leadership.</p>
-                                <p>A residential venue for the leaders building the future and the policymakers governing it.</p>
-                                <p>Guests meet to experience the shift to autonomous systems directly.</p>
-                            </div>
-                        </InnerBento>
-
-                        {/* Box 2: Humanoids - TEXT REMOVED TO BALANCE LAYOUT */}
-                        <InnerBento 
-                            gradient="bg-micron-grey1" 
-                            direction="left" 
-                            delay={0.4} 
                             className="flex-grow" 
                         >
-                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">HUMANOIDS</h3>
-                            <div className="space-y-4 text-white/90 text-lg font-medium leading-relaxed">
-                                <p className="font-bold text-white text-lg">Scaling to Billions.</p>
-                                <p>Daily life transforms permanently. This setting invites the architects of tomorrow to navigate the profound questions involved in bringing this future to the world.</p>
+                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">INTEGRATION</h3>
+                            <div className="w-full h-px bg-white/20 mb-4" />
+                            <div className="space-y-4 text-white/90 text-base font-medium leading-relaxed">
+                                <p>
+                                    A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
+                                </p>
                             </div>
                         </InnerBento>
+                    </div>
+                </div>
+
+                {/* Bottom Section: Inflection Point (Moved from Stack) */}
+                <div className="bg-micron-grey1 rounded-xl p-6 text-white border border-white/10 shadow-md">
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">INFLECTION POINT</h3>
+                    <div className="w-full h-px bg-white/20 mb-4" />
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                         <div className="md:col-span-12 flex flex-col gap-3 text-base font-medium text-white/90 leading-relaxed">
+                            <p className="font-bold text-white text-lg">Scaling to Billions.</p>
+                            <p>Daily life transforms permanently. This setting invites the architects of tomorrow to navigate the profound questions involved in bringing this future to the world.</p>
+                         </div>
                     </div>
                 </div>
             </div>
@@ -252,10 +226,11 @@ const getCardData = (id: number): ModalContent => {
         content: (
             <div className="flex flex-col gap-6 h-auto">
                {/* TOP SECTION: Video & Cards Side-by-Side to eliminate whitespace */}
+               {/* Updated Grid: 7/5 Split to give text cards more width relative to video */}
                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full items-stretch">
                    
-                   {/* LEFT: Video - Aspect Video (16:9) to prevent cutting off */}
-                   <div className="lg:col-span-8 w-full h-full">
+                   {/* LEFT: Video - Aspect Video (16:9) */}
+                   <div className="lg:col-span-7 w-full h-full">
                         <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative border border-zinc-200 group h-full">
                              <video 
                                 src={VIDEO_COLLAB} 
@@ -265,8 +240,8 @@ const getCardData = (id: number): ModalContent => {
                         </div>
                    </div>
 
-                   {/* RIGHT: Stacked Cards */}
-                   <div className="lg:col-span-4 flex flex-col gap-4 h-full">
+                   {/* RIGHT: Stacked Cards - Slightly wider now (5 columns) */}
+                   <div className="lg:col-span-5 flex flex-col gap-4 h-full">
                         {/* MICRON CARD */}
                         <div className="bg-micron-eggplant rounded-xl p-5 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1">
                             <div className="absolute top-4 right-4 opacity-30"><Cpu size={24} /></div>
@@ -279,8 +254,8 @@ const getCardData = (id: number): ModalContent => {
                                 </div>
                             </div>
                             <div className="text-white/70 font-medium">
-                                <p className="text-base font-black text-white">Founded 1978, Boise.</p>
-                                {/* REMOVED SENTENCE */}
+                                {/* Updated Text: Removed ", Boise" */}
+                                <p className="text-base font-black text-white">Founded 1978.</p>
                             </div>
                         </div>
 
@@ -295,9 +270,9 @@ const getCardData = (id: number): ModalContent => {
                                     <p className="text-sm md:text-base font-bold italic text-white/90">"Accelerate the world's transition to sustainable energy."</p>
                                 </div>
                             </div>
-                            <div className="text-white/70 font-medium">
-                                <p className="text-base font-black text-white">Founded 2003.</p>
-                                {/* REMOVED SENTENCE */}
+                            {/* Updated Text: Removed "Founded 2003." */}
+                            <div className="text-white/70 font-medium min-h-[1.5em]">
+                                
                             </div>
                         </div>
                    </div>
@@ -324,8 +299,9 @@ const getCardData = (id: number): ModalContent => {
                             <p>
                                 In June 2025, Micron announced <strong className="text-zinc-900">$200 billion</strong> in U.S. semiconductor manufacturing — the largest memory infrastructure commitment in American history.
                             </p>
+                            {/* Updated Text: Removed "beyond that" */}
                             <p>
-                                Tesla is targeting <strong className="text-zinc-900">50,000 Optimus units by this year and million-unit annual capacity</strong> beyond that. Every unit is a mobile supercomputer requiring Micron silicon.
+                                Tesla is targeting <strong className="text-zinc-900">50,000 Optimus units by this year and million-unit annual capacity</strong>. Every unit is a mobile supercomputer requiring Micron silicon.
                             </p>
                             <p>
                                 Elon Musk and Sanjay Mehrotra are scaling toward a <strong className="text-zinc-900">future where autonomous systems outnumber people</strong> — and both leaders have acknowledged that the speed of this transition carries a shared responsibility.
@@ -346,10 +322,12 @@ const getCardData = (id: number): ModalContent => {
            <div className="w-full">
                 <div className="w-full aspect-video rounded-xl overflow-hidden relative shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)]">
                     <video src={VIDEO_PLACE} className="absolute inset-0 w-full h-full object-cover" autoPlay muted loop playsInline />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent lg:hidden"></div>
-                    <div className="absolute bottom-6 left-6 z-10">
-                        <h3 className="text-2xl font-black uppercase text-white leading-none">THE HISTORIC<br/>BEDROCK</h3>
-                        <p className="text-micron-green font-bold text-xs uppercase tracking-widest mt-2">Est. 1890</p>
+                    
+                    {/* Added Overlay Text for Place Video */}
+                    <div className="absolute bottom-6 left-6 z-10 pointer-events-none max-w-[80%]">
+                         <h3 className="text-lg md:text-xl font-black text-white drop-shadow-lg leading-tight">
+                            The oldest residential energy system in the country meeting the newest.
+                         </h3>
                     </div>
                 </div>
            </div>

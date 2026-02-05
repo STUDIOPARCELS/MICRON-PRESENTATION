@@ -9,7 +9,7 @@ const sentences = [
         words: ["WITHOUT", "MEMORY,", "THERE'S", "NO", "MEANING."],
         color: "text-zinc-400",
         highlightColor: "text-micron-eggplant",
-        hoverColor: "hover:text-micron-eggplant-light", 
+        hoverColor: "hover:text-micron-eggplant/80", 
         highlights: ["MEMORY,", "MEANING."],
         textSize: "text-6xl sm:text-7xl md:text-7xl lg:text-8xl",
         layout: "default"
@@ -25,8 +25,8 @@ const sentences = [
         layout: "default"
     },
     {
-        // Sentence 3 - Standardized to match others
-        words: ["WITHOUT", "PLACE,", "THERE'S", "NO", "PERSPECTIVE."], 
+        // Sentence 3
+        words: ["WITHOUT", "PLACE,", "THERE'S NO", "PERSPECTIVE."], 
         color: "text-zinc-400",
         highlightColor: "text-micron-green",
         hoverColor: "hover:text-green-900", 
@@ -79,7 +79,7 @@ const InteractiveParadigmTitle: React.FC = () => {
                         initial={{ y: 20, opacity: 0, color: '#2c0f38' }}
                         whileInView={{ 
                             y: 0, 
-                            opacity: 1,
+                            opacity: 1, 
                             color: '#008f25' // Settles on Green
                         }}
                         whileHover={{
@@ -128,24 +128,25 @@ export const Hero: React.FC = () => {
   
   // Effect to cycle through sentences
   useEffect(() => {
+    // If not started, or at end, stop automatic cycling
     if (currentSentenceIndex === null) return;
+    if (currentSentenceIndex >= sentences.length - 1) return;
 
     // Reduced from 12000 to 8000 for faster cycling
     const cycleDuration = 8000; 
 
-    const interval = setInterval(() => {
+    const timer = setTimeout(() => {
         setCurrentSentenceIndex((prev) => {
             if (prev === null) return 0;
             if (prev < sentences.length - 1) {
                 return prev + 1;
             } else {
-                clearInterval(interval);
                 return prev;
             }
         });
     }, cycleDuration);
 
-    return () => clearInterval(interval);
+    return () => clearTimeout(timer);
   }, [currentSentenceIndex]);
 
   // Effect for Icon Roll-In Logic
@@ -182,22 +183,11 @@ export const Hero: React.FC = () => {
 
   const handleReplay = () => {
       setKey(prev => prev + 1);
-      if (currentSentenceIndex === 2) {
-          iconControls.set({ x: 200, rotate: -360, opacity: 0 });
-          const totalDelay = 2.0;
-          iconControls.start({
-              x: 0,
-              rotate: 0,
-              opacity: 1,
-              transition: { 
-                  delay: totalDelay,
-                  duration: 3.0,
-                  type: "spring",
-                  stiffness: 30,
-                  damping: 20
-              }
-          });
-      }
+      // Explicitly reset to 0 so the loop restarts from the beginning
+      setCurrentSentenceIndex(0);
+      
+      // Reset Icon manually for replay
+      iconControls.set({ x: 200, rotate: -360, opacity: 0 });
   };
 
   const renderWord = (word: string, i: number, currentSet: any) => {
@@ -205,10 +195,13 @@ export const Hero: React.FC = () => {
       const colorClass = isHighlight ? currentSet.highlightColor : currentSet.color;
       const hoverClass = isHighlight ? currentSet.hoverColor : "";
       
-      // Default Layout Class (removed custom vertical_complex logic)
       let layoutClass = "";
       if (currentSet.layout === "vertical_all") {
           layoutClass = "w-full basis-full mb-1";
+      }
+      // Explicitly force "THERE'S NO" to break onto a new line by taking full width
+      if (word === "THERE'S NO") {
+          layoutClass = "w-full basis-full";
       }
 
       return (
