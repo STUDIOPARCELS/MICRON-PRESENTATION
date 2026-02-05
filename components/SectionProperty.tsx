@@ -56,7 +56,7 @@ export const SectionProperty: React.FC = () => {
             theme: 'light',
             maxWidth: 'max-w-7xl',
             content: (
-                <div className="flex flex-col gap-8">
+                <div className="flex flex-col gap-8 pb-4">
                     {/* Intro */}
                     <div className="border-l-4 border-micron-green pl-6 py-1">
                         <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
@@ -64,41 +64,74 @@ export const SectionProperty: React.FC = () => {
                         </p>
                     </div>
 
-                    {/* Three Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Three Cards - UPDATED: Square ratio, micro-interactions, spacing */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                         {/* Card 1: Blue */}
-                        <div className="bg-micron-eggplant-light/90 text-white p-8 rounded-2xl shadow-lg flex flex-col gap-4">
-                            <div className="flex justify-between items-start">
-                                <Waves size={32} />
+                        <div className="
+                            bg-micron-eggplant-light/90 text-white 
+                            p-8 rounded-3xl shadow-lg 
+                            flex flex-col gap-6 
+                            aspect-auto md:aspect-square justify-between
+                            group hover:-translate-y-2 hover:shadow-2xl hover:bg-micron-eggplant-light transition-all duration-300
+                            border border-white/10 hover:border-white/30
+                        ">
+                            <div>
+                                <div className="flex justify-between items-start mb-4">
+                                    <Waves size={36} className="text-white/80 group-hover:text-white transition-colors" />
+                                </div>
+                                <h3 className="text-2xl font-black uppercase tracking-tight leading-none mb-4">CONTRAST THERAPY</h3>
+                                <div className="w-16 h-1 bg-white/30 group-hover:bg-white transition-colors mb-4 rounded-full" />
                             </div>
-                            <h3 className="text-2xl font-black uppercase tracking-tight leading-none">CONTRAST THERAPY</h3>
-                            <div className="space-y-4 text-sm font-medium leading-relaxed opacity-90">
-                                <p>Alternating thermal exposure drives circulation to flush systemic inflammation and accelerate deep tissue recovery.</p>
-                                <p>The rapid temperature shift triggers a proven 250% increase in dopamine, delivering sustained alertness, mental clarity, and elevated mood.</p>
+                            
+                            <div className="space-y-4 text-sm md:text-base font-medium leading-relaxed text-white/70 group-hover:text-white/80 transition-colors">
+                                <p>Alternating thermal exposure drives circulation to flush systemic inflammation and <strong className="text-white">accelerate deep tissue recovery</strong>.</p>
+                                <p>The rapid temperature shift triggers a proven <strong className="text-white">250% increase in dopamine</strong>, delivering sustained alertness, mental clarity, and elevated mood.</p>
                             </div>
                         </div>
 
                         {/* Card 2: Gray/Dark */}
-                        <div className="bg-micron-grey1 text-white p-8 rounded-2xl shadow-lg flex flex-col gap-4">
-                            <div className="flex justify-between items-start">
-                                <Activity size={32} />
+                        <div className="
+                            bg-micron-grey1 text-white 
+                            p-8 rounded-3xl shadow-lg 
+                            flex flex-col gap-6 
+                            aspect-auto md:aspect-square justify-between
+                            group hover:-translate-y-2 hover:shadow-2xl hover:bg-zinc-700 transition-all duration-300
+                            border border-white/10 hover:border-white/30
+                        ">
+                            <div>
+                                <div className="flex justify-between items-start mb-4">
+                                    <Activity size={36} className="text-white/80 group-hover:text-white transition-colors" />
+                                </div>
+                                <h3 className="text-2xl font-black uppercase tracking-tight leading-none mb-4">WHOLE BODY VIBRATION</h3>
+                                <div className="w-16 h-1 bg-white/30 group-hover:bg-white transition-colors mb-4 rounded-full" />
                             </div>
-                            <h3 className="text-2xl font-black uppercase tracking-tight leading-none">WHOLE BODY VIBRATION</h3>
-                            <div className="space-y-4 text-sm font-medium leading-relaxed opacity-90">
-                                <p>Invented in 1960 by Vladimir Nazarov for the Soviet Space Program to combat zero-gravity bone loss.</p>
-                                <p>By engaging 90% of muscle fibers (vs 40% in standard training), it rapidly builds bone density, counteracts neuropathy, and stimulates neuro-repair for improved mental health.</p>
+
+                            <div className="space-y-4 text-sm md:text-base font-medium leading-relaxed text-white/70 group-hover:text-white/80 transition-colors">
+                                <p>Invented in 1960 by Vladimir Nazarov for the <strong className="text-white">Soviet Space Program</strong> to combat zero-gravity bone loss.</p>
+                                <p>By engaging <strong className="text-white">90% of muscle fibers</strong> (vs 40% in standard training), it rapidly builds bone density and stimulates neuro-repair.</p>
                             </div>
                         </div>
 
                         {/* Card 3: Green */}
-                        <div className="bg-micron-green text-white p-8 rounded-2xl shadow-lg flex flex-col gap-4">
-                            <div className="flex justify-between items-start">
-                                <Sprout size={32} />
+                        <div className="
+                            bg-micron-green text-white 
+                            p-8 rounded-3xl shadow-lg 
+                            flex flex-col gap-6 
+                            aspect-auto md:aspect-square justify-between
+                            group hover:-translate-y-2 hover:shadow-2xl hover:bg-green-700 transition-all duration-300
+                            border border-white/10 hover:border-white/30
+                        ">
+                            <div>
+                                <div className="flex justify-between items-start mb-4">
+                                    <Sprout size={36} className="text-white/80 group-hover:text-white transition-colors" />
+                                </div>
+                                <h3 className="text-2xl font-black uppercase tracking-tight leading-none mb-4">ORGANIC GARDEN</h3>
+                                <div className="w-16 h-1 bg-white/30 group-hover:bg-white transition-colors mb-4 rounded-full" />
                             </div>
-                            <h3 className="text-2xl font-black uppercase tracking-tight leading-none">ORGANIC GARDEN</h3>
-                            <div className="space-y-4 text-sm font-medium leading-relaxed opacity-90">
-                                <p>2025 research on the "Soil-Plant-Gut Axis" confirms fresh-harvested produce delivers essential soil-based probiotics missing from sterilized commercial food.</p>
-                                <p>Homegrown crops retain up to 50% more nutrient density than store-bought options, directly fueling the gut microbiome and immune system.</p>
+                            
+                            <div className="space-y-4 text-sm md:text-base font-medium leading-relaxed text-white/70 group-hover:text-white/80 transition-colors">
+                                <p>2025 research on the <strong className="text-white">"Soil-Plant-Gut Axis"</strong> confirms fresh-harvested produce delivers essential soil-based probiotics.</p>
+                                <p>Homegrown crops retain up to <strong className="text-white">50% more nutrient density</strong> than store-bought options, directly fueling the gut microbiome.</p>
                             </div>
                         </div>
                     </div>
@@ -148,4 +181,282 @@ export const SectionProperty: React.FC = () => {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                             <div className="absolute bottom-8 left-8 text-white">
                                 <h4 className="text-2xl font-black uppercase tracking-tight mb-1">EST. 1890</h4>
-                                <p className
+                                <p className="text-sm font-medium opacity-80 uppercase tracking-widest">Warm Springs Avenue</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        });
+      } else if (type === 'autonomous') {
+        setModalData({
+            title: "AUTONOMOUS SERVICE",
+            subtitle: "INTELLIGENCE",
+            category: 'showcase',
+            theme: 'light',
+            maxWidth: 'max-w-7xl',
+            content: (
+                <div className="flex flex-col gap-8">
+                    <div className="border-l-4 border-micron-black pl-6 py-1">
+                        <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
+                            Autonomous service via Cybercab, Optimus, and Starlink. A functional proving ground where abstract technology becomes a seamless, daily reality.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {/* CYBERCAB CARD */}
+                        <div className="bg-micron-black text-white rounded-2xl p-8 shadow-xl flex flex-col">
+                            <div className="flex items-center gap-3 mb-6">
+                                <Car size={24} className="text-white" />
+                                <h3 className="text-3xl font-black uppercase tracking-tight">CYBERCAB</h3>
+                            </div>
+                            <div className="h-px w-full bg-white/20 mb-6"></div>
+                            <p className="text-white/80 text-base mb-8 leading-relaxed">
+                                Tesla's first fully autonomous vehicle — a two-passenger cabin with butterfly doors, inductive charging, and a 20.5-inch display. Cybercab manages all airport transfers, downtown shuttles, and guest logistics autonomously.
+                            </p>
+                            <div className="mt-auto rounded-xl overflow-hidden h-64 w-full relative">
+                                <img 
+                                    src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/cybercab%20photo.JPG" 
+                                    alt="Tesla Cybercab" 
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                />
+                            </div>
+                        </div>
+
+                        {/* OPTIMUS CARD */}
+                        <div className="bg-micron-eggplant-light text-white rounded-2xl p-8 shadow-xl flex flex-col">
+                            <div className="flex items-center gap-3 mb-6">
+                                <Bot size={24} className="text-white" />
+                                <h3 className="text-3xl font-black uppercase tracking-tight">OPTIMUS</h3>
+                            </div>
+                            <div className="h-px w-full bg-white/20 mb-6"></div>
+                            <p className="text-white/90 text-base mb-8 leading-relaxed">
+                                Tesla's Gen 3 humanoid — 5'8", 125 lbs, with 22 degrees of freedom in each hand and vision-based autonomy. Optimus manages property maintenance, perimeter monitoring, and routine service tasks within defined geofenced zones across the residence.
+                            </p>
+                            <div className="mt-auto rounded-xl overflow-hidden h-64 w-full relative">
+                                <img 
+                                    src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/tesla-optimus-gen-3-delay.png" 
+                                    alt="Tesla Optimus Robot" 
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        });
+      }
+  };
+
+  const LocationPill = ({ label, time, color, icon }: any) => (
+    <div className={`${color} rounded-xl p-3 flex flex-col justify-between items-start text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-105 transition-transform cursor-default h-[80px] border border-white/10`}>
+        <div className="opacity-80">{icon}</div>
+        <div className="w-full">
+            <div className="flex justify-between items-end w-full">
+                <span className="text-[10px] font-bold uppercase tracking-widest leading-none">{label}</span>
+                <span className="text-sm font-black leading-none">{time}</span>
+            </div>
+        </div>
+    </div>
+  );
+
+  const SpecCard = ({ title, icon, items, onGallery, className, gradient = "bg-zinc-900" }: any) => (
+      <motion.div 
+        whileHover={{ y: -8, transition: { duration: 0.3 } }}
+        className={`rounded-2xl p-5 md:p-6 flex flex-col h-full cursor-pointer group ${gradient} text-white border border-white/10 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] transition-all ${className}`}
+        onClick={onGallery}
+      >
+          <div className="flex items-center gap-3 mb-4">
+              <div className={`text-white/70 group-hover:text-white transition-colors duration-300`}>
+                  {React.cloneElement(icon, { size: 24 })}
+              </div>
+              <h4 className={`text-2xl font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors`}>{title}</h4>
+          </div>
+          <ul className="space-y-3 mb-6 flex-1">
+              {items.map((item: string, i: number) => (
+                  <li key={i} className={`flex items-start gap-3 text-sm md:text-base font-medium leading-snug text-white`}>
+                      <div className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-white opacity-50`} />
+                      {item}
+                  </li>
+              ))}
+          </ul>
+          
+          <button 
+            className={`w-full py-4 border rounded-xl text-xs font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 group-hover:border-white/60 group-hover:text-white group-hover:bg-white/10 border-white/20 text-white/70 hover:bg-white/5`}
+          >
+              View Gallery
+              <ArrowUpRight size={14} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+          </button>
+      </motion.div>
+  );
+
+  const InfoCard = ({ title, subtitle, icon, text, className, gradient, onClick }: any) => (
+      <motion.div 
+        whileHover={{ y: -5, scale: 1.01 }}
+        onClick={onClick}
+        className={`${gradient} backdrop-blur-md rounded-2xl p-6 md:p-8 border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] transition-all h-full cursor-pointer group text-white relative ${className}`}
+      >
+          <div className="flex justify-between items-start mb-4">
+               <div className="flex items-center gap-3">
+                   <div className={`text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300`}>{icon}</div>
+                   <h4 className="text-xl font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors">{title}</h4>
+               </div>
+               <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">{subtitle}</span>
+          </div>
+          <p className="text-sm md:text-base text-white font-medium leading-relaxed mb-8">
+             {text}
+          </p>
+          
+          <div className="absolute bottom-6 right-6 opacity-50 group-hover:opacity-100 transition-opacity duration-300">
+              <ArrowUpRight size={20} />
+          </div>
+      </motion.div>
+  );
+
+  return (
+    <section id="property" className="container mx-auto px-4 md:px-12 py-8 md:py-12 bg-white text-zinc-900">
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 1.0 }}
+        >
+            {/* 1. HEADER */}
+            <div className="mb-10 flex flex-col md:flex-row gap-8 md:gap-12 border-b border-zinc-100 pb-10">
+                 <div className="flex-shrink-0">
+                     <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">02 / ASSET</span>
+                     <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant-light leading-none font-sans">
+                         PROPERTY
+                     </h2>
+                 </div>
+                 <div className="md:ml-auto max-w-2xl pl-6 border-l-4 border-micron-eggplant-light/20">
+                     <h3 className="text-2xl font-bold uppercase tracking-tighter text-micron-eggplant-light mb-2 font-sans">HISTORIC CONTEXT</h3>
+                     <p className="text-base font-light text-zinc-600 leading-snug font-body">
+                         A modest home within North America's oldest continuously operating geothermal district (est. 1890), tapping the nation's largest historic direct-use aquifer. <span className="font-bold text-zinc-900">Where the legacy of energy innovation converges with energy from the Stars.</span>
+                     </p>
+                 </div>
+            </div>
+
+            {/* 2. STATS GRID */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+                <div className="bg-micron-eggplant rounded-xl p-6 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform aspect-[2/1] md:aspect-auto md:h-40 border border-white/10">
+                    <span className="text-4xl md:text-5xl font-black tracking-tighter mb-1 font-sans">1906</span>
+                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-70 font-sans">Year Built</span>
+                </div>
+                <div className="bg-micron-grey1 rounded-xl p-6 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform aspect-[2/1] md:aspect-auto md:h-40 border border-white/10">
+                    <span className="text-4xl md:text-5xl font-black tracking-tighter mb-1 font-sans">3,374</span>
+                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-70 font-sans">Square Feet</span>
+                </div>
+                <div className="bg-micron-green rounded-xl p-6 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform aspect-[2/1] md:aspect-auto md:h-40 border border-white/10">
+                    <span className="text-4xl md:text-5xl font-black tracking-tighter mb-1 font-sans">3 / 4</span>
+                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-70 font-sans">Bed / Bath</span>
+                </div>
+                <div className="bg-micron-eggplant-light rounded-xl p-6 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform aspect-[2/1] md:aspect-auto md:h-40 border border-white/10">
+                    <span className="text-4xl md:text-5xl font-black tracking-tighter mb-1 font-sans">1892</span>
+                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-70 font-sans">Geothermal Rights</span>
+                </div>
+            </div>
+
+            {/* 3. LOCATION */}
+            <div className="mb-12">
+                 <div className="flex items-center gap-2 mb-4">
+                      <MapPin className="text-micron-eggplant" size={16} />
+                      <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-micron-eggplant font-sans">LOCATION DETAILS</h3>
+                 </div>
+                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+                      <LocationPill label="Micron HQ" time="15 min" color="bg-micron-green" icon={<Building2 size={16}/>} />
+                      <LocationPill label="Airport" time="10 min" color="bg-micron-eggplant" icon={<Plane size={16}/>} />
+                      <LocationPill label="Downtown" time="3 min" color="bg-micron-eggplant-light" icon={<Building2 size={16}/>} />
+                      <LocationPill label="St. Luke's" time="2 min" color="bg-micron-grey1" icon={<Stethoscope size={16}/>} />
+                      <LocationPill label="Capitol" time="5 min" color="bg-micron-grey2" icon={<Building2 size={16}/>} />
+                      <LocationPill label="Boise State" time="4 min" color="bg-black" icon={<GraduationCap size={16}/>} />
+                      <LocationPill label="River" time="1 min" color="bg-micron-green" icon={<Leaf size={16}/>} />
+                 </div>
+            </div>
+
+            {/* 4. SPECIFICATIONS */}
+            <div className="mb-12">
+                 <div className="flex items-center gap-2 mb-4">
+                      <Home className="text-micron-eggplant" size={16} />
+                      <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-micron-eggplant font-sans">RESIDENCE SPECIFICATIONS</h3>
+                 </div>
+                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                      <SpecCard 
+                        title="MAIN LEVEL" 
+                        icon={<Home />} 
+                        gradient="bg-micron-grey2" 
+                        items={[
+                            "Foyer Entry",
+                            "Living, Dining, & Fully Equipped Kitchen",
+                            "Office w/ Ensuite Bath",
+                            "French Door Access to Deck",
+                            "Antiques & Art throughout"
+                        ]} 
+                        onGallery={() => openLevelGallery('main')} 
+                      />
+                      <SpecCard 
+                        title="UPPER LEVEL" 
+                        icon={<ArrowUp />} 
+                        gradient="bg-micron-eggplant" 
+                        items={[
+                            "3 Bedrooms",
+                            "2 Private En-Suite Baths",
+                            "1 Bedroom Served by Hall Bath",
+                            "Laundry Facilities"
+                        ]} 
+                        onGallery={() => openLevelGallery('upper')} 
+                      />
+                      <SpecCard 
+                        title="GROUNDS" 
+                        icon={<Grape />} 
+                        gradient="bg-micron-green" 
+                        items={[
+                            "Mature Fruit Trees (Peach, Plum, Cherry)",
+                            "Concord Grapevine",
+                            "Fully Fenced Yard & ~200 sq ft Deck",
+                            "Attached Carport via Private Alley"
+                        ]} 
+                        onGallery={() => openLevelGallery('grounds')} 
+                      />
+                 </div>
+            </div>
+            
+            {/* 5. TECHNOLOGY, WELLNESS & HISTORY */}
+            <div>
+                 <div className="flex items-center gap-2 mb-4">
+                      <Zap size={16} className="text-micron-eggplant" />
+                      <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-micron-eggplant font-sans">TECHNOLOGY, WELLNESS & HISTORY</h3>
+                 </div>
+                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <InfoCard 
+                        title="GEOTHERMAL & WELLNESS"
+                        subtitle="NATURE"
+                        icon={<Leaf size={24} />}
+                        gradient="bg-micron-green" 
+                        text="Geothermal spa utilizing the district's 177°F source. The home is heated through geothermal radiant heat as well as the hot tub. The grounds feature mature producing fruit trees and a Concord grapevine."
+                        onClick={() => openInfoModal('wellness')}
+                    />
+                    <InfoCard 
+                        title="AUTONOMOUS SERVICE"
+                        subtitle="INTELLIGENCE"
+                        icon={<Cpu size={24} />}
+                        gradient="bg-zinc-800" // Updated to Dark Grey/Black as requested
+                        text="Autonomous service via Cybercab and Optimus. A functional proving ground where abstract technology becomes a seamless, daily reality."
+                        onClick={() => openInfoModal('autonomous')}
+                    />
+                    <InfoCard 
+                        title="NATIONAL REGISTER OF HISTORIC PLACES"
+                        subtitle="LEGACY"
+                        icon={<TreeDeciduous size={24} />}
+                        gradient="bg-micron-eggplant" // Updated to Eggplant as requested
+                        text="Anchored by the C.W. Moore House (1891) and the neighboring George Whitfield Russell House. A corridor defined by the legacy of Western pioneers and energy ingenuity."
+                        onClick={() => openInfoModal('history')}
+                    />
+                 </div>
+            </div>
+
+        </motion.div>
+        <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
+    </section>
+  );
+};

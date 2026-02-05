@@ -315,7 +315,7 @@ const getCardData = (id: number): ModalContent => {
                                 <h3 className="text-2xl font-black uppercase mb-1">MICRON</h3>
                                 <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-4">Sanjay Mehrotra, CEO</p>
                                 <div className="mb-2 pl-3 border-l-2 border-white/30">
-                                    <p className="text-base md:text-lg font-bold italic text-white/90 leading-relaxed">"Transform how the world uses information to enrich life for all."</p>
+                                    <p className="text-sm md:text-[1.05rem] font-bold italic text-white/90 leading-relaxed tracking-tight">"Transform how the world uses information to enrich life for all."</p>
                                 </div>
                             </div>
                             <div className="text-white/70 font-medium mt-4">
@@ -329,7 +329,7 @@ const getCardData = (id: number): ModalContent => {
                                 <h3 className="text-2xl font-black uppercase mb-1">TESLA</h3>
                                 <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-4">Elon Musk, CEO</p>
                                 <div className="mb-2 pl-3 border-l-2 border-white/30">
-                                    <p className="text-base md:text-lg font-bold italic text-white/90 leading-relaxed">
+                                    <p className="text-sm md:text-[1.05rem] font-bold italic text-white/90 leading-relaxed tracking-tight">
                                         "Accelerate the world's transition to sustainable energy. Build a world of amazing abundance."
                                     </p>
                                 </div>
