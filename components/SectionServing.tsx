@@ -193,8 +193,8 @@ const departments: Department[] = [
     title: "Family Support", 
     value: "St. Luke's lodging", 
     detail: "Less than 1 mile to medical center, home environment during difficult times, compassionate use.", 
-    gradient: "bg-micron-eggplant", // UPDATED TO EGGPLANT
-    modalHeaderColor: "text-micron-eggplant", // UPDATED TO EGGPLANT
+    gradient: "bg-micron-eggplant", 
+    modalHeaderColor: "text-micron-eggplant", 
     modalIconColor: "text-zinc-400", 
     modalTagColor: "border-micron-eggplant",
     experiences: [
@@ -251,7 +251,8 @@ export const SectionServing: React.FC = () => {
                  {/* DESCRIPTION HEADER */}
                  <motion.div 
                     variants={{ hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1 } }}
-                    className="w-full bg-white rounded-xl p-5 shadow-sm border border-zinc-100 flex flex-col items-start justify-center text-left"
+                    // UPDATED: Reduced padding (p-4) and added stronger shadow-lg and border to make it float visibly
+                    className="w-full bg-white rounded-xl p-4 shadow-lg border border-zinc-200 flex flex-col items-start justify-center text-left relative z-10"
                  >
                      <p className="text-base md:text-lg font-light text-zinc-600 leading-relaxed font-body text-left">
                         {dept.detail}
@@ -316,11 +317,8 @@ export const SectionServing: React.FC = () => {
   };
 
   return (
-    // REDUCED PADDING: py-16 -> py-10
     <section id="serving" className="container mx-auto px-4 md:px-12 py-8 md:py-12 bg-white text-zinc-900">
       
-          {/* REMOVED WRAPPER: Content sits directly on background now */}
-          
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

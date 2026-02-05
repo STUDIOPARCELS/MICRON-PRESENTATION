@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, ArrowUp, ArrowUpRight, Cpu, TreeDeciduous, Zap } from 'lucide-react';
+import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, ArrowUp, ArrowUpRight, Cpu, TreeDeciduous, Zap, Waves, Activity, Sprout, Clock, Car, Bot, Grape } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Modal } from './Modal';
 import { ModalContent } from '../types';
@@ -47,6 +47,174 @@ export const SectionProperty: React.FC = () => {
       });
   };
 
+  const openInfoModal = (type: 'wellness' | 'autonomous' | 'history') => {
+      if (type === 'wellness') {
+        setModalData({
+            title: "WELLNESS & NATURE",
+            subtitle: "RESTORATIVE INFRASTRUCTURE",
+            category: 'showcase',
+            theme: 'light',
+            maxWidth: 'max-w-7xl',
+            content: (
+                <div className="flex flex-col gap-8">
+                    {/* Intro */}
+                    <div className="border-l-4 border-micron-green pl-6 py-1">
+                        <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
+                            Powered by a 177°F direct-use aquifer. Geothermal water flows through the home's radiators and feeds the outdoor soaking tub. The grounds feature mature fruit trees and a Concord grapevine.
+                        </p>
+                    </div>
+
+                    {/* Three Cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Card 1: Blue */}
+                        <div className="bg-micron-eggplant-light/90 text-white p-8 rounded-2xl shadow-lg flex flex-col gap-4">
+                            <div className="flex justify-between items-start">
+                                <Waves size={32} />
+                            </div>
+                            <h3 className="text-2xl font-black uppercase tracking-tight leading-none">CONTRAST THERAPY</h3>
+                            <div className="space-y-4 text-sm font-medium leading-relaxed opacity-90">
+                                <p>Alternating thermal exposure drives circulation to flush systemic inflammation and accelerate deep tissue recovery.</p>
+                                <p>The rapid temperature shift triggers a proven 250% increase in dopamine, delivering sustained alertness, mental clarity, and elevated mood.</p>
+                            </div>
+                        </div>
+
+                        {/* Card 2: Gray/Dark */}
+                        <div className="bg-micron-grey1 text-white p-8 rounded-2xl shadow-lg flex flex-col gap-4">
+                            <div className="flex justify-between items-start">
+                                <Activity size={32} />
+                            </div>
+                            <h3 className="text-2xl font-black uppercase tracking-tight leading-none">WHOLE BODY VIBRATION</h3>
+                            <div className="space-y-4 text-sm font-medium leading-relaxed opacity-90">
+                                <p>Invented in 1960 by Vladimir Nazarov for the Soviet Space Program to combat zero-gravity bone loss.</p>
+                                <p>By engaging 90% of muscle fibers (vs 40% in standard training), it rapidly builds bone density, counteracts neuropathy, and stimulates neuro-repair for improved mental health.</p>
+                            </div>
+                        </div>
+
+                        {/* Card 3: Green */}
+                        <div className="bg-micron-green text-white p-8 rounded-2xl shadow-lg flex flex-col gap-4">
+                            <div className="flex justify-between items-start">
+                                <Sprout size={32} />
+                            </div>
+                            <h3 className="text-2xl font-black uppercase tracking-tight leading-none">ORGANIC GARDEN</h3>
+                            <div className="space-y-4 text-sm font-medium leading-relaxed opacity-90">
+                                <p>2025 research on the "Soil-Plant-Gut Axis" confirms fresh-harvested produce delivers essential soil-based probiotics missing from sterilized commercial food.</p>
+                                <p>Homegrown crops retain up to 50% more nutrient density than store-bought options, directly fueling the gut microbiome and immune system.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        });
+      } else if (type === 'history') {
+        setModalData({
+            title: "HISTORIC LEGACY",
+            subtitle: "1890 - PRESENT",
+            category: 'showcase',
+            theme: 'light',
+            maxWidth: 'max-w-7xl',
+            content: (
+                <div className="flex flex-col gap-8">
+                     <div className="border-l-4 border-micron-eggplant pl-6 py-1">
+                        <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
+                            Anchored by the C.W. Moore House (1891) and the neighboring George Whitfield Russell House. A corridor defined by the legacy of Western pioneers and energy ingenuity.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        {/* Purple Content Box */}
+                        <div className="bg-micron-eggplant text-white rounded-2xl p-8 md:p-12 shadow-xl flex flex-col justify-center">
+                            <div className="flex items-center gap-3 mb-6">
+                                <Clock size={24} className="text-white/70" />
+                                <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight">C.W. MOORE & THE DISTRICT</h3>
+                            </div>
+                            <div className="h-px w-full bg-white/20 mb-6"></div>
+                            <div className="space-y-6 text-base md:text-lg leading-relaxed font-medium text-white/90">
+                                <p>
+                                    In 1890, Christopher W. Moore, founder of the First National Bank of Idaho, drilled two wells near the base of Table Rock. He struck 170-degree water. By 1892, he had piped it to his mansion on Warm Springs Avenue—marking the first use of geothermal water for home heating in the United States.
+                                </p>
+                                <p>
+                                    Today, the Boise Warm Springs Water District remains the oldest continuously operating geothermal district in North America. The Micron House sits on this historic line, utilizing the same clean, ancient energy source that Moore tapped over 130 years ago. It is a National Register of Historic Places corridor defined by energy innovation.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Image/Visual Box */}
+                        <div className="bg-micron-grey1 rounded-2xl overflow-hidden relative shadow-xl min-h-[400px]">
+                            <img 
+                                src="https://images.unsplash.com/photo-1572953109213-3be62398eb95?q=80&w=2070&auto=format&fit=crop" 
+                                alt="Historic Warm Springs" 
+                                className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-8 left-8 text-white">
+                                <h4 className="text-2xl font-black uppercase tracking-tight mb-1">EST. 1890</h4>
+                                <p className="text-sm font-medium opacity-80 uppercase tracking-widest">Warm Springs Avenue</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        });
+      } else if (type === 'autonomous') {
+        setModalData({
+            title: "AUTONOMOUS SERVICE",
+            subtitle: "LIVING LAB",
+            category: 'showcase',
+            theme: 'light',
+            maxWidth: 'max-w-7xl',
+            content: (
+                <div className="flex flex-col gap-8">
+                    <div className="border-l-4 border-micron-black pl-6 py-1">
+                        <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
+                            Autonomous service via Cybercab and Optimus. A functional proving ground where abstract technology becomes a seamless, daily reality.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {/* CYBERCAB CARD */}
+                        <div className="bg-micron-black text-white rounded-2xl p-8 shadow-xl flex flex-col">
+                            <div className="flex items-center gap-3 mb-6">
+                                <Car size={24} className="text-white" />
+                                <h3 className="text-3xl font-black uppercase tracking-tight">CYBERCAB</h3>
+                            </div>
+                            <div className="h-px w-full bg-white/20 mb-6"></div>
+                            <p className="text-white/80 text-base mb-8 leading-relaxed">
+                                Tesla's first fully autonomous vehicle — a two-passenger cabin with butterfly doors, inductive charging, and a 20.5-inch display. Cybercab manages all airport transfers, downtown shuttles, and guest logistics autonomously.
+                            </p>
+                            <div className="mt-auto rounded-xl overflow-hidden h-64 w-full relative">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop" 
+                                    alt="Tesla Cybercab Concept" 
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                />
+                            </div>
+                        </div>
+
+                        {/* OPTIMUS CARD */}
+                        <div className="bg-micron-eggplant-light text-white rounded-2xl p-8 shadow-xl flex flex-col">
+                            <div className="flex items-center gap-3 mb-6">
+                                <Bot size={24} className="text-white" />
+                                <h3 className="text-3xl font-black uppercase tracking-tight">OPTIMUS</h3>
+                            </div>
+                            <div className="h-px w-full bg-white/20 mb-6"></div>
+                            <p className="text-white/90 text-base mb-8 leading-relaxed">
+                                Tesla's Gen 3 humanoid — 5'8", 125 lbs, with 22 degrees of freedom in each hand and vision-based autonomy. Optimus manages property maintenance, perimeter monitoring, and routine service tasks within defined geofenced zones across the residence.
+                            </p>
+                            <div className="mt-auto rounded-xl overflow-hidden h-64 w-full relative">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop" 
+                                    alt="Tesla Optimus Robot" 
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        });
+      }
+  };
+
   const LocationPill = ({ label, time, color, icon }: any) => (
     <div className={`${color} rounded-xl p-3 flex flex-col justify-between items-start text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-105 transition-transform cursor-default h-[80px] border border-white/10`}>
         <div className="opacity-80">{icon}</div>
@@ -59,43 +227,63 @@ export const SectionProperty: React.FC = () => {
     </div>
   );
 
-  const SpecCard = ({ title, icon, items, onGallery, className, titleColor = "text-zinc-900", textColor = "text-zinc-600", iconColor = "text-zinc-900", buttonStyle }: any) => (
-      <div className={`rounded-2xl border border-white/10 p-6 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.2)] transition-shadow flex flex-col h-full ${className}`}>
-          <div className="flex items-center gap-3 mb-6">
-              <div className={iconColor}>{icon}</div>
-              <h4 className={`text-xl font-black uppercase tracking-tight ${titleColor}`}>{title}</h4>
+  const SpecCard = ({ title, icon, items, onGallery, className, gradient = "bg-zinc-900" }: any) => (
+      <motion.div 
+        whileHover={{ y: -8, transition: { duration: 0.3 } }}
+        // Reduced padding: p-5 md:p-6
+        className={`rounded-2xl p-5 md:p-6 flex flex-col h-full cursor-pointer group ${gradient} text-white border border-white/10 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] transition-all ${className}`}
+        onClick={onGallery}
+      >
+          {/* Reduced mb-6 to mb-4 */}
+          <div className="flex items-center gap-3 mb-4">
+              {/* Removed background circle to match InfoCards style */}
+              <div className={`text-white/80 group-hover:text-white transition-colors duration-300`}>
+                  {React.cloneElement(icon, { size: 24 })}
+              </div>
+              <h4 className={`text-2xl font-black uppercase tracking-tight text-white`}>{title}</h4>
           </div>
-          <ul className="space-y-3 mb-8 flex-1">
+          {/* Reduced spacing: space-y-4 -> space-y-3 */}
+          <ul className="space-y-3 mb-6 flex-1">
               {items.map((item: string, i: number) => (
-                  <li key={i} className={`flex items-start gap-2 text-sm font-medium leading-snug ${textColor}`}>
-                      <div className={`w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 bg-current opacity-60`} />
+                  <li key={i} className={`flex items-start gap-3 text-sm md:text-base font-medium leading-snug text-white/80`}>
+                      <div className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-white opacity-50`} />
                       {item}
                   </li>
               ))}
           </ul>
+          
+          {/* REVERTED: Standard Outline Button */}
           <button 
-            onClick={onGallery}
-            className={`w-full py-3 border rounded-xl text-xs font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 group ${buttonStyle}`}
+            className={`w-full py-4 border rounded-xl text-xs font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 group-hover:bg-white group-hover:text-zinc-900 border-white/20 text-white/70 hover:bg-white/10`}
           >
               View Gallery
               <ArrowUpRight size={14} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
           </button>
-      </div>
+      </motion.div>
   );
 
-  const InfoCard = ({ title, subtitle, icon, text, className, iconColor = "text-zinc-400" }: any) => (
-      <div className={`bg-white rounded-2xl p-6 border border-zinc-100 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.2)] transition-all h-full ${className}`}>
+  const InfoCard = ({ title, subtitle, icon, text, className, gradient }: any) => (
+      <motion.div 
+        whileHover={{ y: -5, scale: 1.01 }}
+        className={`${gradient} backdrop-blur-md rounded-2xl p-6 md:p-8 border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] transition-all h-full cursor-pointer group text-white relative ${className}`}
+      >
           <div className="flex justify-between items-start mb-4">
                <div className="flex items-center gap-3">
-                   <div className={iconColor}>{icon}</div>
-                   <h4 className="text-xl font-black uppercase tracking-tight text-zinc-900">{title}</h4>
+                   <div className={`text-white/80 group-hover:text-white group-hover:scale-110 transition-all duration-300`}>{icon}</div>
+                   <h4 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-white/90 transition-colors">{title}</h4>
                </div>
-               <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">{subtitle}</span>
+               <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">{subtitle}</span>
           </div>
-          <p className="text-sm text-zinc-600 font-medium leading-relaxed">
+          {/* Increased text size to match bullets: text-sm md:text-base */}
+          <p className="text-sm md:text-base text-white/80 font-medium leading-relaxed mb-8">
              {text}
           </p>
-      </div>
+          
+          {/* UPDATED: Simple Arrow in Bottom Right, no Explore text */}
+          <div className="absolute bottom-6 right-6 opacity-50 group-hover:opacity-100 transition-opacity duration-300">
+              <ArrowUpRight size={20} />
+          </div>
+      </motion.div>
   );
 
   return (
@@ -168,12 +356,9 @@ export const SectionProperty: React.FC = () => {
                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                       <SpecCard 
                         title="MAIN LEVEL" 
-                        icon={<Home size={24}/>} 
-                        className="bg-micron-grey1/90 backdrop-blur-sm"
-                        titleColor="text-white"
-                        textColor="text-white/90"
-                        iconColor="text-white"
-                        buttonStyle="border-white/30 text-white/70 hover:bg-white/10 hover:text-white"
+                        icon={<Home />} 
+                        // UPDATED: Light Gray (same as Capitol Pill)
+                        gradient="bg-micron-grey2" 
                         items={[
                             "Living, Dining, & Fully Equipped Kitchen",
                             "Main Floor Office w/ Ensuite Bath",
@@ -184,12 +369,8 @@ export const SectionProperty: React.FC = () => {
                       />
                       <SpecCard 
                         title="UPPER LEVEL" 
-                        icon={<ArrowUp size={24}/>} 
-                        className="bg-micron-eggplant-light/90 backdrop-blur-sm"
-                        titleColor="text-white"
-                        textColor="text-white/90"
-                        iconColor="text-white"
-                        buttonStyle="border-white/30 text-white/70 hover:bg-white/10 hover:text-white"
+                        icon={<ArrowUp />} 
+                        gradient="bg-micron-eggplant" 
                         items={[
                             "2 Bedrooms",
                             "2 Private En-Suite Baths",
@@ -199,12 +380,8 @@ export const SectionProperty: React.FC = () => {
                       />
                       <SpecCard 
                         title="GROUNDS" 
-                        icon={<Leaf size={24}/>} 
-                        className="bg-micron-green/90 backdrop-blur-sm"
-                        titleColor="text-white"
-                        textColor="text-white/90"
-                        iconColor="text-white"
-                        buttonStyle="border-white/30 text-white/70 hover:bg-white/10 hover:text-white"
+                        icon={<Grape />} 
+                        gradient="bg-micron-green" 
                         items={[
                             "Mature Fruit Trees (Peach, Plum, Cherry)",
                             "Concord Grapevine",
@@ -216,7 +393,7 @@ export const SectionProperty: React.FC = () => {
                  </div>
             </div>
             
-            {/* 5. TECHNOLOGY, WELLNESS & HISTORY (RESTORED) */}
+            {/* 5. TECHNOLOGY, WELLNESS & HISTORY */}
             <div>
                  <div className="flex items-center gap-2 mb-4">
                       <Zap size={16} className="text-micron-eggplant" />
@@ -224,25 +401,32 @@ export const SectionProperty: React.FC = () => {
                  </div>
                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <InfoCard 
-                        title="GEOTHERMAL & WELLNESS"
-                        subtitle="NATURE"
+                        title="WELLNESS & NATURE"
+                        subtitle="RESTORE"
                         icon={<Leaf size={24} />}
-                        iconColor="text-micron-green"
-                        text="Geothermal radiant heat heating the district's 1890s mansions. The grounds feature mature producing fruit trees (peach, plum, cherry) and a historic Concord grapevine — wellness rooted in the earth."
+                        // UPDATED: Full Strength Green
+                        gradient="bg-micron-green" 
+                        text="Geothermal radiant heat heating the district's 1890s mansions. The grounds feature mature producing fruit trees and a historic Concord grapevine."
+                        onClick={() => openInfoModal('wellness')}
                     />
                     <InfoCard 
                         title="AUTONOMOUS SERVICE"
                         subtitle="INTELLIGENCE"
                         icon={<Cpu size={24} />}
-                        iconColor="text-micron-eggplant"
+                        // UPDATED: Full Strength Blue (Same as Paradigm)
+                        gradient="bg-micron-eggplant-light" 
                         text="Autonomous service via Cybercab, Optimus, and Starlink. A living lab where abstract technology becomes a tangible, lived experience."
+                        onClick={() => openInfoModal('autonomous')}
                     />
                     <InfoCard 
-                        title="TREE-LINED AVENUE"
+                        title="HISTORIC LEGACY"
                         subtitle="HERITAGE"
                         icon={<TreeDeciduous size={24} />}
-                        iconColor="text-micron-eggplant-light"
-                        text="Anchored by the memory of horse and buggies and the C.W. Moore House — the oldest residence in Boise — directly across the street. A corridor defined by the legacy of the West's first geothermal pioneers."
+                        // Kept as semi-transparent per general consistency unless explicit override, 
+                        // but sticking to prompt request which only specified Wellness and Autonomous.
+                        gradient="bg-micron-eggplant/90" 
+                        text="Anchored by the memory of pioneers and the C.W. Moore House — the oldest residence in Boise — directly across the street."
+                        onClick={() => openInfoModal('history')}
                     />
                  </div>
             </div>

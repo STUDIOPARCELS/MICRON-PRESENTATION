@@ -99,6 +99,60 @@ const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: st
     );
 };
 
+// --- NEW COMPONENT: ModalVideo ---
+// Plays once, stops. Replays on hover or when scrolled back into view.
+const ModalVideo = ({ src, className = "" }: { src: string; className?: string }) => {
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const isInView = useInView(containerRef, { amount: 0.5 });
+    const [hasPlayed, setHasPlayed] = useState(false);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        // If video comes into view and has already finished previously, restart it.
+        // "Loops through again" when they scroll over it.
+        if (isInView && hasPlayed && video.paused) {
+            video.currentTime = 0;
+            video.play().catch(() => {});
+        }
+    }, [isInView, hasPlayed]);
+
+    const handleEnded = () => {
+        setHasPlayed(true);
+    };
+
+    const handleMouseEnter = () => {
+        const video = videoRef.current;
+        if (video) {
+             // Restart on hover
+             video.currentTime = 0;
+             video.play().catch(() => {});
+        }
+    };
+
+    return (
+        <div 
+            ref={containerRef} 
+            className={`relative overflow-hidden bg-black rounded-xl ${className}`} 
+            onMouseEnter={handleMouseEnter}
+        >
+             <video 
+                ref={videoRef}
+                src={src} 
+                className="w-full h-full object-cover" 
+                autoPlay 
+                muted 
+                playsInline 
+                onEnded={handleEnded}
+                // Important: loop is false so it plays once then stops
+                loop={false}
+            />
+        </div>
+    )
+}
+
 const getCardData = (id: number): ModalContent => {
   const base = { category: 'showcase' as const, theme: 'light' as const, maxWidth: 'max-w-6xl' };
 
@@ -111,35 +165,51 @@ const getCardData = (id: number): ModalContent => {
         maxWidth: 'max-w-7xl', 
         content: (
             <div className="flex flex-col gap-6 h-auto">
-                <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="shrink-0 p-1 md:p-2 flex flex-col items-start w-full border-none shadow-none bg-transparent"
-                >
-                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">
-                        AUTONOMOUS HUB
-                    </h3>
-                    <div className="w-full h-px bg-zinc-200 mb-4" /> 
-                    <div className="text-zinc-900 text-lg font-medium leading-relaxed">
-                        <p>
-                            A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
-                        </p>
-                    </div>
-                </motion.div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                        className="shrink-0 p-1 md:p-2 flex flex-col items-start w-full border-none shadow-none bg-transparent"
+                    >
+                        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">
+                            AUTONOMOUS HUB
+                        </h3>
+                        <div className="w-full h-px bg-zinc-200 mb-4" /> 
+                        <div className="text-zinc-900 text-lg font-medium leading-relaxed">
+                            <p>
+                                A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
+                            </p>
+                        </div>
+                    </motion.div>
+
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="bg-zinc-50 rounded-xl p-6 text-zinc-900 shadow-2xl border border-zinc-200 relative overflow-hidden group transform lg:translate-y-2"
+                    >
+                        <div className="absolute top-0 right-0 p-6 opacity-10 text-micron-green">
+                            <ShieldCheck size={48} />
+                        </div>
+                        <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green">SERVICE & SECURITY LAYER</h3>
+                        <div className="space-y-4 text-zinc-600 text-base font-medium leading-relaxed">
+                            <p>
+                                Five minutes from downtown. Fifteen from the airport. Fifteen from Micron headquarters. The home sits at the center of everything Boise offers — and Optimus and Cybercab are the mechanism that brings it through the front door.
+                            </p>
+                            <p>
+                                Culinary, wellness, recreation, entertainment — each delivered into an intimate, private setting with a level of coordination and discretion that the autonomous infrastructure sustains across every event.
+                            </p>
+                        </div>
+                    </motion.div>
+                </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-2 w-full h-full">
-                         <div className="w-full aspect-[1.5/1.1] bg-black rounded-xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative border border-zinc-200 group">
-                              <video 
-                                  src={VIDEO_PLACEHOLDER} 
-                                  className="w-full h-full object-cover" 
-                                  autoPlay 
-                                  muted 
-                                  loop
-                                  playsInline 
-                              />
-                         </div>
+                         <ModalVideo 
+                            src={VIDEO_PLACEHOLDER}
+                            className="w-full aspect-[1.5/1.1] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group"
+                         />
                     </div>
                     
                     <div className="lg:col-span-1 flex flex-col gap-4 h-full">
@@ -182,20 +252,17 @@ const getCardData = (id: number): ModalContent => {
         subtitle: "BOISE'S MOMENT",
         maxWidth: 'max-w-7xl',
         content: (
-            // GRID ADJUSTED: 5 Columns to give video more horizontal space (3 cols vs 2 cols)
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 h-full">
                <div className="w-full h-full min-h-[300px] lg:min-h-0 lg:col-span-3">
                     <motion.div 
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         transition={{ duration: 0.8 }}
-                        // Ensure it fills height without aspect ratio constraint to avoid gaps
-                        className="w-full h-full bg-black rounded-xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative border border-zinc-200"
+                        className="w-full h-full"
                     >
-                         <video 
+                         <ModalVideo 
                             src={VIDEO_TIMING} 
-                            className="w-full h-full object-cover" 
-                            autoPlay muted loop playsInline 
+                            className="w-full h-full shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200"
                         />
                     </motion.div>
                </div>
@@ -212,7 +279,7 @@ const getCardData = (id: number): ModalContent => {
                     <InnerBento title="RUNWAY" gradient="bg-micron-green" icon={<Activity />} className="flex-1">
                         <div className="w-full h-px bg-white/20 mb-4" />
                         <p className="mb-2 text-base md:text-lg text-white/90 leading-relaxed">
-                            There are no Optimus robots operating in private residences today. The window to build, test, and refine exists right now.
+                            Micron Executives, employees, and their guests live alongside, interact, and engage with the technology before the world does.
                         </p>
                     </InnerBento>
                     <InnerBento title="3 ARCS CONVERGING" gradient="bg-micron-eggplant" icon={<Zap />} className="flex-1">
@@ -237,13 +304,10 @@ const getCardData = (id: number): ModalContent => {
                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full items-stretch">
                    
                    <div className="w-full h-full min-h-[300px] lg:min-h-0">
-                        <div className="w-full h-full bg-black rounded-xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative border border-zinc-200 group">
-                             <video 
-                                src={VIDEO_COLLAB} 
-                                className="w-full h-full object-cover" 
-                                autoPlay muted loop playsInline 
-                            />
-                        </div>
+                        <ModalVideo 
+                            src={VIDEO_COLLAB} 
+                            className="w-full h-full shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group"
+                        />
                    </div>
 
                    <div className="flex flex-col gap-4 h-full">
@@ -257,7 +321,6 @@ const getCardData = (id: number): ModalContent => {
                                 </div>
                             </div>
                             <div className="text-white/70 font-medium mt-4">
-                                {/* UPDATED: Removed bold, set to font-medium */}
                                 <p className="text-base font-medium text-white">Founded 1978.</p>
                             </div>
                         </div>
@@ -274,7 +337,6 @@ const getCardData = (id: number): ModalContent => {
                                 </div>
                             </div>
                             <div className="text-white/70 font-medium mt-4">
-                                {/* UPDATED: Removed bold, set to font-medium */}
                                 <p className="text-base font-medium text-white">Founded 2003.</p>
                             </div>
                         </div>
@@ -282,7 +344,6 @@ const getCardData = (id: number): ModalContent => {
                </div>
                
                <div className="bg-zinc-100 rounded-xl p-6 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300">
-                    {/* UPDATED: FUTURE SCALE - Eggplant color, Larger Font, Bottom Border */}
                     <div className="flex items-center gap-3 mb-4 pb-4 border-b border-zinc-200">
                         <TrendingUp className="text-micron-eggplant" size={24} />
                         <h3 className="text-3xl font-black uppercase tracking-tight text-micron-eggplant">FUTURE SCALE</h3>
@@ -323,19 +384,12 @@ const getCardData = (id: number): ModalContent => {
         <div className="flex flex-col gap-4 h-full">
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
                <div className="w-full min-h-[300px] lg:min-h-[360px]">
-                    <div className="w-full h-full bg-black rounded-xl overflow-hidden relative shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200">
-                        <video src={VIDEO_PLACE} className="absolute inset-0 w-full h-full object-cover" autoPlay muted loop playsInline />
-                    </div>
+                    <ModalVideo 
+                        src={VIDEO_PLACE} 
+                        className="w-full h-full shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200"
+                    />
                </div>
                
-               {/* SWAPPED: Was ENERGY, Now ENERGY (This block stays Energy on top right in prompt, 
-                  BUT prompt says swap Green (Address) and Gray (Confluence) at bottom.
-                  Wait, Energy is currently Top Right. Address is Bottom Left. Confluence is Bottom Right.
-                  User arrow points Address -> Confluence. And Confluence -> Address?
-                  "Swap the green tile with the gray tile"
-                  Green = Address. Gray = Confluence.
-                  So Address goes to Bottom Right. Confluence goes to Bottom Left.
-               */}
                <InnerBento 
                     gradient="bg-micron-eggplant-light" 
                     className="h-full flex flex-col"
@@ -345,15 +399,15 @@ const getCardData = (id: number): ModalContent => {
                         <Activity size={18} strokeWidth={2.5} /> ENERGY
                    </h3>
                    <div className="w-full h-px bg-white/30 mb-4" />
-                   <div className="text-white text-base md:text-lg font-medium leading-relaxed">
+                   <div className="text-white/60 text-base md:text-lg font-medium leading-relaxed">
                        <p>In 1892, C.W. Moore piped 177°F geothermal water into his mansion — the <span className="font-bold text-white drop-shadow-sm">first home in America heated by natural hot water</span>. The idea spread down the avenue, then downtown, and by 1982 to the State Capitol.</p>
                        <p className="mt-3">Today, the same system delivers to roughly 300 homes — operational for over 130 years, the water temperature unchanged within one degree.</p>
+                       <p className="mt-3"><span className="font-bold text-white">The oldest residential energy system in the country meeting the newest</span> — on a street that has been absorbing the future for 130 years.</p>
                    </div>
                </InnerBento>
            </div>
            
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
-               {/* SWAPPED: Was ADDRESS (Green). Now CONFLUENCE (Gray). */}
                <InnerBento 
                     gradient="bg-micron-grey1" 
                     className="h-full flex flex-col"
@@ -363,13 +417,11 @@ const getCardData = (id: number): ModalContent => {
                         <Zap size={18} strokeWidth={2.5} /> CONFLUENCE
                    </h3>
                    <div className="w-full h-px bg-white/20 mb-4" />
-                   <div className="text-white/90 text-base md:text-lg font-medium leading-relaxed">
+                   <div className="text-white/60 text-base md:text-lg font-medium leading-relaxed">
                        <p>Heat from an aquifer tapped in 1892. Data from a satellite constellation powered by solar energy in space. Hot water rising from below. Signal arriving from above.</p>
-                       <p className="mt-3"><span className="font-bold text-white">The oldest residential energy system in the country meeting the newest</span> — on a street that has been absorbing the future for 130 years.</p>
                    </div>
                </InnerBento>
 
-               {/* SWAPPED: Was CONFLUENCE (Gray). Now ADDRESS (Green). */}
                <InnerBento 
                     gradient="bg-micron-green" 
                     className="h-full flex flex-col"
@@ -379,7 +431,7 @@ const getCardData = (id: number): ModalContent => {
                         <Globe size={18} strokeWidth={2.5} /> ADDRESS
                    </h3>
                    <div className="w-full h-px bg-white/30 mb-5" />
-                   <div className="text-white text-base md:text-lg font-medium leading-relaxed">
+                   <div className="text-white/60 text-base md:text-lg font-medium leading-relaxed">
                        <p>Warm Springs Avenue is a tree-lined corridor on the <span className="font-bold text-white drop-shadow-sm">National Register of Historic Places</span> — where Boise's wealthiest families built estates heated by the city's most radical technology: hot water from the ground.</p>
                    </div>
                </InnerBento>

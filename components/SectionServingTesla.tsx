@@ -12,14 +12,16 @@ const teslaCards = [
     id: 2, 
     title: "REAL-WORLD INFERENCE", 
     subtitle: "A Living Laboratory",
-    content: "The Convergence Zone. 1020 E Warm Springs is the neutral ground where the digital code of AI meets the legal code of the nation.",
+    // UPDATED TEXT: 1020 E Warm Springs -> Micron House
+    content: "The Convergence Zone. Micron House is the neutral ground where the digital code of AI meets the legal code of the nation.",
     icon: <Scan />,
     gradient: "bg-micron-black",
-    // ADDED: Light Blue on hover
-    hoverClass: "hover:bg-micron-eggplant-light", 
+    // REMOVED: hoverClass for background change
     border: "border-white/10",
     subtitleColor: "text-micron-green", 
-    descriptionColor: "text-zinc-400 group-hover:text-white transition-colors duration-300"
+    descriptionColor: "text-zinc-400 group-hover:text-white transition-colors duration-300",
+    // ADDED: Title hover color
+    titleHoverColor: "group-hover:text-micron-eggplant-light"
   },
   // CARD 2: THE TECTONIC SHIFT
   {
@@ -29,11 +31,12 @@ const teslaCards = [
     content: "Moving beyond laws and sidewalks into the anthropology of the future. How humanity adapts to the 'Crisis of Shared Reality' in the age of ubiquitous robotics.",
     icon: <Cpu />,
     gradient: "bg-micron-grey1",
-    // ADDED: Light Gray on hover
-    hoverClass: "hover:bg-zinc-400",  
+    // REMOVED: hoverClass for background change
     border: "border-white/10",
     subtitleColor: "text-micron-eggplant-light", 
-    descriptionColor: "text-zinc-300 group-hover:text-zinc-800 transition-colors duration-300" 
+    descriptionColor: "text-zinc-300 group-hover:text-zinc-800 transition-colors duration-300",
+    // ADDED: Title hover color
+    titleHoverColor: "group-hover:text-zinc-400"
   },
 ];
 
@@ -237,7 +240,7 @@ export const SectionServingTesla: React.FC = () => {
             {teslaCards.map((card, i) => (
                 <BentoCard
                     key={card.id}
-                    className={`flex flex-col min-h-[400px] p-8 relative overflow-hidden group shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] ${card.gradient} ${card.border} ${card.hoverClass} transition-colors duration-500`}
+                    className={`flex flex-col min-h-[400px] p-8 relative overflow-hidden group shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] ${card.gradient} ${card.border} transition-colors duration-500`}
                     gradient={card.gradient}
                     textColor="text-white"
                     borderColor="border-white/10"
@@ -257,7 +260,7 @@ export const SectionServingTesla: React.FC = () => {
                             <div className={`mb-6 p-3 rounded-full bg-white/10 w-fit backdrop-blur-md border border-white/10 ${card.descriptionColor}`}>
                                 {React.cloneElement(card.icon as React.ReactElement<any>, { size: 28 })}
                             </div>
-                            <h3 className="text-3xl font-black uppercase tracking-tight mb-2 leading-none text-white drop-shadow-lg">
+                            <h3 className={`text-3xl font-black uppercase tracking-tight mb-2 leading-none text-white drop-shadow-lg transition-colors duration-300 ${card.titleHoverColor}`}>
                                 {card.title}
                             </h3>
                             <p className={`text-xs font-bold uppercase tracking-widest mb-6 ${card.subtitleColor}`}>
