@@ -159,8 +159,11 @@ const getCardData = (id: number): ModalContent => {
         subtitle: undefined, 
         modalLayout: 'default', 
         maxWidth: 'max-w-7xl', 
+        // UPDATED: Added aspect-ratio to lengthen the modal box vertically, removing need to scroll
+        aspectRatio: 'aspect-[3/4]', 
         content: (
-            <div className="flex flex-col gap-6 h-auto">
+            // UPDATED: Reduced gap from gap-6 to gap-5 for tighter packing
+            <div className="flex flex-col gap-5 h-auto">
                 {/* 1. AUTONOMOUS HUB (Full Width) */}
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}

@@ -79,7 +79,7 @@ export const SectionProperty: React.FC = () => {
                                 <div className="flex justify-between items-start mb-4">
                                     <Waves size={36} className="text-white/80 group-hover:text-white transition-colors" />
                                 </div>
-                                <h3 className="text-2xl font-black uppercase tracking-tight leading-none mb-4">CONTRAST THERAPY</h3>
+                                <h3 className="text-2xl font-black uppercase tracking-tight leading-none mb-4 text-white/90">CONTRAST THERAPY</h3>
                                 <div className="w-16 h-1 bg-white/30 group-hover:bg-white transition-colors mb-4 rounded-full" />
                             </div>
                             
@@ -102,7 +102,7 @@ export const SectionProperty: React.FC = () => {
                                 <div className="flex justify-between items-start mb-4">
                                     <Activity size={36} className="text-white/80 group-hover:text-white transition-colors" />
                                 </div>
-                                <h3 className="text-2xl font-black uppercase tracking-tight leading-none mb-4">WHOLE BODY VIBRATION</h3>
+                                <h3 className="text-2xl font-black uppercase tracking-tight leading-none mb-4 text-white/90">WHOLE BODY VIBRATION</h3>
                                 <div className="w-16 h-1 bg-white/30 group-hover:bg-white transition-colors mb-4 rounded-full" />
                             </div>
 
@@ -125,7 +125,7 @@ export const SectionProperty: React.FC = () => {
                                 <div className="flex justify-between items-start mb-4">
                                     <Sprout size={36} className="text-white/80 group-hover:text-white transition-colors" />
                                 </div>
-                                <h3 className="text-2xl font-black uppercase tracking-tight leading-none mb-4">ORGANIC GARDEN</h3>
+                                <h3 className="text-2xl font-black uppercase tracking-tight leading-none mb-4 text-white/90">ORGANIC GARDEN</h3>
                                 <div className="w-16 h-1 bg-white/30 group-hover:bg-white transition-colors mb-4 rounded-full" />
                             </div>
                             
@@ -158,10 +158,10 @@ export const SectionProperty: React.FC = () => {
                         <div className="bg-micron-eggplant text-white rounded-2xl p-8 md:p-12 shadow-xl flex flex-col justify-center">
                             <div className="flex items-center gap-3 mb-6">
                                 <Clock size={24} className="text-white/70" />
-                                <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight">C.W. MOORE & THE DISTRICT</h3>
+                                <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white/90">C.W. MOORE & THE DISTRICT</h3>
                             </div>
                             <div className="h-px w-full bg-white/20 mb-6"></div>
-                            <div className="space-y-6 text-base md:text-lg leading-relaxed font-medium text-white/90">
+                            <div className="space-y-6 text-base md:text-lg leading-relaxed font-medium text-white/70">
                                 <p>
                                     In 1890, Christopher W. Moore, founder of the First National Bank of Idaho, drilled two wells near the base of Table Rock. He struck 170-degree water. By 1892, he had piped it to his mansion on Warm Springs Avenue—marking the first use of geothermal water for home heating in the United States.
                                 </p>
@@ -208,10 +208,10 @@ export const SectionProperty: React.FC = () => {
                         <div className="bg-micron-black text-white rounded-2xl p-8 shadow-xl flex flex-col">
                             <div className="flex items-center gap-3 mb-6">
                                 <Car size={24} className="text-white" />
-                                <h3 className="text-3xl font-black uppercase tracking-tight">CYBERCAB</h3>
+                                <h3 className="text-3xl font-black uppercase tracking-tight text-white/90">CYBERCAB</h3>
                             </div>
                             <div className="h-px w-full bg-white/20 mb-6"></div>
-                            <p className="text-white/80 text-base mb-8 leading-relaxed">
+                            <p className="text-white/70 text-base mb-8 leading-relaxed">
                                 Tesla's first fully autonomous vehicle — a two-passenger cabin with butterfly doors, inductive charging, and a 20.5-inch display. Cybercab manages all airport transfers, downtown shuttles, and guest logistics autonomously.
                             </p>
                             <div className="mt-auto rounded-xl overflow-hidden h-64 w-full relative">
@@ -227,10 +227,10 @@ export const SectionProperty: React.FC = () => {
                         <div className="bg-micron-eggplant-light text-white rounded-2xl p-8 shadow-xl flex flex-col">
                             <div className="flex items-center gap-3 mb-6">
                                 <Bot size={24} className="text-white" />
-                                <h3 className="text-3xl font-black uppercase tracking-tight">OPTIMUS</h3>
+                                <h3 className="text-3xl font-black uppercase tracking-tight text-white/90">OPTIMUS</h3>
                             </div>
                             <div className="h-px w-full bg-white/20 mb-6"></div>
-                            <p className="text-white/90 text-base mb-8 leading-relaxed">
+                            <p className="text-white/70 text-base mb-8 leading-relaxed">
                                 Tesla's Gen 3 humanoid — 5'8", 125 lbs, with 22 degrees of freedom in each hand and vision-based autonomy. Optimus manages property maintenance, perimeter monitoring, and routine service tasks within defined geofenced zones across the residence.
                             </p>
                             <div className="mt-auto rounded-xl overflow-hidden h-64 w-full relative">
@@ -299,7 +299,8 @@ export const SectionProperty: React.FC = () => {
           <div className="flex justify-between items-start mb-4">
                <div className="flex items-center gap-3">
                    <div className={`text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300`}>{icon}</div>
-                   <h4 className="text-xl font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors">{title}</h4>
+                   {/* UPDATED: Reduced text-xl to text-lg for better fit */}
+                   <h4 className="text-lg md:text-xl font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors">{title}</h4>
                </div>
                <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">{subtitle}</span>
           </div>
@@ -440,7 +441,8 @@ export const SectionProperty: React.FC = () => {
                         title="AUTONOMOUS SERVICE"
                         subtitle="INTELLIGENCE"
                         icon={<Cpu size={24} />}
-                        gradient="bg-zinc-800" // Updated to Dark Grey/Black as requested
+                        // UPDATED: Restored to original Light Blue/Eggplant Light
+                        gradient="bg-micron-eggplant-light" 
                         text="Autonomous service via Cybercab and Optimus. A functional proving ground where abstract technology becomes a seamless, daily reality."
                         onClick={() => openInfoModal('autonomous')}
                     />
@@ -448,7 +450,7 @@ export const SectionProperty: React.FC = () => {
                         title="NATIONAL REGISTER OF HISTORIC PLACES"
                         subtitle="LEGACY"
                         icon={<TreeDeciduous size={24} />}
-                        gradient="bg-micron-eggplant" // Updated to Eggplant as requested
+                        gradient="bg-micron-eggplant"
                         text="Anchored by the C.W. Moore House (1891) and the neighboring George Whitfield Russell House. A corridor defined by the legacy of Western pioneers and energy ingenuity."
                         onClick={() => openInfoModal('history')}
                     />
