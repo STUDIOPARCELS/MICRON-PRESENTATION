@@ -176,9 +176,12 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
         </div>
 
       <div className={`
-          relative z-10 px-5 pt-8 pb-4 md:px-6 md:pt-10 md:pb-5 flex-shrink-0
+          relative z-10 
+          /* UPDATED PADDING: Increased left padding to align with top/double previous */
+          pl-8 pr-5 pt-8 pb-4 
+          md:pl-12 md:pr-6 md:pt-10 md:pb-5
+          flex-shrink-0
           ${isLight ? 'bg-gradient-to-b from-white to-zinc-50' : 'bg-gradient-to-b from-zinc-800 to-zinc-900'}
-          pr-12 
       `}>
          <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }}>
             {/* UPDATED: Title first */}
@@ -201,8 +204,8 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
         <motion.div 
             initial="hidden" animate="visible"
             variants={{ visible: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } } }}
-            // UPDATED: Doubled padding from p-5 md:p-6 to p-8 md:p-12
-            className="p-8 md:p-12 h-full"
+            // UPDATED: Body padding also doubled on left (p-8 -> pl-8, md:p-12 -> md:pl-12 already existed but making sure left aligns)
+            className="pl-8 pr-8 pt-8 pb-8 md:pl-12 md:pr-12 md:pt-12 md:pb-12 h-full"
         >
             {data.content}
         </motion.div>

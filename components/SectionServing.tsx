@@ -319,20 +319,15 @@ export const SectionServing: React.FC = () => {
     // REDUCED PADDING: py-16 -> py-10
     <section id="serving" className="container mx-auto px-4 md:px-12 py-8 md:py-12 bg-white text-zinc-900">
       
-      {/* 
-        SECTION CONTAINER BENTO BOX 
-        Wraps the Header and the Grid in a "Floating" container 
-       */}
-      <motion.div 
-         initial={{ opacity: 0, y: 30 }}
-         whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true, amount: 0.1 }}
-         transition={{ duration: 0.8, ease: "easeOut" }}
-         // UPDATED: Reduced padding on mobile from p-8 to p-5
-         className="w-full bg-white rounded-[2.5rem] p-5 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-zinc-100 ring-1 ring-zinc-50"
-      >
-          {/* UPDATED: Reduced bottom margin from mb-12 to mb-6 on mobile to reduce gap */}
-          <div className="mb-6 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8 md:border-b-0 md:pb-0">
+          {/* REMOVED WRAPPER: Content sits directly on background now */}
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8"
+          >
             <div className="flex-shrink-0">
                <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">04 / ENGAGEMENT</span>
                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant leading-none">SERVING MICRON</h2>
@@ -348,13 +343,13 @@ export const SectionServing: React.FC = () => {
                     </p>
                  </div>
             </div>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {departments.map((dept, i) => (
               <BentoCard 
                 key={dept.id} 
-                className="flex flex-col justify-between min-h-[100px] !p-6 relative overflow-hidden group" 
+                className="flex flex-col justify-between min-h-[160px] md:min-h-[180px] !p-6 relative overflow-hidden group shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)]" 
                 gradient={dept.gradient}
                 textColor="text-white"
                 borderColor="border-white/10"
@@ -363,12 +358,10 @@ export const SectionServing: React.FC = () => {
                 onClick={() => openDeptModal(dept)}
               >
                 <div className="mt-2">
-                   {/* UPDATED: Title text color to text-white/70 (lighter) */}
                    <h3 className="text-xl font-bold text-white/70 mb-2 uppercase tracking-tight">
                      {dept.title}
                    </h3>
                    
-                   {/* UPDATED: Value/Subtext text color to text-white (whiter/brighter) */}
                    <p className="text-xs font-bold uppercase tracking-widest text-white font-sans">
                       {dept.value}
                    </p>
@@ -376,7 +369,7 @@ export const SectionServing: React.FC = () => {
               </BentoCard>
             ))}
           </div>
-      </motion.div>
+
       <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
     </section>
   );

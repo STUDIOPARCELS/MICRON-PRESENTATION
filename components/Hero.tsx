@@ -1,6 +1,42 @@
 
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView, AnimatePresence, useAnimation } from 'framer-motion';
+
+// Defined outside to prevent re-creation on render
+const sentences = [
+    {
+        // Sentence 1
+        words: ["WITHOUT", "MEMORY,", "THERE'S", "NO", "MEANING."],
+        color: "text-zinc-400",
+        highlightColor: "text-micron-eggplant",
+        hoverColor: "hover:text-micron-eggplant-light", 
+        highlights: ["MEMORY,", "MEANING."],
+        textSize: "text-6xl sm:text-7xl md:text-7xl lg:text-8xl",
+        layout: "default"
+    },
+    {
+        // Sentence 2
+        words: ["WITHOUT", "VISION,", "THERE'S", "NO", "VELOCITY."],
+        color: "text-zinc-400",
+        highlightColor: "text-zinc-700",
+        hoverColor: "hover:text-black", 
+        highlights: ["VISION,", "VELOCITY."],
+        textSize: "text-6xl sm:text-7xl md:text-7xl lg:text-8xl",
+        layout: "default"
+    },
+    {
+        // Sentence 3
+        // UPDATED: Restructured for line breaks: WITHOUT, PLACE, THERE'S, NO PERSPECTIVE
+        words: ["WITHOUT", "PLACE,", "THERE'S", ["NO", "PERSPECTIVE."]], 
+        color: "text-zinc-400",
+        highlightColor: "text-micron-green",
+        hoverColor: "hover:text-green-900", 
+        highlights: ["PLACE,", "PERSPECTIVE."],
+        // UPDATED: Increased font size by 10% (lg:text-7xl -> lg:text-[5.5rem])
+        textSize: "text-6xl sm:text-7xl md:text-7xl lg:text-[5.5rem]",
+        layout: "vertical" // Custom flag to trigger vertical stacking
+    }
+];
 
 const InteractiveParadigmTitle: React.FC = () => {
     const paradigmLine1 = ["THE", "PARADIGM"];
@@ -10,53 +46,60 @@ const InteractiveParadigmTitle: React.FC = () => {
         <div 
             className="flex flex-col items-start cursor-default"
         >
-            <div className="flex flex-wrap gap-x-2 md:gap-x-4">
+            <div className="flex flex-wrap gap-x-3 md:gap-x-5">
                 {paradigmLine1.map((word, i) => (
                     <motion.span
                         key={i}
-                        initial={{ y: 20, opacity: 0, color: '#008f25' }}
-                        animate={{ 
+                        initial={{ y: 20, opacity: 0, color: '#2c0f38' }}
+                        whileInView={{ 
                             y: 0, 
                             opacity: 1, 
-                            color: '#008f25' 
+                            // UPDATED: Color animation (Purple -> Green -> Purple)
+                            color: ['#2c0f38', '#008f25', '#2c0f38']
                         }}
+                        viewport={{ once: true }}
                         transition={{ 
-                            delay: 0.5 + (i * 0.15), 
-                            duration: 0.8, 
-                            ease: "easeOut" 
+                            delay: 0.2 + (i * 0.15), 
+                            // UPDATED: Slower duration and lingering
+                            duration: 4.0, 
+                            ease: "easeInOut",
+                            times: [0, 0.4, 1] // Linger in middle
                         }}
                         whileHover={{ 
                             scale: 1.05, 
-                            color: '#2c0f38', 
+                            color: '#ffffff', 
                             transition: { duration: 0.2 } 
                         }}
-                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block transition-colors duration-300"
+                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block transition-colors"
                     >
                         {word}
                     </motion.span>
                 ))}
             </div>
-            <div className="flex flex-wrap gap-x-2 md:gap-x-4">
+            <div className="flex flex-wrap gap-x-3 md:gap-x-5">
                 {paradigmLine2.map((word, i) => (
                     <motion.span
                         key={i}
-                        initial={{ y: 20, opacity: 0, color: '#008f25' }}
-                        animate={{ 
+                        initial={{ y: 20, opacity: 0, color: '#2c0f38' }}
+                        whileInView={{ 
                             y: 0, 
                             opacity: 1,
-                            color: '#008f25'
+                            // UPDATED: Color animation
+                            color: ['#2c0f38', '#008f25', '#2c0f38']
                         }}
+                        viewport={{ once: true }}
                         transition={{ 
-                            delay: 0.8 + (i * 0.15), 
-                            duration: 0.8, 
-                            ease: "easeOut" 
+                            delay: 0.5 + (i * 0.15), 
+                            duration: 4.0, 
+                            ease: "easeInOut",
+                            times: [0, 0.4, 1]
                         }}
                         whileHover={{ 
-                            scale: 1.05,
-                            color: '#2c0f38',
+                            scale: 1.05, 
+                            color: '#ffffff', 
                             transition: { duration: 0.2 } 
                         }}
-                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block transition-colors duration-300"
+                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block transition-colors"
                     >
                         {word}
                     </motion.span>
@@ -71,137 +114,165 @@ export const Hero: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const bottomSectionRef = useRef(null);
   
-  // Track if the section is in view to handle auto-replay on scroll
   const isInView = useInView(containerRef, { amount: 0.2 });
-  
-  // Track if the bottom section is in view to override animation wait time
-  const isBottomVisible = useInView(bottomSectionRef, { amount: 0, once: true });
 
-  // --- CYCLING TEXT STATE ---
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
-  const [isFinished, setIsFinished] = useState(false);
-  
-  // UPDATED ORDER: Memory -> Vision -> Place
-  // UPDATED STRUCTURE: Support variable lines per sentence
-  const sentences = [
-    {
-        lines: [
-            ["WITHOUT", "MEMORY,"],
-            ["THERE'S", "NO", "MEANING."]
-        ],
-        highlights: ["MEMORY,", "MEANING."],
-        highlightColorClass: "text-micron-eggplant", 
-        baseColorClass: "text-[#878d9f]", 
-        baseHex: "#878d9f",
-        highlightHex: "#2c0f38",
-        hoverHighlightHex: "#6a3d8a", 
-    },
-    {
-        lines: [
-            ["WITHOUT", "VISION,"],
-            ["THERE'S", "NO", "VELOCITY."]
-        ],
-        highlights: ["VISION,", "VELOCITY."],
-        baseColorClass: "text-[#878d9f]", 
-        highlightColorClass: "text-zinc-700",
-        baseHex: "#878d9f", 
-        highlightHex: "#3f3f46", 
-        hoverHighlightHex: "#27272a", 
-    },
-    {
-        lines: [
-            ["WITHOUT"],
-            ["PLACE,"],
-            ["THERE'S", "NO"],
-            ["PERSPECTIVE."]
-        ],
-        highlights: ["PLACE,", "PERSPECTIVE."],
-        highlightColorClass: "text-micron-green",
-        baseColorClass: "text-[#878d9f]",
-        baseHex: "#878d9f",
-        highlightHex: "#008f25",
-        hoverHighlightHex: "#004d14",
-    }
-  ];
+  const [key, setKey] = useState(0); // Key to force re-render/replay
 
-  // 1. Slow Video Down by 50%
+  // Icon Controls
+  const iconControls = useAnimation();
+  
+  // Effect to cycle through sentences
+  useEffect(() => {
+    // 50% Slower cycle duration (was 7000)
+    const cycleDuration = 10500; 
+
+    const interval = setInterval(() => {
+        setCurrentSentenceIndex((prev) => {
+            if (prev < sentences.length - 1) {
+                return prev + 1;
+            } else {
+                clearInterval(interval);
+                return prev;
+            }
+        });
+    }, cycleDuration);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Effect for Icon Roll-In Logic
+  useEffect(() => {
+      if (currentSentenceIndex === 2) {
+          // Calculate when the word "PERSPECTIVE" (last group) finishes
+          // Stagger is 0.6s. 
+          // Words: WITHOUT(0), PLACE(1), THERE'S(2), NO PERSPECTIVE(3). 
+          // Total delay roughly 3 * 0.6 = 1.8s + duration 1.2s = ~3.0s
+          
+          const totalDelay = (3 * 0.6) + 0.5; // Trigger slightly after start of last word
+
+          iconControls.start({
+              x: 0,
+              rotate: 0,
+              opacity: 1,
+              transition: { 
+                  delay: totalDelay,
+                  type: "spring",
+                  stiffness: 60,
+                  damping: 12,
+                  duration: 1.5 
+              }
+          });
+      } else {
+          // Reset if we were cycling (though current logic stops at end)
+          // For now, keep it hidden until the grand finale
+          iconControls.set({ x: '100vw', rotate: 180, opacity: 0 });
+      }
+  }, [currentSentenceIndex, iconControls]);
+
+  // Video Speed Control
   useEffect(() => {
     if (videoRef.current) {
-        videoRef.current.playbackRate = 0.5;
+        videoRef.current.playbackRate = 0.6;
     }
   }, []);
 
-  // 2. Animation Logic
-  useEffect(() => {
-    let interval: any;
+  // Replay animation on hover
+  const handleReplay = () => {
+      setKey(prev => prev + 1);
+      // If it's the last sentence, re-trigger icon too
+      if (currentSentenceIndex === 2) {
+          iconControls.set({ x: '100vw', rotate: 180, opacity: 0 });
+          const totalDelay = (3 * 0.6) + 0.5;
+          iconControls.start({
+              x: 0,
+              rotate: 0,
+              opacity: 1,
+              transition: { 
+                  delay: totalDelay,
+                  type: "spring",
+                  stiffness: 60,
+                  damping: 12,
+                  duration: 1.5 
+              }
+          });
+      }
+  };
 
-    if (isInView) {
-        if (!isFinished) {
-            // UPDATED: Decreased interval from 6800ms to 4000ms (~40% reduction in pause)
-            interval = setInterval(() => {
-                setCurrentSentenceIndex((prev) => {
-                    if (prev === sentences.length - 1) {
-                        clearInterval(interval);
-                        setIsFinished(true); 
-                        return prev;
-                    }
-                    return prev + 1;
-                });
-            }, 4000); 
-        }
-    } else {
-        setIsFinished(false);
-        setCurrentSentenceIndex(0);
-    }
+  const renderWord = (word: string, i: number, currentSet: any, isGrouped = false) => {
+      const isHighlight = currentSet.highlights.includes(word);
+      const colorClass = isHighlight ? currentSet.highlightColor : currentSet.color;
+      const hoverClass = isHighlight ? currentSet.hoverColor : "";
+      
+      // Special handling for Sentence 3 Line breaks
+      // "WITHOUT" -> block
+      // "PLACE," -> block
+      // "THERE'S" -> block
+      // Grouped ["NO", "PERSPECTIVE."] -> flex row
+      let layoutClass = "";
+      if (currentSet.layout === "vertical" && !isGrouped) {
+          layoutClass = "w-full basis-full mb-1"; // Force new line
+      }
 
-    return () => clearInterval(interval);
-  }, [isInView, isFinished]);
+      return (
+           <motion.span
+               key={`${word}-${i}`}
+               variants={{
+                   hidden: { y: 30, opacity: 0, filter: "blur(10px)" },
+                   visible: { 
+                       y: 0, 
+                       opacity: 1, 
+                       filter: "blur(0px)",
+                       transition: { duration: 1.2, ease: "easeOut" } 
+                   },
+                   exit: {
+                       y: -30,
+                       opacity: 0,
+                       filter: "blur(10px)",
+                       transition: { duration: 0.6, ease: "easeIn" }
+                   }
+               }}
+               className={`${currentSet.textSize} ${layoutClass} font-black uppercase tracking-tighter leading-[0.9] cursor-default transition-colors duration-300 ${colorClass} ${hoverClass}`}
+           >
+               {word}
+           </motion.span>
+      );
+  }
 
   return (
     <section 
         ref={containerRef}
-        // UPDATED: Reduced pb-4 to pb-1 to decrease gap
-        className="relative w-full bg-white text-zinc-900 pt-20 pb-1 flex flex-col justify-center md:min-h-screen"
+        className="relative w-full bg-white text-zinc-900 pt-48 pb-32 flex flex-col justify-end"
     >
-      <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-3 md:gap-3">
+      <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4">
         
-        {/* MAIN CONTENT AREA: SPLIT SCREEN BENTO GRID */}
-        {/* CHANGED: Reduced height from 450px to 380px to remove padding/whitespace at top */}
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-3 h-auto md:h-[380px] w-full">
+        {/* TOP SECTION */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 h-auto md:h-[400px] w-full">
             
             {/* 1. TEXT ANIMATION AREA */}
             <div 
-                className="min-h-[180px] lg:h-full w-full flex flex-col order-1 group/text cursor-default relative bg-white rounded-3xl shadow-2xl border border-zinc-200 p-3 md:p-5 overflow-hidden"
+                onMouseEnter={handleReplay} // Replay trigger
+                className="h-[400px] md:h-full w-full flex flex-col justify-end items-start order-1 bg-white rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 border border-zinc-100 p-6 md:p-12 relative overflow-hidden group"
             >
-                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-200 to-transparent opacity-50" />
-
-                 {/* 
-                    LOGO ANIMATION:
-                    - Only animates in when isFinished is true (which implies we are on the final slide "Place").
-                    - Delay is set to 3.0s to ensure "Perspective" text has populated first.
-                    - Hover: Rotate 15deg and back to 0 (ping-pong) to "shift back".
-                    - UPDATED: Moved logo to top-4 right-4 md:top-6 md:right-6 to prevent cutoff.
-                 */}
-                 <div className="absolute top-4 right-4 md:top-6 md:right-6 z-20 flex flex-row items-center gap-3">
-                    <motion.img 
+                 {/* Logo Top Right - Controlled by Animation */}
+                 <motion.div 
+                    initial={{ x: '100vw', rotate: 180, opacity: 0 }}
+                    animate={iconControls}
+                    // UPDATED: Moved over (right-8 -> right-12)
+                    className="absolute top-6 right-6 md:top-8 md:right-12 z-20"
+                 >
+                    <img 
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
-                        alt="Micron House Logo"
-                        className="h-24 w-24 md:h-44 md:w-44 object-contain"
-                        initial={{ opacity: 0, x: 100, rotate: 180 }}
-                        // Only animate when the cycle is finished (last slide is active)
-                        animate={isFinished ? { opacity: 1, x: 0, rotate: 0 } : { opacity: 0, x: 100, rotate: 180 }}
-                        // "Shift back once it rotate" -> Rotate to 15 then back to 0
-                        whileHover={{ rotate: [0, 15, 0], scale: 1.05, transition: { duration: 0.6 } }}
-                        transition={{ delay: 3.0, duration: 1.5, ease: "easeOut" }}
+                        alt="Micron Logo"
+                        className="h-20 w-20 md:h-32 md:w-32 object-contain"
                     />
-                 </div>
+                 </motion.div>
                  
-                 {/* Bottom Alignment */}
-                 <div className="flex flex-col h-full w-full justify-end pt-2 md:pt-0 pb-2">
+                 <div className="w-full relative z-10 mt-12 md:mt-0">
                      <AnimatePresence mode="wait">
                        <motion.div 
-                          key={currentSentenceIndex} 
-                          className="flex flex-col gap-y-0 md:gap-y-0 items-start w-full"
+                          key={`${currentSentenceIndex}-${key}`} // Updates on sentence change OR replay
+                          className="flex flex-wrap gap-x-4 md:gap-x-6 gap-y-2 w-full max-w-5xl"
                           initial="hidden"
                           animate="visible"
                           exit="exit"
@@ -209,61 +280,27 @@ export const Hero: React.FC = () => {
                               hidden: { opacity: 1 },
                               visible: { 
                                   opacity: 1,
-                                  transition: { staggerChildren: 0.5 } // Stagger lines
+                                  transition: { staggerChildren: 0.6 } 
                               },
                               exit: { 
                                   opacity: 1, 
-                                  transition: { staggerChildren: 0.1, staggerDirection: 1 } 
+                                  transition: { staggerChildren: 0.3, staggerDirection: -1 } 
                               }
                           }}
                        >
-                         {/* DYNAMIC LINE RENDERING */}
-                         {sentences[currentSentenceIndex].lines.map((line, lineIndex) => (
-                             <motion.div 
-                                key={lineIndex} 
-                                className="flex flex-wrap gap-x-2 md:gap-x-4"
-                                variants={{
-                                    hidden: { opacity: 1 },
-                                    visible: {
-                                        opacity: 1,
-                                        transition: { staggerChildren: 0.12 } // Stagger words inside line
-                                    },
-                                    exit: { opacity: 0 }
-                                }}
-                             >
-                                  {line.map((word, wordIndex) => {
-                                      const currentSet = sentences[currentSentenceIndex];
-                                      const isHighlight = currentSet.highlights.includes(word);
-                                      const textColor = isHighlight ? currentSet.highlightHex : currentSet.baseHex;
-                                      const hoverColor = isHighlight ? currentSet.hoverHighlightHex : currentSet.baseHex;
-
-                                      return (
-                                          <motion.span
-                                              key={`${lineIndex}-${wordIndex}`}
-                                              variants={{
-                                                  hidden: { y: 20, opacity: 0 },
-                                                  visible: { 
-                                                      y: 0, 
-                                                      opacity: 1, 
-                                                      transition: { duration: 0.8, ease: "easeOut" } 
-                                                  },
-                                                  exit: {
-                                                      y: -20,
-                                                      opacity: 0,
-                                                      transition: { duration: 0.3, ease: "easeIn" }
-                                                  }
-                                              }}
-                                              style={{ color: textColor }} 
-                                              whileHover={{ color: hoverColor, transition: { duration: 0.1 } }}
-                                              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] cursor-default"
-                                          >
-                                              {word}
-                                          </motion.span>
-                                      );
-                                  })}
-                             </motion.div>
-                         ))}
-
+                         {sentences[currentSentenceIndex].words.map((wordOrGroup, i) => {
+                             const currentSet = sentences[currentSentenceIndex];
+                             
+                             if (Array.isArray(wordOrGroup)) {
+                                 return (
+                                     <div key={i} className="flex flex-nowrap gap-x-4 md:gap-x-6 w-full basis-full">
+                                         {wordOrGroup.map((w, j) => renderWord(w, j, currentSet, true))}
+                                     </div>
+                                 );
+                             } else {
+                                 return renderWord(wordOrGroup, i, currentSet);
+                             }
+                         })}
                        </motion.div>
                      </AnimatePresence>
                  </div>
@@ -271,10 +308,10 @@ export const Hero: React.FC = () => {
 
             {/* 2. VIDEO AREA */}
             <motion.div 
-                initial={{ opacity: 0, scale: 0.98, filter: "blur(5px)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-                className="h-[220px] md:h-full lg:h-full w-full rounded-3xl overflow-hidden relative shadow-2xl bg-black border border-zinc-800 order-2"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1.2, delay: 0.2 }}
+                className="h-[300px] md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black border border-zinc-800 order-2 group"
             >
                 <video 
                     ref={videoRef}
@@ -282,12 +319,10 @@ export const Hero: React.FC = () => {
                     loop 
                     muted 
                     playsInline 
-                    className="absolute inset-0 w-full h-full object-cover opacity-90"
-                    poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
+                    className="absolute inset-0 w-full h-full object-cover opacity-80"
                 >
-                     <source src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4" type="video/mp4" />
+                     <source src="https://assets.mixkit.co/videos/preview/mixkit-rotating-earth-from-space-1616-large.mp4" type="video/mp4" />
                 </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 pointer-events-none"></div>
             </motion.div>
 
         </div>
@@ -295,50 +330,35 @@ export const Hero: React.FC = () => {
         {/* BOTTOM SECTION: PARADIGM & MAP */}
         <motion.div 
             ref={bottomSectionRef}
-            initial="hidden"
-            animate={(isFinished || isBottomVisible) ? "visible" : "hidden"}
-            variants={{
-                hidden: { opacity: 0, y: 50, filter: "blur(10px)" },
-                visible: { 
-                    opacity: 1, 
-                    y: 0, 
-                    filter: "blur(0px)",
-                    transition: { duration: 1.5, ease: "easeOut" } 
-                }
-            }}
-            className="w-full bg-white rounded-3xl shadow-[0_40px_80px_-12px_rgba(0,0,0,0.2)] ring-1 ring-black/5 relative overflow-hidden flex flex-col md:flex-row h-auto md:h-[300px] mt-0 group"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            // UPDATED: bg-micron-eggplant-light (solid blue)
+            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row h-auto md:h-[320px] mt-4 group hover:-translate-y-1 transition-transform duration-700"
         >
-            {/* Top Light Highlight for 3D effect */}
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-100 z-20" />
+            {/* Top Light Highlight */}
+            <div className="absolute inset-x-0 top-0 h-px bg-white/40 z-20" />
 
             {/* Text Side (Left) */}
-            <div className="p-4 md:p-6 flex flex-col justify-center md:w-1/2 z-10 relative bg-white">
-                 
-                 {/* Interactive Title Component */}
-                 <div className="mb-4 md:mb-4">
-                     <InteractiveParadigmTitle />
-                 </div>
+            <div className="p-8 md:p-10 flex flex-col justify-center md:w-1/2 z-10 relative">
+                 <InteractiveParadigmTitle />
                 
                 {/* Address Block */}
                 <motion.div 
-                    variants={{
-                        hidden: { opacity: 0, x: -20 },
-                        visible: { 
-                            opacity: 1, 
-                            x: 0,
-                            transition: { delay: 3.5, duration: 1.0, ease: "easeOut" }
-                        }
-                    }}
-                    className="flex gap-6 border-l-[4px] border-zinc-200 pl-6 transition-colors duration-500 group-hover:border-micron-green"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.5, duration: 1.0 }}
+                    className="flex gap-6 border-l-[4px] border-micron-eggplant pl-6 mt-6"
                 >
-                     <div className="flex flex-col justify-center">
-                        <p className="text-xs md:text-sm font-black uppercase tracking-widest text-micron-green mb-1">
+                     <div className="flex flex-col justify-center text-micron-eggplant">
+                        <p className="text-xs md:text-sm font-black uppercase tracking-widest mb-1 opacity-80 text-micron-eggplant">
                             Micron House
                         </p>
-                        <p className="font-bold text-zinc-900 text-sm md:text-base uppercase tracking-wide leading-tight">
+                        <p className="font-bold text-sm md:text-base uppercase tracking-wide leading-tight">
                             1020 East Warm Springs Ave
                         </p>
-                        <p className="font-bold text-zinc-400 text-sm md:text-base uppercase tracking-wide leading-tight">
+                        <p className="font-bold text-sm md:text-base uppercase tracking-wide leading-tight opacity-70">
                             Boise, Idaho 83712
                         </p>
                      </div>
@@ -346,35 +366,24 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* Map Side (Right) */}
-            <motion.div 
-                variants={{
-                    hidden: { opacity: 0, scale: 0.95 },
-                    visible: { 
-                        opacity: 1, 
-                        scale: 1,
-                        transition: { delay: 2.2, duration: 1.0, ease: "easeOut" }
-                    }
-                }}
-                className="relative w-full md:w-1/2 min-h-[300px] md:h-auto md:min-h-0 p-2 md:p-3 flex items-center justify-center bg-white"
-            >
+            <div className="relative w-full md:w-1/2 min-h-[300px] md:h-auto md:min-h-0 p-3 flex items-center justify-center">
+                {/* UPDATED: Map Container resized to ~75% (25% reduced) via padding/margins */}
                 <div 
-                    className="w-full h-full rounded-3xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] relative bg-zinc-100 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] group/map"
+                    className="w-[85%] h-[85%] rounded-2xl overflow-hidden shadow-lg relative bg-white transform transition-all duration-500 hover:scale-[1.02]"
                 >
                      <iframe 
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.234!2d-116.1898!3d43.6088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54aef8d1b0b3b8e7%3A0x0!2s1020%20E%20Warm%20Springs%20Ave%2C%20Boise%2C%20ID%2083712!5e0!3m2!1sen!2sus!4v1706000000000"
-                        className="absolute inset-0 w-full h-full mix-blend-normal grayscale opacity-60 transition-all duration-700 hover:opacity-100 hover:contrast-110"
-                        style={{
-                            pointerEvents: 'none'
-                        }}
+                        // UPDATED: Added grayscale filter
+                        className="absolute inset-0 w-full h-full mix-blend-multiply opacity-80 hover:opacity-100 transition-opacity duration-500 grayscale"
+                        style={{ border: 0 }}
                         title="Map"
-                        loading="eager"
+                        loading="lazy"
                      />
                 </div>
-            </motion.div>
+            </div>
         </motion.div>
 
       </div>
     </section>
   );
 };
-    

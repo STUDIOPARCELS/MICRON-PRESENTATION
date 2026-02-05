@@ -48,21 +48,10 @@ const roadmapItems = [
 export const SectionTimeline: React.FC = () => {
   return (
     // REDUCED PADDING: py-16 -> py-10
-    <section id="timeline" className="container mx-auto px-4 md:px-12 py-8 md:py-12 mb-20 bg-white text-zinc-900">
+    <section id="timeline" className="container mx-auto px-4 md:px-12 py-12 mb-20 bg-white text-zinc-900">
       
-      {/* 
-        SECTION CONTAINER BENTO BOX 
-        Wraps the Header and the Grid in a "Floating" container 
-       */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 1.0 }}
-        className="w-full bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-zinc-100 ring-1 ring-zinc-50"
-      >
-          {/* Header Row - UPDATED STRUCTURE */}
-          <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8 md:border-b-0 md:pb-0">
+          {/* Header Row - REMOVED OUTER BENTO WRAPPER */}
+          <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8">
               <div className="flex-shrink-0">
                   <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">06 / DEPLOYMENT</span>
                   {/* UPDATED: Changed color to text-micron-green */}
@@ -100,11 +89,12 @@ export const SectionTimeline: React.FC = () => {
                         ${item.bg} ${item.text} 
                         aspect-square rounded-2xl p-6 flex flex-col justify-between 
                         relative overflow-hidden group 
-                        shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)]
-                        hover:shadow-[0_40px_80px_-12px_rgba(0,0,0,0.6)] 
+                        /* FLOATING SHADOW UPDATE */
+                        shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)]
+                        hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] 
                         hover:-translate-y-2
                         transition-all duration-300
-                        border-t border-white/20 border-l border-white/10
+                        border-t border-white/20 border-l border-white/10 border-b border-black/10 border-r border-black/10
                     `}
                 >
                     {/* 3D Bevel Highlight */}
@@ -134,7 +124,6 @@ export const SectionTimeline: React.FC = () => {
                 </motion.div>
             ))}
           </div>
-      </motion.div>
 
     </section>
   );

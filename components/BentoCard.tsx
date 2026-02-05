@@ -54,13 +54,14 @@ export const BentoCard: React.FC<CardProps & {
         relative overflow-hidden rounded-xl 
         ${gradient} ${textColor}
         border ${borderColor}
-        shadow-[0_20px_40px_-12px_rgba(0,0,0,0.5)] 
+        /* ENHANCED SHADOW FOR FLOATING LOOK */
+        shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] 
         p-6 md:p-8
         flex flex-col
         transition-all duration-300 ease-out
         group
-        ${hoverEffect && onClick ? 'cursor-pointer hover:shadow-[0_40px_80px_-12px_rgba(0,0,0,0.6)]' : ''}
-        ${hoverEffect && !onClick ? 'hover:shadow-[0_40px_80px_-12px_rgba(0,0,0,0.4)]' : ''}
+        ${hoverEffect && onClick ? 'cursor-pointer hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)]' : ''}
+        ${hoverEffect && !onClick ? 'hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.35)]' : ''}
         ${className}
       `}
     >

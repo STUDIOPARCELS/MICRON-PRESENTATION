@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
 import { ModalContent } from '../types';
-import { ScanFace, BrainCircuit, MessageSquare, ShieldCheck, Users, Eye, HelpCircle, Activity } from 'lucide-react';
+import { Scan, Cpu, MessageSquare, ShieldCheck, Users, Eye, Info, Activity } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const teslaCards = [
@@ -13,12 +13,11 @@ const teslaCards = [
     title: "REAL-WORLD INFERENCE", 
     subtitle: "A Living Laboratory",
     content: "The Convergence Zone. 1020 E Warm Springs is the neutral ground where the digital code of AI meets the legal code of the nation.",
-    icon: <ScanFace />,
-    // UPDATED: Hover to Light Blue (eggplant-light) with transition
+    icon: <Scan />,
     gradient: "bg-micron-black hover:bg-micron-eggplant-light transition-colors duration-500", 
     border: "border-white/10",
     subtitleColor: "text-micron-green", 
-    descriptionColor: "text-zinc-400 group-hover:text-white transition-colors duration-300" // Ensure text pops on light blue
+    descriptionColor: "text-zinc-400 group-hover:text-white transition-colors duration-300"
   },
   // CARD 2: THE TECTONIC SHIFT
   {
@@ -26,12 +25,11 @@ const teslaCards = [
     title: "THE TECTONIC SHIFT",
     subtitle: "Anthropology of the Future",
     content: "Moving beyond laws and sidewalks into the anthropology of the future. How humanity adapts to the 'Crisis of Shared Reality' in the age of ubiquitous robotics.",
-    icon: <BrainCircuit />,
-    // UPDATED: Hover to Light Gray (zinc-200) with transition
+    icon: <Cpu />,
     gradient: "bg-micron-grey1 hover:bg-zinc-200 transition-colors duration-500", 
     border: "border-white/10",
     subtitleColor: "text-micron-eggplant-light", 
-    descriptionColor: "text-zinc-300 group-hover:text-zinc-800 transition-colors duration-300" // Text must darken on light background
+    descriptionColor: "text-zinc-300 group-hover:text-zinc-800 transition-colors duration-300" 
   },
 ];
 
@@ -122,7 +120,6 @@ export const SectionServingTesla: React.FC = () => {
                 <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
                      <h3 className="text-zinc-400 font-bold uppercase tracking-widest text-xs mb-4 ml-2 flex items-center gap-3">
                         The Zoom Out
-                        {/* EASTER EGG SVG */}
                         <svg width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-80 hover:opacity-100 transition-opacity cursor-help">
                             <path d="M9 2C5 2 2 8 2 14C2 19.5 5 22 9 22C13 22 16 19.5 16 14C16 8 13 2 9 2Z" fill="#7db0d3"/>
                             <circle cx="6" cy="10" r="1.5" fill="#353942"/>
@@ -135,14 +132,13 @@ export const SectionServingTesla: React.FC = () => {
                      </h3>
                 </motion.div>
 
-                {/* Card A */}
                 <motion.div 
                     variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
                     className="bg-white rounded-3xl p-8 border border-zinc-200 shadow-xl border-b-4 border-zinc-300 group hover:border-micron-green/30 transition-colors"
                 >
                     <div className="flex justify-between items-start mb-4">
                         <h4 className="text-micron-green font-bold uppercase text-xs tracking-[0.2em]">The Thesis</h4>
-                        <HelpCircle size={20} className="text-zinc-300" />
+                        <Info size={20} className="text-zinc-300" />
                     </div>
                     <h5 className="text-3xl font-black text-zinc-900 mb-4 uppercase leading-none">Crisis of<br/>"Shared Reality"</h5>
                     <p className="text-zinc-600 font-medium leading-relaxed">
@@ -150,7 +146,6 @@ export const SectionServingTesla: React.FC = () => {
                     </p>
                 </motion.div>
 
-                {/* Card B */}
                 <motion.div 
                     variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
                     className="bg-zinc-900 rounded-3xl p-8 border border-zinc-700 shadow-xl border-b-4 border-zinc-950 group"
@@ -205,22 +200,10 @@ export const SectionServingTesla: React.FC = () => {
   };
 
   return (
-    // REDUCED PADDING: py-16 -> py-10
-    <section id="serving-tesla" className="container mx-auto px-4 md:px-12 py-8 md:py-12 bg-zinc-50 text-zinc-900">
-      
-      {/* 
-        SECTION CONTAINER BENTO BOX 
-        Wraps the Header and the Grid in a "Floating" container 
-       */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 1.0 }}
-        className="w-full bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-zinc-100 ring-1 ring-zinc-50"
-      >
-
-          <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8 md:border-b-0 md:pb-0">
+    // UPDATED: bg-white instead of bg-zinc-50
+    <section id="serving-tesla" className="container mx-auto px-4 md:px-12 py-12 bg-white text-zinc-900">
+          {/* REMOVED: Outer white wrapper */}
+          <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-200 pb-8">
             <div className="flex-shrink-0">
                <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">05 / PARTNERSHIP</span>
                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-zinc-900 leading-none">LIVING LAB</h2>
@@ -239,7 +222,6 @@ export const SectionServingTesla: React.FC = () => {
             </div>
           </div>
 
-          {/* Two Column Landscape Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
             {teslaCards.map((card, i) => (
               <BentoCard 
@@ -256,29 +238,23 @@ export const SectionServingTesla: React.FC = () => {
                     subtitle: card.subtitle,
                     category: 'showcase',
                     tags: ['Tesla', 'Anthropology', 'Future'],
-                    // Apply LIGHT THEME for white background wide modal
                     theme: 'light',
                     content: getModalContent(card.id)
                 })}
               >
-                {/* Top Right Arrow */}
                 <div className="absolute top-8 right-8 z-20 opacity-100 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
                    {/* Custom arrow if needed, BentoCard handles default */}
                 </div>
 
-                {/* Content aligned to bottom */}
                 <div className="relative z-10 mt-auto p-2">
-                   {/* Larger, colored Title - Adds dark text on hover for light backgrounds */}
                    <h3 className={`text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-3 font-sans transition-colors duration-300 ${card.id === 1 ? 'text-white group-hover:text-zinc-900' : 'text-white'}`}>
                        {card.title}
                    </h3>
                    
-                   {/* Colored Subtitle */}
                    <p className={`text-sm md:text-base font-bold uppercase tracking-widest mb-4 font-sans ${card.subtitleColor}`}>
                       {card.subtitle}
                    </p>
 
-                   {/* Added Description Text to Card Face */}
                    <p className={`text-base md:text-lg leading-relaxed font-body font-medium max-w-md ${card.descriptionColor}`}>
                       {card.content}
                    </p>
@@ -286,7 +262,6 @@ export const SectionServingTesla: React.FC = () => {
               </BentoCard>
             ))}
           </div>
-      </motion.div>
       <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
     </section>
   );

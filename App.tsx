@@ -53,8 +53,8 @@ function App() {
                 // UPDATED: New Transparent Overlap Logo
                 src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-transparent.png"
                 alt="Micron House Logo"
-                // UPDATED: Increased size by ~20% (h-[3.6rem] mobile, h-[4.2rem] desktop)
-                className="h-[3.6rem] w-[3.6rem] md:h-[4.2rem] md:w-[4.2rem] object-contain"
+                // UPDATED: Reduced size by 20% from previous (h-3.6rem -> h-2.9rem, md:h-4.2rem -> md:h-3.4rem)
+                className="h-[2.9rem] w-[2.9rem] md:h-[3.4rem] md:w-[3.4rem] object-contain"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ 
@@ -66,7 +66,8 @@ function App() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.0, duration: 0.8 }}
-                className="text-lg md:text-xl font-black tracking-tight text-micron-eggplant uppercase font-sans"
+                // UPDATED: Text color to transparent eggplant (opacity 80)
+                className="text-lg md:text-xl font-black tracking-tight text-micron-eggplant/80 uppercase font-sans"
               >
                 Micron House
               </motion.span>
