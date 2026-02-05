@@ -63,21 +63,15 @@ const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: st
         if (!video) return;
 
         const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
+        const shouldPlay = isTouch ? isInView : isHovering;
 
-        if (isTouch) {
-            if (isInView) {
-                video.currentTime = 0;
+        if (shouldPlay) {
+            // Only play if it's not already playing to prevent restarting or jitter
+            if (video.paused) {
                 video.play().catch(() => {});
-            } else {
-                video.pause();
             }
         } else {
-            if (isHovering) {
-                 video.currentTime = 0;
-                 video.play().catch(() => {});
-            } else {
-                 video.pause();
-            }
+            video.pause();
         }
     }, [isInView, isHovering, src]);
 
@@ -126,9 +120,11 @@ const ModalVideo = ({ src, className = "" }: { src: string; className?: string }
     const handleMouseEnter = () => {
         const video = videoRef.current;
         if (video) {
-             // Restart on hover
-             video.currentTime = 0;
-             video.play().catch(() => {});
+             // Restart on hover only if paused or ended
+             if (video.paused) {
+                 if (video.ended) video.currentTime = 0;
+                 video.play().catch(() => {});
+             }
         }
     };
 
@@ -190,14 +186,16 @@ const getCardData = (id: number): ModalContent => {
                     transition={{ delay: 0.2 }}
                     className="w-full bg-white rounded-xl px-6 py-5 md:px-8 md:py-6 text-zinc-900 shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] relative overflow-hidden group"
                 >
-                    <div className="absolute top-4 right-4 opacity-10 text-micron-green">
-                        <ShieldCheck size={64} />
-                    </div>
                     <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green relative z-10">SERVICE & SECURITY LAYER</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-zinc-600 text-base font-medium leading-relaxed relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 text-zinc-600 text-base font-medium leading-relaxed relative z-10">
                         <p>
                             Five minutes from downtown. Fifteen from the airport. Fifteen from Micron headquarters. The home sits at the center of everything Boise offers — and Optimus and Cybercab are the mechanism that brings it through the front door.
                         </p>
+                        
+                        {/* Separator Line */}
+                        <div className="hidden md:block w-px bg-zinc-200 h-full"></div>
+                        <div className="md:hidden w-full h-px bg-zinc-200"></div>
+
                         <p>
                             Culinary, wellness, recreation, entertainment — each delivered into an intimate, private setting with a level of coordination and discretion that the autonomous infrastructure sustains across every event.
                         </p>

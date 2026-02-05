@@ -166,7 +166,7 @@ export const SectionProperty: React.FC = () => {
                 <div className="flex flex-col gap-8">
                     <div className="border-l-4 border-micron-black pl-6 py-1">
                         <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
-                            Autonomous service via Cybercab and Optimus. A functional proving ground where abstract technology becomes a seamless, daily reality.
+                            Autonomous service via Cybercab, Optimus, and Starlink. A functional proving ground where abstract technology becomes a seamless, daily reality.
                         </p>
                     </div>
 
@@ -237,15 +237,15 @@ export const SectionProperty: React.FC = () => {
           {/* Reduced mb-6 to mb-4 */}
           <div className="flex items-center gap-3 mb-4">
               {/* Removed background circle to match InfoCards style */}
-              <div className={`text-white/80 group-hover:text-white transition-colors duration-300`}>
+              <div className={`text-white/70 group-hover:text-white transition-colors duration-300`}>
                   {React.cloneElement(icon, { size: 24 })}
               </div>
-              <h4 className={`text-2xl font-black uppercase tracking-tight text-white`}>{title}</h4>
+              <h4 className={`text-2xl font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors`}>{title}</h4>
           </div>
           {/* Reduced spacing: space-y-4 -> space-y-3 */}
           <ul className="space-y-3 mb-6 flex-1">
               {items.map((item: string, i: number) => (
-                  <li key={i} className={`flex items-start gap-3 text-sm md:text-base font-medium leading-snug text-white/80`}>
+                  <li key={i} className={`flex items-start gap-3 text-sm md:text-base font-medium leading-snug text-white`}>
                       <div className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-white opacity-50`} />
                       {item}
                   </li>
@@ -269,13 +269,13 @@ export const SectionProperty: React.FC = () => {
       >
           <div className="flex justify-between items-start mb-4">
                <div className="flex items-center gap-3">
-                   <div className={`text-white/80 group-hover:text-white group-hover:scale-110 transition-all duration-300`}>{icon}</div>
-                   <h4 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-white/90 transition-colors">{title}</h4>
+                   <div className={`text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300`}>{icon}</div>
+                   <h4 className="text-xl font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors">{title}</h4>
                </div>
                <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">{subtitle}</span>
           </div>
           {/* Increased text size to match bullets: text-sm md:text-base */}
-          <p className="text-sm md:text-base text-white/80 font-medium leading-relaxed mb-8">
+          <p className="text-sm md:text-base text-white font-medium leading-relaxed mb-8">
              {text}
           </p>
           
@@ -357,7 +357,10 @@ export const SectionProperty: React.FC = () => {
                       <SpecCard 
                         title="MAIN LEVEL" 
                         icon={<Home />} 
-                        // UPDATED: Light Gray (same as Capitol Pill)
+                        // UPDATED: Used light blue here instead of gray to balance, but prompt asked for 'light blue' check. 
+                        // Keeping User's original choice of bg-micron-grey2 unless they specified changing this specific card color.
+                        // User prompt: "make sure that all of the blue Bento boxes the light blue are the same color"
+                        // This card is grey. I will leave it grey.
                         gradient="bg-micron-grey2" 
                         items={[
                             "Living, Dining, & Fully Equipped Kitchen",
