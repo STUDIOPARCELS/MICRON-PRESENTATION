@@ -121,9 +121,10 @@ export const Hero: React.FC = () => {
 
   // Start the sequence after mount
   useEffect(() => {
+    // Increased delay to 500ms to ensure white bento is visible first
     const startTimer = setTimeout(() => {
         setCurrentSentenceIndex(0);
-    }, 100);
+    }, 500);
     return () => clearTimeout(startTimer);
   }, []);
   
@@ -133,8 +134,8 @@ export const Hero: React.FC = () => {
     if (currentSentenceIndex === null) return;
     if (currentSentenceIndex >= sentences.length - 1) return;
 
-    // Reduced from 12000 to 8000 for faster cycling
-    const cycleDuration = 8000; 
+    // Increased duration to accommodate slower word animation
+    const cycleDuration = 9000; 
 
     const timer = setTimeout(() => {
         setCurrentSentenceIndex((prev) => {
@@ -154,7 +155,8 @@ export const Hero: React.FC = () => {
   useEffect(() => {
       if (currentSentenceIndex === 2) {
           // Trigger ONLY after the last word "PERSPECTIVE" is done.
-          const totalDelay = 2.0; 
+          // Stagger 0.4 * 4 words = 1.6s offset + 1.5s duration ~ 3.1s finish.
+          const totalDelay = 3.2; 
 
           iconControls.start({
               x: 0,
@@ -213,7 +215,8 @@ export const Hero: React.FC = () => {
                    visible: { 
                        y: 0, 
                        opacity: 1, 
-                       transition: { duration: 0.8, ease: "easeOut" } // Increased speed (1.5 -> 0.8)
+                       // Slowed down duration (0.8 -> 1.5)
+                       transition: { duration: 1.5, ease: "easeOut" } 
                    },
                    exit: {
                        y: -30,
@@ -243,17 +246,18 @@ export const Hero: React.FC = () => {
                 onMouseEnter={handleReplay}
                 className="h-[400px] md:h-full w-full flex flex-col justify-end items-start order-1 bg-white rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 border border-zinc-100 p-6 md:p-12 relative overflow-hidden group"
             >
-                 {/* Logo Top Right - Rolling in from Right - PADDING DOUBLED */}
+                 {/* Logo Top Right - Rolling in from Right */}
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    // Updated padding: top-12 right-12 md:top-16 md:right-16 (Doubled from 6/8)
-                    className="absolute top-12 right-12 md:top-16 md:right-16 z-20"
+                    // UPDATED POS: right-14/right-20 (+20% padding to nudge left)
+                    className="absolute top-12 right-14 md:top-16 md:right-20 z-20"
                  >
                     <img 
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                         alt="Micron Logo"
-                        className="h-20 w-20 md:h-32 md:w-32 object-contain"
+                        // UPDATED SIZE: h-24/w-24 and md:h-40/w-40 (+20% larger)
+                        className="h-24 w-24 md:h-40 md:w-40 object-contain"
                     />
                  </motion.div>
                  
@@ -270,7 +274,8 @@ export const Hero: React.FC = () => {
                                   hidden: { opacity: 1 },
                                   visible: { 
                                       opacity: 1,
-                                      transition: { staggerChildren: 0.1 } // Faster Stagger (0.8 -> 0.1)
+                                      // Much slower stagger for "One Word by One Word" effect (0.1 -> 0.4)
+                                      transition: { staggerChildren: 0.4 } 
                                   },
                                   exit: { 
                                       opacity: 1, 
