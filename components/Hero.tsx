@@ -332,58 +332,26 @@ export const Hero: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
-            // UPDATED: Reduced min-height on mobile to min-h-[500px]
-            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row min-h-[500px] md:min-h-[400px] mt-4 p-8 md:p-12 justify-between items-stretch gap-8 group"
+            // UPDATED: Used grid layout on desktop to contain components
+            // Added md:min-h-[450px] to ensure vertical spacing can be tripled
+            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row md:items-stretch min-h-[500px] md:min-h-[450px] mt-4 p-8 md:p-8 gap-8 group"
         >
-            {/* DESKTOP QUOTE - RESTORED TO BLUE SECTION, CENTERED */}
-            {/* Positioned absolutely to sit in the space between title and map on desktop */}
-            <div className="hidden md:block absolute top-[25%] left-[32%] z-20 pointer-events-none max-w-lg">
-                <motion.div
-                        initial="hidden"
-                        animate={showCursiveText ? "visible" : "hidden"}
-                        variants={{
-                            visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } },
-                            hidden: {}
-                        }}
-                        // UPDATED: Font style to match "Brittany Signature" intent (Signature style), rotated, large
-                        className="font-micron text-5xl text-micron-eggplant/80 -rotate-6 leading-tight"
-                >
-                    <div className="flex flex-col gap-2 items-start">
-                        {quoteLines.map((line, lineIndex) => (
-                                <div key={lineIndex} className="whitespace-nowrap">
-                                    {line.split(" ").map((word, i) => (
-                                    <motion.span
-                                        key={i}
-                                        variants={{
-                                            hidden: { opacity: 0, x: -10 },
-                                            visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } } 
-                                        }}
-                                        className="mr-3 inline-block"
-                                    >
-                                        {word}
-                                    </motion.span>
-                                    ))}
-                                </div>
-                        ))}
-                    </div>
-                </motion.div>
-            </div>
-
-            {/* Left Side: Title + Address Block */}
-            <div className="flex-1 flex flex-col justify-start md:justify-between items-start z-10 relative h-full w-full">
+            {/* LEFT: Title + Address Block (Flex-1) */}
+            {/* UPDATED: Added justify-between and gap-12 to force triple separation */}
+            <div className="flex-shrink-0 flex flex-col justify-between items-start z-10 relative h-full md:w-[32%] gap-12">
                  <div className="relative z-10 w-full">
                     <InteractiveParadigmTitle />
                  </div>
                  
                  {/* ADDRESS BLOCK */}
-                 <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4 relative z-10 mt-4 md:mt-auto">
+                 {/* UPDATED: Added mt-12 for mobile spacing and ensure bottom alignment */}
+                 <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4 relative z-10 mt-12 md:mt-auto">
                         <h3 className="text-white font-bold text-xl uppercase tracking-wider">Micron House</h3>
                         <p className="text-micron-eggplant font-bold text-sm md:text-lg uppercase tracking-widest whitespace-nowrap">1020 East Warm Springs Ave</p>
                         <p className="text-micron-eggplant/80 text-sm md:text-lg uppercase tracking-widest">Boise, Idaho 83712</p>
                  </div>
 
                  {/* MOBILE QUOTE - IN FLOW */}
-                 {/* UPDATED: Increased vertical padding to py-16 (doubled from previous request) for significant separation */}
                  <div className="md:hidden w-full flex-grow py-16 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
@@ -392,7 +360,7 @@ export const Hero: React.FC = () => {
                              visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } },
                              hidden: {}
                          }}
-                         className="font-micron text-3xl text-center text-micron-eggplant/80 leading-relaxed transform scale-y-110 -rotate-2"
+                         className="font-micron text-2xl text-center text-black leading-relaxed transform scale-y-110 -rotate-3"
                       >
                          {/* Joining lines for mobile flow */}
                          {quoteLines.join(" ").split(" ").map((word, i) => (
@@ -411,8 +379,45 @@ export const Hero: React.FC = () => {
                  </div>
             </div>
 
-            {/* Right Side: Map Card */}
-            <div className="w-full md:w-[450px] aspect-[4/3] md:aspect-auto md:h-auto bg-zinc-100 rounded-2xl overflow-hidden shadow-2xl relative border-4 border-white/20 z-10 mt-auto md:mt-0 flex-shrink-0">
+            {/* CENTER: DESKTOP QUOTE CONTAINER (Flex-Grow) */}
+            <div className="hidden md:flex flex-grow items-center justify-center relative px-4 z-10">
+                <motion.div
+                        initial="hidden"
+                        animate={showCursiveText ? "visible" : "hidden"}
+                        variants={{
+                            visible: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
+                            hidden: {}
+                        }}
+                        // UPDATED: 
+                        // 1. font-normal (no bold)
+                        // 2. text-black (black font)
+                        // 3. text-2xl md:text-3xl (reduced size by 20%)
+                        // 4. -rotate-6 (angled slightly more)
+                        // 5. text-right (justify paragraph to right)
+                        // 6. w-full to ensure right alignment works
+                        className="font-micron font-normal text-2xl md:text-3xl text-black leading-normal text-right -rotate-6 max-w-lg w-full"
+                >
+                     {quoteLines.map((line, lineIndex) => (
+                        <div key={lineIndex} className="block mb-2 last:mb-0">
+                            {line.split(" ").map((word, i) => (
+                            <motion.span
+                                key={i}
+                                variants={{
+                                    hidden: { opacity: 0, y: 5 },
+                                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } } 
+                                }}
+                                className="ml-2 inline-block"
+                            >
+                                {word}
+                            </motion.span>
+                            ))}
+                        </div>
+                    ))}
+                </motion.div>
+            </div>
+
+            {/* RIGHT: Map Card (Fixed Width) */}
+            <div className="w-full md:w-[380px] lg:w-[450px] aspect-[4/3] md:aspect-auto md:h-auto bg-zinc-100 rounded-2xl overflow-hidden shadow-2xl relative border-4 border-white/20 z-10 mt-auto md:mt-0 flex-shrink-0">
                  <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.234!2d-116.1898!3d43.6088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54aef8d1b0b3b8e7%3A0x0!2s1020%20E%20Warm%20Springs%20Ave%2C%20Boise%2C%20ID%2083712!5e0!3m2!1sen!2sus!4v1706000000000"
                     width="100%"

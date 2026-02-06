@@ -375,7 +375,8 @@ export const SectionProperty: React.FC = () => {
             transition={{ duration: 1.0 }}
         >
             {/* 1. HEADER */}
-            <div className="mb-12 flex flex-col md:flex-row md:items-end gap-4 md:gap-12 border-b border-zinc-100 pb-8">
+            {/* UPDATED: Reduced bottom margins on mobile (mb-6/pb-4) from mb-12/pb-8 */}
+            <div className="mb-6 md:mb-12 flex flex-col md:flex-row md:items-end gap-4 md:gap-12 border-b border-zinc-100 pb-4 md:pb-8">
                  <div className="flex-shrink-0">
                      <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">02 / ASSET</span>
                      <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant-light leading-none font-sans">

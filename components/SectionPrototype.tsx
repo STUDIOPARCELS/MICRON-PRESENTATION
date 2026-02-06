@@ -476,7 +476,8 @@ const getCardData = (id: number): ModalContent => {
         title: 'PLACE',
         subtitle: 'GROUNDING THE TECHNOLOGY', 
         maxWidth: 'max-w-7xl',
-        paddingClassName: 'px-6 md:px-12 pt-0 pb-6 md:pb-12', // Added bottom padding here
+        // UPDATED: Increased padding px-10 md:px-12 for better mobile spacing
+        paddingClassName: 'px-10 md:px-12 pt-0 pb-10 md:pb-12',
         content: (
         <div className="flex flex-col gap-4 h-full">
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
@@ -505,9 +506,6 @@ const getCardData = (id: number): ModalContent => {
            </div>
            
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
-               {/* UPDATED: ADDRESS - Second (0.4) - Swapped with Confluence visually if desired, but request says "address top tile slides and second". Assuming bottom right Address tile is meant to be second.  */}
-               {/* Wait, usually visual flow is Left->Right. User wants Address (which is right) second, and Confluence (left) third. */}
-               {/* I will keep layout but change delays to match order: Energy(1st), Address(2nd), Confluence(3rd) */}
                
                <InnerBento 
                     gradient="bg-micron-grey1" 
