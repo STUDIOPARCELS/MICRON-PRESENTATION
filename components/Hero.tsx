@@ -372,51 +372,55 @@ export const Hero: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
-            // UPDATED: Single background color bg-micron-eggplant-light
-            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row min-h-[300px] mt-4 p-8 md:p-12 items-center gap-8 group"
+            // UPDATED: Single background color bg-micron-eggplant-light, min-h-400px to give room for diagonal text
+            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row min-h-[400px] mt-4 p-8 md:p-12 items-stretch gap-8 group"
         >
-            {/* Left Side: Title + Address Block */}
-            <div className="flex-1 flex flex-col gap-6 items-start z-10 relative">
-                 <InteractiveParadigmTitle />
-                 
-                 {/* CURSIVE QUOTE ANIMATION - Reserving space with min-h to prevent layout shift */}
-                 <div className="w-full max-w-xl">
-                    <motion.p
-                        className="font-micron text-lg md:text-2xl text-black leading-relaxed"
-                        initial="hidden"
-                        animate={showCursiveText ? "visible" : "hidden"}
-                        variants={{
-                            visible: { transition: { staggerChildren: 0.1 } },
-                            hidden: {}
-                        }}
-                    >
+            {/* ABSOLUTE CURSIVE TEXT LAYER - Diagonally positioned */}
+            <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
+                <motion.div
+                     initial="hidden"
+                     animate={showCursiveText ? "visible" : "hidden"}
+                     variants={{
+                         visible: { transition: { staggerChildren: 0.04, delayChildren: 0.2 } },
+                         hidden: {}
+                     }}
+                     // Positioning: Diagonal slant across the center space
+                     className="absolute top-[20%] left-[5%] md:left-[32%] w-[90%] md:w-[45%] -rotate-6 origin-center"
+                >
+                    {/* Scale-y-110 makes the font look a bit more condensed/handwritten style like 'Smith Mossery' */}
+                    <p className="font-micron text-3xl md:text-5xl text-black/90 leading-tight md:leading-snug drop-shadow-sm transform scale-y-110">
                         {cursiveQuoteText.split(" ").map((word, i) => (
                             <motion.span
                                 key={i}
                                 variants={{
-                                    hidden: { opacity: 0, y: 5 },
-                                    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+                                    hidden: { opacity: 0 },
+                                    visible: { opacity: 1, transition: { duration: 0.05 } } // Very fast fade in per word
                                 }}
-                                className="mr-1.5 inline-block"
+                                className="mr-3 inline-block"
                             >
                                 {word}
                             </motion.span>
                         ))}
-                    </motion.p>
+                    </p>
+                </motion.div>
+            </div>
+
+            {/* Left Side: Title + Address Block */}
+            <div className="flex-1 flex flex-col justify-between items-start z-10 relative">
+                 <div className="relative z-10">
+                    <InteractiveParadigmTitle />
                  </div>
                  
-                 {/* ADDRESS BLOCK */}
-                 <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4">
+                 {/* ADDRESS BLOCK - Pushed down to avoid overlap with diagonal text */}
+                 <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4 mt-auto relative z-10">
                         <h3 className="text-white font-bold text-xl uppercase tracking-wider">Micron House</h3>
-                        {/* UPDATED: Reduced font size on mobile (text-sm) so it stays on one line */}
                         <p className="text-micron-eggplant font-bold text-sm md:text-lg uppercase tracking-widest whitespace-nowrap">1020 East Warm Springs Ave</p>
-                        {/* UPDATED: Reduced font size on mobile (text-sm) to match line above and fit better */}
                         <p className="text-micron-eggplant/80 text-sm md:text-lg uppercase tracking-widest">Boise, Idaho 83712</p>
                  </div>
             </div>
 
             {/* Right Side: Map Card */}
-            <div className="w-full md:w-[450px] aspect-[4/3] md:aspect-auto md:h-64 bg-zinc-100 rounded-2xl overflow-hidden shadow-2xl relative border-4 border-white/20">
+            <div className="w-full md:w-[450px] aspect-[4/3] md:aspect-auto md:h-auto bg-zinc-100 rounded-2xl overflow-hidden shadow-2xl relative border-4 border-white/20 z-10">
                  <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.234!2d-116.1898!3d43.6088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54aef8d1b0b3b8e7%3A0x0!2s1020%20E%20Warm%20Springs%20Ave%2C%20Boise%2C%20ID%2083712!5e0!3m2!1sen!2sus!4v1706000000000"
                     width="100%"
