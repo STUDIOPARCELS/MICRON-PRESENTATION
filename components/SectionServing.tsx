@@ -99,10 +99,7 @@ const departments: Department[] = [
     modalHeaderColor: "text-micron-grey1",
     modalIconColor: "text-zinc-400", 
     modalTagColor: "border-micron-eggplant-light",
-    // UPDATED: Forced square aspect ratio and restricted width
-    modalAspectRatio: "aspect-square",
-    modalMaxWidth: "max-w-3xl", // Slightly increased to fit 2 cols comfortably
-    tileAspectRatio: "aspect-square", // UPDATED: Force square tiles
+    // No aspect ratio constraints ensures it matches Travel & Entertainment style (natural grid)
     experiences: [
       {
         title: "Confidential Counsel",
@@ -127,9 +124,8 @@ const departments: Department[] = [
     modalHeaderColor: "text-micron-eggplant-light", 
     modalIconColor: "text-zinc-400", 
     modalTagColor: "border-micron-grey1",
-    // UPDATED: Square pop-out centered, removing extra space
-    modalAspectRatio: "aspect-square",
-    modalMaxWidth: "max-w-md", // Compact size for single tile
+    modalMaxWidth: "max-w-md", // Keep compact width
+    // No aspect ratio ensures height adapts to content (removing extra padding)
     experiences: [
       {
         title: "Soft Landings",
@@ -208,10 +204,7 @@ const departments: Department[] = [
     modalHeaderColor: "text-micron-eggplant", 
     modalIconColor: "text-zinc-400", 
     modalTagColor: "border-micron-grey1",
-    // UPDATED: Forced square aspect ratio, wider to fit 2 tiles with gap
-    modalAspectRatio: "aspect-square",
-    modalMaxWidth: "max-w-4xl",
-    tileAspectRatio: "aspect-square", // UPDATED: Force square tiles
+    // No aspect ratio constraints matches Travel & Entertainment style
     experiences: [
       {
         title: "Medical Proximity",
@@ -233,8 +226,7 @@ export const SectionServing: React.FC = () => {
   const [modalData, setModalData] = useState<ModalContent | null>(null);
 
   const openModal = (dept: Department) => {
-    // UPDATED: Determine grid columns dynamically based on number of items
-    // If 1 item, use 1 column to fill width. If 2 items (like Executive/Family), use 2 columns. Else 3.
+    // Determine grid columns dynamically based on number of items
     const gridCols = dept.experiences.length === 1 ? 'md:grid-cols-1' : dept.experiences.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3';
 
     setModalData({
@@ -242,13 +234,12 @@ export const SectionServing: React.FC = () => {
       subtitle: dept.value,
       category: 'showcase',
       theme: 'light',
-      // UPDATED: Use department specific maxWidth or fallback
       maxWidth: dept.modalMaxWidth || 'max-w-6xl',
-      // UPDATED: Use department specific aspectRatio
       aspectRatio: dept.modalAspectRatio,
       headerClassName: dept.modalHeaderColor,
       content: (
-        <div className="flex flex-col gap-8 pb-4 h-full">
+        // REMOVED h-full from this wrapper to allow natural height sizing
+        <div className="flex flex-col gap-8 pb-4">
              <div className={`border-l-4 ${dept.modalTagColor.replace('border-', 'border-')} pl-6 py-1`}>
                 <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
                     {dept.detail}
@@ -259,7 +250,6 @@ export const SectionServing: React.FC = () => {
                 {dept.experiences.map((exp, i) => (
                     <div 
                         key={i} 
-                        // UPDATED: Apply aspect-square if defined in department config, and ensure full height coverage
                         className={`${exp.customGradient || dept.gradient} text-white p-6 rounded-2xl shadow-lg flex flex-col gap-4 border border-white/10 ${dept.tileAspectRatio || ''} h-full justify-between`}
                     >
                         <div>
@@ -268,7 +258,6 @@ export const SectionServing: React.FC = () => {
                                 <h4 className="text-xl font-bold uppercase tracking-tight">{exp.title}</h4>
                             </div>
                             <div className="h-px w-full bg-white/20 mb-4" />
-                            {/* UPDATED: Standardized font size to text-sm for all tiles */}
                             <p className="text-white/80 font-medium leading-relaxed text-sm">
                                 {exp.description}
                             </p>
@@ -312,7 +301,6 @@ export const SectionServing: React.FC = () => {
             </div>
         </motion.div>
 
-        {/* UPDATED: Changed from Grid to Flex to allow center alignment of the bottom row */}
         <div className="flex flex-wrap justify-center gap-6">
             {departments.map((dept, i) => (
                 <BentoCard
@@ -328,21 +316,16 @@ export const SectionServing: React.FC = () => {
                     hoverEffect={true}
                     onClick={() => openModal(dept)}
                 >
-                    {/* UPDATED: Layout structure to push content to edges and creating center space */}
                     <div className="relative z-10 flex flex-col h-full justify-between">
-                        {/* 1. Header Group - Aligned Top */}
                         <div>
                              <h3 className="text-2xl font-black uppercase tracking-tight leading-none text-white line-clamp-2 mb-1">{dept.title}</h3>
                              <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 mb-4">{dept.value}</p>
                              <div className="h-px w-full bg-white/30" />
                         </div>
                         
-                        {/* 2. Detail Text - Aligned Bottom with margin-top to ensure spacing */}
                         <p className="text-sm md:text-base font-medium text-white/80 line-clamp-3 mt-4">
                             {dept.detail}
                         </p>
-                        
-                        {/* UPDATED: Removed explicit bottom-right arrow div; implicit top-right arrow from BentoCard remains */}
                     </div>
                 </BentoCard>
             ))}

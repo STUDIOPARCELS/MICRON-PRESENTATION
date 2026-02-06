@@ -384,8 +384,8 @@ export const SectionProperty: React.FC = () => {
                       <SpecCard 
                         title="MAIN LEVEL" 
                         icon={<Home />} 
-                        // UPDATED: Changed from bg-micron-grey2 to bg-micron-grey1 to match screenshot Dark Gray
-                        gradient="bg-micron-grey1" 
+                        // UPDATED: Changed from bg-micron-grey1 to bg-micron-grey2 to match Capital box lighter gray
+                        gradient="bg-micron-grey2" 
                         delay={0}
                         items={[
                             "Foyer Entry",
@@ -436,7 +436,8 @@ export const SectionProperty: React.FC = () => {
                         title="GEOTHERMAL & WELLNESS"
                         subtitle="NATURE"
                         icon={<Leaf size={24} />}
-                        gradient="bg-micron-green" 
+                        // UPDATED: Changed from bg-micron-green to bg-micron-eggplant-light (light blue)
+                        gradient="bg-micron-eggplant-light" 
                         delay={0.1}
                         text="Geothermal spa utilizing the district's 177°F source. The home is heated through geothermal radiant heat as well as the hot tub. The grounds feature mature producing fruit trees and a Concord grapevine."
                         onClick={() => openInfoModal('wellness')}

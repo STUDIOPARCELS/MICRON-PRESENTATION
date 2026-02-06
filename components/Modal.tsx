@@ -26,7 +26,9 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       
       // Lock body scroll and add padding to prevent shift
+      // UPDATED: Added lock to document.documentElement for broader browser compatibility
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.paddingRight = `${scrollbarWidth}px`;
       
       // Also apply to fixed nav to prevent it from jumping
@@ -38,6 +40,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
     } else {
       // Restore
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
       document.body.style.paddingRight = '';
       
       const nav = document.querySelector('nav');
@@ -48,6 +51,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 
     return () => {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
       document.body.style.paddingRight = '';
       
       const nav = document.querySelector('nav');
