@@ -265,7 +265,15 @@ export const Hero: React.FC = () => {
             <motion.div 
                 layout
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-                className={`min-h-[300px] md:h-full w-full flex flex-col ${layoutShift ? 'justify-end' : 'justify-center'} md:justify-end items-start order-1 bg-white rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] px-6 pt-6 pb-12 md:px-12 md:pt-12 md:pb-12 relative overflow-hidden group`}
+                // UPDATED: Added conditional classes for mobile layout
+                // When !layoutShift (Animation Playing): min-h-[200px], p-6, justify-center
+                // When layoutShift (Final State): min-h-[300px], px-6 pt-6 pb-12, justify-end
+                className={`
+                    ${layoutShift ? 'min-h-[300px] px-6 pt-6 pb-12 justify-end' : 'min-h-[200px] p-6 justify-center'}
+                    md:min-h-[300px] md:h-full md:justify-end md:px-12 md:pt-12 md:pb-12
+                    w-full flex flex-col items-start order-1 bg-white rounded-3xl 
+                    shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] relative overflow-hidden group
+                `}
             >
                  {/* Logo Animation */}
                  <motion.div 
@@ -410,7 +418,8 @@ export const Hero: React.FC = () => {
                         // UPDATED: 
                         // 1. font-micron (Cursive)
                         // 2. text-white
-                        className="font-micron text-2xl md:text-3xl text-white leading-relaxed text-left -rotate-6 max-w-lg w-full"
+                        // ADDED: -translate-x-4 to nudge left
+                        className="font-micron text-2xl md:text-3xl text-white leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4"
                 >
                      {/* Joined into one paragraph block */}
                      <p className="inline">

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
@@ -63,7 +64,8 @@ export const SectionServingTesla: React.FC = () => {
                     {/* Vision Card */}
                     <motion.div 
                         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                        className="bg-white rounded-[2rem] p-8 border border-zinc-200 shadow-xl relative overflow-hidden flex flex-col justify-center"
+                        // UPDATED: Changed bg-white to bg-zinc-100 (light gray) as requested
+                        className="bg-zinc-100 rounded-[2rem] p-8 border border-zinc-200 shadow-xl relative overflow-hidden flex flex-col justify-center"
                     >
                          <div className="mb-6">
                             <h4 className="text-3xl font-bold text-micron-eggplant mb-2 tracking-tight">Stewardship & Vision</h4>
@@ -98,7 +100,8 @@ export const SectionServingTesla: React.FC = () => {
                         <img 
                             src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-transparent.png" 
                             alt="Micron House Icon"
-                            className="w-20 h-20 object-contain opacity-90 mb-4"
+                            // UPDATED: Doubled size from w-20 h-20 to w-40 h-40, increased mb to 6
+                            className="w-40 h-40 object-contain opacity-90 mb-6"
                         />
                         <h3 className="text-2xl font-bold text-micron-eggplant leading-tight tracking-tight">Concept & Design</h3>
                         <p className="text-sm text-zinc-500 mt-2 font-medium">
@@ -151,121 +154,99 @@ export const SectionServingTesla: React.FC = () => {
     // CONTENT FOR "REAL-WORLD INFERENCE" (ID 2)
     if (id === 2) {
         return (
-            <div className="flex flex-col gap-6 h-full pb-8">
-                {/* Top Description */}
-                <div className="w-full">
-                    <p className="text-lg md:text-xl text-zinc-600 font-light leading-relaxed">
-                        Every function at Micron House — executive, social, civic, compassionate — generates domestic intelligence that flows back to Micron's product teams fifteen minutes away.
-                    </p>
+            <div className="flex flex-col gap-8 h-full pb-8">
+                {/* Intro Text - High Legibility */}
+                <div className="max-w-4xl">
+                     <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-micron-eggplant mb-4">
+                        Domestic Intelligence
+                     </h3>
+                     <p className="text-lg md:text-xl text-zinc-800 font-medium leading-relaxed border-l-4 border-micron-green pl-6">
+                        Every function at Micron House — executive, social, civic, compassionate — generates real-world inference data that flows back to Micron's product teams fifteen minutes away.
+                     </p>
                 </div>
 
-                {/* UPDATED LAYOUT: 2 Columns */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                     
-                    {/* LEFT COLUMN: Image + Feedback Loop */}
-                    <div className="flex flex-col gap-6 h-full">
-                        {/* Image Block - TOP */}
-                        <motion.div 
-                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                            className="relative min-h-[320px] rounded-2xl overflow-hidden shadow-lg border border-black/10 group flex-1"
-                        >
-                            <img 
-                                src="https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1964&auto=format&fit=crop" 
-                                alt="Domestic Intelligence" 
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
-                            <div className="absolute bottom-6 left-6 text-white/80 text-xs font-bold uppercase tracking-widest">
+                    {/* LEFT: Optimus Visual (4 cols) */}
+                    <div className="lg:col-span-5 h-full min-h-[500px] relative rounded-3xl overflow-hidden shadow-2xl bg-zinc-100 border border-zinc-200 group">
+                        <img 
+                            src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/tesla-optimus-gen-3-delay.png" 
+                            alt="Optimus Gen 3" 
+                            className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90" />
+                        <div className="absolute bottom-8 left-8 right-8">
+                            <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white text-xs font-bold uppercase tracking-widest mb-3">
                                 Living Laboratory
                             </div>
-                        </motion.div>
-
-                        {/* FEEDBACK LOOP - BOTTOM (Moved from Right Top) */}
-                        <motion.div 
-                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                            transition={{ delay: 0.1 }}
-                            className="bg-micron-eggplant text-white p-6 rounded-2xl shadow-lg border border-white/10 relative overflow-hidden group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
-                        >
-                            {/* UPDATED: Title Opaque */}
-                            <h3 className="text-2xl font-black uppercase tracking-tight mb-4 text-white opacity-100">THE FEEDBACK LOOP</h3>
-                            
-                            {/* UPDATED: Balanced subtext size (text-sm md:text-base) */}
-                            <ul className="space-y-3 text-sm md:text-base font-medium text-white/90 leading-relaxed mb-4">
-                                <li className="flex gap-3">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
-                                    <span>Optimus prepares a private dining room for a confidential executive dinner.</span>
-                                </li>
-                                <li className="flex gap-3">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
-                                    <span>Optimus manages a quiet household for an employee's family.</span>
-                                </li>
-                                <li className="flex gap-3">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
-                                    <span>Cybercab delivers a senior Washington official to a fireside.</span>
-                                </li>
-                            </ul>
-                            <p className="text-white font-bold italic border-l-2 border-white/30 pl-3">
-                                Three scenarios. Three emotional registers. Each one training autonomous systems.
-                            </p>
-                        </motion.div>
+                            <h4 className="text-white text-3xl font-black uppercase leading-none tracking-tight">
+                                The Crisis of<br/>Shared Reality
+                            </h4>
+                        </div>
                     </div>
 
-                    {/* RIGHT COLUMN: Closed Loop + Pre-Public Deployment */}
-                    <div className="flex flex-col gap-6 h-full">
-                         {/* CLOSED LOOP - TOP (Moved from Bottom) */}
-                        <motion.div 
-                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                            transition={{ delay: 0.2 }}
-                            className="bg-micron-eggplant-light text-zinc-900 rounded-2xl p-6 shadow-xl border border-white/20 flex-1 flex flex-col justify-center"
-                        >
-                            {/* UPDATED: Title Opaque & White */}
-                            <div className="flex items-center gap-3 mb-4 pb-4 border-b border-zinc-900/10">
-                                <h3 className="text-2xl font-black uppercase tracking-tight text-white opacity-100">THE CLOSED LOOP</h3>
-                            </div>
+                    {/* RIGHT: Data Points (7 cols) */}
+                    <div className="lg:col-span-7 flex flex-col gap-6 h-full">
+                        
+                        {/* 1. THE CLOSED LOOP (High Contrast Stats) */}
+                        <div className="bg-micron-eggplant text-white p-8 rounded-3xl shadow-lg border border-white/10 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-32 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                            <h4 className="text-xl font-bold uppercase tracking-widest text-white/50 mb-6 flex items-center gap-2">
+                                <Activity size={18} /> The Closed Loop
+                            </h4>
                             
-                            <div className="flex flex-col gap-6">
-                                <div className="flex gap-8 justify-start">
-                                    <div>
-                                        <h4 className="text-3xl font-black text-white tracking-tighter">15 min</h4>
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-700">FAB TO FRONT DOOR</p>
-                                    </div>
-                                    <div>
-                                        <h4 className="text-3xl font-black text-white tracking-tighter">1</h4>
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-700">ADDRESS</p>
-                                    </div>
+                            <div className="grid grid-cols-2 gap-8 mb-6">
+                                <div>
+                                    <span className="block text-5xl md:text-6xl font-black tracking-tighter mb-1">15 <span className="text-2xl font-bold align-top">min</span></span>
+                                    <span className="text-xs font-bold uppercase tracking-widest text-white/70">Fab to Front Door</span>
                                 </div>
-                                {/* UPDATED: Balanced subtext size (text-sm md:text-base) */}
-                                <p className="text-zinc-800 text-sm md:text-base font-medium leading-relaxed">
-                                    Optimus and Cybercab run on Micron silicon fabricated 15 minutes from the front door. Executives host guests alongside machines powered by their own work. <strong className="text-white">Feedback travels from the dining room to the fab floor by morning.</strong>
-                                </p>
+                                <div>
+                                    <span className="block text-5xl md:text-6xl font-black tracking-tighter mb-1">1</span>
+                                    <span className="text-xs font-bold uppercase tracking-widest text-white/70">Unified Address</span>
+                                </div>
                             </div>
-                        </motion.div>
-
-                        {/* PRE-PUBLIC DEPLOYMENT - BOTTOM */}
-                        <motion.div 
-                             variants={{ hidden: { opacity: 0, y: 0 }, visible: { opacity: 1, y: 0 } }}
-                             transition={{ delay: 0.3 }}
-                             className="bg-black text-white p-6 pl-8 rounded-2xl shadow-lg border border-white/10 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
-                         >
-                            {/* UPDATED: Title Opaque */}
-                            <h3 className="text-2xl font-black uppercase tracking-tight mb-3 text-white opacity-100">PRE-PUBLIC DEPLOYMENT</h3>
-                            <div className="mb-2 pl-4 border-l-2 border-white/30">
-                                {/* UPDATED: Balanced subtext size (text-sm md:text-base) */}
-                                <p className="text-white/90 text-sm md:text-base font-medium leading-relaxed italic">
-                                    Micron's leadership experiences Optimus and Cybercab across the full spectrum of real life before any consumer on earth.
-                                </p>
-                            </div>
-                            <p className="text-white/70 text-xs font-medium leading-relaxed mt-3">
-                                Confidential. Celebratory. Compassionate. Political. Operational variety building institutional knowledge.
+                            <p className="text-lg font-medium leading-relaxed text-white/90">
+                                Optimus runs on Micron silicon fabricated 15 minutes away. Feedback travels from the dining room to the fab floor by morning.
                             </p>
-                         </motion.div>
+                        </div>
+
+                        {/* 2. THE FEEDBACK LOOP (Clean List) */}
+                        <div className="bg-zinc-50 p-8 rounded-3xl shadow-sm border border-zinc-200">
+                             <h4 className="text-xl font-bold uppercase tracking-widest text-micron-eggplant mb-6 flex items-center gap-2">
+                                <MessageSquare size={18} /> Training Scenarios
+                            </h4>
+                            <ul className="space-y-4">
+                                {[
+                                    "Optimus prepares a private dining room for a confidential executive dinner.",
+                                    "Optimus manages a quiet household for an employee's family.",
+                                    "Cybercab delivers a senior Washington official to a fireside."
+                                ].map((item, i) => (
+                                    <li key={i} className="flex items-start gap-4 p-4 bg-white rounded-xl border border-zinc-100 shadow-sm">
+                                        <div className="w-2 h-2 rounded-full bg-micron-green mt-2 shrink-0" />
+                                        <span className="text-zinc-700 font-semibold text-lg leading-snug">{item}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        
+                        {/* 3. PRE-PUBLIC DEPLOYMENT */}
+                        <div className="bg-zinc-900 text-white p-8 rounded-3xl shadow-lg flex items-center gap-6">
+                            <ShieldCheck size={32} className="text-micron-green shrink-0" />
+                            <div>
+                                 <h4 className="text-lg font-bold uppercase tracking-tight mb-1">Pre-Public Deployment</h4>
+                                 <p className="text-zinc-400 font-medium leading-snug">
+                                    Micron leadership experiences the technology across the full spectrum of real life before any consumer on earth.
+                                 </p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         );
     }
     
-    // CONTENT FOR "THE TECTONIC SHIFT" (ID 1) -> UPDATED TO "HUMANOIDS SCALING TO BILLIONS"
+    // CONTENT FOR "THE TECTONIC SHIFT" (ID 1)
     return (
         <div className="flex flex-col gap-6 h-full pb-8">
             <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }} className="w-full">
