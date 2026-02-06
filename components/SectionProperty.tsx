@@ -66,7 +66,7 @@ export const SectionProperty: React.FC = () => {
                   {/* Thin line separator */}
                   <div className="h-px w-full bg-white/20 mb-4" />
 
-                  {/* Description text size increased to text-lg. Changed from <p> to <div> and text-white/80 to text-white/60 for contrast. */}
+                  {/* Description text size increased to text-lg. Changed from <p> to <div> and text-white/60 for contrast. */}
                   <div className="text-white/60 font-medium leading-relaxed text-lg space-y-4">
                       {description}
                   </div>
@@ -510,7 +510,7 @@ export const SectionProperty: React.FC = () => {
                         // UPDATED: Changed from bg-micron-green to bg-micron-eggplant-light (light blue)
                         gradient="bg-micron-eggplant-light" 
                         delay={0.1}
-                        text="Geothermal spa utilizing the district's 177°F source. The home is heated through geothermal radiant heat as well as the hot tub. The grounds feature mature producing fruit trees and a Concord grapevine."
+                        text="Powered by a 177°F direct-use aquifer. Geothermal water flows through the home's radiators and feeds the outdoor soaking tub. The grounds feature mature fruit trees and a Concord grapevine."
                         onClick={() => openInfoModal('wellness')}
                     />
                     <InfoCard 

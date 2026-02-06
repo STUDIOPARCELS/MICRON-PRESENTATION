@@ -275,7 +275,8 @@ const getCardData = (id: number): ModalContent => {
                
                {/* NEW SUBTEXT UPDATED: Removed max-width restriction */}
                <div className="w-full">
-                    <p className="text-lg md:text-xl text-zinc-600 font-light leading-relaxed">
+                    {/* UPDATED: Matched style to Prototype modal intro text (text-zinc-900, text-lg, font-medium) */}
+                    <p className="text-zinc-900 text-lg font-medium leading-relaxed">
                         {/* UPDATED: Removed 'primarily' and redundant 'scene' as requested */}
                         Boise has arrived. A city once known for potatoes and public land now supports a James Beard-nominated culinary scene, world-class wineries across the Snake River Valley, a thriving arts and entertainment culture, and the kind of civic energy that comes with a Division I University town.
                     </p>
@@ -367,17 +368,17 @@ const getCardData = (id: number): ModalContent => {
                    </div>
 
                    <div className="flex flex-col gap-4 h-full">
-                        {/* MICRON CARD - Updated to variants for smooth entry */}
+                        {/* MICRON CARD - Updated to variants for smooth entry and will-change-transform */}
                         <motion.div 
                             variants={{ 
-                                hidden: { opacity: 0, x: 30 },
+                                hidden: { opacity: 0, x: 20 },
                                 visible: { 
                                     opacity: 1, 
                                     x: 0,
                                     transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] } 
                                 }
                             }}
-                            className="bg-micron-eggplant rounded-xl p-6 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
+                            className="bg-micron-eggplant rounded-xl p-6 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 will-change-transform"
                         >
                             <div className="absolute top-4 right-4 opacity-30"><Cpu size={24} /></div>
                             <div>
@@ -395,22 +396,22 @@ const getCardData = (id: number): ModalContent => {
                         {/* TESLA CARD - Updated variants + Increased Padding + Quote Padding */}
                         <motion.div 
                             variants={{ 
-                                hidden: { opacity: 0, x: 30 },
+                                hidden: { opacity: 0, x: 20 },
                                 visible: { 
                                     opacity: 1, 
                                     x: 0,
                                     transition: { duration: 1.2, delay: 0.1, ease: [0.22, 1, 0.36, 1] } 
                                 }
                             }}
-                            // UPDATED: Added pl-8 md:pl-12 (approx doubled left padding from default)
-                            className="bg-black rounded-xl p-6 pl-8 md:pl-12 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
+                            // UPDATED: Increased padding pl-10 md:pl-16
+                            className="bg-black rounded-xl p-6 pl-10 md:pl-16 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 will-change-transform"
                         >
                             <div className="absolute top-4 right-4 opacity-30"><Bot size={24} /></div>
                             <div>
                                 <h3 className="text-2xl font-black uppercase mb-1">TESLA</h3>
                                 <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-4">Elon Musk, CEO</p>
-                                {/* UPDATED: Increased quote border padding from pl-3 to pl-6 */}
-                                <div className="mb-2 pl-6 border-l-2 border-white/30">
+                                {/* UPDATED: Increased quote border padding to pl-12 */}
+                                <div className="mb-2 pl-12 border-l-2 border-white/30">
                                     <p className="text-sm md:text-[1.05rem] font-bold italic text-white/90 leading-relaxed tracking-tight">
                                         "Accelerate the world's transition to sustainable energy. Build a world of amazing abundance."
                                     </p>
@@ -426,14 +427,14 @@ const getCardData = (id: number): ModalContent => {
                {/* FUTURE SCALE - Updated variants + Increased Text Size */}
                <motion.div 
                     variants={{ 
-                        hidden: { opacity: 0, x: -30 },
+                        hidden: { opacity: 0, x: -20 },
                         visible: { 
                             opacity: 1, 
                             x: 0,
                             transition: { duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] } 
                         }
                     }}
-                    className="bg-micron-eggplant-light rounded-xl p-6 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300"
+                    className="bg-micron-eggplant-light rounded-xl p-6 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 will-change-transform"
                >
                     {/* UPDATED: Arrow moved to right side */}
                     <div className="flex items-center justify-between mb-4 pb-4 border-b border-micron-eggplant/20">
@@ -453,8 +454,8 @@ const getCardData = (id: number): ModalContent => {
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-600">Optimus Capacity</p>
                             </div>
                         </div>
-                        {/* UPDATED: Text size increased to text-base md:text-lg */}
-                        <div className="md:col-span-8 flex flex-col gap-3 text-base md:text-lg font-medium text-zinc-700 leading-relaxed justify-center">
+                        {/* UPDATED: Text size increased to text-lg md:text-xl */}
+                        <div className="md:col-span-8 flex flex-col gap-3 text-lg md:text-xl font-medium text-zinc-700 leading-relaxed justify-center">
                             <p>
                                 In June 2025, Micron announced <strong className="text-micron-eggplant">$200 billion</strong> in U.S. semiconductor manufacturing — the largest memory infrastructure commitment in American history.
                             </p>
