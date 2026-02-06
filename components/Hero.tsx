@@ -1,3 +1,4 @@
+
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence, useAnimation } from 'framer-motion';
 import { MapPin } from 'lucide-react';
@@ -372,7 +373,7 @@ export const Hero: React.FC = () => {
                          initial="hidden"
                          animate={showCursiveText ? "visible" : "hidden"}
                          variants={{
-                             visible: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } }, // Faster stagger for words
+                             visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } }, // UPDATED: Very slow stagger (0.35s)
                              hidden: {}
                          }}
                          // UPDATED: Changed back to font-micron for cursive, kept text-white
@@ -385,7 +386,7 @@ export const Hero: React.FC = () => {
                                     key={i}
                                     variants={{
                                         hidden: { opacity: 0 },
-                                        visible: { opacity: 1, transition: { duration: 0.6, ease: "easeInOut" } } 
+                                        visible: { opacity: 1, transition: { duration: 0.8, ease: "easeInOut" } } // UPDATED: Slower fade (0.8s)
                                     }}
                                     className="mr-1.5 inline-block"
                                 >
@@ -403,7 +404,7 @@ export const Hero: React.FC = () => {
                         initial="hidden"
                         animate={showCursiveText ? "visible" : "hidden"}
                         variants={{
-                            visible: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } }, // Faster stagger
+                            visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } }, // UPDATED: Very slow stagger (0.35s)
                             hidden: {}
                         }}
                         // UPDATED: 
@@ -418,7 +419,7 @@ export const Hero: React.FC = () => {
                             key={i}
                             variants={{
                                 hidden: { opacity: 0, y: 5 },
-                                visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } } 
+                                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } } // UPDATED: Slower fade (0.8s)
                             }}
                             className="mr-2 inline-block"
                         >
