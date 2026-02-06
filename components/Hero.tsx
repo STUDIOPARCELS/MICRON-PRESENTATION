@@ -36,69 +36,70 @@ const sentences = [
         highlights: ["PLACE,", "PERSPECTIVE."],
         textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
         layout: "default"
-    }
+    },
 ];
 
 const InteractiveParadigmTitle: React.FC = () => {
-    const paradigmLine1 = ["THE", "PARADIGM"];
-    const paradigmLine2 = ["SHIFTS."];
+    const paradigmLine1 = ["THE"];
+    const paradigmLine2 = ["PARADIGM"];
+    const paradigmLine3 = ["SHIFTS."];
+
+    const cycleAnimation = {
+        color: ["#008f25", "#064e16", "#2c0f38", "#ffffff"],
+        transition: { 
+            duration: 2.0, 
+            ease: "easeInOut" as const,
+            times: [0, 0.33, 0.66, 1] 
+        }
+    };
 
     return (
         <div className="flex flex-col items-start cursor-default">
-            {/* Line 1 */}
-            <div className="flex flex-wrap gap-x-3 md:gap-x-5">
+            {/* Line 1 & 2 */}
+            <div className="flex flex-wrap gap-x-2 md:gap-x-4 items-baseline">
                 {paradigmLine1.map((word, i) => (
                     <motion.span
                         key={i}
-                        initial={{ y: 20, opacity: 0, color: '#2c0f38' }}
-                        whileInView={{ 
-                            y: 0, 
-                            opacity: 1, 
-                            color: '#2c0f38' // Settles on Eggplant
-                        }}
-                        whileHover={{
-                            scale: 1.05,
-                            y: -4,
-                            color: '#008f25', // Micron Green on Hover
-                            transition: { duration: 0.2 }
-                        }}
+                        initial={{ y: 20, opacity: 0, color: '#008f25' }}
+                        whileInView={{ y: 0, opacity: 1 }}
                         viewport={{ once: true }}
-                        transition={{ 
-                            delay: 0.5 + (i * 0.8), // Very slow stagger
-                            duration: 2.0, 
-                            ease: "easeOut"
-                        }}
-                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block"
+                        transition={{ delay: 0.5, duration: 1.0 }}
+                        // UPDATED: Hover animation cycle with slow return
+                        whileHover={cycleAnimation}
+                        style={{ transition: "color 1.5s ease-out" }} // Slow return transition
+                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block text-micron-green"
+                    >
+                        {word}
+                    </motion.span>
+                ))}
+                
+                {paradigmLine2.map((word, i) => (
+                    <motion.span
+                        key={i}
+                        initial={{ y: 20, opacity: 0, color: '#2c0f38' }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.7, duration: 1.0 }}
+                        whileHover={cycleAnimation}
+                        style={{ transition: "color 1.5s ease-out" }}
+                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block text-micron-eggplant"
                     >
                         {word}
                     </motion.span>
                 ))}
             </div>
-            {/* Line 2 */}
-            <div className="flex flex-wrap gap-x-3 md:gap-x-5">
-                {paradigmLine2.map((word, i) => (
+            {/* Line 3 */}
+            <div className="flex flex-wrap gap-x-2 md:gap-x-4">
+                {paradigmLine3.map((word, i) => (
                     <motion.span
                         key={i}
                         initial={{ y: 20, opacity: 0, color: '#2c0f38' }}
-                        whileInView={{ 
-                            y: 0, 
-                            opacity: 1, 
-                            // UPDATED: Settles on WHITE
-                            color: '#ffffff' 
-                        }}
-                        whileHover={{
-                            scale: 1.05,
-                            y: -4,
-                            color: '#2c0f38', // Micron Eggplant on Hover
-                            transition: { duration: 0.2 }
-                        }}
+                        whileInView={{ y: 0, opacity: 1 }}
                         viewport={{ once: true }}
-                        transition={{ 
-                            delay: 0.5 + ((paradigmLine1.length + i) * 0.8), // Very slow stagger
-                            duration: 2.0, 
-                            ease: "easeOut"
-                        }}
-                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block"
+                        transition={{ delay: 0.9, duration: 1.0 }}
+                        whileHover={cycleAnimation}
+                        style={{ transition: "color 1.5s ease-out" }}
+                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block text-micron-eggplant"
                     >
                         {word}
                     </motion.span>
@@ -121,6 +122,25 @@ export const Hero: React.FC = () => {
 
   // Icon Controls
   const iconControls = useAnimation();
+
+  // Scroll Listener to Restart Animation
+  useEffect(() => {
+      const handleScroll = () => {
+          // If we scroll back to top (within 50px), restart the animation sequence
+          if (window.scrollY < 50) {
+              // Only trigger reset if we aren't already at start or running the first loop
+              if (currentSentenceIndex !== 0 && currentSentenceIndex !== null) {
+                   setKey(prev => prev + 1);
+                   setCurrentSentenceIndex(0);
+                   iconControls.set({ x: 200, rotate: -360, opacity: 0 });
+              }
+          }
+      };
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      return () => window.removeEventListener('scroll', handleScroll);
+  }, [currentSentenceIndex, iconControls]);
+
 
   // Start the sequence after mount
   useEffect(() => {
@@ -174,7 +194,7 @@ export const Hero: React.FC = () => {
                   bounce: 0
               }
           });
-      } else {
+      } else if (currentSentenceIndex !== 2) {
           // Reset position: Off to the right, rotated
           iconControls.set({ x: 200, rotate: -360, opacity: 0 });
       }
@@ -234,12 +254,6 @@ export const Hero: React.FC = () => {
       );
   }
 
-  // Quote words for animation
-  const quoteWords = [
-      "“A", "convergence", "of", "historic", "stewardship", "and", "autonomous", "future.", 
-      "The", "first", "corporate", "residence", "designed", "for", "the", "era", "of", "artificial", "intelligence.”"
-  ];
-
   return (
     <section 
         ref={containerRef}
@@ -249,35 +263,41 @@ export const Hero: React.FC = () => {
       <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4">
         
         {/* TOP SECTION */}
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 h-auto md:h-[400px] w-full">
+        {/* UPDATED: Increased desktop height to 650px to ensure text is not cut off */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 h-auto md:h-[650px] w-full">
             
             {/* 1. TEXT ANIMATION AREA */}
             <div 
                 // FLOATING 3D EFFECT
-                // UPDATED MOBILE HEIGHT: min-h-[300px] instead of h-[400px] to reduce extra space
-                className="min-h-[300px] md:h-full w-full flex flex-col justify-end items-start order-1 bg-white rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] hover:shadow-[0_50px_100px_-10px_rgba(0,0,0,0.3)] hover:-translate-y-2 transition-all duration-500 px-6 py-6 md:p-12 relative overflow-hidden group"
+                // UPDATED: Removed transition-all duration-500 to keep box stationary
+                className="min-h-[300px] md:h-full w-full flex flex-col justify-end items-start order-1 bg-white rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] px-6 pt-6 pb-12 md:px-12 md:pt-12 md:pb-12 relative overflow-hidden group"
             >
                  {/* Logo Animation */}
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    // UPDATED MOBILE POSITION: Center Horizontal, Top 6
-                    className="absolute top-6 left-0 right-0 mx-auto w-fit md:top-16 md:right-20 md:left-auto md:mx-0 z-20"
+                    // REVERTED DESKTOP: md:top-8 -> md:top-16 to restore desktop look. Mobile stays top-2.
+                    className="absolute top-2 left-0 right-0 mx-auto w-fit md:top-16 md:right-20 md:left-auto md:mx-0 z-20"
                  >
-                    <img 
+                    {/* UPDATED: Added micro-interaction rotation on hover */}
+                    <motion.img 
+                        whileHover={{ rotate: 6 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 10 }}
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                         alt="Micron Logo"
-                        // UPDATED SIZE: h-24/w-24 and md:h-40/w-40 (+20% larger)
-                        className="h-24 w-24 md:h-40 md:w-40 object-contain"
+                        // UPDATED SIZE: Increased mobile size by 50% (h-24 -> h-36, w-24 -> w-36)
+                        className="h-36 w-36 md:h-40 md:w-40 object-contain cursor-pointer"
                     />
                  </motion.div>
                  
-                 <div className="w-full relative z-10 mt-20 md:mt-0">
+                 {/* UPDATED: Reduced top margin on mobile by 50% (mt-20 -> mt-10) */}
+                 <div className="w-full relative z-10 mt-10 md:mt-0">
                      <AnimatePresence mode="wait">
                        {currentSentenceIndex !== null && (
                            <motion.div 
                               key={`${currentSentenceIndex}-${key}`}
-                              className="flex flex-wrap gap-x-4 md:gap-x-6 gap-y-2 w-full max-w-5xl"
+                              // UPDATED: Increased gap-y to gap-y-4 for better padding below text sentences
+                              className="flex flex-wrap gap-x-4 md:gap-x-6 gap-y-4 w-full max-w-5xl"
                               initial="hidden"
                               animate="visible"
                               exit="exit"
@@ -325,55 +345,42 @@ export const Hero: React.FC = () => {
 
         </div>
 
-        {/* BOTTOM SECTION: PARADIGM & QUOTE */}
+        {/* BOTTOM SECTION: PARADIGM & QUOTE - UPDATED */}
         <motion.div 
             ref={bottomSectionRef}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row h-auto md:min-h-[320px] mt-4 group hover:-translate-y-1 transition-transform duration-700"
+            // UPDATED: Single background color bg-micron-eggplant-light
+            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row min-h-[300px] mt-4 p-8 md:p-12 items-center gap-8 group"
         >
-            <div className="absolute inset-x-0 top-0 h-px bg-white/40 z-20" />
-
             {/* Left Side: Title + Address Block */}
-            <div className="p-8 md:p-10 flex flex-col justify-center md:w-1/2 z-10 relative border-b md:border-b-0 md:border-r border-white/10">
+            <div className="flex-1 flex flex-col gap-6 items-start z-10 relative">
                  <InteractiveParadigmTitle />
-                
-                 {/* ADDRESS BLOCK UPDATE */}
-                 <div className="mt-8 flex flex-col gap-1">
-                    {/* Micron House Green */}
-                    <h3 className="text-micron-green font-bold text-2xl uppercase tracking-tighter">Micron House</h3>
-                    {/* Address Larger Font and Higher Opacity */}
-                    <div className="flex items-center gap-2 text-white text-lg font-medium uppercase tracking-widest">
-                        <MapPin size={18} />
-                        <span>1020 E Warm Springs Ave</span>
-                    </div>
-                    <p className="text-white text-lg uppercase tracking-widest pl-7">Boise, Idaho 83712</p>
+                 
+                 {/* ADDRESS BLOCK */}
+                 <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4">
+                        <h3 className="text-white font-bold text-xl uppercase tracking-wider">Micron House</h3>
+                        {/* UPDATED: Reduced font size on mobile (text-sm) so it stays on one line */}
+                        <p className="text-micron-eggplant font-bold text-sm md:text-lg uppercase tracking-widest whitespace-nowrap">1020 East Warm Springs Ave</p>
+                        {/* UPDATED: Reduced font size on mobile (text-sm) to match line above and fit better */}
+                        <p className="text-micron-eggplant/80 text-sm md:text-lg uppercase tracking-widest">Boise, Idaho 83712</p>
                  </div>
             </div>
 
-            {/* Right Side: Quote (Moved here, Small Script Font) */}
-            <div className="relative w-full md:w-1/2 p-8 md:p-12 flex items-center justify-center bg-white/5 backdrop-blur-sm">
-                 <div className="max-w-md">
-                    <p className="flex flex-wrap gap-x-2 text-xl md:text-2xl text-white font-micron leading-relaxed text-center md:text-left">
-                        {quoteWords.map((word, i) => (
-                            <motion.span
-                                key={i}
-                                initial={{ opacity: 0, filter: 'blur(5px)' }}
-                                whileInView={{ opacity: 1, filter: 'blur(0px)' }}
-                                viewport={{ once: true }}
-                                transition={{ 
-                                    duration: 0.8, 
-                                    delay: 0.2 + (i * 0.05), // Faster stagger for quote
-                                    ease: "easeOut" 
-                                }}
-                            >
-                                {word}
-                            </motion.span>
-                        ))}
-                    </p>
-                 </div>
+            {/* Right Side: Map Card */}
+            <div className="w-full md:w-[450px] aspect-[4/3] md:aspect-auto md:h-64 bg-zinc-100 rounded-2xl overflow-hidden shadow-2xl relative border-4 border-white/20">
+                 <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.234!2d-116.1898!3d43.6088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54aef8d1b0b3b8e7%3A0x0!2s1020%20E%20Warm%20Springs%20Ave%2C%20Boise%2C%20ID%2083712!5e0!3m2!1sen!2sus!4v1706000000000"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0, filter: 'grayscale(100%) contrast(100%)' }}
+                    allowFullScreen={false}
+                    loading="lazy"
+                    title="Micron House Map"
+                    className="absolute inset-0 w-full h-full opacity-90"
+                />
             </div>
         </motion.div>
 

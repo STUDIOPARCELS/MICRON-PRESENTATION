@@ -8,7 +8,8 @@ const roadmapItems = [
     date: "NOW", 
     title: "AGREEMENT", 
     subtitle: "Architectural interface.", 
-    bg: "bg-micron-black",
+    // UPDATED: Changed from bg-micron-black to bg-micron-grey1 to match "Real-World Inference"
+    bg: "bg-micron-grey1",
     text: "text-white"
   },
   { 
@@ -47,8 +48,8 @@ const roadmapItems = [
 
 export const SectionTimeline: React.FC = () => {
   return (
-    // REDUCED PADDING: py-16 -> py-10
-    <section id="timeline" className="container mx-auto px-4 md:px-12 py-12 mb-20 bg-white text-zinc-900">
+    // REDUCED PADDING: py-16 -> py-10, UPDATED mobile padding to px-8
+    <section id="timeline" className="container mx-auto px-8 md:px-12 py-12 mb-20 bg-white text-zinc-900">
       
           {/* Header Row - REMOVED OUTER BENTO WRAPPER */}
           <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8">
@@ -85,9 +86,10 @@ export const SectionTimeline: React.FC = () => {
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1, duration: 0.5 }}
                     // Added deeper shadows, 3D borders, and hover effects
+                    // UPDATED: Removed aspect-square, used h-[220px] to reduce height by ~40% (approx from 300-350 down to 220)
                     className={`
                         ${item.bg} ${item.text} 
-                        aspect-square rounded-2xl p-6 flex flex-col justify-between 
+                        h-[220px] rounded-2xl p-6 flex flex-col justify-between 
                         relative overflow-hidden group 
                         /* FLOATING SHADOW UPDATE */
                         shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)]

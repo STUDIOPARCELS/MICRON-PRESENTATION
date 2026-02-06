@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { BentoCard } from './BentoCard';
@@ -88,7 +89,8 @@ export const SectionIntro: React.FC<SectionIntroProps> = () => {
             hoverEffect={true}
             delay={GREEN_CARD_DELAY} 
         >
-            <div className="w-full h-full mx-auto py-4 md:py-6 px-2 md:px-8 relative z-10 flex flex-col justify-center gap-2 md:gap-4">
+            {/* UPDATED: Increased gap-2 to gap-6 for mobile to ensure padding below each sentence */}
+            <div className="w-full h-full mx-auto py-4 md:py-6 px-2 md:px-8 relative z-10 flex flex-col justify-center gap-6 md:gap-4">
                 {sentences.map((sentence, sIdx) => (
                     <div key={sIdx} className={`flex flex-wrap w-full ${sentence.align}`}>
                         {sentence.words.map((word, wIdx) => {

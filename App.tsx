@@ -1,16 +1,30 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Hero } from './components/Hero';
 import { SectionPrototype } from './components/SectionPrototype';
 import { SectionProperty } from './components/SectionProperty';
 import { SectionServing } from './components/SectionServing';
 import { SectionServingTesla } from './components/SectionServingTesla';
 import { SectionTimeline } from './components/SectionTimeline';
-import { Menu, X, ArrowRight, MapPin, Mail } from 'lucide-react';
+import { Menu, X, ArrowRight, MapPin, Mail, ArrowUp } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Monitor scroll position for Scroll-To-Top button
+  useEffect(() => {
+      const handleScroll = () => {
+          if (window.scrollY > 400) {
+              setShowScrollTop(true);
+          } else {
+              setShowScrollTop(false);
+          }
+      };
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Helper function to handle smooth scrolling with header offset
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -27,6 +41,10 @@ function App() {
         behavior: 'smooth'
       });
     }
+  };
+
+  const scrollToTop = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const navLinks = [
@@ -122,6 +140,22 @@ function App() {
             )}
         </AnimatePresence>
       </nav>
+
+      {/* BACK TO TOP BUTTON */}
+      <AnimatePresence>
+        {showScrollTop && (
+            <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                onClick={scrollToTop}
+                className="fixed bottom-6 right-6 z-[90] bg-micron-eggplant text-white p-3 rounded-full shadow-lg border border-white/20 hover:bg-micron-eggplant-light transition-colors"
+                aria-label="Scroll to top"
+            >
+                <ArrowUp size={24} />
+            </motion.button>
+        )}
+      </AnimatePresence>
 
       <main>
         <Hero />

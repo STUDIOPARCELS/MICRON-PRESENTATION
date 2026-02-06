@@ -91,7 +91,7 @@ const CinematicModalContent: React.FC<{ data: ModalContent; onClose: () => void 
       transition={{ type: "spring", damping: 25, stiffness: 300 }}
       className={`pointer-events-auto relative h-full max-h-[85vh] md:max-h-[95vh] w-full max-w-6xl overflow-hidden rounded-3xl bg-zinc-950 shadow-2xl border border-white/10 ring-1 ring-white/5 ${containerClasses}`}
     >
-      <button onClick={onClose} className="absolute top-4 right-4 z-50 rounded-full bg-black/20 p-2 text-white hover:bg-black/40 transition-colors backdrop-blur-md border border-white/10">
+      <button onClick={onClose} className="absolute top-4 right-4 z-50 rounded-full bg-black/50 p-3 text-white hover:bg-black/70 transition-colors backdrop-blur-md border border-white/20 shadow-lg cursor-pointer">
         <X size={24} />
       </button>
 
@@ -140,6 +140,19 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
   
   const flexClass = data.aspectRatio ? 'flex flex-col' : 'flex flex-col';
 
+  // Determine Background Class
+  let backgroundClass = '';
+  if (data.customBackground) {
+    backgroundClass = data.customBackground;
+  } else if (isLight) {
+    backgroundClass = 'bg-gradient-to-b from-white to-zinc-50 border-white ring-1 ring-zinc-200';
+  } else {
+    backgroundClass = 'bg-zinc-900 border-white/10 ring-1 ring-white/5';
+  }
+
+  // UPDATED: Determine Padding Class (use prop if exists, else default)
+  const paddingClass = data.paddingClassName || "px-6 md:px-12 pb-6 md:pb-12 pt-0";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20, scale: 0.98 }}
@@ -151,49 +164,51 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
         shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] 
         border ${flexClass}
         ${aspectRatioClass}
-        ${isLight 
-            ? `bg-zinc-50 border-white ring-1 ring-zinc-200 ${maxWidthClass}` 
-            : `bg-zinc-900 border-white/10 ring-1 ring-white/5 ${maxWidthClass}`
-        }
+        ${maxWidthClass}
+        ${backgroundClass}
       `}
     >
-        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
+        {/* Border Overlay */}
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50 pointer-events-none" />
 
-        <div className="absolute top-3 right-3 md:top-4 md:right-4 z-50">
+        {/* CLOSE BUTTON - UPDATED: Increased Size, Z-Index, and Background for visibility over any content */}
+        <div className="absolute top-3 right-3 md:top-5 md:right-5 z-[100]">
             <button
                 onClick={onClose}
                 className={`
-                    rounded-full p-1.5 transition-all duration-300 border
-                    hover:scale-110 active:scale-95
-                    ${isLight 
-                        ? 'bg-white/90 backdrop-blur text-zinc-900 border-zinc-200 shadow-sm hover:shadow-md' 
-                        : 'bg-zinc-800/90 backdrop-blur text-white border-white/10 hover:bg-zinc-700'
+                    rounded-full p-2 md:p-2.5 transition-all duration-300 border shadow-lg
+                    hover:scale-110 active:scale-95 cursor-pointer
+                    ${data.customBackground 
+                      ? 'bg-black/40 text-white border-white/20 hover:bg-black/60'
+                      : isLight 
+                        ? 'bg-white/80 backdrop-blur-md text-zinc-900 border-zinc-200 hover:bg-zinc-50 hover:shadow-xl' 
+                        : 'bg-zinc-800/80 backdrop-blur-md text-white border-white/10 hover:bg-zinc-700'
                     }
                 `}
             >
-                <X size={20} />
+                <X size={24} />
             </button>
         </div>
 
       <div className={`
           relative z-10 
-          /* UPDATED PADDING: Tripled padding as requested (py-4 -> py-8, md:py-5 -> md:py-10) and increased horizontal */
-          px-8 py-6 md:px-12 md:py-8
+          px-8 py-5 md:px-12 md:py-6
           flex-shrink-0
           flex flex-col justify-center
-          min-h-[100px] md:min-h-[140px]
-          ${isLight ? 'bg-gradient-to-b from-white to-zinc-50' : 'bg-gradient-to-b from-zinc-800 to-zinc-900'}
+          min-h-[80px] md:min-h-[100px]
+          /* If customBackground is set, rely on parent background, otherwise use standard headers */
+          ${data.customBackground ? '' : (isLight ? 'bg-gradient-to-b from-white to-zinc-50' : 'bg-gradient-to-b from-zinc-800 to-zinc-900')}
       `}>
          <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }}>
             {/* UPDATED: Title first */}
-            <h2 className={`text-2xl md:text-3xl font-black uppercase tracking-tight leading-none ${isLight ? 'text-zinc-900' : 'text-white drop-shadow-lg'}`}>
+            <h2 className={`text-2xl md:text-3xl font-black uppercase tracking-tight leading-none pr-8 ${isLight && !data.customBackground ? 'text-zinc-900' : 'text-white drop-shadow-lg'}`}>
             {data.title}
             </h2>
             {/* UPDATED: Subtitle second */}
             {data.subtitle && (
             <div className={`flex items-center gap-2 mt-2`}>
-                <span className={`hidden md:block h-px w-6 ${isLight ? 'bg-zinc-300' : 'bg-zinc-600'}`}></span>
-                <span className={`text-[10px] font-bold uppercase tracking-[0.2em] ${isLight ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                <span className={`hidden md:block h-px w-6 ${isLight && !data.customBackground ? 'bg-zinc-300' : 'bg-white/50'}`}></span>
+                <span className={`text-[10px] font-bold uppercase tracking-[0.2em] ${isLight && !data.customBackground ? 'text-zinc-400' : 'text-white/70'}`}>
                     {data.subtitle}
                 </span>
             </div>
@@ -205,8 +220,7 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
         <motion.div 
             initial="hidden" animate="visible"
             variants={{ visible: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } } }}
-            // UPDATED: Removed top padding (pt-0) to "Delete this space" as requested, while keeping side/bottom padding
-            className="px-6 md:px-12 pb-6 md:pb-12 pt-0 h-full"
+            className={`h-full ${paddingClass}`}
         >
             {data.content}
         </motion.div>
@@ -242,7 +256,7 @@ const ReferenceModalContent: React.FC<{ data: ModalContent; onClose: () => void 
             {data.subtitle}
           </p>
         </div>
-        <button onClick={onClose} className={`rounded-full p-2 transition-colors ${closeBtnClasses}`}>
+        <button onClick={onClose} className={`rounded-full p-2 transition-colors cursor-pointer ${closeBtnClasses}`}>
           <X size={20} />
         </button>
       </div>
@@ -270,7 +284,7 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
                     <h2 className="text-lg md:text-xl font-bold uppercase tracking-tight text-white">{data.title}</h2>
                     <p className="text-zinc-400 text-xs">{images.length} Photos</p>
                 </div>
-                <button onClick={onClose} className="rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors border border-white/10">
+                <button onClick={onClose} className="rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors border border-white/10 cursor-pointer">
                     <X size={20} />
                 </button>
             </div>

@@ -317,7 +317,8 @@ export const SectionServing: React.FC = () => {
   };
 
   return (
-    <section id="serving" className="container mx-auto px-4 md:px-12 py-8 md:py-12 bg-white text-zinc-900">
+    // UPDATED: Padding increased to px-8 on mobile
+    <section id="serving" className="container mx-auto px-8 md:px-12 py-8 md:py-12 bg-white text-zinc-900">
       
           <motion.div 
             initial={{ opacity: 0, y: 30 }}

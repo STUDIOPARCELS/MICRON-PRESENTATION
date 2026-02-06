@@ -18,6 +18,8 @@ export interface ModalContent {
   headerClassName?: string; // Optional override for header text color
   maxWidth?: string; // Added for dynamic modal width control
   aspectRatio?: string; // Added for forcing specific modal shapes (e.g., 'aspect-square', 'aspect-[6/4]')
+  customBackground?: string; // Added for overriding modal background color
+  paddingClassName?: string; // Added for overriding internal modal padding
 }
 
 export interface CardProps {

@@ -173,16 +173,13 @@ export const SectionProperty: React.FC = () => {
 
                         {/* Image/Visual Box */}
                         <div className="bg-micron-grey1 rounded-2xl overflow-hidden relative shadow-xl min-h-[400px]">
+                            {/* UPDATED: New Image URL and removed text overlay */}
                             <img 
-                                src="https://images.unsplash.com/photo-1572953109213-3be62398eb95?q=80&w=2070&auto=format&fit=crop" 
+                                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/philip.starck1982_horse-drawn_carriage_arriving_at_English_coun_fe12721f-0e1e-4a80-a919-9d7bbea63aea%20copy.png" 
                                 alt="Historic Warm Springs" 
-                                className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay"
+                                className="absolute inset-0 w-full h-full object-cover opacity-80"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                            <div className="absolute bottom-8 left-8 text-white">
-                                <h4 className="text-2xl font-black uppercase tracking-tight mb-1">EST. 1890</h4>
-                                <p className="text-sm font-medium opacity-80 uppercase tracking-widest">Warm Springs Avenue</p>
-                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                         </div>
                     </div>
                 </div>
@@ -205,8 +202,8 @@ export const SectionProperty: React.FC = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* CYBERCAB CARD - Taller Min-Height */}
-                        <div className="bg-micron-black text-white rounded-2xl p-8 shadow-xl flex flex-col min-h-[520px]">
+                        {/* CYBERCAB CARD - UPDATED: Decreased Min-Height to 450px (approx 30% reduction from 650) */}
+                        <div className="bg-micron-black text-white rounded-2xl p-8 shadow-xl flex flex-col min-h-[450px]">
                             <div className="flex items-center gap-3 mb-6">
                                 <Car size={24} className="text-white" />
                                 <h3 className="text-3xl font-black uppercase tracking-tight text-white/90">CYBERCAB</h3>
@@ -215,18 +212,18 @@ export const SectionProperty: React.FC = () => {
                             <p className="text-white/70 text-base mb-8 leading-relaxed">
                                 Tesla's first fully autonomous vehicle — a two-passenger cabin with butterfly doors, inductive charging, and a 20.5-inch display. Cybercab manages all airport transfers, downtown shuttles, and guest logistics autonomously.
                             </p>
-                            {/* UPDATED: Taller Image Container (h-80) */}
-                            <div className="mt-auto rounded-xl overflow-hidden h-80 w-full relative">
+                            {/* UPDATED: Changed to aspect-video (landscape) and removed flex-1/min-h to prevent cutoff */}
+                            <div className="mt-auto rounded-xl overflow-hidden w-full aspect-video relative">
                                 <img 
-                                    src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/cybercab%20photo.JPG" 
+                                    src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/cybercab%20photpo.WEBP" 
                                     alt="Tesla Cybercab" 
                                     className="absolute inset-0 w-full h-full object-cover"
                                 />
                             </div>
                         </div>
 
-                        {/* OPTIMUS CARD - Taller Min-Height */}
-                        <div className="bg-micron-eggplant-light text-white rounded-2xl p-8 shadow-xl flex flex-col min-h-[520px]">
+                        {/* OPTIMUS CARD - UPDATED: Changed bg to bg-micron-grey1 (Dark Gray) */}
+                        <div className="bg-micron-grey1 text-white rounded-2xl p-8 shadow-xl flex flex-col min-h-[450px]">
                             <div className="flex items-center gap-3 mb-6">
                                 <Bot size={24} className="text-white" />
                                 <h3 className="text-3xl font-black uppercase tracking-tight text-white/90">OPTIMUS</h3>
@@ -235,8 +232,8 @@ export const SectionProperty: React.FC = () => {
                             <p className="text-white/70 text-base mb-8 leading-relaxed">
                                 Tesla's Gen 3 humanoid — 5'8", 125 lbs, with 22 degrees of freedom in each hand and vision-based autonomy. Optimus manages property maintenance, perimeter monitoring, and routine service tasks within defined geofenced zones across the residence.
                             </p>
-                            {/* UPDATED: Taller Image Container (h-80) */}
-                            <div className="mt-auto rounded-xl overflow-hidden h-80 w-full relative">
+                            {/* UPDATED: Changed to aspect-video (landscape) and removed flex-1/min-h to prevent cutoff */}
+                            <div className="mt-auto rounded-xl overflow-hidden w-full aspect-video relative">
                                 <img 
                                     src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/tesla-optimus-gen-3-delay.png" 
                                     alt="Tesla Optimus Robot" 
@@ -285,11 +282,12 @@ export const SectionProperty: React.FC = () => {
           </ul>
           
           <button 
-            // UPDATED: Reduced padding (py-2) and font size (text-[10px]) for 50% smaller button feel
-            className={`w-full py-2 border rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 group-hover:border-white/60 group-hover:text-white group-hover:bg-white/10 border-white/20 text-white/70 hover:bg-white/5`}
+            // UPDATED: Reduced padding (py-1.5), font size (text-[9px]), and icon size for 50% smaller visual footprint
+            className={`w-full py-1.5 border rounded-lg text-[9px] font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 group-hover:border-white/60 group-hover:text-white group-hover:bg-white/10 border-white/20 text-white/70 hover:bg-white/5`}
           >
               View Gallery
-              <ArrowUpRight size={14} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+              {/* UPDATED: Reduced icon size to 12 */}
+              <ArrowUpRight size={12} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
           </button>
       </motion.div>
   );
@@ -303,61 +301,68 @@ export const SectionProperty: React.FC = () => {
           <div className="flex justify-between items-start mb-4">
                <div className="flex items-center gap-3">
                    <div className={`text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300`}>{icon}</div>
-                   {/* UPDATED: Reduced text-xl to text-lg for better fit */}
-                   <h4 className="text-lg md:text-xl font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors">{title}</h4>
+                   {/* UPDATED: Reduced font size to text-base md:text-lg to fit long titles like National Register */}
+                   <h4 className="text-base md:text-lg font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors leading-tight">{title}</h4>
                </div>
-               <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">{subtitle}</span>
           </div>
           <p className="text-sm md:text-base text-white font-medium leading-relaxed mb-8">
              {text}
           </p>
           
-          <div className="absolute bottom-6 right-6 opacity-50 group-hover:opacity-100 transition-opacity duration-300">
-              <ArrowUpRight size={20} />
+          <div className="absolute bottom-6 right-6 flex items-center gap-3">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
+                  {subtitle}
+              </span>
+              <div className="opacity-50 group-hover:opacity-100 transition-opacity duration-300">
+                  <ArrowUpRight size={20} />
+              </div>
           </div>
       </motion.div>
   );
 
   return (
-    <section id="property" className="container mx-auto px-4 md:px-12 py-8 md:py-12 bg-white text-zinc-900">
+    // UPDATED: Padding increased to px-8 on mobile, py-4 on mobile to close gap to Prototype
+    <section id="property" className="container mx-auto px-8 md:px-12 py-4 md:py-12 bg-white text-zinc-900">
         <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 1.0 }}
         >
-            {/* 1. HEADER */}
-            <div className="mb-10 flex flex-col md:flex-row gap-8 md:gap-12 border-b border-zinc-100 pb-10">
+            {/* 1. HEADER - UPDATED: Reduced spacing on mobile (gap-4, mb-5, pb-5) */}
+            <div className="mb-5 md:mb-10 flex flex-col md:flex-row gap-4 md:gap-12 border-b border-zinc-100 pb-5 md:pb-10">
                  <div className="flex-shrink-0">
                      <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">02 / ASSET</span>
                      <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant-light leading-none font-sans">
                          PROPERTY
                      </h2>
                  </div>
-                 <div className="md:ml-auto max-w-2xl pl-6 border-l-4 border-micron-eggplant-light/20">
-                     <h3 className="text-2xl font-bold uppercase tracking-tighter text-micron-eggplant-light mb-2 font-sans">HISTORIC CONTEXT</h3>
+                 {/* UPDATED: Reduced pl-6 to pl-4 on mobile for tightness */}
+                 <div className="md:ml-auto max-w-2xl pl-4 md:pl-6 border-l-4 border-micron-eggplant-light/20">
+                     <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tighter text-micron-eggplant-light mb-2 font-sans block">HISTORIC CONTEXT</h3>
                      <p className="text-base font-light text-zinc-600 leading-snug font-body">
-                         A modest home within North America's oldest continuously operating geothermal district (est. 1890), tapping the nation's largest historic direct-use aquifer. <span className="font-bold text-zinc-900">Where the legacy of energy innovation converges with energy from the Stars.</span>
+                         {/* UPDATED: "stars" lowercase */}
+                         A modest home within North America's oldest continuously operating geothermal district (est. 1890), tapping the nation's largest historic direct-use aquifer. <span className="font-bold text-zinc-900">Where the legacy of energy innovation converges with energy from the stars.</span>
                      </p>
                  </div>
             </div>
 
-            {/* 2. STATS GRID */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-                <div className="bg-micron-eggplant rounded-xl p-6 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform aspect-[2/1] md:aspect-auto md:h-40 border border-white/10">
-                    <span className="text-4xl md:text-5xl font-black tracking-tighter mb-1 font-sans">1906</span>
+            {/* 2. STATS GRID - UPDATED: 2 Columns on Mobile, P-4 Padding, Responsive Text Size */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+                <div className="bg-micron-eggplant rounded-xl p-4 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform md:h-40 border border-white/10">
+                    <span className="text-3xl md:text-5xl font-black tracking-tighter mb-1 font-sans">1906</span>
                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-70 font-sans">Year Built</span>
                 </div>
-                <div className="bg-micron-grey1 rounded-xl p-6 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform aspect-[2/1] md:aspect-auto md:h-40 border border-white/10">
-                    <span className="text-4xl md:text-5xl font-black tracking-tighter mb-1 font-sans">3,374</span>
+                <div className="bg-micron-grey1 rounded-xl p-4 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform md:h-40 border border-white/10">
+                    <span className="text-3xl md:text-5xl font-black tracking-tighter mb-1 font-sans">3,374</span>
                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-70 font-sans">Square Feet</span>
                 </div>
-                <div className="bg-micron-green rounded-xl p-6 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform aspect-[2/1] md:aspect-auto md:h-40 border border-white/10">
-                    <span className="text-4xl md:text-5xl font-black tracking-tighter mb-1 font-sans">3 / 4</span>
+                <div className="bg-micron-green rounded-xl p-4 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform md:h-40 border border-white/10">
+                    <span className="text-3xl md:text-5xl font-black tracking-tighter mb-1 font-sans">3 / 4</span>
                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-70 font-sans">Bed / Bath</span>
                 </div>
-                <div className="bg-micron-eggplant-light rounded-xl p-6 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform aspect-[2/1] md:aspect-auto md:h-40 border border-white/10">
-                    <span className="text-4xl md:text-5xl font-black tracking-tighter mb-1 font-sans">1892</span>
+                <div className="bg-micron-eggplant-light rounded-xl p-4 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform md:h-40 border border-white/10">
+                    <span className="text-3xl md:text-5xl font-black tracking-tighter mb-1 font-sans">1892</span>
                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-70 font-sans">Geothermal Rights</span>
                 </div>
             </div>
@@ -374,7 +379,8 @@ export const SectionProperty: React.FC = () => {
                       <LocationPill label="Downtown" time="3 min" color="bg-micron-eggplant-light" icon={<Building2 size={16}/>} />
                       <LocationPill label="St. Luke's" time="2 min" color="bg-micron-grey1" icon={<Stethoscope size={16}/>} />
                       <LocationPill label="Capitol" time="5 min" color="bg-micron-grey2" icon={<Building2 size={16}/>} />
-                      <LocationPill label="Boise State" time="4 min" color="bg-black" icon={<GraduationCap size={16}/>} />
+                      {/* UPDATED: Changed from bg-black to bg-micron-eggplant-light */}
+                      <LocationPill label="Boise State" time="4 min" color="bg-micron-eggplant-light" icon={<GraduationCap size={16}/>} />
                       <LocationPill label="River" time="1 min" color="bg-micron-green" icon={<Leaf size={16}/>} />
                  </div>
             </div>
@@ -465,4 +471,4 @@ export const SectionProperty: React.FC = () => {
         <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
     </section>
   );
-};
+}
