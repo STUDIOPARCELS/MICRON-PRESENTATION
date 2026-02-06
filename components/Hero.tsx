@@ -398,7 +398,8 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* CENTER: DESKTOP QUOTE CONTAINER (Flex-Grow) */}
-            <div className="hidden md:flex flex-grow items-center justify-center relative px-4 z-10">
+            {/* UPDATED: Added pr-16 to nudge the centered text to the left */}
+            <div className="hidden md:flex flex-grow items-center justify-center relative pl-4 pr-16 z-10">
                 <motion.div
                         initial="hidden"
                         animate={showCursiveText ? "visible" : "hidden"}
