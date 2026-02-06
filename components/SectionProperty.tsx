@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, ArrowUp, ArrowUpRight, Cpu, TreeDeciduous, Zap, Waves, Activity, Sprout, Clock, Car, Bot, Grape } from 'lucide-react';
+import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, ArrowUp, ArrowUpRight, Cpu, TreeDeciduous, Zap, Waves, Activity, Sprout, Clock, Car, Bot, Grape, Thermometer, ShieldCheck, History } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Modal } from './Modal';
 import { ModalContent } from '../types';
@@ -48,10 +48,98 @@ export const SectionProperty: React.FC = () => {
   };
 
   const openInfoModal = (type: 'wellness' | 'autonomous' | 'history') => {
-      // Logic handled in modal data construction
-      if (type === 'wellness') { /* ... */ } 
-      else if (type === 'history') { /* ... */ }
-      else if (type === 'autonomous') { /* ... */ }
+      if (type === 'wellness') {
+        setModalData({
+            title: "GEOTHERMAL & WELLNESS",
+            subtitle: "NATURE'S ENERGY",
+            category: 'showcase',
+            theme: 'light',
+            modalLayout: 'default',
+            content: (
+                <div className="flex flex-col gap-6">
+                    <p className="text-xl font-light text-zinc-600 leading-relaxed">
+                        The property is connected to the Boise Warm Springs Water District, the oldest geothermal heating district in North America (est. 1890).
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="bg-micron-green/10 p-5 rounded-xl border border-micron-green/20">
+                            <div className="flex items-center gap-2 mb-2 text-micron-green">
+                                <Thermometer size={20} />
+                                <h4 className="font-bold uppercase tracking-wider text-sm">Thermal Source</h4>
+                            </div>
+                            <p className="text-zinc-700 text-sm">Natural 177°F water pumped directly from the aquifer to heat the home and spa amenities.</p>
+                        </div>
+                        <div className="bg-micron-green/10 p-5 rounded-xl border border-micron-green/20">
+                             <div className="flex items-center gap-2 mb-2 text-micron-green">
+                                <Leaf size={20} />
+                                <h4 className="font-bold uppercase tracking-wider text-sm">Living Grounds</h4>
+                            </div>
+                            <p className="text-zinc-700 text-sm">Mature ecosystem featuring producing peach, plum, and cherry trees alongside a historic Concord grapevine.</p>
+                        </div>
+                    </div>
+                </div>
+            )
+        });
+      } else if (type === 'autonomous') {
+        setModalData({
+            title: "AUTONOMOUS SERVICE",
+            subtitle: "INTELLIGENT INFRASTRUCTURE",
+            category: 'showcase',
+            theme: 'light', 
+            content: (
+                 <div className="flex flex-col gap-6">
+                    <p className="text-xl font-light text-zinc-600 leading-relaxed">
+                        A functional proving ground where abstract technology becomes a seamless, daily reality. The residence is mapped for high-precision autonomous navigation.
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="bg-micron-eggplant-light/10 p-5 rounded-xl border border-micron-eggplant-light/20">
+                            <div className="flex items-center gap-2 mb-2 text-micron-eggplant-light">
+                                <Car size={20} />
+                                <h4 className="font-bold uppercase tracking-wider text-sm">Cybercab Logistics</h4>
+                            </div>
+                            <p className="text-zinc-700 text-sm">Dedicated drop-off and charging integration for autonomous transport of guests and supplies.</p>
+                        </div>
+                        <div className="bg-micron-eggplant-light/10 p-5 rounded-xl border border-micron-eggplant-light/20">
+                             <div className="flex items-center gap-2 mb-2 text-micron-eggplant-light">
+                                <Bot size={20} />
+                                <h4 className="font-bold uppercase tracking-wider text-sm">Optimus Integration</h4>
+                            </div>
+                            <p className="text-zinc-700 text-sm">Service layers operated by humanoid robotics, from security monitoring to housekeeping support.</p>
+                        </div>
+                    </div>
+                </div>
+            )
+        });
+      } else if (type === 'history') {
+         setModalData({
+            title: "HISTORIC REGISTER",
+            subtitle: "WARM SPRINGS AVENUE",
+            category: 'showcase',
+            theme: 'light',
+            content: (
+                 <div className="flex flex-col gap-6">
+                    <p className="text-xl font-light text-zinc-600 leading-relaxed">
+                        Located on Boise's most prestigious historic corridor, anchored by the homes of the city's founders.
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="bg-micron-eggplant/10 p-5 rounded-xl border border-micron-eggplant/20">
+                            <div className="flex items-center gap-2 mb-2 text-micron-eggplant">
+                                <History size={20} />
+                                <h4 className="font-bold uppercase tracking-wider text-sm">C.W. Moore House</h4>
+                            </div>
+                            <p className="text-zinc-700 text-sm">Neighboring the 1891 mansion of Christopher W. Moore, a founder of the First National Bank of Idaho.</p>
+                        </div>
+                        <div className="bg-micron-eggplant/10 p-5 rounded-xl border border-micron-eggplant/20">
+                             <div className="flex items-center gap-2 mb-2 text-micron-eggplant">
+                                <ShieldCheck size={20} />
+                                <h4 className="font-bold uppercase tracking-wider text-sm">Preservation</h4>
+                            </div>
+                            <p className="text-zinc-700 text-sm">Maintained in accordance with National Register standards, preserving the architectural legacy of the Western frontier.</p>
+                        </div>
+                    </div>
+                </div>
+            )
+        });
+      }
   };
 
   const StatCard = ({ children, delay = 0, className }: any) => (

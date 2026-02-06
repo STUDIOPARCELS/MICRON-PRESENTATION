@@ -162,7 +162,8 @@ const getCardData = (id: number): ModalContent => {
         subtitle: 'AUTONOMOUS HUB', 
         modalLayout: 'default', 
         maxWidth: 'max-w-7xl', 
-        aspectRatio: 'aspect-[3/4]', 
+        // UPDATED: Removed fixed aspect ratio to allow natural height expansion and proper bottom padding
+        // aspectRatio: 'aspect-[3/4]', 
         content: (
             // UPDATED: Added pb-12 for bottom padding and increased gap to gap-8
             <div className="flex flex-col gap-8 h-auto pb-12">
@@ -189,8 +190,8 @@ const getCardData = (id: number): ModalContent => {
                     className="w-full bg-white rounded-xl px-6 py-5 md:px-8 md:py-6 text-zinc-900 shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] relative overflow-hidden group"
                 >
                     <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green relative z-10">SERVICE & SECURITY LAYER</h3>
-                    {/* UPDATED: Added faint gray line between header and subtext */}
-                    <div className="w-full h-px bg-zinc-100 mb-6 relative z-10" />
+                    {/* UPDATED: Darkened gray line (zinc-200) for better visibility */}
+                    <div className="w-full h-px bg-zinc-200 mb-6 relative z-10" />
 
                     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 text-zinc-600 text-base font-medium leading-relaxed relative z-10">
                         <p>
@@ -198,8 +199,11 @@ const getCardData = (id: number): ModalContent => {
                         </p>
                         
                         {/* Separator Line */}
-                        {/* UPDATED: Changed vertical line to bold green (w-[3px]) */}
-                        <div className="hidden md:block w-[3px] bg-micron-green h-full rounded-full"></div>
+                        {/* UPDATED: Wrapped in flex container to ensure horizontal centering within the column */}
+                        <div className="hidden md:flex justify-center h-full">
+                            <div className="w-[3px] bg-micron-green h-full rounded-full"></div>
+                        </div>
+                        {/* Mobile horizontal divider */}
                         <div className="md:hidden w-full h-[3px] bg-micron-green rounded-full"></div>
 
                         <p>
@@ -233,7 +237,8 @@ const getCardData = (id: number): ModalContent => {
                         >
                             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">INTEGRATION</h3>
                             <div className="w-full h-px bg-white/20 mb-4" />
-                            <div className="space-y-4 text-white/90 text-base font-medium leading-relaxed">
+                            {/* UPDATED: Reduced text size to text-sm to visually match white box body text */}
+                            <div className="space-y-4 text-white/90 text-sm font-medium leading-relaxed">
                                 <p className="font-bold text-white text-base">A Venue for Leadership.</p>
                                 <p>A residential venue for the leaders and policy makers building and governing the future.</p>
                                 <p>Guests meet to experience the shift to autonomous systems directly.</p>
@@ -248,7 +253,8 @@ const getCardData = (id: number): ModalContent => {
                         >
                             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">INFLECTION POINT</h3>
                             <div className="w-full h-px bg-white/20 mb-4" />
-                            <div className="space-y-4 text-white/90 text-base font-medium leading-relaxed">
+                            {/* UPDATED: Reduced text size to text-sm to visually match white box body text */}
+                            <div className="space-y-4 text-white/90 text-sm font-medium leading-relaxed">
                                 <p className="font-bold text-white text-base">Scaling to Billions.</p>
                                 <p>Daily life transforms permanently. This setting invites the architects of tomorrow to navigate the profound questions involved in bringing this future to the world.</p>
                             </div>
@@ -500,8 +506,8 @@ export const SectionPrototype: React.FC = () => {
   const mainTitleWords = ["MICRON.", "TESLA.", "BOISE."];
 
   return (
-    // UPDATED: Padding increased to px-8 on mobile, pb-6 on mobile to close gap to Property
-    <section id="prototype" className="container mx-auto px-8 md:px-12 pt-0 pb-6 md:pb-12 bg-white text-zinc-900">
+    // UPDATED: Removed bg-white class to prevent wrapper issues, added padding adjustments
+    <section id="prototype" className="container mx-auto px-8 md:px-12 pt-0 pb-6 md:pb-12 text-zinc-900">
         <motion.div 
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -644,17 +650,4 @@ export const SectionPrototype: React.FC = () => {
                 <HoverVideoPlayer src={VIDEO_PLACE} isHovering={hoveredCard === 4} />
                 <div className="relative z-10 mt-auto pt-6">
                     {/* UPDATED: Title hover color reverted to text-micron-eggplant-light (Blue) */}
-                    <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-micron-eggplant-light transition-colors duration-300 mb-4">
-                        PLACE
-                    </h3>
-                    <p className="text-xs font-bold uppercase tracking-widest text-white/50 group-hover:text-white transition-colors">
-                        GROUNDING THE TECHNOLOGY
-                    </p>
-                </div>
-            </BentoCard>
-
-        </div>
-      <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
-    </section>
-  );
-}
+                    <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text

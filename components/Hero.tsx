@@ -264,8 +264,8 @@ export const Hero: React.FC = () => {
       <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4">
         
         {/* TOP SECTION */}
-        {/* UPDATED: Reduced desktop height by 20% (650px -> 520px) as requested */}
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 h-auto md:h-[520px] w-full">
+        {/* UPDATED: Reverted to md:h-[640px] to restore rectangular aspect ratio and prevent text cropping */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 h-auto md:h-[640px] w-full">
             
             {/* 1. TEXT ANIMATION AREA */}
             <div 

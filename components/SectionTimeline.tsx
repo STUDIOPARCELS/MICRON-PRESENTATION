@@ -119,7 +119,8 @@ export const SectionTimeline: React.FC = () => {
                             <div className="h-px bg-white/40 flex-1"></div>
                         </div>
                         
-                        <h3 className="text-2xl font-black uppercase leading-[0.9] mb-2 tracking-tight drop-shadow-md">
+                        {/* UPDATED: Reduced font size to text-lg md:text-xl to ensure single line for "PROTOCOL ASSESSMENT" */}
+                        <h3 className="text-lg md:text-xl font-black uppercase leading-[0.9] mb-2 tracking-tight drop-shadow-md whitespace-nowrap overflow-hidden text-ellipsis">
                             {item.title}
                         </h3>
                         

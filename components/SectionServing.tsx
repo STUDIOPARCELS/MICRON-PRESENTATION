@@ -22,7 +22,10 @@ interface Department {
   experiences: Experience[];
   modalHeaderColor: string; 
   modalIconColor: string;   
-  modalTagColor: string;    
+  modalTagColor: string;
+  // New optional properties for modal sizing
+  modalAspectRatio?: string;
+  modalMaxWidth?: string;    
 }
 
 const departments: Department[] = [
@@ -95,6 +98,9 @@ const departments: Department[] = [
     modalHeaderColor: "text-micron-grey1",
     modalIconColor: "text-zinc-400", 
     modalTagColor: "border-micron-eggplant-light",
+    // UPDATED: Forced square aspect ratio and restricted width
+    modalAspectRatio: "aspect-square",
+    modalMaxWidth: "max-w-2xl",
     experiences: [
       {
         title: "Confidential Counsel",
@@ -119,6 +125,9 @@ const departments: Department[] = [
     modalHeaderColor: "text-micron-eggplant-light", 
     modalIconColor: "text-zinc-400", 
     modalTagColor: "border-micron-grey1",
+    // UPDATED: Forced vertical aspect ratio and restricted width
+    modalAspectRatio: "aspect-[3/4]",
+    modalMaxWidth: "max-w-lg",
     experiences: [
       {
         title: "Soft Landings",
@@ -223,7 +232,10 @@ export const SectionServing: React.FC = () => {
       subtitle: dept.value,
       category: 'showcase',
       theme: 'light',
-      maxWidth: 'max-w-6xl',
+      // UPDATED: Use department specific maxWidth or fallback
+      maxWidth: dept.modalMaxWidth || 'max-w-6xl',
+      // UPDATED: Use department specific aspectRatio
+      aspectRatio: dept.modalAspectRatio,
       headerClassName: dept.modalHeaderColor,
       content: (
         <div className="flex flex-col gap-8 pb-4">
@@ -288,10 +300,6 @@ export const SectionServing: React.FC = () => {
             {departments.map((dept, i) => (
                 <BentoCard
                     key={dept.id}
-                    // UPDATED: Width classes for 4-column layout logic using Flexbox
-                    // w-full on mobile
-                    // md:w-[calc(50%-12px)] (2 per row with gap-6=24px, 24/2=12)
-                    // lg:w-[calc(25%-18px)] (4 per row with 3 gaps of 24px=72px, 72/4=18)
                     className={`
                         flex flex-col min-h-[160px] p-6 relative overflow-hidden group shadow-lg hover:shadow-2xl transition-all duration-300 ${dept.gradient}
                         w-full md:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]
@@ -299,23 +307,28 @@ export const SectionServing: React.FC = () => {
                     gradient={dept.gradient}
                     textColor="text-white"
                     borderColor="border-white/10"
-                    delay={staggeredDelays[i] || 0} // Using random stagger
+                    delay={staggeredDelays[i] || 0}
                     hoverEffect={true}
                     onClick={() => openModal(dept)}
                 >
-                    <div className="relative z-10 flex flex-col h-full justify-between">
-                        <div>
-                             <h3 className="text-2xl font-black uppercase tracking-tight mb-2 leading-none text-white">{dept.title}</h3>
-                             <p className="text-[10px] font-bold uppercase tracking-widest text-white/70">{dept.value}</p>
+                    {/* UPDATED: Layout structure to enforce line alignment */}
+                    <div className="relative z-10 flex flex-col h-full">
+                        {/* 1. Header with FIXED height to align separation lines */}
+                        {/* h-[80px] ensures every card, regardless of title length, puts the divider at same Y pos */}
+                        <div className="h-[80px] flex flex-col justify-end mb-4 shrink-0">
+                             <h3 className="text-2xl font-black uppercase tracking-tight leading-none text-white line-clamp-2">{dept.title}</h3>
+                             <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 mt-1">{dept.value}</p>
                         </div>
-                        <div className="mt-4">
-                            {/* UPDATED: Changed separator line to w-full to match Geothermal/Wellness style */}
-                            <div className="h-px w-full bg-white/30 mb-4" />
-                            {/* UPDATED: Increased font size to text-sm md:text-base to match Geothermal/Wellness style */}
-                            <p className="text-sm md:text-base font-medium text-white/80 line-clamp-3">
-                                {dept.detail}
-                            </p>
-                        </div>
+                        
+                        {/* 2. Divider Line - now at consistent vertical position relative to top of card */}
+                        <div className="h-px w-full bg-white/30 mb-4 shrink-0" />
+                        
+                        {/* 3. Detail Text taking remaining space */}
+                        <p className="text-sm md:text-base font-medium text-white/80 line-clamp-3 flex-grow">
+                            {dept.detail}
+                        </p>
+                        
+                        {/* 4. Hover Arrow */}
                         <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0">
                              <ArrowRight size={20} className="text-white" />
                         </div>

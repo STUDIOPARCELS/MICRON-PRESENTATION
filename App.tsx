@@ -160,7 +160,8 @@ function App() {
       <main>
         <Hero />
         
-        <div className="relative z-20 bg-white">
+        {/* UPDATED: Removed bg-white class to prevent potential double-background wrapper issues */}
+        <div className="relative z-20">
           <SectionPrototype />
           <SectionProperty />
           <SectionServing />
