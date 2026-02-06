@@ -189,7 +189,7 @@ export const SectionServingTesla: React.FC = () => {
                             <ul className="space-y-3 text-sm font-medium text-white/80 leading-relaxed mb-4">
                                 <li className="flex gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
-                                    <span>Optimus coordinates a confidential dinner with a James Beard semifinalist and Snake River Valley wines.</span>
+                                    <span>Optimus prepares a private dining room for a confidential executive dinner — a James Beard semifinalist in the kitchen, Snake River Valley wines on the table.</span>
                                 </li>
                                 <li className="flex gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
@@ -197,7 +197,7 @@ export const SectionServingTesla: React.FC = () => {
                                 </li>
                                 <li className="flex gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
-                                    <span>Optimus manages a quiet household for an employee's family while a loved one recovers at St. Luke's a mile away.</span>
+                                    <span>Optimus manages a quiet household for an employee's family visiting from overseas while a loved one recovers at St. Luke's a mile away.</span>
                                 </li>
                                 <li className="flex gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
@@ -205,7 +205,7 @@ export const SectionServingTesla: React.FC = () => {
                                 </li>
                             </ul>
                             <p className="text-white font-bold italic border-l-2 border-white/30 pl-3">
-                                Four scenarios. Four emotional registers.
+                                Four scenarios. Four emotional registers. Each one training autonomous systems in ways a controlled environment never could.
                             </p>
                          </motion.div>
 

@@ -517,7 +517,7 @@ const getCardData = (id: number): ModalContent => {
                    </h3>
                    <div className="w-full h-px bg-white/30 mb-5" />
                    <div className="text-white/60 text-base md:text-lg font-medium leading-relaxed">
-                       <p>Warm Springs Avenue is a tree-lined corridor on the <span className="font-bold text-white drop-shadow-sm">National Register of Historic Places</span> — where Boise's wealthiest families built estates heated by the city's most radical technology: hot water from the ground.</p>
+                       <p>Warm Springs Avenue is a tree-lined corridor on the <span className="font-bold text-white drop-shadow-sm">National Register of Historic Places</span> — where Boise's wealthiest families built homes heated by the city's most radical technology: hot water from the ground.</p>
                    </div>
                </InnerBento>
            </div>

@@ -119,20 +119,47 @@ export const SectionProperty: React.FC = () => {
                         Autonomous service via Cybercab and Optimus. A functional proving ground where abstract technology becomes a seamless, daily reality.
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                         <ModalCard 
-                            title="CYBERCAB" 
-                            colorClass="bg-black"
-                            icon={<Car />} 
-                            image="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop"
-                            description="Tesla's first fully autonomous vehicle — a two-passenger cabin with butterfly doors, inductive charging, and a 20.5-inch display. Cybercab manages all airport transfers, downtown shuttles, and guest logistics autonomously."
-                        />
-                         <ModalCard 
-                            title="OPTIMUS" 
-                            colorClass="bg-micron-eggplant-light"
-                            icon={<Bot />} 
-                            image="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop"
-                            description="Tesla's Gen 3 humanoid — 5'8\", 125 lbs, with 22 degrees of freedom in each hand and vision-based autonomy. Optimus manages property maintenance, perimeter monitoring, and routine service tasks within defined geofenced zones across the residence."
-                        />
+                         {/* CYBERCAB CARD */}
+                        <div className="bg-black rounded-2xl p-6 md:p-8 text-white shadow-lg flex flex-col gap-6 border border-white/10">
+                            <div>
+                                <div className="flex items-center gap-3 mb-4">
+                                    <Car size={24} className="text-white/90" />
+                                    <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-none">CYBERCAB</h3>
+                                </div>
+                                <div className="h-px w-full bg-white/20 mb-4" />
+                                <p className="text-sm md:text-base font-medium leading-relaxed text-white/80">
+                                    Tesla's first fully autonomous vehicle — a two-passenger cabin with butterfly doors, inductive charging, and a 20.5-inch display. Cybercab manages all airport transfers, downtown shuttles, and guest logistics autonomously.
+                                </p>
+                            </div>
+                            <div className="relative rounded-xl overflow-hidden aspect-[4/3] mt-auto border border-white/10 shadow-inner">
+                                <img 
+                                    src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/cybercab%20photpo.WEBP" 
+                                    alt="Cybercab" 
+                                    className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
+                                />
+                            </div>
+                        </div>
+
+                         {/* OPTIMUS CARD */}
+                        <div className="bg-micron-eggplant-light rounded-2xl p-6 md:p-8 text-white shadow-lg flex flex-col gap-6 border border-white/10">
+                            <div>
+                                <div className="flex items-center gap-3 mb-4">
+                                    <Bot size={24} className="text-white/90" />
+                                    <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-none">OPTIMUS</h3>
+                                </div>
+                                <div className="h-px w-full bg-white/20 mb-4" />
+                                <p className="text-sm md:text-base font-medium leading-relaxed text-white/80">
+                                    Tesla's Gen 3 humanoid — 5'8", 125 lbs, with 22 degrees of freedom in each hand and vision-based autonomy. Optimus manages property maintenance, perimeter monitoring, and routine service tasks within defined geofenced zones across the residence.
+                                </p>
+                            </div>
+                            <div className="relative rounded-xl overflow-hidden aspect-[4/3] mt-auto border border-white/10 shadow-inner">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop" 
+                                    alt="Optimus" 
+                                    className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             )

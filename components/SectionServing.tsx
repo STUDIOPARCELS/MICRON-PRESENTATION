@@ -154,7 +154,7 @@ const departments: Department[] = [
       {
         title: "The Closer",
         icon: <Shield />,
-        description: "Final offer discussions by the living room fireplace. A neutral setting in the 1906 historic estate, away from the boardroom.",
+        description: "Final offer discussions by the living room fireplace. A neutral setting in the 1906 historic home, away from the boardroom.",
         customGradient: "bg-micron-eggplant-light"
       },
       {
@@ -241,7 +241,8 @@ export const SectionServing: React.FC = () => {
         // REMOVED h-full from this wrapper to allow natural height sizing
         <div className="flex flex-col gap-8 pb-4">
              <div className={`border-l-4 ${dept.modalTagColor.replace('border-', 'border-')} pl-6 py-1`}>
-                <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
+                {/* UPDATED: Reduced font size from text-lg md:text-xl to text-base md:text-lg */}
+                <p className="text-base md:text-lg font-light text-zinc-600 leading-relaxed font-body">
                     {dept.detail}
                 </p>
             </div>
@@ -258,7 +259,8 @@ export const SectionServing: React.FC = () => {
                                 <h4 className="text-xl font-bold uppercase tracking-tight">{exp.title}</h4>
                             </div>
                             <div className="h-px w-full bg-white/20 mb-4" />
-                            <p className="text-white/80 font-medium leading-relaxed text-sm">
+                            {/* UPDATED: Increased font size from text-sm to text-base */}
+                            <p className="text-white/80 font-medium leading-relaxed text-base">
                                 {exp.description}
                             </p>
                         </div>
