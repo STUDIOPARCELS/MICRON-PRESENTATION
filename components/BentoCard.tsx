@@ -51,6 +51,7 @@ export const BentoCard: React.FC<CardProps & {
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      // UPDATED: Removed 'transition-all' and replaced with specific transitions to avoid fighting Framer Motion
       className={`
         relative overflow-hidden rounded-xl 
         ${gradient} ${textColor}
@@ -59,7 +60,7 @@ export const BentoCard: React.FC<CardProps & {
         shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] 
         p-6 md:p-8
         flex flex-col
-        transition-all duration-300 ease-out
+        transition-colors transition-shadow duration-300 ease-out
         group
         ${hoverEffect && onClick ? 'cursor-pointer hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)]' : ''}
         ${hoverEffect && !onClick ? 'hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.35)]' : ''}

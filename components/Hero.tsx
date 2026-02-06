@@ -276,9 +276,8 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    // UPDATED MOBILE: Adjusted mobile top to top-2
-                    // Desktop remains top-80 (moved down)
-                    className="absolute top-2 left-0 right-0 mx-auto w-fit md:top-80 md:right-20 md:left-auto md:mx-0 z-20"
+                    // UPDATED: Repositioned logo on desktop to md:top-28 (closer to text) instead of bottom right
+                    className="absolute top-2 left-0 right-0 mx-auto w-fit md:top-28 md:right-20 md:left-auto md:mx-0 z-20"
                  >
                     {/* UPDATED: Added micro-interaction rotation on hover */}
                     <motion.img 

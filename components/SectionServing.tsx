@@ -287,8 +287,8 @@ export const SectionServing: React.FC = () => {
             {departments.map((dept, i) => (
                 <BentoCard
                     key={dept.id}
-                    // UPDATED: Restored larger min-height (320px) to match original sizing
-                    className={`flex flex-col min-h-[320px] p-6 relative overflow-hidden group shadow-lg hover:shadow-2xl transition-all duration-300 ${dept.gradient}`}
+                    // UPDATED: Reduced min-height from 320px to 160px as requested (half height)
+                    className={`flex flex-col min-h-[160px] p-6 relative overflow-hidden group shadow-lg hover:shadow-2xl transition-all duration-300 ${dept.gradient}`}
                     gradient={dept.gradient}
                     textColor="text-white"
                     borderColor="border-white/10"

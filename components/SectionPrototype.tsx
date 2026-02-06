@@ -170,7 +170,7 @@ const getCardData = (id: number): ModalContent => {
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
+                    transition={{ delay: 0.1 }} // Staggered: 0.1s
                     className="w-full flex flex-col items-start"
                 >
                     {/* UPDATED: Removed the manual header and divider since it's now in the modal title/subtitle */}
@@ -185,18 +185,22 @@ const getCardData = (id: number): ModalContent => {
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
+                    transition={{ delay: 0.3 }} // Staggered: 0.3s
                     className="w-full bg-white rounded-xl px-6 py-5 md:px-8 md:py-6 text-zinc-900 shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] relative overflow-hidden group"
                 >
                     <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green relative z-10">SERVICE & SECURITY LAYER</h3>
+                    {/* UPDATED: Added faint gray line between header and subtext */}
+                    <div className="w-full h-px bg-zinc-100 mb-6 relative z-10" />
+
                     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 text-zinc-600 text-base font-medium leading-relaxed relative z-10">
                         <p>
                             Five minutes from downtown. Fifteen from the airport. Fifteen from Micron headquarters. The home sits at the center of everything Boise offers — and Optimus and Cybercab are the mechanism that brings it through the front door.
                         </p>
                         
                         {/* Separator Line */}
-                        <div className="hidden md:block w-px bg-zinc-200 h-full"></div>
-                        <div className="md:hidden w-full h-px bg-zinc-200"></div>
+                        {/* UPDATED: Changed vertical line to bold green (w-[3px]) */}
+                        <div className="hidden md:block w-[3px] bg-micron-green h-full rounded-full"></div>
+                        <div className="md:hidden w-full h-[3px] bg-micron-green rounded-full"></div>
 
                         <p>
                             Culinary, wellness, recreation, entertainment — each delivered into an intimate, private setting with a level of coordination and discretion that the autonomous infrastructure sustains across every event.
@@ -206,17 +210,25 @@ const getCardData = (id: number): ModalContent => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-2 w-full h-full">
-                         <ModalVideo 
-                            src={VIDEO_PROTOTYPE}
-                            className="w-full aspect-[1.5/1.1] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group"
-                         />
+                         {/* UPDATED: Wrapped Video in motion.div for Staggered Entrance (0.5s) */}
+                         <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5, duration: 0.8 }}
+                            className="w-full h-full"
+                         >
+                            <ModalVideo 
+                                src={VIDEO_PROTOTYPE}
+                                className="w-full aspect-[1.5/1.1] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group"
+                            />
+                         </motion.div>
                     </div>
                     
                     <div className="lg:col-span-1 flex flex-col gap-4 h-full">
                         <InnerBento 
                             gradient="bg-micron-eggplant" 
-                            direction="left" 
-                            delay={0.3} 
+                            direction="right" 
+                            delay={0.6} // Staggered: 0.6s
                             className="flex-grow" 
                         >
                             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">INTEGRATION</h3>
@@ -230,8 +242,8 @@ const getCardData = (id: number): ModalContent => {
 
                         <InnerBento 
                             gradient="bg-micron-grey1" 
-                            direction="left" 
-                            delay={0.4} 
+                            direction="right" 
+                            delay={0.7} // Staggered: 0.7s
                             className="flex-grow" 
                         >
                             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">INFLECTION POINT</h3>
@@ -328,7 +340,13 @@ const getCardData = (id: number): ModalContent => {
                    </div>
 
                    <div className="flex flex-col gap-4 h-full">
-                        <div className="bg-micron-eggplant rounded-xl p-6 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
+                        {/* UPDATED: Converted to motion.div for slide-in from RIGHT animation */}
+                        <motion.div 
+                            initial={{ opacity: 0, x: 100 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                            className="bg-micron-eggplant rounded-xl p-6 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
+                        >
                             <div className="absolute top-4 right-4 opacity-30"><Cpu size={24} /></div>
                             <div>
                                 <h3 className="text-2xl font-black uppercase mb-1">MICRON</h3>
@@ -340,9 +358,15 @@ const getCardData = (id: number): ModalContent => {
                             <div className="text-white/70 font-medium mt-4">
                                 <p className="text-base font-medium text-white">Founded 1978.</p>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <div className="bg-black rounded-xl p-6 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
+                        {/* UPDATED: Converted to motion.div for slide-in from RIGHT animation */}
+                        <motion.div 
+                            initial={{ opacity: 0, x: 100 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                            className="bg-black rounded-xl p-6 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
+                        >
                             <div className="absolute top-4 right-4 opacity-30"><Bot size={24} /></div>
                             <div>
                                 <h3 className="text-2xl font-black uppercase mb-1">TESLA</h3>
@@ -356,12 +380,17 @@ const getCardData = (id: number): ModalContent => {
                             <div className="text-white/70 font-medium mt-4">
                                 <p className="text-base font-medium text-white">Founded 2003.</p>
                             </div>
-                        </div>
+                        </motion.div>
                    </div>
                </div>
                
-               {/* FUTURE SCALE - UPDATED COLORS: Eggplant Light BG, White Text */}
-               <div className="bg-micron-eggplant-light rounded-xl p-6 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300">
+               {/* FUTURE SCALE - UPDATED: Converted to motion.div for slide-up from BOTTOM animation */}
+               <motion.div 
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+                    className="bg-micron-eggplant-light rounded-xl p-6 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300"
+               >
                     <div className="flex items-center gap-3 mb-4 pb-4 border-b border-micron-eggplant/20">
                         {/* UPDATED: Icon text-white */}
                         <TrendingUp className="text-white" size={24} />
@@ -393,7 +422,7 @@ const getCardData = (id: number): ModalContent => {
                             </p>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </div>
         )
     };
