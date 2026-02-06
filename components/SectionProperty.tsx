@@ -5,6 +5,154 @@ import { Modal } from './Modal';
 import { BentoCard } from './BentoCard'; // Imported BentoCard
 import { ModalContent } from '../types';
 
+// --- HELPER COMPONENTS (MOVED OUTSIDE) ---
+
+const StatCard = ({ children, delay = 0, className }: any) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 1.5, delay, ease: [0.22, 1, 0.36, 1] }}
+    whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)" }}
+    className={className}
+  >
+      {children}
+  </motion.div>
+);
+
+const LocationPill = ({ label, time, color, icon, delay = 0 }: any) => (
+<motion.div 
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 1.5, delay, ease: [0.22, 1, 0.36, 1] }}
+    whileHover={{ y: -5, scale: 1.02, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.3)" }}
+    className={`${color} rounded-xl p-3 flex flex-col justify-between items-start text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] cursor-default h-[80px] border border-white/10`}
+>
+    <div className="opacity-80">{icon}</div>
+    <div className="w-full">
+        <div className="flex justify-between items-end w-full">
+            <span className="text-[10px] font-bold uppercase tracking-widest leading-none">{label}</span>
+            <span className="text-sm font-black leading-none">{time}</span>
+        </div>
+    </div>
+</motion.div>
+);
+
+const SpecCard = ({ title, icon, items, onGallery, className, gradient = "bg-zinc-900", delay = 0 }: any) => (
+  <BentoCard 
+    gradient={gradient}
+    delay={delay}
+    onClick={onGallery}
+    hoverEffect={true}
+    hoverY={-5}
+    viewport={{ once: true, amount: 0.1 }} 
+    textColor="text-white"
+    borderColor="border-white/10"
+    className={`flex flex-col h-full ${className}`}
+    hideArrow={true}
+  >
+      <div className="flex items-center gap-3 mb-4">
+          <div className={`text-white/70 group-hover:text-white transition-colors duration-300`}>
+              {React.cloneElement(icon, { size: 24 })}
+          </div>
+          <h4 className={`text-2xl font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors`}>{title}</h4>
+      </div>
+      
+      <div className="w-full h-px bg-white/20 mb-4" />
+
+      <ul className="space-y-3 mb-2 flex-1">
+          {items.map((item: string, i: number) => (
+              <li key={i} className={`flex items-start gap-3 text-sm md:text-base font-medium leading-snug text-white`}>
+                  <div className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-white opacity-50`} />
+                  {item}
+              </li>
+          ))}
+      </ul>
+      
+      <div className="mt-auto flex justify-end items-center gap-3">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
+              GALLERY
+          </span>
+          <div className="opacity-50 group-hover:opacity-100 transition-opacity duration-300">
+              <ArrowUpRight size={20} />
+          </div>
+      </div>
+  </BentoCard>
+);
+
+const InfoCard = ({ title, subtitle, icon, text, className, gradient, image, onClick, delay = 0 }: any) => (
+  <BentoCard 
+    gradient={gradient}
+    delay={delay}
+    onClick={onClick}
+    hoverEffect={true}
+    hoverY={-5}
+    viewport={{ once: true, amount: 0.1 }}
+    textColor="text-white"
+    borderColor="border-white/10"
+    className={`flex flex-col h-full min-h-[240px] relative ${className}`}
+    hideArrow={true}
+  >
+      {image && (
+         <div className="absolute inset-0 w-full h-full z-0">
+            <img src={image} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition-colors duration-300" />
+         </div>
+      )}
+
+      <div className="relative z-10 flex flex-col h-full">
+        <div className="flex justify-between items-start mb-4">
+             <div className="flex items-center gap-3">
+                 <div className={`text-white/70 group-hover:text-white group-hover:scale-110 transition-transform duration-300`}>{icon}</div>
+                 <h4 className="text-base md:text-lg font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors leading-tight">{title}</h4>
+             </div>
+        </div>
+        
+        <div className="h-px w-full bg-white/20 mb-6 group-hover:bg-white/40 transition-colors" />
+
+        <p className="text-sm md:text-base text-white/90 font-medium leading-relaxed mb-4 flex-1 drop-shadow-sm">
+           {text}
+        </p>
+        
+        <div className="mt-auto flex justify-end items-center gap-3">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
+                {subtitle}
+            </span>
+            <div className="opacity-50 group-hover:opacity-100 transition-opacity duration-300">
+                <ArrowUpRight size={20} />
+            </div>
+        </div>
+      </div>
+  </BentoCard>
+);
+
+// Helper for Modal Cards content
+const ModalCard = ({ title, description, colorClass, icon, image }: any) => (
+  <div className={`${colorClass} rounded-2xl p-6 text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative overflow-hidden group border border-white/10`}>
+      {image && (
+           <>
+              <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+           </>
+      )}
+      <div className="relative z-10 flex flex-col h-full justify-between">
+          <div>
+              <div className="flex items-center gap-3 mb-4">
+                  {icon && React.cloneElement(icon, { size: 24, className: "text-white/80" })}
+                  <h3 className="text-xl font-bold uppercase tracking-tight">{title}</h3>
+              </div>
+              
+              <div className="h-px w-full bg-white/20 mb-4" />
+
+              <div className="text-white/60 font-medium leading-relaxed text-lg space-y-4">
+                  {description}
+              </div>
+          </div>
+      </div>
+  </div>
+);
+
 export const SectionProperty: React.FC = () => {
   const [modalData, setModalData] = useState<ModalContent | null>(null);
 
@@ -47,34 +195,6 @@ export const SectionProperty: React.FC = () => {
       });
   };
 
-  // Helper for Modal Cards - UPDATED to match Serving Micron style
-  const ModalCard = ({ title, description, colorClass, icon, image }: any) => (
-      <div className={`${colorClass} rounded-2xl p-6 text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative overflow-hidden group border border-white/10`}>
-          {image && (
-               <>
-                  <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-               </>
-          )}
-          <div className="relative z-10 flex flex-col h-full justify-between">
-              <div>
-                  <div className="flex items-center gap-3 mb-4">
-                      {icon && React.cloneElement(icon, { size: 24, className: "text-white/80" })}
-                      <h3 className="text-xl font-bold uppercase tracking-tight">{title}</h3>
-                  </div>
-                  
-                  {/* Thin line separator */}
-                  <div className="h-px w-full bg-white/20 mb-4" />
-
-                  {/* Description text size increased to text-lg. Changed from <p> to <div> and text-white/60 for contrast. */}
-                  <div className="text-white/60 font-medium leading-relaxed text-lg space-y-4">
-                      {description}
-                  </div>
-              </div>
-          </div>
-      </div>
-  );
-
   const openInfoModal = (type: 'wellness' | 'autonomous' | 'history') => {
       if (type === 'wellness') {
         setModalData({
@@ -87,7 +207,6 @@ export const SectionProperty: React.FC = () => {
             headerClassName: "text-micron-eggplant-light",
             content: (
                 <div className="flex flex-col gap-8 pb-4">
-                     {/* Updated Description with Left Border to match Serving Micron style */}
                     <div className="border-l-4 border-micron-eggplant-light pl-6 py-1">
                          <p className="text-base md:text-lg font-light text-zinc-600 leading-relaxed font-body">
                             Powered by a 177°F direct-use aquifer. Geothermal water flows through the home's radiators and feeds the outdoor soaking tub. The grounds feature mature fruit trees and a Concord grapevine.
@@ -153,12 +272,10 @@ export const SectionProperty: React.FC = () => {
                                     <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-none">CYBERCAB</h3>
                                 </div>
                                 <div className="h-px w-full bg-white/20 mb-4" />
-                                {/* UPDATED: Increased font size to text-lg to match Wellness modal */}
                                 <p className="text-white/80 font-medium leading-relaxed text-lg">
                                     Tesla's first fully autonomous vehicle — a two-passenger cabin with butterfly doors, inductive charging, and a 20.5-inch display. Cybercab manages all airport transfers, downtown shuttles, and guest logistics autonomously.
                                 </p>
                             </div>
-                            {/* UPDATED: Floating Image Style */}
                             <div className="relative w-full h-48 md:h-64 mt-auto flex items-end justify-center">
                                 <img 
                                     src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/cybercab%20photpo.WEBP" 
@@ -176,12 +293,10 @@ export const SectionProperty: React.FC = () => {
                                     <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-none">OPTIMUS</h3>
                                 </div>
                                 <div className="h-px w-full bg-white/20 mb-4" />
-                                {/* UPDATED: Increased font size to text-lg to match Wellness modal */}
                                 <p className="text-white/80 font-medium leading-relaxed text-lg">
                                     Tesla's Gen 3 humanoid — 5'8", 125 lbs, with 22 degrees of freedom in each hand and vision-based autonomy. Optimus manages property maintenance, perimeter monitoring, and routine service tasks within defined geofenced zones across the residence.
                                 </p>
                             </div>
-                            {/* UPDATED: Floating Image Style */}
                             <div className="relative w-full h-48 md:h-64 mt-auto flex items-end justify-center">
                                 <img 
                                     src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/tesla-optimus-gen-3-delay.png" 
@@ -197,15 +312,12 @@ export const SectionProperty: React.FC = () => {
       } else if (type === 'history') {
          setModalData({
             title: "HISTORIC LEGACY",
-            // Subtitle removed as requested
             category: 'showcase',
             theme: 'light',
             maxWidth: 'max-w-6xl',
             content: (
                  <div className="flex flex-col gap-6">
-                    {/* UPDATED: Split grid with square image and single large text tile */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full items-stretch">
-                        {/* Tile 1: Image - Expanded to fill height */}
                         <div className="relative min-h-[400px] md:h-full w-full rounded-2xl overflow-hidden shadow-lg border border-black/10 group">
                              <img 
                                 src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/old%20warm%20springs.webp" 
@@ -214,9 +326,7 @@ export const SectionProperty: React.FC = () => {
                              />
                         </div>
 
-                        {/* Right Column: Merged Text Tile */}
                         <div className="bg-micron-eggplant rounded-2xl p-6 md:p-10 text-white shadow-lg border border-white/10 flex flex-col justify-center h-full">
-                            {/* Origins */}
                             <div className="mb-8">
                                 <div className="flex items-center gap-3 mb-4">
                                     <History className="text-white/80" size={28} />
@@ -232,10 +342,8 @@ export const SectionProperty: React.FC = () => {
                                 </div>
                             </div>
 
-                            {/* Divider */}
                             <div className="w-full h-px bg-white/20 mb-8" />
 
-                            {/* Continuity */}
                             <div>
                                 <div className="flex items-center gap-3 mb-4">
                                     <TreeDeciduous className="text-white/80" size={28} />
@@ -258,137 +366,11 @@ export const SectionProperty: React.FC = () => {
       }
   };
 
-  const StatCard = ({ children, delay = 0, className }: any) => (
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }} // UPDATED: once: true to freeze
-        transition={{ duration: 1.5, delay, ease: [0.22, 1, 0.36, 1] }}
-        whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)" }}
-        className={className}
-      >
-          {children}
-      </motion.div>
-  );
-
-  const LocationPill = ({ label, time, color, icon, delay = 0 }: any) => (
-    <motion.div 
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }} // UPDATED: once: true to freeze
-        transition={{ duration: 1.5, delay, ease: [0.22, 1, 0.36, 1] }}
-        whileHover={{ y: -5, scale: 1.02, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.3)" }}
-        className={`${color} rounded-xl p-3 flex flex-col justify-between items-start text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] cursor-default h-[80px] border border-white/10`}
-    >
-        <div className="opacity-80">{icon}</div>
-        <div className="w-full">
-            <div className="flex justify-between items-end w-full">
-                <span className="text-[10px] font-bold uppercase tracking-widest leading-none">{label}</span>
-                <span className="text-sm font-black leading-none">{time}</span>
-            </div>
-        </div>
-    </motion.div>
-  );
-
-  // UPDATED: Using BentoCard for consistency and "Bento" look
-  const SpecCard = ({ title, icon, items, onGallery, className, gradient = "bg-zinc-900", delay = 0 }: any) => (
-      <BentoCard 
-        gradient={gradient}
-        delay={delay}
-        onClick={onGallery}
-        hoverEffect={true}
-        hoverY={-5} // Reduced hover interaction strength
-        // Force viewport once true to prevent re-animation on modal open/close (layout shifts)
-        viewport={{ once: true, amount: 0.1 }} 
-        textColor="text-white"
-        borderColor="border-white/10"
-        className={`flex flex-col h-full ${className}`}
-        hideArrow={true} // We use custom arrow placement
-      >
-          <div className="flex items-center gap-3 mb-4">
-              <div className={`text-white/70 group-hover:text-white transition-colors duration-300`}>
-                  {React.cloneElement(icon, { size: 24 })}
-              </div>
-              <h4 className={`text-2xl font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors`}>{title}</h4>
-          </div>
-          
-          <div className="w-full h-px bg-white/20 mb-4" />
-
-          <ul className="space-y-3 mb-2 flex-1">
-              {items.map((item: string, i: number) => (
-                  <li key={i} className={`flex items-start gap-3 text-sm md:text-base font-medium leading-snug text-white`}>
-                      <div className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-white opacity-50`} />
-                      {item}
-                  </li>
-              ))}
-          </ul>
-          
-          <div className="mt-auto flex justify-end items-center gap-3">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
-                  GALLERY
-              </span>
-              <div className="opacity-50 group-hover:opacity-100 transition-opacity duration-300">
-                  <ArrowUpRight size={20} />
-              </div>
-          </div>
-      </BentoCard>
-  );
-
-  // UPDATED: Using BentoCard for consistency
-  const InfoCard = ({ title, subtitle, icon, text, className, gradient, image, onClick, delay = 0 }: any) => (
-      <BentoCard 
-        gradient={gradient}
-        delay={delay}
-        onClick={onClick}
-        hoverEffect={true}
-        hoverY={-5} // Reduced hover interaction strength
-        // Force viewport once true to prevent re-animation on modal open/close
-        viewport={{ once: true, amount: 0.1 }}
-        textColor="text-white"
-        borderColor="border-white/10"
-        className={`flex flex-col h-full min-h-[240px] relative ${className}`}
-        hideArrow={true}
-      >
-          {/* OPTIONAL BACKGROUND IMAGE */}
-          {image && (
-             <div className="absolute inset-0 w-full h-full z-0">
-                <img src={image} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition-colors duration-300" />
-             </div>
-          )}
-
-          <div className="relative z-10 flex flex-col h-full">
-            <div className="flex justify-between items-start mb-4">
-                 <div className="flex items-center gap-3">
-                     <div className={`text-white/70 group-hover:text-white group-hover:scale-110 transition-transform duration-300`}>{icon}</div>
-                     <h4 className="text-base md:text-lg font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors leading-tight">{title}</h4>
-                 </div>
-            </div>
-            
-            <div className="h-px w-full bg-white/20 mb-6 group-hover:bg-white/40 transition-colors" />
-
-            <p className="text-sm md:text-base text-white/90 font-medium leading-relaxed mb-4 flex-1 drop-shadow-sm">
-               {text}
-            </p>
-            
-            <div className="mt-auto flex justify-end items-center gap-3">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
-                    {subtitle}
-                </span>
-                <div className="opacity-50 group-hover:opacity-100 transition-opacity duration-300">
-                    <ArrowUpRight size={20} />
-                </div>
-            </div>
-          </div>
-      </BentoCard>
-  );
-
   return (
     <section id="property" className="container mx-auto px-8 md:px-12 py-4 md:py-12 bg-white text-zinc-900">
         <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            // UPDATED: Set viewport.once to true to prevent entire section from re-animating/shifting when modal opens/closes
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 1.0 }}
         >
@@ -455,7 +437,6 @@ export const SectionProperty: React.FC = () => {
                       <SpecCard 
                         title="MAIN LEVEL" 
                         icon={<Home />} 
-                        // UPDATED: Changed from bg-micron-grey1 to bg-micron-grey2 to match Capital box lighter gray
                         gradient="bg-micron-grey2" 
                         delay={0}
                         items={[
@@ -507,7 +488,6 @@ export const SectionProperty: React.FC = () => {
                         title="GEOTHERMAL & WELLNESS"
                         subtitle="NATURE"
                         icon={<Leaf size={24} />}
-                        // UPDATED: Changed from bg-micron-green to bg-micron-eggplant-light (light blue)
                         gradient="bg-micron-eggplant-light" 
                         delay={0.1}
                         text="Powered by a 177°F direct-use aquifer. Geothermal water flows through the home's radiators and feeds the outdoor soaking tub. The grounds feature mature fruit trees and a Concord grapevine."

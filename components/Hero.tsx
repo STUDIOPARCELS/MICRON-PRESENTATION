@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence, useAnimation } from 'framer-motion';
 import { MapPin } from 'lucide-react';
@@ -121,6 +120,7 @@ export const Hero: React.FC = () => {
   // Start as null for blank state
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState<number | null>(null);
   const [key, setKey] = useState(0); 
+  const [showCursiveText, setShowCursiveText] = useState(false);
 
   // Icon Controls
   const iconControls = useAnimation();
@@ -134,6 +134,7 @@ export const Hero: React.FC = () => {
               if (currentSentenceIndex !== 0 && currentSentenceIndex !== null) {
                    setKey(prev => prev + 1);
                    setCurrentSentenceIndex(0);
+                   setShowCursiveText(false);
                    iconControls.set({ x: 200, rotate: -360, opacity: 0 });
               }
           }
@@ -176,7 +177,7 @@ export const Hero: React.FC = () => {
     return () => clearTimeout(timer);
   }, [currentSentenceIndex]);
 
-  // Effect for Icon Roll-In Logic
+  // Effect for Icon Roll-In Logic and Cursive Text
   useEffect(() => {
       // UPDATED: Trigger on the THIRD sentence (index 2) as requested ("WITHOUT PLACE...")
       if (currentSentenceIndex === 2) {
@@ -199,10 +200,22 @@ export const Hero: React.FC = () => {
                   bounce: 0
               }
           });
+
+          // Cursive Text Timer:
+          // "Perspective" finishes at ~2.1s.
+          // User request: "after the word perspective has populated a 1 second delay and then the quote populates"
+          // 2.1s + 1.0s = 3.1s.
+          const cursiveTimer = setTimeout(() => {
+              setShowCursiveText(true);
+          }, 3100);
+
+          return () => clearTimeout(cursiveTimer);
+
       } else if (currentSentenceIndex === 0) {
           // Only reset when we loop back to the start (or manually reset)
           // This keeps the icon visible during sentence 3
           iconControls.set({ x: 200, rotate: -360, opacity: 0 });
+          setShowCursiveText(false);
       }
   }, [currentSentenceIndex, iconControls]);
 
@@ -217,6 +230,7 @@ export const Hero: React.FC = () => {
       setKey(prev => prev + 1);
       // Explicitly reset to 0 so the loop restarts from the beginning
       setCurrentSentenceIndex(0);
+      setShowCursiveText(false);
       
       // Reset Icon manually for replay
       iconControls.set({ x: 200, rotate: -360, opacity: 0 });
@@ -257,6 +271,8 @@ export const Hero: React.FC = () => {
            </motion.span>
       );
   }
+
+  const cursiveQuoteText = "A convergence of historic stewardship and autonomous future. The first corporate residence designed for the era of artificial intelligence.";
 
   return (
     <section 
@@ -362,6 +378,32 @@ export const Hero: React.FC = () => {
             {/* Left Side: Title + Address Block */}
             <div className="flex-1 flex flex-col gap-6 items-start z-10 relative">
                  <InteractiveParadigmTitle />
+                 
+                 {/* CURSIVE QUOTE ANIMATION - Reserving space with min-h to prevent layout shift */}
+                 <div className="w-full max-w-xl">
+                    <motion.p
+                        className="font-micron text-lg md:text-2xl text-black leading-relaxed"
+                        initial="hidden"
+                        animate={showCursiveText ? "visible" : "hidden"}
+                        variants={{
+                            visible: { transition: { staggerChildren: 0.1 } },
+                            hidden: {}
+                        }}
+                    >
+                        {cursiveQuoteText.split(" ").map((word, i) => (
+                            <motion.span
+                                key={i}
+                                variants={{
+                                    hidden: { opacity: 0, y: 5 },
+                                    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+                                }}
+                                className="mr-1.5 inline-block"
+                            >
+                                {word}
+                            </motion.span>
+                        ))}
+                    </motion.p>
+                 </div>
                  
                  {/* ADDRESS BLOCK */}
                  <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4">
