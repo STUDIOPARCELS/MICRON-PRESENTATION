@@ -301,40 +301,6 @@ export const Hero: React.FC = () => {
                        )}
                      </AnimatePresence>
                  </div>
-
-                 {/* DESKTOP QUOTE - MOVED HERE */}
-                 {/* UPDATED: Positioned absolute in the white box, bottom-right area, matching 'Perspective' red circle placement */}
-                 <div className="hidden md:block absolute bottom-8 right-12 z-20 pointer-events-none overflow-hidden max-w-md text-right">
-                    <motion.div
-                         initial="hidden"
-                         animate={showCursiveText ? "visible" : "hidden"}
-                         variants={{
-                             visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } },
-                             hidden: {}
-                         }}
-                         // UPDATED: Font increased to 3xl/4xl and rotation/position tweaked for signature look
-                         className="font-micron text-3xl md:text-4xl text-micron-eggplant/90 leading-relaxed transform -rotate-3"
-                    >
-                        <div className="flex flex-col gap-1 items-end">
-                            {quoteLines.map((line, lineIndex) => (
-                                 <div key={lineIndex} className="whitespace-nowrap">
-                                     {line.split(" ").map((word, i) => (
-                                        <motion.span
-                                            key={i}
-                                            variants={{
-                                                hidden: { opacity: 0, y: 10 },
-                                                visible: { opacity: 1, y: 0, transition: { duration: 1.0, ease: "easeOut" } } 
-                                            }}
-                                            className="ml-2 inline-block"
-                                        >
-                                            {word}
-                                        </motion.span>
-                                     ))}
-                                 </div>
-                            ))}
-                        </div>
-                    </motion.div>
-                </div>
             </div>
 
             {/* 2. VIDEO AREA */}
@@ -359,7 +325,7 @@ export const Hero: React.FC = () => {
 
         </div>
 
-        {/* BOTTOM SECTION: PARADIGM & QUOTE (Mobile Only for Quote) */}
+        {/* BOTTOM SECTION: PARADIGM & QUOTE */}
         <motion.div 
             ref={bottomSectionRef}
             initial={{ opacity: 0, y: 100 }}
@@ -369,6 +335,40 @@ export const Hero: React.FC = () => {
             // UPDATED: Reduced min-height on mobile to min-h-[500px]
             className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row min-h-[500px] md:min-h-[400px] mt-4 p-8 md:p-12 justify-between items-stretch gap-8 group"
         >
+            {/* DESKTOP QUOTE - RESTORED TO BLUE SECTION, CENTERED */}
+            {/* Positioned absolutely to sit in the space between title and map on desktop */}
+            <div className="hidden md:block absolute top-[25%] left-[32%] z-20 pointer-events-none max-w-lg">
+                <motion.div
+                        initial="hidden"
+                        animate={showCursiveText ? "visible" : "hidden"}
+                        variants={{
+                            visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } },
+                            hidden: {}
+                        }}
+                        // UPDATED: Font style to match "Brittany Signature" intent (Signature style), rotated, large
+                        className="font-micron text-5xl text-micron-eggplant/80 -rotate-6 leading-tight"
+                >
+                    <div className="flex flex-col gap-2 items-start">
+                        {quoteLines.map((line, lineIndex) => (
+                                <div key={lineIndex} className="whitespace-nowrap">
+                                    {line.split(" ").map((word, i) => (
+                                    <motion.span
+                                        key={i}
+                                        variants={{
+                                            hidden: { opacity: 0, x: -10 },
+                                            visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } } 
+                                        }}
+                                        className="mr-3 inline-block"
+                                    >
+                                        {word}
+                                    </motion.span>
+                                    ))}
+                                </div>
+                        ))}
+                    </div>
+                </motion.div>
+            </div>
+
             {/* Left Side: Title + Address Block */}
             <div className="flex-1 flex flex-col justify-start md:justify-between items-start z-10 relative h-full w-full">
                  <div className="relative z-10 w-full">
@@ -383,8 +383,8 @@ export const Hero: React.FC = () => {
                  </div>
 
                  {/* MOBILE QUOTE - IN FLOW */}
-                 {/* UPDATED: Increased padding to py-8 (doubled from previous request) for mobile separation */}
-                 <div className="md:hidden w-full flex-grow py-8 flex items-center justify-center relative z-20">
+                 {/* UPDATED: Increased vertical padding to py-16 (doubled from previous request) for significant separation */}
+                 <div className="md:hidden w-full flex-grow py-16 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
                          animate={showCursiveText ? "visible" : "hidden"}
@@ -392,7 +392,7 @@ export const Hero: React.FC = () => {
                              visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } },
                              hidden: {}
                          }}
-                         className="font-micron text-2xl text-center text-micron-eggplant/80 leading-relaxed transform scale-y-110 -rotate-2"
+                         className="font-micron text-3xl text-center text-micron-eggplant/80 leading-relaxed transform scale-y-110 -rotate-2"
                       >
                          {/* Joining lines for mobile flow */}
                          {quoteLines.join(" ").split(" ").map((word, i) => (
