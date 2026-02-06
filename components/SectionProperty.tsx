@@ -248,8 +248,26 @@ export const SectionProperty: React.FC = () => {
       }
   };
 
-  const LocationPill = ({ label, time, color, icon }: any) => (
-    <div className={`${color} rounded-xl p-3 flex flex-col justify-between items-start text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-105 transition-transform cursor-default h-[80px] border border-white/10`}>
+  const StatCard = ({ children, delay = 0, className }: any) => (
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay, ease: "easeOut" }}
+        className={className}
+      >
+          {children}
+      </motion.div>
+  );
+
+  const LocationPill = ({ label, time, color, icon, delay = 0 }: any) => (
+    <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay, ease: "easeOut" }}
+        className={`${color} rounded-xl p-3 flex flex-col justify-between items-start text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-105 transition-transform cursor-default h-[80px] border border-white/10`}
+    >
         <div className="opacity-80">{icon}</div>
         <div className="w-full">
             <div className="flex justify-between items-end w-full">
@@ -257,11 +275,15 @@ export const SectionProperty: React.FC = () => {
                 <span className="text-sm font-black leading-none">{time}</span>
             </div>
         </div>
-    </div>
+    </motion.div>
   );
 
-  const SpecCard = ({ title, icon, items, onGallery, className, gradient = "bg-zinc-900" }: any) => (
+  const SpecCard = ({ title, icon, items, onGallery, className, gradient = "bg-zinc-900", delay = 0 }: any) => (
       <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay, ease: "easeOut" }}
         whileHover={{ y: -8, transition: { duration: 0.3 } }}
         className={`rounded-2xl p-5 md:p-6 flex flex-col h-full cursor-pointer group ${gradient} text-white border border-white/10 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] transition-all ${className}`}
         onClick={onGallery}
@@ -292,8 +314,12 @@ export const SectionProperty: React.FC = () => {
       </motion.div>
   );
 
-  const InfoCard = ({ title, subtitle, icon, text, className, gradient, onClick }: any) => (
+  const InfoCard = ({ title, subtitle, icon, text, className, gradient, onClick, delay = 0 }: any) => (
       <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay, ease: "easeOut" }}
         whileHover={{ y: -5, scale: 1.01 }}
         onClick={onClick}
         className={`${gradient} backdrop-blur-md rounded-2xl p-6 md:p-8 border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] transition-all h-full cursor-pointer group text-white relative ${className}`}
@@ -347,24 +373,24 @@ export const SectionProperty: React.FC = () => {
                  </div>
             </div>
 
-            {/* 2. STATS GRID - UPDATED: 2 Columns on Mobile, P-4 Padding, Responsive Text Size */}
+            {/* 2. STATS GRID - UPDATED: 2 Columns on Mobile, P-4 Padding, Responsive Text Size, Animated */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-                <div className="bg-micron-eggplant rounded-xl p-4 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform md:h-40 border border-white/10">
+                <StatCard delay={0} className="bg-micron-eggplant rounded-xl p-4 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform md:h-40 border border-white/10">
                     <span className="text-3xl md:text-5xl font-black tracking-tighter mb-1 font-sans">1906</span>
                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-70 font-sans">Year Built</span>
-                </div>
-                <div className="bg-micron-grey1 rounded-xl p-4 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform md:h-40 border border-white/10">
+                </StatCard>
+                <StatCard delay={0.1} className="bg-micron-grey1 rounded-xl p-4 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform md:h-40 border border-white/10">
                     <span className="text-3xl md:text-5xl font-black tracking-tighter mb-1 font-sans">3,374</span>
                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-70 font-sans">Square Feet</span>
-                </div>
-                <div className="bg-micron-green rounded-xl p-4 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform md:h-40 border border-white/10">
+                </StatCard>
+                <StatCard delay={0.2} className="bg-micron-green rounded-xl p-4 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform md:h-40 border border-white/10">
                     <span className="text-3xl md:text-5xl font-black tracking-tighter mb-1 font-sans">3 / 4</span>
                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-70 font-sans">Bed / Bath</span>
-                </div>
-                <div className="bg-micron-eggplant-light rounded-xl p-4 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform md:h-40 border border-white/10">
+                </StatCard>
+                <StatCard delay={0.3} className="bg-micron-eggplant-light rounded-xl p-4 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-transform md:h-40 border border-white/10">
                     <span className="text-3xl md:text-5xl font-black tracking-tighter mb-1 font-sans">1892</span>
                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-70 font-sans">Geothermal Rights</span>
-                </div>
+                </StatCard>
             </div>
 
             {/* 3. LOCATION */}
@@ -374,14 +400,14 @@ export const SectionProperty: React.FC = () => {
                       <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-micron-eggplant font-sans">LOCATION DETAILS</h3>
                  </div>
                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
-                      <LocationPill label="Micron HQ" time="15 min" color="bg-micron-green" icon={<Building2 size={16}/>} />
-                      <LocationPill label="Airport" time="10 min" color="bg-micron-eggplant" icon={<Plane size={16}/>} />
-                      <LocationPill label="Downtown" time="3 min" color="bg-micron-eggplant-light" icon={<Building2 size={16}/>} />
-                      <LocationPill label="St. Luke's" time="2 min" color="bg-micron-grey1" icon={<Stethoscope size={16}/>} />
-                      <LocationPill label="Capitol" time="5 min" color="bg-micron-grey2" icon={<Building2 size={16}/>} />
+                      <LocationPill delay={0} label="Micron HQ" time="15 min" color="bg-micron-green" icon={<Building2 size={16}/>} />
+                      <LocationPill delay={0.05} label="Airport" time="10 min" color="bg-micron-eggplant" icon={<Plane size={16}/>} />
+                      <LocationPill delay={0.1} label="Downtown" time="3 min" color="bg-micron-eggplant-light" icon={<Building2 size={16}/>} />
+                      <LocationPill delay={0.15} label="St. Luke's" time="2 min" color="bg-micron-grey1" icon={<Stethoscope size={16}/>} />
+                      <LocationPill delay={0.2} label="Capitol" time="5 min" color="bg-micron-grey2" icon={<Building2 size={16}/>} />
                       {/* UPDATED: Changed from bg-black to bg-micron-eggplant-light */}
-                      <LocationPill label="Boise State" time="4 min" color="bg-micron-eggplant-light" icon={<GraduationCap size={16}/>} />
-                      <LocationPill label="River" time="1 min" color="bg-micron-green" icon={<Leaf size={16}/>} />
+                      <LocationPill delay={0.25} label="Boise State" time="4 min" color="bg-micron-eggplant-light" icon={<GraduationCap size={16}/>} />
+                      <LocationPill delay={0.3} label="River" time="1 min" color="bg-micron-green" icon={<Leaf size={16}/>} />
                  </div>
             </div>
 
@@ -396,6 +422,7 @@ export const SectionProperty: React.FC = () => {
                         title="MAIN LEVEL" 
                         icon={<Home />} 
                         gradient="bg-micron-grey2" 
+                        delay={0}
                         items={[
                             "Foyer Entry",
                             "Living, Dining, & Fully Equipped Kitchen",
@@ -409,6 +436,7 @@ export const SectionProperty: React.FC = () => {
                         title="UPPER LEVEL" 
                         icon={<ArrowUp />} 
                         gradient="bg-micron-eggplant" 
+                        delay={0.15}
                         items={[
                             "3 Bedrooms",
                             "2 Private En-Suite Baths",
@@ -421,6 +449,7 @@ export const SectionProperty: React.FC = () => {
                         title="GROUNDS" 
                         icon={<Grape />} 
                         gradient="bg-micron-green" 
+                        delay={0.3}
                         items={[
                             "Mature Fruit Trees (Peach, Plum, Cherry)",
                             "Concord Grapevine",
@@ -444,6 +473,7 @@ export const SectionProperty: React.FC = () => {
                         subtitle="NATURE"
                         icon={<Leaf size={24} />}
                         gradient="bg-micron-green" 
+                        delay={0}
                         text="Geothermal spa utilizing the district's 177°F source. The home is heated through geothermal radiant heat as well as the hot tub. The grounds feature mature producing fruit trees and a Concord grapevine."
                         onClick={() => openInfoModal('wellness')}
                     />
@@ -453,6 +483,7 @@ export const SectionProperty: React.FC = () => {
                         icon={<Cpu size={24} />}
                         // UPDATED: Restored to original Light Blue/Eggplant Light
                         gradient="bg-micron-eggplant-light" 
+                        delay={0.15}
                         text="Autonomous service via Cybercab and Optimus. A functional proving ground where abstract technology becomes a seamless, daily reality."
                         onClick={() => openInfoModal('autonomous')}
                     />
@@ -461,6 +492,7 @@ export const SectionProperty: React.FC = () => {
                         subtitle="LEGACY"
                         icon={<TreeDeciduous size={24} />}
                         gradient="bg-micron-eggplant"
+                        delay={0.3}
                         text="Anchored by the C.W. Moore House (1891) and the neighboring George Whitfield Russell House. A corridor defined by the legacy of Western pioneers and energy ingenuity."
                         onClick={() => openInfoModal('history')}
                     />

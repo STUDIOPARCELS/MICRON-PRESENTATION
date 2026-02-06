@@ -25,10 +25,11 @@ export const BentoCard: React.FC<CardProps & {
   hideArrow = false,
   onMouseEnter,
   onMouseLeave,
-  initial = { opacity: 0, y: 50 },
+  // UPDATED: Reduced y offset from 50 to 30 for a "gentler" motion
+  initial = { opacity: 0, y: 30 },
   whileInView = { opacity: 1, y: 0 },
   viewport = { once: true, amount: 0.1 },
-  duration = 1.0
+  duration = 0.8 // Slightly faster duration for snappier but gentle feel
 }) => {
   const arrowColor = textColor.includes('black') || textColor.includes('zinc-900') ? 'text-zinc-900' : 'text-white';
 
