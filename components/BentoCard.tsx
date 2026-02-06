@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CardProps } from '../types';
@@ -12,6 +11,7 @@ export const BentoCard: React.FC<CardProps & {
   hideArrow?: boolean;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
+  hoverY?: number; // New prop for hover vertical distance
 }> = ({ 
   className = "", 
   children, 
@@ -25,6 +25,7 @@ export const BentoCard: React.FC<CardProps & {
   hideArrow = false,
   onMouseEnter,
   onMouseLeave,
+  hoverY = -8, // Default value
   // UPDATED: Changed duration to 1.5s for slower population as requested
   initial = { opacity: 0, y: 50 },
   whileInView = { opacity: 1, y: 0 },
@@ -33,9 +34,10 @@ export const BentoCard: React.FC<CardProps & {
 }) => {
   const arrowColor = textColor.includes('black') || textColor.includes('zinc-900') ? 'text-zinc-900' : 'text-white';
 
+  // UPDATED: Tighter corner positioning (reduced spacing from 4/6 to 3/4)
   const arrowPosClass = arrowPosition === 'bottom-right' 
-    ? 'bottom-4 right-4 md:bottom-6 md:right-6' 
-    : 'top-4 right-4 md:top-6 md:right-6';
+    ? 'bottom-3 right-3 md:bottom-4 md:right-4' 
+    : 'top-3 right-3 md:top-4 md:right-4';
 
   return (
     <motion.div
@@ -47,7 +49,7 @@ export const BentoCard: React.FC<CardProps & {
         ease: [0.22, 1, 0.36, 1], 
         delay: delay 
       }}
-      whileHover={hoverEffect ? { y: -8, transition: { duration: 0.3 } } : undefined}
+      whileHover={hoverEffect ? { y: hoverY, transition: { duration: 0.3 } } : undefined}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -77,7 +79,8 @@ export const BentoCard: React.FC<CardProps & {
       
       {onClick && hoverEffect && !hideArrow && (
         <div className={`absolute ${arrowPosClass} z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0`}>
-             <ArrowUpRight className={`${arrowColor} opacity-70`} size={20} />
+             {/* UPDATED: Reduced size from 20 to 18 */}
+             <ArrowUpRight className={`${arrowColor} opacity-70`} size={18} />
         </div>
       )}
     </motion.div>

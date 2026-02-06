@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, ArrowUp, ArrowUpRight, Cpu, TreeDeciduous, Zap, Waves, Activity, Sprout, Clock, Car, Bot, Grape, Thermometer, ShieldCheck, History } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -120,8 +119,8 @@ export const SectionProperty: React.FC = () => {
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                          {/* CYBERCAB CARD */}
-                        <div className="bg-black rounded-2xl p-6 md:p-8 text-white shadow-lg flex flex-col gap-6 border border-white/10">
-                            <div>
+                        <div className="bg-black rounded-2xl p-6 md:p-8 text-white shadow-lg flex flex-col gap-6 border border-white/10 relative overflow-hidden">
+                            <div className="relative z-10">
                                 <div className="flex items-center gap-3 mb-4">
                                     <Car size={24} className="text-white/90" />
                                     <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-none">CYBERCAB</h3>
@@ -131,18 +130,19 @@ export const SectionProperty: React.FC = () => {
                                     Tesla's first fully autonomous vehicle — a two-passenger cabin with butterfly doors, inductive charging, and a 20.5-inch display. Cybercab manages all airport transfers, downtown shuttles, and guest logistics autonomously.
                                 </p>
                             </div>
-                            <div className="relative rounded-xl overflow-hidden aspect-[4/3] mt-auto border border-white/10 shadow-inner">
+                            {/* UPDATED: Floating Image Style */}
+                            <div className="relative w-full h-48 md:h-64 mt-auto flex items-end justify-center">
                                 <img 
                                     src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/cybercab%20photpo.WEBP" 
                                     alt="Cybercab" 
-                                    className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
+                                    className="w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-700" 
                                 />
                             </div>
                         </div>
 
                          {/* OPTIMUS CARD */}
-                        <div className="bg-micron-eggplant-light rounded-2xl p-6 md:p-8 text-white shadow-lg flex flex-col gap-6 border border-white/10">
-                            <div>
+                        <div className="bg-micron-eggplant-light rounded-2xl p-6 md:p-8 text-white shadow-lg flex flex-col gap-6 border border-white/10 relative overflow-hidden">
+                            <div className="relative z-10">
                                 <div className="flex items-center gap-3 mb-4">
                                     <Bot size={24} className="text-white/90" />
                                     <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-none">OPTIMUS</h3>
@@ -152,11 +152,12 @@ export const SectionProperty: React.FC = () => {
                                     Tesla's Gen 3 humanoid — 5'8", 125 lbs, with 22 degrees of freedom in each hand and vision-based autonomy. Optimus manages property maintenance, perimeter monitoring, and routine service tasks within defined geofenced zones across the residence.
                                 </p>
                             </div>
-                            <div className="relative rounded-xl overflow-hidden aspect-[4/3] mt-auto border border-white/10 shadow-inner">
+                            {/* UPDATED: Floating Image Style */}
+                            <div className="relative w-full h-48 md:h-64 mt-auto flex items-end justify-center">
                                 <img 
-                                    src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop" 
+                                    src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/tesla-optimus-gen-3-delay.png" 
                                     alt="Optimus" 
-                                    className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
+                                    className="w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-700" 
                                 />
                             </div>
                         </div>
@@ -255,6 +256,7 @@ export const SectionProperty: React.FC = () => {
         delay={delay}
         onClick={onGallery}
         hoverEffect={true}
+        hoverY={-5} // Reduced hover interaction strength
         // Force viewport once true to prevent re-animation on modal open/close (layout shifts)
         viewport={{ once: true, amount: 0.1 }} 
         textColor="text-white"
@@ -298,6 +300,7 @@ export const SectionProperty: React.FC = () => {
         delay={delay}
         onClick={onClick}
         hoverEffect={true}
+        hoverY={-5} // Reduced hover interaction strength
         // Force viewport once true to prevent re-animation on modal open/close
         viewport={{ once: true, amount: 0.1 }}
         textColor="text-white"

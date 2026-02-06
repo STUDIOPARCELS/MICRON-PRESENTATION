@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
@@ -249,9 +248,10 @@ export const SectionServing: React.FC = () => {
 
             <div className={`grid grid-cols-1 ${gridCols} gap-6 flex-1`}>
                 {dept.experiences.map((exp, i) => (
+                    // UPDATED: Added floating/shadow classes and removed 'shadow-lg'
                     <div 
                         key={i} 
-                        className={`${exp.customGradient || dept.gradient} text-white p-6 rounded-2xl shadow-lg flex flex-col gap-4 border border-white/10 ${dept.tileAspectRatio || ''} h-full justify-between`}
+                        className={`${exp.customGradient || dept.gradient} text-white p-6 rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col gap-4 border border-white/10 ${dept.tileAspectRatio || ''} h-full justify-between`}
                     >
                         <div>
                             <div className="flex items-center gap-3 mb-4">
@@ -259,8 +259,8 @@ export const SectionServing: React.FC = () => {
                                 <h4 className="text-xl font-bold uppercase tracking-tight">{exp.title}</h4>
                             </div>
                             <div className="h-px w-full bg-white/20 mb-4" />
-                            {/* UPDATED: Increased font size from text-sm to text-base */}
-                            <p className="text-white/80 font-medium leading-relaxed text-base">
+                            {/* UPDATED: Increased font size from text-base to text-lg */}
+                            <p className="text-white/80 font-medium leading-relaxed text-lg">
                                 {exp.description}
                             </p>
                         </div>
@@ -307,8 +307,9 @@ export const SectionServing: React.FC = () => {
             {departments.map((dept, i) => (
                 <BentoCard
                     key={dept.id}
+                    // UPDATED: Removed 'shadow-lg hover:shadow-2xl' to let BentoCard default shadow logic (floating) take over
                     className={`
-                        flex flex-col min-h-[160px] p-6 relative overflow-hidden group shadow-lg hover:shadow-2xl transition-all duration-300 ${dept.gradient}
+                        flex flex-col min-h-[160px] p-6 relative overflow-hidden group transition-all duration-300 ${dept.gradient}
                         w-full md:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]
                     `}
                     gradient={dept.gradient}

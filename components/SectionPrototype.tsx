@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
@@ -297,7 +296,7 @@ const getCardData = (id: number): ModalContent => {
                    </div>
                    
                    <div className="flex flex-col gap-4 h-full justify-between lg:col-span-2">
-                        {/* UPDATED: Added delay 0.2 */}
+                        {/* UPDATED: BOISE'S MOMENT (First) - delay 0.2 */}
                         <InnerBento 
                             title="BOISE'S MOMENT" 
                             gradient="bg-micron-eggplant-light" 
@@ -314,37 +313,35 @@ const getCardData = (id: number): ModalContent => {
                             </div>
                         </InnerBento>
 
-                        {/* UPDATED: Added delay 0.4 */}
+                        {/* UPDATED: 3 ARCS CONVERGING (Second) - delay 0.4 */}
+                        <InnerBento 
+                            title="3 ARCS CONVERGING" 
+                            gradient="bg-micron-eggplant" 
+                            icon={<Zap />} 
+                            className="flex-1"
+                            delay={0.4}
+                        >
+                             <div className="w-full h-px bg-white/20 mb-4" />
+                             <div className="space-y-4 text-white/90 text-base md:text-lg mb-3 leading-relaxed">
+                                <p>
+                                    A city reaching cultural maturity. A semiconductor company deploying historic investment. A robotics company innovating autonomous systems.
+                                </p>
+                             </div>
+                        </InnerBento>
+
+                        {/* UPDATED: RUNWAY (Third) - delay 0.6 */}
                         <InnerBento 
                             title="RUNWAY" 
                             gradient="bg-micron-green" 
                             icon={<Activity />} 
                             className="flex-1" 
                             padding="pt-5 pb-2 px-5"
-                            delay={0.4}
+                            delay={0.6}
                         >
                             <div className="w-full h-px bg-white/20 mb-4" />
-                            {/* UPDATED: "Micron executives" lower case e */}
                             <p className="mb-2 text-base md:text-lg text-white/90 leading-relaxed">
                                 Micron executives, employees, and their guests live alongside, interact, and engage with the technology before the world does.
                             </p>
-                        </InnerBento>
-
-                        {/* UPDATED: Added delay 0.6 */}
-                        <InnerBento 
-                            title="3 ARCS CONVERGING" 
-                            gradient="bg-micron-eggplant" 
-                            icon={<Zap />} 
-                            className="flex-1"
-                            delay={0.6}
-                        >
-                             <div className="w-full h-px bg-white/20 mb-4" />
-                             <div className="space-y-4 text-white/90 text-base md:text-lg mb-3 leading-relaxed">
-                                {/* UPDATED: Changed 'placing' to 'innovating' */}
-                                <p>
-                                    A city reaching cultural maturity. A semiconductor company deploying historic investment. A robotics company innovating autonomous systems.
-                                </p>
-                             </div>
                         </InnerBento>
                    </div>
                </div>
@@ -369,10 +366,9 @@ const getCardData = (id: number): ModalContent => {
                    </div>
 
                    <div className="flex flex-col gap-4 h-full">
-                        {/* UPDATED: Converted to motion.div for slide-in from RIGHT animation */}
-                        {/* UPDATED: Added viewport once: true and increased duration to prevent jagged animation on scroll */}
+                        {/* MICRON CARD - 1st - From Right (slower, smoother) */}
                         <motion.div 
-                            initial={{ opacity: 0, x: 100 }}
+                            initial={{ opacity: 0, x: 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -391,10 +387,9 @@ const getCardData = (id: number): ModalContent => {
                             </div>
                         </motion.div>
 
-                        {/* UPDATED: Converted to motion.div for slide-in from RIGHT animation */}
-                        {/* UPDATED: Added viewport once: true and increased duration */}
+                        {/* TESLA CARD - 3rd - From Right (slower, smoother) */}
                         <motion.div 
-                            initial={{ opacity: 0, x: 100 }}
+                            initial={{ opacity: 0, x: 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1.5, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -417,19 +412,18 @@ const getCardData = (id: number): ModalContent => {
                    </div>
                </div>
                
-               {/* FUTURE SCALE - UPDATED: Converted to motion.div for slide-up from BOTTOM animation */}
+               {/* FUTURE SCALE - 2nd - From Left (slower, smoother) */}
                <motion.div 
-                    initial={{ opacity: 0, y: 100 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1.5, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 1.5, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
                     className="bg-micron-eggplant-light rounded-xl p-6 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300"
                >
-                    <div className="flex items-center gap-3 mb-4 pb-4 border-b border-micron-eggplant/20">
-                        {/* UPDATED: Icon text-white */}
-                        <TrendingUp className="text-white" size={24} />
-                        {/* UPDATED: Title text-white */}
+                    {/* UPDATED: Arrow moved to right side */}
+                    <div className="flex items-center justify-between mb-4 pb-4 border-b border-micron-eggplant/20">
                         <h3 className="text-3xl font-black uppercase tracking-tight text-white">FUTURE SCALE</h3>
+                        <TrendingUp className="text-white" size={24} />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
                         <div className="md:col-span-4 flex flex-col gap-4 border-b md:border-b-0 md:border-r border-micron-eggplant/20 pb-4 md:pb-0 justify-center">
@@ -476,6 +470,7 @@ const getCardData = (id: number): ModalContent => {
                     />
                </div>
                
+               {/* UPDATED: ENERGY - First (0.2) */}
                <InnerBento 
                     gradient="bg-micron-eggplant-light" 
                     className="h-full flex flex-col"
@@ -493,10 +488,14 @@ const getCardData = (id: number): ModalContent => {
            </div>
            
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
+               {/* UPDATED: ADDRESS - Second (0.4) - Swapped with Confluence visually if desired, but request says "address top tile slides and second". Assuming bottom right Address tile is meant to be second.  */}
+               {/* Wait, usually visual flow is Left->Right. User wants Address (which is right) second, and Confluence (left) third. */}
+               {/* I will keep layout but change delays to match order: Energy(1st), Address(2nd), Confluence(3rd) */}
+               
                <InnerBento 
                     gradient="bg-micron-grey1" 
                     className="h-full flex flex-col"
-                    delay={0.3}
+                    delay={0.6} // Confluence is Third
                >
                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans flex items-center gap-2">
                         <Zap size={18} strokeWidth={2.5} /> CONFLUENCE
@@ -510,7 +509,7 @@ const getCardData = (id: number): ModalContent => {
                <InnerBento 
                     gradient="bg-micron-green" 
                     className="h-full flex flex-col"
-                    delay={0.4}
+                    delay={0.4} // Address is Second
                >
                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/90 mb-3 font-sans flex items-center gap-2">
                         <Globe size={18} strokeWidth={2.5} /> ADDRESS
