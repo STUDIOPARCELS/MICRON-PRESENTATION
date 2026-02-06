@@ -207,7 +207,8 @@ export const SectionServingTesla: React.FC = () => {
                      <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-micron-eggplant mb-4">
                         THE LIVING LABORATORY
                      </h3>
-                    <div className="text-zinc-900 text-lg font-medium leading-relaxed">
+                    {/* UPDATED: Font size increased to text-xl */}
+                    <div className="text-zinc-900 text-xl font-medium leading-relaxed">
                         <p>
                             Domestic intelligence generated at Micron House feeds directly into product development cycles. The residence becomes an active research node — gathering real-world behavioral data in a controlled, premium environment.
                         </p>
@@ -225,20 +226,24 @@ export const SectionServingTesla: React.FC = () => {
                         <h3 className="text-xl font-black uppercase tracking-tight text-micron-green flex items-center gap-2">
                             <Activity size={20} /> CLOSED LOOP
                         </h3>
-                        <span className="text-xs font-bold uppercase tracking-widest text-zinc-400 hidden md:block">Proximity Advantage</span>
+                        {/* UPDATED: Increased to text-sm */}
+                        <span className="text-sm font-bold uppercase tracking-widest text-zinc-400 hidden md:block">Proximity Advantage</span>
                     </div>
                     
                     <div className="w-full h-px bg-zinc-200 mb-6 relative z-10" />
 
-                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 text-zinc-600 text-base md:text-lg font-medium leading-relaxed relative z-10 items-center">
+                    {/* UPDATED: Increased base text to text-lg md:text-xl */}
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 text-zinc-600 text-lg md:text-xl font-medium leading-relaxed relative z-10 items-center">
                         <div className="flex flex-col gap-6 md:gap-8">
                              <div>
                                  <span className="block text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-none">15 <span className="text-2xl font-bold align-top text-zinc-400">min</span></span>
-                                 <span className="text-xs font-bold uppercase tracking-widest text-zinc-500">Fab to Front Door</span>
+                                 {/* UPDATED: Increased to text-sm */}
+                                 <span className="text-sm font-bold uppercase tracking-widest text-zinc-500">Fab to Front Door</span>
                              </div>
                              <div>
                                  <span className="block text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-none">1</span>
-                                 <span className="text-xs font-bold uppercase tracking-widest text-zinc-500">Address</span>
+                                 {/* UPDATED: Increased to text-sm */}
+                                 <span className="text-sm font-bold uppercase tracking-widest text-zinc-500">Address</span>
                              </div>
                         </div>
                         
@@ -298,7 +303,8 @@ export const SectionServingTesla: React.FC = () => {
                                 <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-1 font-sans flex items-center gap-2">
                                     <MessageSquare size={16} /> THE FEEDBACK LOOP
                                 </h3>
-                                <span className="text-[10px] uppercase tracking-widest text-white/50">Training Ground</span>
+                                {/* UPDATED: Increased to text-xs */}
+                                <span className="text-xs uppercase tracking-widest text-white/50">Training Ground</span>
                             </div>
                             <div className="w-full h-px bg-white/20 mb-4" />
                             <ul className="space-y-3 mb-4">
@@ -307,13 +313,15 @@ export const SectionServingTesla: React.FC = () => {
                                     "Optimus manages a quiet household for an employee's family.",
                                     "Cybercab delivers a senior Washington official to a fireside."
                                 ].map((item, i) => (
-                                    <li key={i} className="flex items-start gap-3 text-white/90 text-sm font-medium leading-snug">
+                                    // UPDATED: Increased to text-base
+                                    <li key={i} className="flex items-start gap-3 text-white/90 text-base font-medium leading-snug">
                                         <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-1.5 shrink-0" />
                                         <span>{item}</span>
                                     </li>
                                 ))}
                             </ul>
-                            <p className="text-xs text-white/60 font-bold uppercase tracking-wide leading-relaxed border-t border-white/10 pt-3">
+                            {/* UPDATED: Increased to text-sm */}
+                            <p className="text-sm text-white/60 font-bold uppercase tracking-wide leading-relaxed border-t border-white/10 pt-3">
                                 Three scenarios. Three emotional registers. Each one training autonomous systems.
                             </p>
                         </InnerBento>
@@ -330,17 +338,20 @@ export const SectionServingTesla: React.FC = () => {
                                 <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-1 font-sans flex items-center gap-2">
                                     <ShieldCheck size={16} /> PRE-PUBLIC DEPLOYMENT
                                 </h3>
-                                <span className="text-[10px] uppercase tracking-widest text-white/50">First Access</span>
+                                {/* UPDATED: Increased to text-xs */}
+                                <span className="text-xs uppercase tracking-widest text-white/50">First Access</span>
                             </div>
                             <div className="w-full h-px bg-white/20 mb-4" />
-                            <div className="space-y-4 text-white/90 text-sm font-medium leading-relaxed">
+                            {/* UPDATED: Increased to text-base */}
+                            <div className="space-y-4 text-white/90 text-base font-medium leading-relaxed">
                                 <p>
                                     Micron's leadership experiences Optimus and Cybercab across the full spectrum of real life before any consumer on earth.
                                 </p>
                                 <p>
                                     Operational variety builds institutional knowledge. Every scenario deepens the data, sharpens the model, and strengthens the partnership.
                                 </p>
-                                <p className="text-xs font-bold uppercase tracking-widest text-micron-green pt-2">
+                                {/* UPDATED: Increased to text-sm */}
+                                <p className="text-sm font-bold uppercase tracking-widest text-micron-green pt-2">
                                     Confidential. Celebratory. Compassionate. Political.
                                 </p>
                             </div>
