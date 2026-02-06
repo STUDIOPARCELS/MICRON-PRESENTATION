@@ -180,7 +180,7 @@ export const Hero: React.FC = () => {
           });
 
           // Cursive Text Timer
-          // UPDATED: Reduced delay from 3100 (and previous 2100) to 1600 to appear immediately when "Perspective" starts
+          // UPDATED: Delay synced to appear when "Perspective" populates
           const cursiveTimer = setTimeout(() => {
               setShowCursiveText(true);
           }, 1600);
@@ -253,7 +253,7 @@ export const Hero: React.FC = () => {
         {/* TOP SECTION */}
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 h-auto md:h-[450px] w-full">
             
-            {/* 1. TEXT ANIMATION AREA */}
+            {/* 1. TEXT ANIMATION AREA (White Bento) */}
             <div 
                 className="min-h-[300px] md:h-full w-full flex flex-col justify-end items-start order-1 bg-white rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] px-6 pt-6 pb-12 md:px-12 md:pt-12 md:pb-12 relative overflow-hidden group"
             >
@@ -301,6 +301,40 @@ export const Hero: React.FC = () => {
                        )}
                      </AnimatePresence>
                  </div>
+
+                 {/* DESKTOP QUOTE - MOVED HERE */}
+                 {/* UPDATED: Positioned absolute in the white box, bottom-right area, matching 'Perspective' red circle placement */}
+                 <div className="hidden md:block absolute bottom-8 right-12 z-20 pointer-events-none overflow-hidden max-w-md text-right">
+                    <motion.div
+                         initial="hidden"
+                         animate={showCursiveText ? "visible" : "hidden"}
+                         variants={{
+                             visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } },
+                             hidden: {}
+                         }}
+                         // UPDATED: Font increased to 3xl/4xl and rotation/position tweaked for signature look
+                         className="font-micron text-3xl md:text-4xl text-micron-eggplant/90 leading-relaxed transform -rotate-3"
+                    >
+                        <div className="flex flex-col gap-1 items-end">
+                            {quoteLines.map((line, lineIndex) => (
+                                 <div key={lineIndex} className="whitespace-nowrap">
+                                     {line.split(" ").map((word, i) => (
+                                        <motion.span
+                                            key={i}
+                                            variants={{
+                                                hidden: { opacity: 0, y: 10 },
+                                                visible: { opacity: 1, y: 0, transition: { duration: 1.0, ease: "easeOut" } } 
+                                            }}
+                                            className="ml-2 inline-block"
+                                        >
+                                            {word}
+                                        </motion.span>
+                                     ))}
+                                 </div>
+                            ))}
+                        </div>
+                    </motion.div>
+                </div>
             </div>
 
             {/* 2. VIDEO AREA */}
@@ -325,50 +359,16 @@ export const Hero: React.FC = () => {
 
         </div>
 
-        {/* BOTTOM SECTION: PARADIGM & QUOTE - UPDATED */}
+        {/* BOTTOM SECTION: PARADIGM & QUOTE (Mobile Only for Quote) */}
         <motion.div 
             ref={bottomSectionRef}
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
-            // UPDATED: Reduced min-height on mobile to min-h-[500px] to reduce padding/gap
+            // UPDATED: Reduced min-height on mobile to min-h-[500px]
             className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row min-h-[500px] md:min-h-[400px] mt-4 p-8 md:p-12 justify-between items-stretch gap-8 group"
         >
-            {/* DESKTOP QUOTE - ABSOLUTE POSITIONED (Hidden on mobile) */}
-            {/* Positioning updated: Left aligned with max-width to avoid Map overlap */}
-            <div className="hidden md:block absolute inset-0 z-20 pointer-events-none overflow-hidden">
-                <motion.div
-                     initial="hidden"
-                     animate={showCursiveText ? "visible" : "hidden"}
-                     variants={{
-                         visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } },
-                         hidden: {}
-                     }}
-                     // UPDATED: Adjusted positioning for desktop 3-line layout
-                     className="absolute top-[30%] left-[8%] w-[55%] -rotate-3 origin-center"
-                >
-                    <div className="font-micron text-xl md:text-2xl text-micron-eggplant/80 leading-relaxed md:leading-loose transform scale-y-110 flex flex-col gap-2">
-                        {quoteLines.map((line, lineIndex) => (
-                             <div key={lineIndex}>
-                                 {line.split(" ").map((word, i) => (
-                                    <motion.span
-                                        key={i}
-                                        variants={{
-                                            hidden: { opacity: 0 },
-                                            visible: { opacity: 1, transition: { duration: 1.2, ease: "easeInOut" } } 
-                                        }}
-                                        className="mr-2 inline-block"
-                                    >
-                                        {word}
-                                    </motion.span>
-                                 ))}
-                             </div>
-                        ))}
-                    </div>
-                </motion.div>
-            </div>
-
             {/* Left Side: Title + Address Block */}
             <div className="flex-1 flex flex-col justify-start md:justify-between items-start z-10 relative h-full w-full">
                  <div className="relative z-10 w-full">
@@ -382,9 +382,9 @@ export const Hero: React.FC = () => {
                         <p className="text-micron-eggplant/80 text-sm md:text-lg uppercase tracking-widest">Boise, Idaho 83712</p>
                  </div>
 
-                 {/* MOBILE QUOTE - IN FLOW (Hidden on desktop) */}
-                 {/* UPDATED: Flex grow to center vertically between Address and Map, reduced padding to py-2 */}
-                 <div className="md:hidden w-full flex-grow py-2 flex items-center justify-center relative z-20">
+                 {/* MOBILE QUOTE - IN FLOW */}
+                 {/* UPDATED: Increased padding to py-8 (doubled from previous request) for mobile separation */}
+                 <div className="md:hidden w-full flex-grow py-8 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
                          animate={showCursiveText ? "visible" : "hidden"}
@@ -392,7 +392,7 @@ export const Hero: React.FC = () => {
                              visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } },
                              hidden: {}
                          }}
-                         className="font-micron text-xl text-center text-micron-eggplant/80 leading-relaxed transform scale-y-110 -rotate-2"
+                         className="font-micron text-2xl text-center text-micron-eggplant/80 leading-relaxed transform scale-y-110 -rotate-2"
                       >
                          {/* Joining lines for mobile flow */}
                          {quoteLines.join(" ").split(" ").map((word, i) => (
