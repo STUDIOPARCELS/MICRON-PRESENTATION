@@ -153,7 +153,8 @@ export const SectionProperty: React.FC = () => {
                                     <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-none">CYBERCAB</h3>
                                 </div>
                                 <div className="h-px w-full bg-white/20 mb-4" />
-                                <p className="text-sm md:text-base font-medium leading-relaxed text-white/80">
+                                {/* UPDATED: Increased font size to text-lg to match Wellness modal */}
+                                <p className="text-white/80 font-medium leading-relaxed text-lg">
                                     Tesla's first fully autonomous vehicle — a two-passenger cabin with butterfly doors, inductive charging, and a 20.5-inch display. Cybercab manages all airport transfers, downtown shuttles, and guest logistics autonomously.
                                 </p>
                             </div>
@@ -175,7 +176,8 @@ export const SectionProperty: React.FC = () => {
                                     <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-none">OPTIMUS</h3>
                                 </div>
                                 <div className="h-px w-full bg-white/20 mb-4" />
-                                <p className="text-sm md:text-base font-medium leading-relaxed text-white/80">
+                                {/* UPDATED: Increased font size to text-lg to match Wellness modal */}
+                                <p className="text-white/80 font-medium leading-relaxed text-lg">
                                     Tesla's Gen 3 humanoid — 5'8", 125 lbs, with 22 degrees of freedom in each hand and vision-based autonomy. Optimus manages property maintenance, perimeter monitoring, and routine service tasks within defined geofenced zones across the residence.
                                 </p>
                             </div>
