@@ -99,19 +99,31 @@ export const SectionProperty: React.FC = () => {
                             title="CONTRAST THERAPY" 
                             colorClass="bg-micron-eggplant-light"
                             icon={<Waves />} 
-                            description="Alternating thermal exposure drives circulation to flush systemic inflammation and accelerate deep tissue recovery. The rapid temperature shift triggers a proven 250% increase in dopamine, delivering sustained alertness, mental clarity, and elevated mood."
+                            description={
+                                <>
+                                    Alternating thermal exposure drives circulation to flush systemic inflammation and accelerate deep tissue recovery. The rapid temperature shift triggers a proven <span className="text-white font-bold">250% increase in dopamine</span>, delivering sustained alertness, mental clarity, and elevated mood.
+                                </>
+                            }
                         />
                          <ModalCard 
                             title="WHOLE BODY VIBRATION" 
                             colorClass="bg-micron-grey1"
                             icon={<Activity />} 
-                            description="Invented in 1960 by Vladimir Nazarov for the Soviet Space Program to combat zero-gravity bone loss. By engaging 90% of muscle fibers (vs. 40% in standard training), it rapidly builds bone density, counteracts neuropathy, and stimulates neuro-repair for improved mental health."
+                            description={
+                                <>
+                                    Invented in 1960 by Vladimir Nazarov for the Soviet Space Program to combat zero-gravity bone loss. By engaging 90% of muscle fibers (vs. 40% in standard training), it <span className="text-white font-bold">rapidly builds bone density</span>, counteracts neuropathy, and stimulates neuro-repair for improved mental health.
+                                </>
+                            }
                         />
                          <ModalCard 
                             title="ORGANIC GARDEN" 
                             colorClass="bg-micron-green"
                             icon={<Sprout />} 
-                            description="2025 research on the 'Soil-Plant-Gut Axis' confirms fresh-harvested produce delivers essential soil-based probiotics missing from sterilized commercial food. Homegrown crops retain up to 50% more nutrient density than store-bought options, directly fueling the gut microbiome and immune system."
+                            description={
+                                <>
+                                    2025 research on the 'Soil-Plant-Gut Axis' confirms fresh-harvested produce delivers essential soil-based probiotics missing from sterilized commercial food. Homegrown crops <span className="text-white font-bold">retain up to 50% more nutrient density</span> than store-bought options, directly fueling the gut microbiome and immune system.
+                                </>
+                            }
                         />
                     </div>
                 </div>
