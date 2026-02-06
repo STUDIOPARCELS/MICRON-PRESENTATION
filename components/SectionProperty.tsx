@@ -66,10 +66,10 @@ export const SectionProperty: React.FC = () => {
                   {/* Thin line separator */}
                   <div className="h-px w-full bg-white/20 mb-4" />
 
-                  {/* Description text size increased to text-lg */}
-                  <p className="text-white/80 font-medium leading-relaxed text-lg">
+                  {/* Description text size increased to text-lg. Changed from <p> to <div> and text-white/80 to text-white/60 for contrast. */}
+                  <div className="text-white/60 font-medium leading-relaxed text-lg space-y-4">
                       {description}
-                  </p>
+                  </div>
               </div>
           </div>
       </div>
@@ -101,7 +101,8 @@ export const SectionProperty: React.FC = () => {
                             icon={<Waves />} 
                             description={
                                 <>
-                                    Alternating thermal exposure drives circulation to flush systemic inflammation and accelerate deep tissue recovery. The rapid temperature shift triggers a proven <span className="text-white font-bold">250% increase in dopamine</span>, delivering sustained alertness, mental clarity, and elevated mood.
+                                    <p>Alternating thermal exposure drives circulation to flush systemic inflammation and accelerate deep tissue recovery.</p>
+                                    <p>The rapid temperature shift triggers a proven <span className="text-white font-bold">250% increase in dopamine</span>, delivering sustained alertness, mental clarity, and elevated mood.</p>
                                 </>
                             }
                         />
@@ -111,7 +112,8 @@ export const SectionProperty: React.FC = () => {
                             icon={<Activity />} 
                             description={
                                 <>
-                                    Invented in 1960 by Vladimir Nazarov for the Soviet Space Program to combat zero-gravity bone loss. By engaging 90% of muscle fibers (vs. 40% in standard training), it <span className="text-white font-bold">rapidly builds bone density</span>, counteracts neuropathy, and stimulates neuro-repair for improved mental health.
+                                    <p>Invented in 1960 by Vladimir Nazarov for the Soviet Space Program to combat zero-gravity bone loss.</p>
+                                    <p>By engaging 90% of muscle fibers (vs. 40% in standard training), it <span className="text-white font-bold">rapidly builds bone density</span>, counteracts neuropathy, and stimulates neuro-repair for improved mental health.</p>
                                 </>
                             }
                         />
@@ -121,7 +123,8 @@ export const SectionProperty: React.FC = () => {
                             icon={<Sprout />} 
                             description={
                                 <>
-                                    2025 research on the 'Soil-Plant-Gut Axis' confirms fresh-harvested produce delivers essential soil-based probiotics missing from sterilized commercial food. Homegrown crops <span className="text-white font-bold">retain up to 50% more nutrient density</span> than store-bought options, directly fueling the gut microbiome and immune system.
+                                    <p>2025 research on the 'Soil-Plant-Gut Axis' confirms fresh-harvested produce delivers essential soil-based probiotics missing from sterilized commercial food.</p>
+                                    <p>Homegrown crops <span className="text-white font-bold">retain up to 50% more nutrient density</span> than store-bought options, directly fueling the gut microbiome and immune system.</p>
                                 </>
                             }
                         />
@@ -192,59 +195,59 @@ export const SectionProperty: React.FC = () => {
       } else if (type === 'history') {
          setModalData({
             title: "HISTORIC LEGACY",
-            subtitle: "1890 - PRESENT",
+            // Subtitle removed as requested
             category: 'showcase',
             theme: 'light',
             maxWidth: 'max-w-6xl',
             content: (
                  <div className="flex flex-col gap-6">
-                    {/* UPDATED: Split grid with square image and stacked text tiles */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
-                        {/* Tile 1: Square Image */}
-                        <div className="relative aspect-square w-full rounded-2xl overflow-hidden shadow-lg border border-black/10 group">
+                    {/* UPDATED: Split grid with square image and single large text tile */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full items-stretch">
+                        {/* Tile 1: Image - Expanded to fill height */}
+                        <div className="relative min-h-[400px] md:h-full w-full rounded-2xl overflow-hidden shadow-lg border border-black/10 group">
                              <img 
                                 src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/old%20warm%20springs.webp" 
                                 alt="Old Warm Springs" 
                                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                              />
-                             {/* REMOVED Gradient Overlay for brightness */}
                         </div>
 
-                        {/* Right Column: Stacked Text Tiles */}
-                        <div className="flex flex-col gap-6 h-full">
-                             {/* Tile 2: Origins */}
-                             <div className="bg-micron-eggplant rounded-2xl p-6 md:p-8 text-white shadow-lg border border-white/10 flex flex-col justify-center flex-1">
+                        {/* Right Column: Merged Text Tile */}
+                        <div className="bg-micron-eggplant rounded-2xl p-6 md:p-10 text-white shadow-lg border border-white/10 flex flex-col justify-center h-full">
+                            {/* Origins */}
+                            <div className="mb-8">
                                 <div className="flex items-center gap-3 mb-4">
-                                    <History className="text-white/80" size={24} />
-                                    <h4 className="text-xl font-black uppercase tracking-tight text-white/90">Origins</h4>
+                                    <History className="text-white/80" size={28} />
+                                    <h4 className="text-2xl font-black uppercase tracking-tight text-white">Origins</h4>
                                 </div>
-                                {/* UPDATED: Split into two paragraphs */}
-                                 <div className="font-medium leading-relaxed text-white/80 space-y-4">
+                                <div className="font-medium leading-relaxed text-white/80 space-y-4 text-lg">
                                     <p>
                                         In 1890, Christopher W. Moore, founder of the First National Bank of Idaho, drilled two wells near the base of Table Rock. He struck 170-degree water.
                                     </p>
                                     <p>
                                         By 1892, he had piped it to his mansion on Warm Springs Avenue—marking the first use of geothermal water for home heating in the United States.
                                     </p>
-                                 </div>
-                             </div>
+                                </div>
+                            </div>
 
-                             {/* Tile 3: Continuity */}
-                             <div className="bg-micron-grey1 rounded-2xl p-6 md:p-8 text-white shadow-lg border border-white/10 flex flex-col justify-center flex-1">
-                                 <div className="flex items-center gap-3 mb-4">
-                                    <TreeDeciduous className="text-white/80" size={24} />
-                                    <h4 className="text-xl font-black uppercase tracking-tight text-white/90">Continuity</h4>
-                                 </div>
-                                 {/* UPDATED: Split into two paragraphs */}
-                                 <div className="font-medium leading-relaxed text-white/80 space-y-4">
+                            {/* Divider */}
+                            <div className="w-full h-px bg-white/20 mb-8" />
+
+                            {/* Continuity */}
+                            <div>
+                                <div className="flex items-center gap-3 mb-4">
+                                    <TreeDeciduous className="text-white/80" size={28} />
+                                    <h4 className="text-2xl font-black uppercase tracking-tight text-white">Continuity</h4>
+                                </div>
+                                <div className="font-medium leading-relaxed text-white/80 space-y-4 text-lg">
                                     <p>
                                         Today, the Boise Warm Springs Water District remains the oldest continuously operating geothermal district in North America.
                                     </p>
                                     <p>
                                         The Micron House sits on this historic line, utilizing the same clean, ancient energy source that Moore tapped over 130 years ago. It is a National Register of Historic Places corridor defined by energy innovation.
                                     </p>
-                                 </div>
-                             </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
