@@ -152,65 +152,105 @@ export const SectionServingTesla: React.FC = () => {
     // CONTENT FOR "REAL-WORLD INFERENCE" (ID 2)
     if (id === 2) {
         return (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
-                {/* LEFT COLUMN: Main Concept */}
-                <div className="flex flex-col gap-6">
-                    {/* Primary Statement Card - White Card on Blue BG */}
-                    <motion.div 
-                        variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                        className="bg-white rounded-3xl p-8 border border-zinc-200 shadow-xl relative overflow-hidden h-full flex flex-col justify-center"
-                    >
-                         <div className="absolute top-0 right-0 w-32 h-32 bg-micron-green/5 rounded-bl-full -mr-8 -mt-8"></div>
-                         
-                         <span className="relative z-10 text-micron-green font-bold uppercase tracking-widest text-xs mb-4 block">
-                            The Feedback Loop
-                         </span>
-                         <h3 className="relative z-10 text-3xl font-black uppercase tracking-tight text-zinc-900 mb-6 leading-none">
-                            Executive Feedback
-                         </h3>
-                         <p className="relative z-10 text-lg text-zinc-600 leading-relaxed font-body font-medium">
-                            Micron House offers valuable feedback for the executives that created the technology. As the first residential prototype, it closes the loop between abstract code and lived reality.
-                         </p>
-                    </motion.div>
+            <div className="flex flex-col gap-6 h-full pb-8">
+                {/* Top Description */}
+                <div className="w-full">
+                    <p className="text-lg md:text-xl text-zinc-600 font-light leading-relaxed">
+                        Every function at Micron House — executive, social, civic, compassionate — generates domestic intelligence that flows back to Micron's product teams fifteen minutes away.
+                    </p>
                 </div>
 
-                {/* RIGHT COLUMN: The Roundtable - White Card on Blue BG */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                    {/* LEFT: Large Image Block */}
+                    <motion.div 
+                        variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                        className="relative min-h-[400px] h-full rounded-2xl overflow-hidden shadow-lg border border-black/10 group"
+                    >
+                         <img 
+                            src="https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=1964&auto=format&fit=crop" 
+                            alt="Domestic Intelligence" 
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                         />
+                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+                         <div className="absolute bottom-6 left-6 text-white/80 text-xs font-bold uppercase tracking-widest">
+                            Living Laboratory
+                         </div>
+                    </motion.div>
+
+                    {/* RIGHT: Stacked Cards */}
+                    <div className="flex flex-col gap-4 h-full">
+                         {/* Card 1: Purple */}
+                         <motion.div 
+                            variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
+                            transition={{ delay: 0.1 }}
+                            className="bg-micron-eggplant text-white p-6 rounded-2xl shadow-lg border border-white/10 flex-1 flex flex-col justify-center"
+                         >
+                            <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-white">THE FEEDBACK LOOP</h3>
+                            <ul className="space-y-3 text-sm font-medium text-white/80 leading-relaxed mb-4">
+                                <li className="flex gap-3">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
+                                    <span>Optimus coordinates a confidential dinner with a James Beard semifinalist and Snake River Valley wines.</span>
+                                </li>
+                                <li className="flex gap-3">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
+                                    <span>Optimus and Cybercab host a live capability demonstration for Boise State engineering students on the back terrace.</span>
+                                </li>
+                                <li className="flex gap-3">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
+                                    <span>Optimus manages a quiet household for an employee's family while a loved one recovers at St. Luke's a mile away.</span>
+                                </li>
+                                <li className="flex gap-3">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
+                                    <span>Cybercab delivers a senior Washington official to a fireside on autonomous regulation with Micron leadership.</span>
+                                </li>
+                            </ul>
+                            <p className="text-white font-bold italic border-l-2 border-white/30 pl-3">
+                                Four scenarios. Four emotional registers.
+                            </p>
+                         </motion.div>
+
+                         {/* Card 2: Dark/Charcoal */}
+                         <motion.div 
+                             variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
+                             transition={{ delay: 0.2 }}
+                             className="bg-micron-grey1 text-white p-6 rounded-2xl shadow-lg border border-white/10 flex-shrink-0"
+                         >
+                            <h3 className="text-xl font-black uppercase tracking-tight mb-3 text-white">PRE-PUBLIC DEPLOYMENT</h3>
+                            <p className="text-white/80 text-sm font-medium leading-relaxed">
+                                Micron's leadership experiences Optimus and Cybercab across the full spectrum of real life before any consumer on earth. Confidential. Celebratory. Compassionate. Political. Every week of operational variety builds institutional knowledge competitors will spend years catching up to.
+                            </p>
+                         </motion.div>
+                    </div>
+                </div>
+
+                {/* BOTTOM: Full-width Blue Card */}
                 <motion.div 
-                    variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
-                    className="bg-white rounded-[2rem] p-8 border border-zinc-200 shadow-xl flex flex-col gap-4"
+                    variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                    transition={{ delay: 0.3 }}
+                    className="bg-micron-eggplant-light text-zinc-900 rounded-2xl p-6 shadow-xl border border-white/20"
                 >
-                     <div className="mb-2">
-                        <h4 className="text-micron-eggplant font-bold uppercase text-xs tracking-[0.2em]">The Roundtable Coalition</h4>
-                        <p className="text-zinc-500 text-sm mt-1">Solving density, surveillance, and civil rights.</p>
-                     </div>
-
-                     {/* List Items as Cards - 3D Effect Added - UPDATED WITH COLORS */}
-                     {/* 1. Government - Grey1 */}
-                     <div className="bg-micron-grey1 text-white rounded-xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 border border-white/10">
-                        <div className="flex items-center gap-3 mb-2">
-                            <ShieldCheck className="text-white/70" size={20} />
-                            <span className="text-white font-black text-lg uppercase tracking-wide">Government</span>
+                    <div className="flex items-center gap-3 mb-4 pb-4 border-b border-zinc-900/10">
+                        <h3 className="text-2xl font-black uppercase tracking-tight text-white">THE CLOSED LOOP</h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        {/* Stats Column */}
+                        <div className="md:col-span-4 flex flex-col gap-4 border-b md:border-b-0 md:border-r border-zinc-900/10 pb-4 md:pb-0 justify-center">
+                            <div>
+                                <h4 className="text-3xl md:text-4xl font-black text-white tracking-tighter">15 min</h4>
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-700">FAB TO FRONT DOOR</p>
+                            </div>
+                            <div>
+                                <h4 className="text-3xl md:text-4xl font-black text-white tracking-tighter">1</h4>
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-700">ADDRESS</p>
+                            </div>
                         </div>
-                        <p className="text-white/70 text-sm font-medium">City Councils, Transportation Departments, and Public Health Officials.</p>
-                     </div>
-
-                     {/* 2. Design & Society - Light Blue */}
-                     <div className="bg-micron-eggplant-light text-white rounded-xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 border border-white/10">
-                        <div className="flex items-center gap-3 mb-2">
-                            <Activity className="text-white/70" size={20} />
-                            <span className="text-white font-black text-lg uppercase tracking-wide">Design & Society</span>
+                        {/* Text Column */}
+                        <div className="md:col-span-8 flex flex-col justify-center">
+                            <p className="text-zinc-800 text-sm md:text-base font-medium leading-relaxed">
+                                Micron silicon is fabricated fifteen minutes from the front door. Optimus and Cybercab run on Micron silicon. The executives who designed the memory architecture host guests, close recruits, and entertain partners alongside machines powered by their own work. <strong className="text-white">Feedback travels from the dining room to the fab floor by morning.</strong>
+                            </p>
                         </div>
-                        <p className="text-white/70 text-sm font-medium">Urban Planners, Architects, Sociologists, and Anthropologists.</p>
-                     </div>
-
-                     {/* 3. Rights & Ethics - Eggplant */}
-                     <div className="bg-micron-eggplant text-white rounded-xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 border border-white/10">
-                        <div className="flex items-center gap-3 mb-2">
-                            <Users className="text-white/70" size={20} />
-                            <span className="text-white font-black text-lg uppercase tracking-wide">Rights & Ethics</span>
-                        </div>
-                        <p className="text-white/70 text-sm font-medium">Civil Liberties Organizations (ACLU), Disability Rights Advocates, and Ethicists.</p>
-                     </div>
+                    </div>
                 </motion.div>
             </div>
         );

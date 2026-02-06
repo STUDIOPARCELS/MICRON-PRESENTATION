@@ -28,14 +28,16 @@ const sentences = [
         layout: "default"
     },
     {
-        // Sentence 3 - UPDATED: Grouped "THERE'S NO" and set layout to vertical_all for specific line breaking
-        words: ["WITHOUT", "PLACE,", "THERE'S NO", "PERSPECTIVE."], 
+        // Sentence 3 - UPDATED: Split "THERE'S" and "NO" but used mixed layout to keep them on same line
+        words: ["WITHOUT", "PLACE,", "THERE'S", "NO", "PERSPECTIVE."], 
         color: "text-zinc-400",
         highlightColor: "text-micron-green",
         hoverColor: "hover:text-green-900", 
         highlights: ["PLACE,", "PERSPECTIVE."],
         textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
-        layout: "vertical_all"
+        layout: "mixed",
+        // Custom layout classes to force line breaks: Full, Full, Auto, Auto, Full
+        layoutOverrides: ["w-full basis-full mb-1", "w-full basis-full mb-1", "w-auto", "w-auto", "w-full basis-full mt-1"]
     },
 ];
 
@@ -179,8 +181,8 @@ export const Hero: React.FC = () => {
       // UPDATED: Trigger on the THIRD sentence (index 2) as requested ("WITHOUT PLACE...")
       if (currentSentenceIndex === 2) {
           // Delay to start AFTER the last sentence is populated
-          // Sentence has 4 items. Stagger is 0.4s. 
-          // Last word starts at 1.2s. Duration 0.5s. Ends at 1.7s.
+          // Sentence has 5 items now (was 4). Stagger is 0.4s. 
+          // Last word starts at 1.6s. Duration 0.5s. Ends at 2.1s.
           // Setting delay to 2.2s ensures it rolls in cleanly after text is done.
           const totalDelay = 2.2; 
 
@@ -228,6 +230,8 @@ export const Hero: React.FC = () => {
       let layoutClass = "";
       if (currentSet.layout === "vertical_all") {
           layoutClass = "w-full basis-full mb-1";
+      } else if (currentSet.layout === "mixed" && currentSet.layoutOverrides && currentSet.layoutOverrides[i]) {
+          layoutClass = currentSet.layoutOverrides[i];
       }
 
       return (

@@ -155,8 +155,7 @@ export const SectionProperty: React.FC = () => {
                                 alt="Old Warm Springs" 
                                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                              />
-                             {/* REMOVED Est. 1890 Overlay */}
-                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+                             {/* REMOVED Gradient Overlay for brightness */}
                         </div>
 
                         {/* Right Column: Stacked Text Tiles */}
