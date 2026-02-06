@@ -343,8 +343,8 @@ export const SectionServingTesla: React.FC = () => {
                 {teslaCards.map((card, i) => (
                     <BentoCard
                         key={card.id}
-                        // UPDATED: Reduced min-height to min-h-[200px]
-                        className={`flex flex-col min-h-[200px] p-6 md:p-8 relative overflow-hidden group shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] ${card.gradient} ${card.border} transition-colors duration-500`}
+                        // UPDATED: Increased min-height to min-h-[300px] (50% increase from 200px)
+                        className={`flex flex-col min-h-[300px] p-6 md:p-8 relative overflow-hidden group shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] ${card.gradient} ${card.border} transition-colors duration-500`}
                         gradient={card.gradient}
                         textColor="text-white"
                         borderColor="border-white/10"

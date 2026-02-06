@@ -283,12 +283,19 @@ export const SectionServing: React.FC = () => {
             </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* UPDATED: Changed from Grid to Flex to allow center alignment of the bottom row */}
+        <div className="flex flex-wrap justify-center gap-6">
             {departments.map((dept, i) => (
                 <BentoCard
                     key={dept.id}
-                    // UPDATED: Reduced min-height from 320px to 160px as requested (half height)
-                    className={`flex flex-col min-h-[160px] p-6 relative overflow-hidden group shadow-lg hover:shadow-2xl transition-all duration-300 ${dept.gradient}`}
+                    // UPDATED: Width classes for 4-column layout logic using Flexbox
+                    // w-full on mobile
+                    // md:w-[calc(50%-12px)] (2 per row with gap-6=24px, 24/2=12)
+                    // lg:w-[calc(25%-18px)] (4 per row with 3 gaps of 24px=72px, 72/4=18)
+                    className={`
+                        flex flex-col min-h-[160px] p-6 relative overflow-hidden group shadow-lg hover:shadow-2xl transition-all duration-300 ${dept.gradient}
+                        w-full md:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]
+                    `}
                     gradient={dept.gradient}
                     textColor="text-white"
                     borderColor="border-white/10"
@@ -302,8 +309,10 @@ export const SectionServing: React.FC = () => {
                              <p className="text-[10px] font-bold uppercase tracking-widest text-white/70">{dept.value}</p>
                         </div>
                         <div className="mt-4">
-                            <div className="h-px w-12 bg-white/30 mb-4" />
-                            <p className="text-sm font-medium text-white/80 line-clamp-3">
+                            {/* UPDATED: Changed separator line to w-full to match Geothermal/Wellness style */}
+                            <div className="h-px w-full bg-white/30 mb-4" />
+                            {/* UPDATED: Increased font size to text-sm md:text-base to match Geothermal/Wellness style */}
+                            <p className="text-sm md:text-base font-medium text-white/80 line-clamp-3">
                                 {dept.detail}
                             </p>
                         </div>
