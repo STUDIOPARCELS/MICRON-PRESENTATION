@@ -47,23 +47,30 @@ export const SectionProperty: React.FC = () => {
       });
   };
 
-  // Helper for Modal Cards
+  // Helper for Modal Cards - UPDATED to match Serving Micron style
   const ModalCard = ({ title, description, colorClass, icon, image }: any) => (
-      <div className={`${colorClass} rounded-2xl p-6 md:p-8 text-white shadow-lg flex flex-col h-full relative overflow-hidden group border border-white/10`}>
+      <div className={`${colorClass} rounded-2xl p-6 text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative overflow-hidden group border border-white/10`}>
           {image && (
                <>
                   <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                </>
           )}
-          <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-4">
-                  {icon && React.cloneElement(icon, { size: 24, className: "text-white/90" })}
-                  <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-none drop-shadow-md">{title}</h3>
+          <div className="relative z-10 flex flex-col h-full justify-between">
+              <div>
+                  <div className="flex items-center gap-3 mb-4">
+                      {icon && React.cloneElement(icon, { size: 24, className: "text-white/80" })}
+                      <h3 className="text-xl font-bold uppercase tracking-tight">{title}</h3>
+                  </div>
+                  
+                  {/* Thin line separator */}
+                  <div className="h-px w-full bg-white/20 mb-4" />
+
+                  {/* Description text size increased to text-lg */}
+                  <p className="text-white/80 font-medium leading-relaxed text-lg">
+                      {description}
+                  </p>
               </div>
-               <p className="text-sm md:text-base font-medium leading-relaxed text-white/90 drop-shadow-sm">
-                  {description}
-              </p>
           </div>
       </div>
   );
@@ -77,12 +84,17 @@ export const SectionProperty: React.FC = () => {
             theme: 'light',
             modalLayout: 'default',
             maxWidth: 'max-w-7xl',
+            headerClassName: "text-micron-eggplant-light",
             content: (
-                <div className="flex flex-col gap-8">
-                    <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed">
-                        Powered by a 177°F direct-use aquifer. Geothermal water flows through the home's radiators and feeds the outdoor soaking tub. The grounds feature mature fruit trees and a Concord grapevine.
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="flex flex-col gap-8 pb-4">
+                     {/* Updated Description with Left Border to match Serving Micron style */}
+                    <div className="border-l-4 border-micron-eggplant-light pl-6 py-1">
+                         <p className="text-base md:text-lg font-light text-zinc-600 leading-relaxed font-body">
+                            Powered by a 177°F direct-use aquifer. Geothermal water flows through the home's radiators and feeds the outdoor soaking tub. The grounds feature mature fruit trees and a Concord grapevine.
+                         </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1">
                         <ModalCard 
                             title="CONTRAST THERAPY" 
                             colorClass="bg-micron-eggplant-light"
@@ -194,9 +206,15 @@ export const SectionProperty: React.FC = () => {
                                     <History className="text-white/80" size={24} />
                                     <h4 className="text-xl font-black uppercase tracking-tight text-white/90">Origins</h4>
                                 </div>
-                                 <p className="font-medium leading-relaxed text-white/80">
-                                    In 1890, Christopher W. Moore, founder of the First National Bank of Idaho, drilled two wells near the base of Table Rock. He struck 170-degree water. By 1892, he had piped it to his mansion on Warm Springs Avenue—marking the first use of geothermal water for home heating in the United States.
-                                 </p>
+                                {/* UPDATED: Split into two paragraphs */}
+                                 <div className="font-medium leading-relaxed text-white/80 space-y-4">
+                                    <p>
+                                        In 1890, Christopher W. Moore, founder of the First National Bank of Idaho, drilled two wells near the base of Table Rock. He struck 170-degree water.
+                                    </p>
+                                    <p>
+                                        By 1892, he had piped it to his mansion on Warm Springs Avenue—marking the first use of geothermal water for home heating in the United States.
+                                    </p>
+                                 </div>
                              </div>
 
                              {/* Tile 3: Continuity */}
@@ -205,9 +223,15 @@ export const SectionProperty: React.FC = () => {
                                     <TreeDeciduous className="text-white/80" size={24} />
                                     <h4 className="text-xl font-black uppercase tracking-tight text-white/90">Continuity</h4>
                                  </div>
-                                 <p className="font-medium leading-relaxed text-white/80">
-                                    Today, the Boise Warm Springs Water District remains the oldest continuously operating geothermal district in North America. The Micron House sits on this historic line, utilizing the same clean, ancient energy source that Moore tapped over 130 years ago. It is a National Register of Historic Places corridor defined by energy innovation.
-                                 </p>
+                                 {/* UPDATED: Split into two paragraphs */}
+                                 <div className="font-medium leading-relaxed text-white/80 space-y-4">
+                                    <p>
+                                        Today, the Boise Warm Springs Water District remains the oldest continuously operating geothermal district in North America.
+                                    </p>
+                                    <p>
+                                        The Micron House sits on this historic line, utilizing the same clean, ancient energy source that Moore tapped over 130 years ago. It is a National Register of Historic Places corridor defined by energy innovation.
+                                    </p>
+                                 </div>
                              </div>
                         </div>
                     </div>
