@@ -63,7 +63,7 @@ const departments: Department[] = [
     id: "events", 
     title: "Events & Meetings", 
     value: "Private dinners", 
-    detail: "Controlled environment, curated experiences, cultural calendar integration.", 
+    detail: "Consistent environment, curated experiences, cultural calendar integration.", 
     gradient: "bg-micron-green", 
     modalHeaderColor: "text-micron-green",
     modalIconColor: "text-zinc-400", 
@@ -240,8 +240,8 @@ export const SectionServing: React.FC = () => {
         // REMOVED h-full from this wrapper to allow natural height sizing
         <div className="flex flex-col gap-8 pb-4">
              <div className={`border-l-4 ${dept.modalTagColor.replace('border-', 'border-')} pl-6 py-1`}>
-                {/* UPDATED: Reduced font size from text-lg md:text-xl to text-base md:text-lg */}
-                <p className="text-base md:text-lg font-light text-zinc-600 leading-relaxed font-body">
+                {/* UPDATED: Increased font size to text-lg md:text-xl to denote header section relative to tiles */}
+                <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
                     {dept.detail}
                 </p>
             </div>
@@ -259,7 +259,7 @@ export const SectionServing: React.FC = () => {
                                 <h4 className="text-xl font-bold uppercase tracking-tight">{exp.title}</h4>
                             </div>
                             <div className="h-px w-full bg-white/20 mb-4" />
-                            {/* UPDATED: Increased font size from text-base to text-lg */}
+                            {/* UPDATED: Verified font size is text-lg to match Wellness standard */}
                             <p className="text-white/80 font-medium leading-relaxed text-lg">
                                 {exp.description}
                             </p>
@@ -297,7 +297,7 @@ export const SectionServing: React.FC = () => {
                        <span className="font-bold text-micron-eggplant block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                            STRATEGIC ALIGNMENT
                        </span>
-                       A new class of corporate asset. The first autonomous residence purpose-built to serve a single company's executives, recruits, partners, and community — across every department that touches people.
+                       A new class of corporate asset. The first autonomous residence purpose-built to serve corporate executives, recruits, partners, and community — across every department that touches people.
                     </p>
                  </div>
             </div>
@@ -326,7 +326,8 @@ export const SectionServing: React.FC = () => {
                              <div className="h-px w-full bg-white/30" />
                         </div>
                         
-                        <p className="text-sm md:text-base font-medium text-white/80 line-clamp-3 mt-4">
+                        {/* UPDATED: Increased font size to text-lg to match Wellness modal tiles standard */}
+                        <p className="text-lg font-medium text-white/80 line-clamp-3 mt-4 leading-relaxed">
                             {dept.detail}
                         </p>
                     </div>

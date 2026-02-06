@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
@@ -474,7 +473,8 @@ export const SectionServingTesla: React.FC = () => {
               <div className="md:ml-auto max-w-2xl pb-1">
                    <div className="pl-6 border-l-4 border-micron-eggplant-light/20 hover:border-micron-eggplant-light transition-colors duration-500">
                       <p className="text-base font-light text-zinc-600 leading-snug font-body">
-                         <span className="font-bold text-micron-eggplant-light block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
+                         {/* UPDATED: Changed color to text-zinc-400 (Tesla Gray) */}
+                         <span className="font-bold text-zinc-400 block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                              AUTONOMOUS ECOSYSTEM
                          </span>
                          The first residential deployment of the Tesla autonomous ecosystem. Optimus and Cybercab operating in a living environment — creating a continuous feedback loop between the technology and the human experience.

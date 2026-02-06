@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence, useAnimation } from 'framer-motion';
 import { MapPin } from 'lucide-react';
@@ -123,7 +122,6 @@ export const Hero: React.FC = () => {
   // Start as null for blank state
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState<number | null>(null);
   const [key, setKey] = useState(0); 
-  const [showCursiveText, setShowCursiveText] = useState(false);
   const [layoutShift, setLayoutShift] = useState(false);
 
   // Icon Controls
@@ -161,7 +159,7 @@ export const Hero: React.FC = () => {
     return () => clearTimeout(timer);
   }, [currentSentenceIndex]);
 
-  // Effect for Icon Roll-In Logic and Cursive Text
+  // Effect for Icon Roll-In Logic
   useEffect(() => {
       // Trigger on the THIRD sentence (index 2)
       if (currentSentenceIndex === 2) {
@@ -186,21 +184,13 @@ export const Hero: React.FC = () => {
               setLayoutShift(true);
           }, 1800);
 
-          // Cursive Text Timer
-          // UPDATED: Delay synced to appear when "Perspective" populates
-          const cursiveTimer = setTimeout(() => {
-              setShowCursiveText(true);
-          }, 1600);
-
           return () => {
-              clearTimeout(cursiveTimer);
               clearTimeout(shiftTimer);
           };
 
       } else if (currentSentenceIndex === 0) {
           // Only manual reset triggers this now (since scroll reset is removed)
           iconControls.set({ x: 200, rotate: -360, opacity: 0 });
-          setShowCursiveText(false);
           setLayoutShift(false);
       }
   }, [currentSentenceIndex, iconControls]);
@@ -247,8 +237,8 @@ export const Hero: React.FC = () => {
       );
   }
 
-  // UPDATED: Single Paragraph Quote
-  const quoteText = "A convergence of historic stewardship and autonomous future. The first corporate residence. Designed for the era of artificial intelligence.";
+  // UPDATED: Single Paragraph Quote with hyphen and lowercase 'd'
+  const quoteText = "A convergence of historic stewardship and autonomous future. The first corporate residence - designed for the era of artificial intelligence.";
   const quoteWords = quoteText.split(" ");
 
   return (
@@ -265,9 +255,6 @@ export const Hero: React.FC = () => {
             <motion.div 
                 layout
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-                // UPDATED: Added conditional classes for mobile layout
-                // When !layoutShift (Animation Playing): min-h-[200px], p-6, justify-center
-                // When layoutShift (Final State): min-h-[300px], px-6 pt-6 pb-12, justify-end
                 className={`
                     ${layoutShift ? 'min-h-[300px] px-6 pt-6 pb-12 justify-end' : 'min-h-[200px] p-6 justify-center'}
                     md:min-h-[300px] md:h-full md:justify-end md:px-12 md:pt-12 md:pb-12
@@ -279,21 +266,22 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    className="absolute top-2 left-0 right-0 mx-auto w-fit md:top-12 md:right-20 md:left-auto md:mx-0 z-20"
+                    // UPDATED: Mobile positioning bottom-right (right-4 bottom-10) to nudge up slightly, md desktop top-right
+                    className="absolute bottom-10 right-4 w-fit md:top-12 md:right-20 md:bottom-auto md:left-auto md:mx-0 z-20"
                  >
                     <motion.img 
                         whileHover={{ rotate: 6 }}
                         transition={{ type: "spring", stiffness: 300, damping: 10 }}
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                         alt="Micron Logo"
-                        className="h-36 w-36 md:h-40 md:w-40 object-contain cursor-pointer"
+                        className="h-24 w-24 md:h-40 md:w-40 object-contain cursor-pointer"
                     />
                  </motion.div>
                  
                  <motion.div 
                     layout
                     transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-                    className={`w-full relative z-10 ${layoutShift ? 'mt-36' : 'mt-0'} md:mt-0`}
+                    className={`w-full relative z-10 mt-0 md:mt-0`}
                  >
                      <AnimatePresence mode="wait">
                        {currentSentenceIndex !== null && (
@@ -354,37 +342,34 @@ export const Hero: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
-            // UPDATED: Reduced height by ~20% (min-h-[500] -> [400], md:min-h-[450] -> [360])
-            // Reduced gap on mobile (gap-4) from gap-8
             className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row md:items-stretch min-h-[400px] md:min-h-[360px] mt-4 p-8 md:p-8 gap-4 md:gap-8 group"
         >
             {/* LEFT: Title + Address Block (Flex-1) */}
-            {/* UPDATED: Removed fixed width to allow text to sit next to each other */}
-            {/* UPDATED: Reduced gap to gap-2 for mobile tightness, kept md:gap-12 */}
-            <div className="flex-shrink-0 flex flex-col justify-between items-start z-10 relative h-full md:w-auto gap-2 md:gap-12">
+            {/* UPDATED: Increased gap to gap-10 on mobile to double the pattern */}
+            <div className="flex-shrink-0 flex flex-col justify-between items-start z-10 relative h-full md:w-auto gap-10 md:gap-12">
                  <div className="relative z-10 w-full">
                     <InteractiveParadigmTitle />
                  </div>
                  
                  {/* ADDRESS BLOCK */}
-                 {/* UPDATED: Reduced mt to mt-2 for mobile, kept md:mt-auto */}
-                 <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4 relative z-10 mt-2 md:mt-auto">
+                 {/* UPDATED: Added h-fit to prevent line stretching, removed mt logic due to gap-10 */}
+                 <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4 relative z-10 mt-auto md:mt-auto h-fit">
                         <h3 className="text-white font-bold text-xl uppercase tracking-wider">Micron House</h3>
                         <p className="text-micron-eggplant font-bold text-sm md:text-lg uppercase tracking-widest whitespace-nowrap">1020 East Warm Springs Ave</p>
                         <p className="text-micron-eggplant/80 text-sm md:text-lg uppercase tracking-widest">Boise, Idaho 83712</p>
                  </div>
 
                  {/* MOBILE QUOTE - IN FLOW */}
-                 {/* UPDATED: Reduced py-8 to pt-4 pb-12 to increase gap between text and map below */}
+                 {/* UPDATED: Use whileInView for scroll-based triggering */}
                  <div className="md:hidden w-full flex-grow pt-4 pb-12 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
-                         animate={showCursiveText ? "visible" : "hidden"}
+                         whileInView="visible"
+                         viewport={{ once: true, amount: 0.3 }}
                          variants={{
-                             visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } }, // UPDATED: Very slow stagger (0.35s)
+                             visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } }, 
                              hidden: {}
                          }}
-                         // UPDATED: Changed back to font-micron for cursive, kept text-white
                          className="font-micron text-2xl text-center text-white leading-relaxed -rotate-3"
                       >
                          {/* Joined into one paragraph block */}
@@ -394,7 +379,7 @@ export const Hero: React.FC = () => {
                                     key={i}
                                     variants={{
                                         hidden: { opacity: 0 },
-                                        visible: { opacity: 1, transition: { duration: 0.8, ease: "easeInOut" } } // UPDATED: Slower fade (0.8s)
+                                        visible: { opacity: 1, transition: { duration: 0.5, ease: "easeInOut" } }
                                     }}
                                     className="mr-1.5 inline-block"
                                 >
@@ -410,15 +395,12 @@ export const Hero: React.FC = () => {
             <div className="hidden md:flex flex-grow items-center justify-center relative px-4 z-10">
                 <motion.div
                         initial="hidden"
-                        animate={showCursiveText ? "visible" : "hidden"}
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
                         variants={{
-                            visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } }, // UPDATED: Very slow stagger (0.35s)
+                            visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
                             hidden: {}
                         }}
-                        // UPDATED: 
-                        // 1. font-micron (Cursive)
-                        // 2. text-white
-                        // ADDED: -translate-x-4 to nudge left
                         className="font-micron text-2xl md:text-3xl text-white leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4"
                 >
                      {/* Joined into one paragraph block */}
@@ -428,7 +410,7 @@ export const Hero: React.FC = () => {
                             key={i}
                             variants={{
                                 hidden: { opacity: 0, y: 5 },
-                                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } } // UPDATED: Slower fade (0.8s)
+                                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
                             }}
                             className="mr-2 inline-block"
                         >
@@ -440,7 +422,6 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* RIGHT: Map Card (Fixed Width) */}
-            {/* UPDATED: Reduced width by ~20% (md:w-[300px], lg:w-[360px]) */}
             <div className="w-full md:w-[300px] lg:w-[360px] aspect-[4/3] md:aspect-auto md:h-auto bg-zinc-100 rounded-2xl overflow-hidden shadow-2xl relative border-4 border-white/20 z-10 mt-auto md:mt-0 flex-shrink-0">
                  <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.234!2d-116.1898!3d43.6088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54aef8d1b0b3b8e7%3A0x0!2s1020%20E%20Warm%20Springs%20Ave%2C%20Boise%2C%20ID%2083712!5e0!3m2!1sen!2sus!4v1706000000000"
