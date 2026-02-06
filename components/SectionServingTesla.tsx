@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
 import { ModalContent } from '../types';
-import { Scan, Cpu, MessageSquare, ShieldCheck, Users, Eye, Info, Activity, Feather, FileSignature, Palette, User, Layers, Zap, Droplets, Mountain, Star, Car, Bot } from 'lucide-react';
+import { Scan, Cpu, MessageSquare, ShieldCheck, Users, Eye, Info, Activity, Feather, FileSignature, Palette, User, Layers, Zap, Droplets, Mountain, Star, Car, Bot, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 // --- HELPER COMPONENT (Matched to SectionPrototype) ---
@@ -21,7 +21,7 @@ const InnerBento = ({ title, children, gradient, icon, className = "", delay = 0
             transition={{ delay, duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
             className={`
                 ${gradient} rounded-xl ${padding} ${textColor} relative overflow-hidden group 
-                shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] 
+                shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300
                 flex flex-col justify-start
                 border-t border-l border-white/20 border-b border-white/10 border-r border-white/5
                 ${className}
@@ -104,8 +104,8 @@ export const SectionServingTesla: React.FC = () => {
                     {/* Vision Card */}
                     <motion.div 
                         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                        // UPDATED: Changed bg-white to bg-zinc-100 (light gray) as requested
-                        className="bg-zinc-100 rounded-[2rem] p-8 border border-zinc-200 shadow-xl relative overflow-hidden flex flex-col justify-center"
+                        // UPDATED: Added floating shadow effects
+                        className="bg-zinc-100 rounded-[2rem] p-8 border border-zinc-200 relative overflow-hidden flex flex-col justify-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
                     >
                          <div className="mb-6">
                             <h4 className="text-3xl font-bold text-micron-eggplant mb-2 tracking-tight">Stewardship & Vision</h4>
@@ -122,7 +122,8 @@ export const SectionServingTesla: React.FC = () => {
                     {/* Proposal Card */}
                     <motion.div 
                         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                        className="bg-[#2c2e33] text-white rounded-[2rem] p-8 shadow-xl border border-zinc-700"
+                        // UPDATED: Added floating shadow effects
+                        className="bg-[#2c2e33] text-white rounded-[2rem] p-8 border border-zinc-700 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
                     >
                         <h3 className="text-2xl font-bold tracking-tight text-white/90 mb-4">Long-Term Relationship</h3>
                         <p className="text-zinc-300 font-light leading-relaxed text-base">
@@ -134,7 +135,8 @@ export const SectionServingTesla: React.FC = () => {
                 {/* RIGHT COLUMN: Concept Tiles */}
                 <motion.div 
                     variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
-                    className="bg-white rounded-[2rem] p-8 border border-zinc-200 shadow-xl flex flex-col gap-6"
+                    // UPDATED: Added floating shadow effects
+                    className="bg-white rounded-[2rem] p-8 border border-zinc-200 flex flex-col gap-6 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
                 >
                      <div className="flex flex-col items-center text-center pb-4 border-b border-zinc-100">
                         <img 
@@ -151,7 +153,7 @@ export const SectionServingTesla: React.FC = () => {
 
                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
                         {/* Earth - Green */}
-                        <div className="bg-micron-green text-white rounded-xl p-5 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 border border-white/10 flex flex-col gap-2">
+                        <div className="bg-micron-green text-white rounded-xl p-5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10 flex flex-col gap-2">
                             <div className="flex items-center gap-2 mb-1">
                                 <Mountain size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Earth</span>
@@ -160,7 +162,7 @@ export const SectionServingTesla: React.FC = () => {
                         </div>
 
                         {/* Sky - Blue */}
-                        <div className="bg-micron-eggplant-light text-white rounded-xl p-5 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 border border-white/10 flex flex-col gap-2">
+                        <div className="bg-micron-eggplant-light text-white rounded-xl p-5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10 flex flex-col gap-2">
                             <div className="flex items-center gap-2 mb-1">
                                 <Star size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Sky</span>
@@ -169,7 +171,7 @@ export const SectionServingTesla: React.FC = () => {
                         </div>
 
                         {/* Memory - Eggplant */}
-                        <div className="bg-micron-eggplant text-white rounded-xl p-5 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 border border-white/10 flex flex-col gap-2">
+                        <div className="bg-micron-eggplant text-white rounded-xl p-5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10 flex flex-col gap-2">
                             <div className="flex items-center gap-2 mb-1">
                                 <Layers size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Memory</span>
@@ -178,7 +180,7 @@ export const SectionServingTesla: React.FC = () => {
                         </div>
 
                         {/* Velocity - Grey */}
-                        <div className="bg-micron-grey1 text-white rounded-xl p-5 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 border border-white/10 flex flex-col gap-2">
+                        <div className="bg-micron-grey1 text-white rounded-xl p-5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10 flex flex-col gap-2">
                             <div className="flex items-center gap-2 mb-1">
                                 <Zap size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Velocity</span>
@@ -204,9 +206,7 @@ export const SectionServingTesla: React.FC = () => {
                     transition={{ delay: 0.1 }}
                     className="w-full flex flex-col items-start"
                 >
-                     <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-micron-eggplant mb-4">
-                        THE LIVING LABORATORY
-                     </h3>
+                    {/* REMOVED HEADER "THE LIVING LABORATORY" AS REQUESTED */}
                     {/* UPDATED: Font size increased to text-xl */}
                     <div className="text-zinc-900 text-xl font-medium leading-relaxed">
                         <p>
@@ -216,11 +216,13 @@ export const SectionServingTesla: React.FC = () => {
                 </motion.div>
 
                 {/* 2. WHITE FEATURE CARD (Full Width - Matches 'Service & Security Layer') */}
+                {/* UPDATED: Height reduced by ~20% (py-6->py-4, mb-6->mb-4, min-h-[120px]->min-h-[80px]) */}
+                {/* UPDATED: Added floating shadow effects */}
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="w-full bg-white rounded-xl px-6 py-5 md:px-8 md:py-6 text-zinc-900 shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] relative overflow-hidden group"
+                    className="w-full bg-white rounded-xl px-6 py-4 md:px-8 md:py-4 text-zinc-900 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
                 >
                     <div className="flex items-baseline gap-4 mb-4 relative z-10">
                         <h3 className="text-xl font-black uppercase tracking-tight text-micron-green flex items-center gap-2">
@@ -230,10 +232,11 @@ export const SectionServingTesla: React.FC = () => {
                         <span className="text-sm font-bold uppercase tracking-widest text-zinc-400 hidden md:block">Proximity Advantage</span>
                     </div>
                     
-                    <div className="w-full h-px bg-zinc-200 mb-6 relative z-10" />
+                    {/* UPDATED: Reduced bottom margin */}
+                    <div className="w-full h-px bg-zinc-200 mb-4 relative z-10" />
 
-                    {/* UPDATED: Increased base text to text-lg md:text-xl */}
-                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 text-zinc-600 text-lg md:text-xl font-medium leading-relaxed relative z-10 items-center">
+                    {/* UPDATED: Increased base text to text-lg md:text-xl, reduced grid gap */}
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 text-zinc-600 text-lg md:text-xl font-medium leading-relaxed relative z-10 items-center">
                         <div className="flex flex-col gap-6 md:gap-8">
                              <div>
                                  <span className="block text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-none">15 <span className="text-2xl font-bold align-top text-zinc-400">min</span></span>
@@ -247,8 +250,8 @@ export const SectionServingTesla: React.FC = () => {
                              </div>
                         </div>
                         
-                        {/* Separator */}
-                        <div className="hidden md:flex justify-center h-full min-h-[120px]">
+                        {/* Separator - Reduced height */}
+                        <div className="hidden md:flex justify-center h-full min-h-[80px]">
                             <div className="w-[3px] bg-micron-green h-full rounded-full"></div>
                         </div>
                         <div className="md:hidden w-full h-[3px] bg-micron-green rounded-full"></div>
@@ -270,7 +273,8 @@ export const SectionServingTesla: React.FC = () => {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5, duration: 0.8 }}
-                            className="w-full h-full relative rounded-xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group"
+                            // UPDATED: Added floating shadow effects
+                            className="w-full h-full relative rounded-xl overflow-hidden border border-zinc-200 group shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
                          >
                             <img 
                                 src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/tesla-optimus-gen-3-delay.png" 
@@ -368,7 +372,8 @@ export const SectionServingTesla: React.FC = () => {
             {/* MERGED: SCALE & FRICTION into one Light Blue Tile */}
             <motion.div 
                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                className="bg-micron-eggplant-light text-zinc-900 rounded-[2rem] p-8 md:p-10 border border-white/20 shadow-xl flex flex-col gap-8"
+                // UPDATED: Added floating shadow effects
+                className="bg-micron-eggplant-light text-zinc-900 rounded-[2rem] p-8 md:p-10 border border-white/20 flex flex-col gap-8 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
             >
                  {/* Scale Section */}
                  <div>
@@ -393,7 +398,8 @@ export const SectionServingTesla: React.FC = () => {
             {/* BOTTOM ROW: The Open Questions */}
             <motion.div 
                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                className="bg-white rounded-[2rem] p-8 md:p-10 border border-zinc-200 shadow-xl flex flex-col justify-center gap-6 mt-2 text-zinc-900"
+                // UPDATED: Added floating shadow effects
+                className="bg-white rounded-[2rem] p-8 md:p-10 border border-zinc-200 flex flex-col justify-center gap-6 mt-2 text-zinc-900 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
             >
                 <div className="flex items-center gap-3 mb-2">
                     <Info size={24} className="text-zinc-400" />
@@ -402,7 +408,7 @@ export const SectionServingTesla: React.FC = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* 1. SURVEILLANCE - Green */}
-                    <div className="flex flex-col gap-3 bg-micron-green text-white p-6 rounded-xl shadow-sm border border-white/10 hover:-translate-y-1 transition-transform">
+                    <div className="flex flex-col gap-3 bg-micron-green text-white p-6 rounded-xl border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300">
                         <span className="text-white font-bold uppercase text-xs tracking-widest">SURVEILLANCE</span>
                         <p className="text-white/80 font-medium leading-relaxed text-sm">
                             Sensors moving through private spaces, sidewalks, schools, parks. What is being recorded, stored, and shared — and by whom?
@@ -410,7 +416,7 @@ export const SectionServingTesla: React.FC = () => {
                     </div>
                     
                     {/* 2. VISUAL VERNACULAR - Grey2 */}
-                    <div className="flex flex-col gap-3 bg-micron-grey2 text-white p-6 rounded-xl shadow-sm border border-white/10 hover:-translate-y-1 transition-transform">
+                    <div className="flex flex-col gap-3 bg-micron-grey2 text-white p-6 rounded-xl border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300">
                         <span className="text-white font-bold uppercase text-xs tracking-widest">VISUAL VERNACULAR</span>
                         <p className="text-white/80 font-medium leading-relaxed text-sm">
                              Streets, homes, and neighborhoods filled with humanoid machines. How does permanent autonomous presence in everyday life change how people feel in their own communities?
@@ -418,7 +424,7 @@ export const SectionServingTesla: React.FC = () => {
                     </div>
                     
                     {/* 3. WORST CASE - Eggplant */}
-                    <div className="flex flex-col gap-3 bg-micron-eggplant text-white p-6 rounded-xl shadow-sm border border-white/10 hover:-translate-y-1 transition-transform">
+                    <div className="flex flex-col gap-3 bg-micron-eggplant text-white p-6 rounded-xl border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300">
                         <span className="text-white font-bold uppercase text-xs tracking-widest">WORST CASE</span>
                         <p className="text-white/80 font-medium leading-relaxed text-sm">
                             Mass malfunction. Security breach across millions of units. Coordinated exploit. What does preparedness look like before deployment — and who is in the room when those scenarios are discussed?
@@ -437,91 +443,84 @@ export const SectionServingTesla: React.FC = () => {
     );
   };
 
-  // Randomized staggered delay array
-  const randomDelays = [0, 0.4, 0.2];
+  const openModal = (card: typeof teslaCards[0]) => {
+    setModalData({
+      title: card.title,
+      subtitle: card.subtitle,
+      category: 'showcase',
+      theme: 'light',
+      maxWidth: 'max-w-6xl',
+      content: getModalContent(card.id)
+    });
+  };
 
   return (
-    // UPDATED: Padding increased to px-8 on mobile, reduced header margins for tightness
-    <section id="serving-tesla" className="container mx-auto px-8 md:px-12 py-6 md:py-12 bg-white text-zinc-900">
-        
-        {/* Header - Updated margins to mb-12, pb-8 and added items-end to match Vision */}
-        <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-12 flex flex-col md:flex-row md:items-end gap-6 border-b border-zinc-100 pb-8"
-        >
-            <div className="flex-shrink-0">
-                <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">05 / LIVING LAB</span>
-                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant-light leading-none font-sans">
-                    LIVING LAB
-                </h2>
-            </div>
-            
-            <div className="md:ml-auto max-w-2xl pb-1">
-                 <div className="pl-6 border-l-4 border-micron-eggplant-light/20 hover:border-micron-eggplant-light transition-colors duration-500">
-                    <p className="text-base font-light text-zinc-600 leading-snug font-body">
-                       <span className="font-bold text-micron-eggplant-light block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
-                           BEYOND SILICON
-                       </span>
-                       Where Micron's memory powers the inference, and the residence itself tests the integration. A living laboratory for the societal impact of embodied AI.
-                    </p>
-                 </div>
-            </div>
-        </motion.div>
+      <section id="serving-tesla" className="container mx-auto px-8 md:px-12 py-12 bg-white text-zinc-900">
+          {/* Header */}
+          <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.8 }}
+              className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8"
+          >
+              <div className="flex-shrink-0">
+                  <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">05 / LIVING LAB</span>
+                  <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-zinc-400 leading-none font-sans">
+                      TESLA
+                  </h2>
+              </div>
+              
+              <div className="md:ml-auto max-w-2xl pb-1">
+                   <div className="pl-6 border-l-4 border-micron-eggplant-light/20 hover:border-micron-eggplant-light transition-colors duration-500">
+                      <p className="text-base font-light text-zinc-600 leading-snug font-body">
+                         <span className="font-bold text-micron-eggplant-light block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
+                             AUTONOMOUS ECOSYSTEM
+                         </span>
+                         The first residential deployment of the Tesla autonomous ecosystem. Optimus and Cybercab operating in a living environment — creating a continuous feedback loop between the technology and the human experience.
+                      </p>
+                   </div>
+              </div>
+          </motion.div>
 
-        {/* Cards - UPDATED: Reduced min-height by ~30% from 280 to 200 */}
-        <div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {teslaCards.map((card, i) => (
-                    <BentoCard
-                        key={card.id}
-                        // UPDATED: Increased min-height to min-h-[300px] (50% increase from 200px)
-                        className={`flex flex-col min-h-[300px] p-6 md:p-8 relative overflow-hidden group shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] ${card.gradient} ${card.border} transition-colors duration-500`}
-                        gradient={card.gradient}
-                        textColor="text-white"
-                        borderColor="border-white/10"
-                        delay={randomDelays[i] || 0} // Using random stagger
-                        hoverEffect={true}
-                        onClick={() => setModalData({
-                            title: card.title,
-                            subtitle: card.subtitle,
-                            category: 'showcase',
-                            theme: 'light', // Force light theme for consistency
-                            maxWidth: 'max-w-7xl', // Ensure uniform size with other modals
-                            content: getModalContent(card.id)
-                        })}
-                    >
-                        <div className="relative z-10 flex flex-col h-full justify-between">
-                            <div>
-                                {card.icon && (
-                                    <div className={`mb-6 p-3 rounded-full bg-white/10 w-fit backdrop-blur-md border border-white/10 ${card.descriptionColor}`}>
-                                        {React.cloneElement(card.icon as React.ReactElement<any>, { size: 28 })}
-                                    </div>
-                                )}
-                                {/* Title size adjusted for smaller layout */}
-                                <h3 className={`text-2xl md:text-3xl font-black uppercase tracking-tight mb-2 leading-[0.9] text-white drop-shadow-lg transition-colors duration-300 ${card.titleHoverColor}`}>
-                                    {card.title}
-                                </h3>
-                                <p className={`text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 ${card.subtitleColor}`}>
-                                    {card.subtitle}
-                                </p>
-                            </div>
-                            
-                            <div className="mt-auto">
-                                <div className="h-px w-full bg-white/20 mb-4" />
-                                <p className={`text-sm md:text-base font-medium leading-relaxed ${card.descriptionColor}`}>
-                                    {card.content}
-                                </p>
-                            </div>
-                        </div>
-                    </BentoCard>
-                ))}
-            </div>
-        </div>
+          {/* Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {teslaCards.map((card, i) => (
+                  <BentoCard 
+                      key={card.id}
+                      className={`flex flex-col min-h-[400px] p-8 relative overflow-hidden group ${card.gradient}`}
+                      gradient={card.gradient}
+                      textColor="text-white"
+                      borderColor={card.border}
+                      delay={i * 0.1}
+                      hoverEffect={true}
+                      onClick={() => openModal(card)}
+                  >
+                       <div className="relative z-10 flex flex-col h-full">
+                           <div className="mb-auto">
+                               <h3 className={`text-3xl font-black uppercase tracking-tight leading-none mb-2 text-white transition-colors duration-300 ${card.titleHoverColor}`}>
+                                   {card.title}
+                               </h3>
+                               <p className={`text-xs font-bold uppercase tracking-widest mb-6 ${card.subtitleColor}`}>
+                                   {card.subtitle}
+                               </p>
+                               <div className="w-12 h-1 bg-white/20 mb-6" />
+                               <p className={`text-lg font-medium leading-relaxed ${card.descriptionColor}`}>
+                                   {card.content}
+                               </p>
+                           </div>
+                           
+                           <div className="mt-8 flex justify-end">
+                              <div className="p-2 rounded-full border border-white/20 bg-white/5 group-hover:bg-white/10 transition-colors">
+                                  <ArrowRight size={20} className="text-white" />
+                              </div>
+                           </div>
+                       </div>
+                  </BentoCard>
+              ))}
+          </div>
 
-        <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
-    </section>
+          <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
+      </section>
   );
 };
