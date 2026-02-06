@@ -59,7 +59,7 @@ const InteractiveParadigmTitle: React.FC = () => {
 
     return (
         <div className="flex flex-col items-start cursor-default">
-            {/* Line 1 & 2 */}
+            {/* Line 1 & 2 - UPDATED: Ensure they stay together if possible */}
             <div className="flex flex-wrap gap-x-2 md:gap-x-4 items-baseline">
                 {paradigmLine1.map((word, i) => (
                     <motion.span
@@ -332,27 +332,29 @@ export const Hero: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
-            // UPDATED: Used grid layout on desktop to contain components
-            // Added md:min-h-[450px] to ensure vertical spacing can be tripled
-            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row md:items-stretch min-h-[500px] md:min-h-[450px] mt-4 p-8 md:p-8 gap-8 group"
+            // UPDATED: Reduced height by ~20% (min-h-[500] -> [400], md:min-h-[450] -> [360])
+            // Reduced gap on mobile (gap-4) from gap-8
+            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row md:items-stretch min-h-[400px] md:min-h-[360px] mt-4 p-8 md:p-8 gap-4 md:gap-8 group"
         >
             {/* LEFT: Title + Address Block (Flex-1) */}
-            {/* UPDATED: Added justify-between and gap-12 to force triple separation */}
-            <div className="flex-shrink-0 flex flex-col justify-between items-start z-10 relative h-full md:w-[32%] gap-12">
+            {/* UPDATED: Removed fixed width to allow text to sit next to each other */}
+            {/* UPDATED: Reduced gap-12 to gap-6 for mobile */}
+            <div className="flex-shrink-0 flex flex-col justify-between items-start z-10 relative h-full md:w-auto gap-6 md:gap-12">
                  <div className="relative z-10 w-full">
                     <InteractiveParadigmTitle />
                  </div>
                  
                  {/* ADDRESS BLOCK */}
-                 {/* UPDATED: Added mt-12 for mobile spacing and ensure bottom alignment */}
-                 <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4 relative z-10 mt-12 md:mt-auto">
+                 {/* UPDATED: Reduced mt-12 to mt-6 for mobile */}
+                 <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4 relative z-10 mt-6 md:mt-auto">
                         <h3 className="text-white font-bold text-xl uppercase tracking-wider">Micron House</h3>
                         <p className="text-micron-eggplant font-bold text-sm md:text-lg uppercase tracking-widest whitespace-nowrap">1020 East Warm Springs Ave</p>
                         <p className="text-micron-eggplant/80 text-sm md:text-lg uppercase tracking-widest">Boise, Idaho 83712</p>
                  </div>
 
                  {/* MOBILE QUOTE - IN FLOW */}
-                 <div className="md:hidden w-full flex-grow py-16 flex items-center justify-center relative z-20">
+                 {/* UPDATED: Reduced py-16 to py-8 */}
+                 <div className="md:hidden w-full flex-grow py-8 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
                          animate={showCursiveText ? "visible" : "hidden"}
@@ -389,13 +391,10 @@ export const Hero: React.FC = () => {
                             hidden: {}
                         }}
                         // UPDATED: 
-                        // 1. font-normal (no bold)
-                        // 2. text-black (black font)
-                        // 3. text-2xl md:text-3xl (reduced size by 20%)
-                        // 4. -rotate-6 (angled slightly more)
-                        // 5. text-right (justify paragraph to right)
-                        // 6. w-full to ensure right alignment works
-                        className="font-micron font-normal text-2xl md:text-3xl text-black leading-normal text-right -rotate-6 max-w-lg w-full"
+                        // 1. text-left (Left Justified)
+                        // 2. opacity-85 (Simulate lighter weight)
+                        // 3. Keep w-full to allow justification
+                        className="font-micron font-normal text-2xl md:text-3xl text-black/85 leading-normal text-left -rotate-6 max-w-lg w-full"
                 >
                      {quoteLines.map((line, lineIndex) => (
                         <div key={lineIndex} className="block mb-2 last:mb-0">
@@ -406,7 +405,7 @@ export const Hero: React.FC = () => {
                                     hidden: { opacity: 0, y: 5 },
                                     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } } 
                                 }}
-                                className="ml-2 inline-block"
+                                className="mr-2 inline-block"
                             >
                                 {word}
                             </motion.span>
@@ -417,7 +416,8 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* RIGHT: Map Card (Fixed Width) */}
-            <div className="w-full md:w-[380px] lg:w-[450px] aspect-[4/3] md:aspect-auto md:h-auto bg-zinc-100 rounded-2xl overflow-hidden shadow-2xl relative border-4 border-white/20 z-10 mt-auto md:mt-0 flex-shrink-0">
+            {/* UPDATED: Reduced width by ~20% (md:w-[300px], lg:w-[360px]) */}
+            <div className="w-full md:w-[300px] lg:w-[360px] aspect-[4/3] md:aspect-auto md:h-auto bg-zinc-100 rounded-2xl overflow-hidden shadow-2xl relative border-4 border-white/20 z-10 mt-auto md:mt-0 flex-shrink-0">
                  <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.234!2d-116.1898!3d43.6088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54aef8d1b0b3b8e7%3A0x0!2s1020%20E%20Warm%20Springs%20Ave%2C%20Boise%2C%20ID%2083712!5e0!3m2!1sen!2sus!4v1706000000000"
                     width="100%"
