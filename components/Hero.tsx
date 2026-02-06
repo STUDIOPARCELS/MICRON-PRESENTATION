@@ -236,12 +236,9 @@ export const Hero: React.FC = () => {
       );
   }
 
-  // UPDATED: 3 Distinct Lines for Desktop Layout
-  const quoteLines = [
-    "A convergence of historic stewardship and autonomous future.",
-    "The first corporate residence.",
-    "Designed for the era of artificial intelligence."
-  ];
+  // UPDATED: Single Paragraph Quote
+  const quoteText = "A convergence of historic stewardship and autonomous future. The first corporate residence. Designed for the era of artificial intelligence.";
+  const quoteWords = quoteText.split(" ");
 
   return (
     <section 
@@ -338,45 +335,47 @@ export const Hero: React.FC = () => {
         >
             {/* LEFT: Title + Address Block (Flex-1) */}
             {/* UPDATED: Removed fixed width to allow text to sit next to each other */}
-            {/* UPDATED: Reduced gap-12 to gap-6 for mobile */}
-            <div className="flex-shrink-0 flex flex-col justify-between items-start z-10 relative h-full md:w-auto gap-6 md:gap-12">
+            {/* UPDATED: Reduced gap to gap-2 for mobile tightness, kept md:gap-12 */}
+            <div className="flex-shrink-0 flex flex-col justify-between items-start z-10 relative h-full md:w-auto gap-2 md:gap-12">
                  <div className="relative z-10 w-full">
                     <InteractiveParadigmTitle />
                  </div>
                  
                  {/* ADDRESS BLOCK */}
-                 {/* UPDATED: Reduced mt-12 to mt-6 for mobile */}
-                 <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4 relative z-10 mt-6 md:mt-auto">
+                 {/* UPDATED: Reduced mt to mt-2 for mobile, kept md:mt-auto */}
+                 <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4 relative z-10 mt-2 md:mt-auto">
                         <h3 className="text-white font-bold text-xl uppercase tracking-wider">Micron House</h3>
                         <p className="text-micron-eggplant font-bold text-sm md:text-lg uppercase tracking-widest whitespace-nowrap">1020 East Warm Springs Ave</p>
                         <p className="text-micron-eggplant/80 text-sm md:text-lg uppercase tracking-widest">Boise, Idaho 83712</p>
                  </div>
 
                  {/* MOBILE QUOTE - IN FLOW */}
-                 {/* UPDATED: Reduced py-16 to py-8 */}
-                 <div className="md:hidden w-full flex-grow py-8 flex items-center justify-center relative z-20">
+                 {/* UPDATED: Reduced py-8 to pt-4 pb-12 to increase gap between text and map below */}
+                 <div className="md:hidden w-full flex-grow pt-4 pb-12 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
                          animate={showCursiveText ? "visible" : "hidden"}
                          variants={{
-                             visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } },
+                             visible: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } }, // Faster stagger for words
                              hidden: {}
                          }}
                          className="font-micron text-2xl text-center text-black leading-relaxed transform scale-y-110 -rotate-3"
                       >
-                         {/* Joining lines for mobile flow */}
-                         {quoteLines.join(" ").split(" ").map((word, i) => (
-                            <motion.span
-                                key={i}
-                                variants={{
-                                    hidden: { opacity: 0 },
-                                    visible: { opacity: 1, transition: { duration: 1.2, ease: "easeInOut" } } 
-                                }}
-                                className="mr-1.5 inline-block"
-                            >
-                                {word}
-                            </motion.span>
-                         ))}
+                         {/* Joined into one paragraph block */}
+                         <p className="inline">
+                             {quoteWords.map((word, i) => (
+                                <motion.span
+                                    key={i}
+                                    variants={{
+                                        hidden: { opacity: 0 },
+                                        visible: { opacity: 1, transition: { duration: 0.6, ease: "easeInOut" } } 
+                                    }}
+                                    className="mr-1.5 inline-block"
+                                >
+                                    {word}
+                                </motion.span>
+                             ))}
+                         </p>
                       </motion.div>
                  </div>
             </div>
@@ -387,31 +386,30 @@ export const Hero: React.FC = () => {
                         initial="hidden"
                         animate={showCursiveText ? "visible" : "hidden"}
                         variants={{
-                            visible: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
+                            visible: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } }, // Faster stagger
                             hidden: {}
                         }}
                         // UPDATED: 
                         // 1. text-left (Left Justified)
                         // 2. opacity-85 (Simulate lighter weight)
-                        // 3. Keep w-full to allow justification
+                        // 3. max-w-lg with wrapping
                         className="font-micron font-normal text-2xl md:text-3xl text-black/85 leading-normal text-left -rotate-6 max-w-lg w-full"
                 >
-                     {quoteLines.map((line, lineIndex) => (
-                        <div key={lineIndex} className="block mb-2 last:mb-0">
-                            {line.split(" ").map((word, i) => (
-                            <motion.span
-                                key={i}
-                                variants={{
-                                    hidden: { opacity: 0, y: 5 },
-                                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } } 
-                                }}
-                                className="mr-2 inline-block"
-                            >
-                                {word}
-                            </motion.span>
-                            ))}
-                        </div>
-                    ))}
+                     {/* Joined into one paragraph block */}
+                     <p className="inline">
+                        {quoteWords.map((word, i) => (
+                        <motion.span
+                            key={i}
+                            variants={{
+                                hidden: { opacity: 0, y: 5 },
+                                visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } } 
+                            }}
+                            className="mr-2 inline-block"
+                        >
+                            {word}
+                        </motion.span>
+                        ))}
+                    </p>
                 </motion.div>
             </div>
 
