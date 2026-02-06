@@ -144,31 +144,40 @@ export const SectionProperty: React.FC = () => {
             theme: 'light',
             maxWidth: 'max-w-6xl',
             content: (
-                 <div className="flex flex-col gap-8">
-                    <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed">
-                        Anchored by the C.W. Moore House (1891) and the neighboring George Whitfield Russell House. A corridor defined by the legacy of Western pioneers and energy ingenuity.
-                    </p>
-                    
-                    <div className="bg-micron-eggplant rounded-3xl p-8 md:p-10 text-white shadow-xl relative overflow-hidden border border-white/10">
-                        <div className="flex items-center gap-3 mb-6 border-b border-white/20 pb-6">
-                            <History size={32} className="text-white/80" />
-                            <h3 className="text-3xl font-black uppercase tracking-tight">C.W. MOORE & THE DISTRICT</h3>
+                 <div className="flex flex-col gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Tile 1: Photograph */}
+                        <div className="md:col-span-2 relative h-64 md:h-80 rounded-2xl overflow-hidden shadow-lg border border-black/10 group">
+                             <img 
+                                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/old%20warm%20springs.webp" 
+                                alt="Old Warm Springs" 
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                             />
+                             <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                                <span className="text-white/90 text-xs font-bold uppercase tracking-widest">Est. 1890</span>
+                             </div>
                         </div>
-                        
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            <div className="lg:col-span-2 text-white/90 font-medium leading-relaxed space-y-4">
-                                <p>
-                                    In 1890, Christopher W. Moore, founder of the First National Bank of Idaho, drilled two wells near the base of Table Rock. He struck 170-degree water. By 1892, he had piped it to his mansion on Warm Springs Avenue—marking the first use of geothermal water for home heating in the United States.
-                                </p>
-                                <p>
-                                    Today, the Boise Warm Springs Water District remains the oldest continuously operating geothermal district in North America. The Micron House sits on this historic line, utilizing the same clean, ancient energy source that Moore tapped over 130 years ago. It is a National Register of Historic Places corridor defined by energy innovation.
-                                </p>
+
+                        {/* Tile 2: Paragraph 1 */}
+                        <div className="bg-micron-eggplant rounded-2xl p-6 md:p-8 text-white shadow-lg border border-white/10 flex flex-col justify-center">
+                            <div className="flex items-center gap-3 mb-4">
+                                <History className="text-white/80" size={24} />
+                                <h4 className="text-xl font-black uppercase tracking-tight text-white/90">Origins</h4>
                             </div>
-                            
-                            <div className="bg-black/20 rounded-xl p-6 flex flex-col justify-end h-full border border-white/10 min-h-[200px]">
-                                <span className="text-4xl font-black block mb-1">EST. 1890</span>
-                                <span className="text-sm font-bold uppercase tracking-widest opacity-80">Warm Springs Avenue</span>
-                            </div>
+                             <p className="font-medium leading-relaxed text-white/80">
+                                In 1890, Christopher W. Moore, founder of the First National Bank of Idaho, drilled two wells near the base of Table Rock. He struck 170-degree water. By 1892, he had piped it to his mansion on Warm Springs Avenue—marking the first use of geothermal water for home heating in the United States.
+                             </p>
+                        </div>
+
+                        {/* Tile 3: Paragraph 2 */}
+                        <div className="bg-micron-grey1 rounded-2xl p-6 md:p-8 text-white shadow-lg border border-white/10 flex flex-col justify-center">
+                             <div className="flex items-center gap-3 mb-4">
+                                <TreeDeciduous className="text-white/80" size={24} />
+                                <h4 className="text-xl font-black uppercase tracking-tight text-white/90">Continuity</h4>
+                             </div>
+                             <p className="font-medium leading-relaxed text-white/80">
+                                Today, the Boise Warm Springs Water District remains the oldest continuously operating geothermal district in North America. The Micron House sits on this historic line, utilizing the same clean, ancient energy source that Moore tapped over 130 years ago. It is a National Register of Historic Places corridor defined by energy innovation.
+                             </p>
                         </div>
                     </div>
                 </div>

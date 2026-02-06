@@ -59,7 +59,8 @@ function App() {
   return (
     <div className="min-h-screen w-full bg-white text-zinc-900 font-sans">
       {/* Navigation Overlay - Z-50 to stay on top */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/95 backdrop-blur-xl border-b border-zinc-200 shadow-sm transition-all duration-300">
+      {/* UPDATED: Changed transition-all to transition-colors to prevent layout shift on modal open */}
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/95 backdrop-blur-xl border-b border-zinc-200 shadow-sm transition-colors duration-300">
         <div className="container mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
             {/* ANIMATED BRAND LOGO */}
             <div 
