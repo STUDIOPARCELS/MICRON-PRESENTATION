@@ -25,10 +25,10 @@ export const BentoCard: React.FC<CardProps & {
   hideArrow = false,
   onMouseEnter,
   onMouseLeave,
-  // UPDATED: More visible motion (y: 60), slower duration (1.5s), and reverse on scroll (once: false)
-  initial = { opacity: 0, y: 60 },
+  // UPDATED: Changed duration to 1.5s for slower population as requested
+  initial = { opacity: 0, y: 50 },
   whileInView = { opacity: 1, y: 0 },
-  viewport = { once: false, amount: 0.2, margin: "0px 0px -100px 0px" },
+  viewport = { once: false, amount: 0.1, margin: "0px 0px -50px 0px" },
   duration = 1.5 
 }) => {
   const arrowColor = textColor.includes('black') || textColor.includes('zinc-900') ? 'text-zinc-900' : 'text-white';
@@ -44,8 +44,8 @@ export const BentoCard: React.FC<CardProps & {
       viewport={viewport} 
       transition={{ 
         duration: duration,
-        ease: [0.25, 0.1, 0.25, 1], // Slightly adjusted ease for "heavy/slow" feel
-        delay: delay
+        ease: [0.22, 1, 0.36, 1], 
+        delay: delay 
       }}
       whileHover={hoverEffect ? { y: -8, transition: { duration: 0.3 } } : undefined}
       onClick={onClick}

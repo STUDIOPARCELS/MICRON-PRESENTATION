@@ -303,6 +303,9 @@ export const SectionServingTesla: React.FC = () => {
     );
   };
 
+  // Randomized staggered delay array
+  const randomDelays = [0, 0.4, 0.2];
+
   return (
     // UPDATED: Padding increased to px-8 on mobile, reduced header margins for tightness
     <section id="serving-tesla" className="container mx-auto px-8 md:px-12 py-6 md:py-12 bg-white text-zinc-900">
@@ -345,7 +348,7 @@ export const SectionServingTesla: React.FC = () => {
                         gradient={card.gradient}
                         textColor="text-white"
                         borderColor="border-white/10"
-                        delay={i * 0.1}
+                        delay={randomDelays[i] || 0} // Using random stagger
                         hoverEffect={true}
                         onClick={() => setModalData({
                             title: card.title,

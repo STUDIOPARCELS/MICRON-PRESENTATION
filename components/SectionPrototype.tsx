@@ -15,17 +15,19 @@ const VIDEO_PROTOTYPE = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/obj
 // --- HELPER COMPONENTS ---
 
 const InnerBento = ({ title, children, gradient, icon, className = "", delay = 0, textColor = "text-white", padding = "p-5", direction = "up" }: any) => {
-    let initial: { opacity: number; x?: number; y?: number } = { opacity: 0, y: 30 };
-    if (direction === "left") initial = { opacity: 0, x: -30 };
-    if (direction === "right") initial = { opacity: 0, x: 30 };
-    if (direction === "down") initial = { opacity: 0, y: -30 };
+    // UPDATED: Standardized travel to y: 100 or x: 100 for consistent "visible motion"
+    let initial: { opacity: number; x?: number; y?: number } = { opacity: 0, y: 100 };
+    if (direction === "left") initial = { opacity: 0, x: -100 };
+    if (direction === "right") initial = { opacity: 0, x: 100 };
+    if (direction === "down") initial = { opacity: 0, y: -100 };
 
     return (
         <motion.div 
             initial={initial}
             whileInView={{ opacity: 1, x: 0, y: 0 }}
             viewport={{ once: false }}
-            transition={{ delay, duration: 1.2, ease: [0.25, 0.4, 0.25, 1] }}
+            // UPDATED: Duration 2.5s and smooth easing
+            transition={{ delay, duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
             className={`
                 ${gradient} rounded-xl ${padding} ${textColor} relative overflow-hidden group 
                 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] 
@@ -472,10 +474,10 @@ export const SectionPrototype: React.FC = () => {
     // UPDATED: Padding increased to px-8 on mobile, pb-6 on mobile to close gap to Property
     <section id="prototype" className="container mx-auto px-8 md:px-12 pt-0 pb-6 md:pb-12 bg-white text-zinc-900">
         <motion.div 
-            initial={{ opacity: 0, y: 60 }}
+            initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
+            transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
             // UPDATED: Removed border-b and reduced mb-8 to mb-6 to remove 'wrapper' look
             className="mb-6 flex flex-col md:flex-row md:items-end gap-6 pb-2"
         >
@@ -529,7 +531,7 @@ export const SectionPrototype: React.FC = () => {
                 gradient="bg-micron-grey1" 
                 textColor="text-white"
                 borderColor="border-white/10"
-                delay={0.1} 
+                delay={0} // Stagger Pattern: 1st
                 hoverEffect={true}
                 hideArrow={true}
                 onClick={() => setModalData(getCardData(1))}
@@ -553,7 +555,7 @@ export const SectionPrototype: React.FC = () => {
                 gradient="bg-micron-eggplant-light" 
                 textColor="text-white"
                 borderColor="border-white/10"
-                delay={0.2} 
+                delay={0.3} // Stagger Pattern: 3rd
                 hoverEffect={true}
                 hideArrow={true}
                 onClick={() => setModalData(getCardData(3))}
@@ -562,7 +564,7 @@ export const SectionPrototype: React.FC = () => {
             >
                 <HoverVideoPlayer src={VIDEO_COLLAB} isHovering={hoveredCard === 3} />
                 <div className="relative z-10 mt-auto pt-6">
-                    {/* UPDATED: Title hover color to text-zinc-500 (Gray) - kept consistent for others or as per specific request? User only asked for Prototype and Place. Leaving this as gray as per last instruction unless instructed otherwise. Wait, usually better to revert all. But following explicit instructions: "revert the Prototype... and Place". I will leave this one as gray from previous turn. */}
+                    {/* UPDATED: Title hover color to text-zinc-500 (Gray) */}
                     <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-zinc-500 transition-colors duration-300 mb-4">
                         COLLABORATION
                     </h3>
@@ -577,8 +579,8 @@ export const SectionPrototype: React.FC = () => {
                 gradient="bg-micron-eggplant"
                 textColor="text-white"
                 borderColor="border-white/10"
-                delay={0.3}
-                duration={1.5}
+                delay={0.1} // Stagger Pattern: 2nd
+                duration={2.5}
                 hoverEffect={true}
                 hideArrow={true}
                 onClick={() => setModalData(getCardData(2))}
@@ -587,7 +589,7 @@ export const SectionPrototype: React.FC = () => {
             >
                 <HoverVideoPlayer src={VIDEO_TIMING} isHovering={hoveredCard === 2} />
                 <div className="relative z-10 mt-auto pt-6">
-                    {/* UPDATED: Title hover color to text-zinc-500 (Gray) - kept consistent/unchanged based on explicit prompt */}
+                    {/* UPDATED: Title hover color to text-zinc-500 (Gray) */}
                     <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-zinc-500 transition-colors duration-300 mb-4">
                         TIMING
                     </h3>
@@ -602,8 +604,8 @@ export const SectionPrototype: React.FC = () => {
                 gradient="bg-micron-green" 
                 textColor="text-white" 
                 borderColor="border-white/10" 
-                delay={0.5} 
-                duration={1.5}
+                delay={0.4} // Stagger Pattern: 4th
+                duration={2.5}
                 hoverEffect={true}
                 hideArrow={true}
                 onClick={() => setModalData(getCardData(4))}

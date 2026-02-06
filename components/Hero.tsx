@@ -176,10 +176,10 @@ export const Hero: React.FC = () => {
 
   // Effect for Icon Roll-In Logic
   useEffect(() => {
-      if (currentSentenceIndex === 2) {
-          // Trigger ONLY after the last word "PERSPECTIVE" is done.
-          // Stagger 0.15 * 4 words = 0.6s offset + 0.8s duration ~ 1.4s finish.
-          const totalDelay = 1.5; 
+      // UPDATED: Trigger on the SECOND sentence (index 1) as requested
+      if (currentSentenceIndex === 1) {
+          // Minimal delay so it starts rolling as sentence populates
+          const totalDelay = 0.5; 
 
           iconControls.start({
               x: 0,
@@ -194,8 +194,9 @@ export const Hero: React.FC = () => {
                   bounce: 0
               }
           });
-      } else if (currentSentenceIndex !== 2) {
-          // Reset position: Off to the right, rotated
+      } else if (currentSentenceIndex === 0) {
+          // Only reset when we loop back to the start (or manually reset)
+          // This keeps the icon visible during sentence 3
           iconControls.set({ x: 200, rotate: -360, opacity: 0 });
       }
   }, [currentSentenceIndex, iconControls]);
@@ -238,7 +239,7 @@ export const Hero: React.FC = () => {
                    visible: { 
                        y: 0, 
                        opacity: 1, 
-                       // UPDATED: Faster duration (1.5 -> 0.8) for snappier reveal
+                       // UPDATED: Faster duration (1.5 -> 0.8) for snappier reveal within the slower card animation
                        transition: { duration: 0.8, ease: "easeOut" } 
                    },
                    exit: {
@@ -257,14 +258,14 @@ export const Hero: React.FC = () => {
   return (
     <section 
         ref={containerRef}
-        // REDUCED PADDING: pt-32/48 -> pt-24/32
-        className="relative w-full bg-white text-zinc-900 pt-24 md:pt-32 pb-12 md:pb-16 flex flex-col justify-end"
+        // UPDATED: Significantly reduced padding (pt-24 -> pt-20, md:pt-32 -> md:pt-24) to remove extra whitespace
+        className="relative w-full bg-white text-zinc-900 pt-20 md:pt-24 pb-12 md:pb-16 flex flex-col justify-end"
     >
       <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4">
         
         {/* TOP SECTION */}
-        {/* UPDATED: Increased desktop height to 650px to ensure text is not cut off */}
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 h-auto md:h-[650px] w-full">
+        {/* UPDATED: Reduced desktop height by 20% (650px -> 520px) as requested */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 h-auto md:h-[520px] w-full">
             
             {/* 1. TEXT ANIMATION AREA */}
             <div 
@@ -275,8 +276,9 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    // UPDATED: Moved down significantly (top-2 -> top-6 mobile, top-16 -> top-48 desktop)
-                    className="absolute top-6 left-0 right-0 mx-auto w-fit md:top-48 md:right-20 md:left-auto md:mx-0 z-20"
+                    // UPDATED MOBILE: Adjusted mobile top to top-2
+                    // Desktop remains top-80 (moved down)
+                    className="absolute top-2 left-0 right-0 mx-auto w-fit md:top-80 md:right-20 md:left-auto md:mx-0 z-20"
                  >
                     {/* UPDATED: Added micro-interaction rotation on hover */}
                     <motion.img 
@@ -289,8 +291,8 @@ export const Hero: React.FC = () => {
                     />
                  </motion.div>
                  
-                 {/* UPDATED: Reduced top margin on mobile by 50% (mt-20 -> mt-10) */}
-                 <div className="w-full relative z-10 mt-10 md:mt-0">
+                 {/* UPDATED MOBILE: Increased margin top to mt-36 to push text further down on mobile */}
+                 <div className="w-full relative z-10 mt-36 md:mt-0">
                      <AnimatePresence mode="wait">
                        {currentSentenceIndex !== null && (
                            <motion.div 
@@ -328,7 +330,7 @@ export const Hero: React.FC = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: false }}
-                transition={{ duration: 1.5, delay: 0.2 }}
+                transition={{ duration: 2.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="h-[300px] md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black border border-zinc-800 order-2 group"
             >
                 <video 
@@ -348,10 +350,10 @@ export const Hero: React.FC = () => {
         {/* BOTTOM SECTION: PARADIGM & QUOTE - UPDATED */}
         <motion.div 
             ref={bottomSectionRef}
-            initial={{ opacity: 0, y: 60 }}
+            initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
             // UPDATED: Single background color bg-micron-eggplant-light
             className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row min-h-[300px] mt-4 p-8 md:p-12 items-center gap-8 group"
         >

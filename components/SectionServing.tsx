@@ -237,7 +237,7 @@ export const SectionServing: React.FC = () => {
                 {dept.experiences.map((exp, i) => (
                     <div key={i} className={`${exp.customGradient || dept.gradient} text-white p-6 rounded-2xl shadow-lg flex flex-col gap-4 border border-white/10`}>
                         <div className="flex items-center gap-3">
-                             {React.cloneElement(exp.icon as React.ReactElement, { size: 24, className: "text-white/80" })}
+                             {React.cloneElement(exp.icon as React.ReactElement<any>, { size: 24, className: "text-white/80" })}
                              <h4 className="text-xl font-bold uppercase tracking-tight">{exp.title}</h4>
                         </div>
                         <div className="h-px w-full bg-white/20" />
@@ -252,10 +252,13 @@ export const SectionServing: React.FC = () => {
     });
   };
 
+  // Randomized staggered delay array for the 7 items
+  const staggeredDelays = [0, 0.3, 0.1, 0.4, 0.2, 0.5, 0.15];
+
   return (
     <section id="serving" className="container mx-auto px-8 md:px-12 py-12 bg-white text-zinc-900">
         <motion.div
-            initial={{ opacity: 0, y: 60 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8 }}
@@ -284,11 +287,12 @@ export const SectionServing: React.FC = () => {
             {departments.map((dept, i) => (
                 <BentoCard
                     key={dept.id}
-                    className={`flex flex-col min-h-[240px] p-6 relative overflow-hidden group shadow-lg hover:shadow-2xl transition-all duration-300 ${dept.gradient}`}
+                    // UPDATED: Restored larger min-height (320px) to match original sizing
+                    className={`flex flex-col min-h-[320px] p-6 relative overflow-hidden group shadow-lg hover:shadow-2xl transition-all duration-300 ${dept.gradient}`}
                     gradient={dept.gradient}
                     textColor="text-white"
                     borderColor="border-white/10"
-                    delay={i * 0.05}
+                    delay={staggeredDelays[i] || 0} // Using random stagger
                     hoverEffect={true}
                     onClick={() => openModal(dept)}
                 >

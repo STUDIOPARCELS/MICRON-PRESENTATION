@@ -47,6 +47,10 @@ const roadmapItems = [
 ];
 
 export const SectionTimeline: React.FC = () => {
+
+  // Randomized staggered delay array for the 5 items
+  const staggeredDelays = [0, 0.3, 0.1, 0.4, 0.2];
+
   return (
     // REDUCED PADDING: py-16 -> py-10, UPDATED mobile padding to px-8
     <section id="timeline" className="container mx-auto px-8 md:px-12 py-12 mb-20 bg-white text-zinc-900">
@@ -81,10 +85,10 @@ export const SectionTimeline: React.FC = () => {
             {roadmapItems.map((item, i) => (
                 <motion.div
                     key={item.id}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 100 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1, duration: 0.5 }}
+                    viewport={{ once: false, amount: 0.2 }}
+                    transition={{ delay: staggeredDelays[i] || 0, duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
                     // Added deeper shadows, 3D borders, and hover effects
                     // UPDATED: Removed aspect-square, used h-[220px] to reduce height by ~40% (approx from 300-350 down to 220)
                     className={`
