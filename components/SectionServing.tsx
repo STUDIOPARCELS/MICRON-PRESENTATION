@@ -26,6 +26,7 @@ interface Department {
   // New optional properties for modal sizing
   modalAspectRatio?: string;
   modalMaxWidth?: string;    
+  tileAspectRatio?: string; // New: optional property to force aspect ratio on inner tiles
 }
 
 const departments: Department[] = [
@@ -100,7 +101,8 @@ const departments: Department[] = [
     modalTagColor: "border-micron-eggplant-light",
     // UPDATED: Forced square aspect ratio and restricted width
     modalAspectRatio: "aspect-square",
-    modalMaxWidth: "max-w-2xl",
+    modalMaxWidth: "max-w-3xl", // Slightly increased to fit 2 cols comfortably
+    tileAspectRatio: "aspect-square", // UPDATED: Force square tiles
     experiences: [
       {
         title: "Confidential Counsel",
@@ -206,6 +208,10 @@ const departments: Department[] = [
     modalHeaderColor: "text-micron-eggplant", 
     modalIconColor: "text-zinc-400", 
     modalTagColor: "border-micron-grey1",
+    // UPDATED: Forced square aspect ratio and restricted width
+    modalAspectRatio: "aspect-square",
+    modalMaxWidth: "max-w-2xl",
+    tileAspectRatio: "aspect-square", // UPDATED: Force square tiles
     experiences: [
       {
         title: "Medical Proximity",
@@ -227,6 +233,10 @@ export const SectionServing: React.FC = () => {
   const [modalData, setModalData] = useState<ModalContent | null>(null);
 
   const openModal = (dept: Department) => {
+    // UPDATED: Determine grid columns dynamically based on number of items
+    // If 1 item, use 1 column to fill width. If 2 items (like Executive/Family), use 2 columns. Else 3.
+    const gridCols = dept.experiences.length === 1 ? 'md:grid-cols-1' : dept.experiences.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3';
+
     setModalData({
       title: dept.title,
       subtitle: dept.value,
@@ -238,24 +248,30 @@ export const SectionServing: React.FC = () => {
       aspectRatio: dept.modalAspectRatio,
       headerClassName: dept.modalHeaderColor,
       content: (
-        <div className="flex flex-col gap-8 pb-4">
+        <div className="flex flex-col gap-8 pb-4 h-full">
              <div className={`border-l-4 ${dept.modalTagColor.replace('border-', 'border-')} pl-6 py-1`}>
                 <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
                     {dept.detail}
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className={`grid grid-cols-1 ${gridCols} gap-6 flex-1`}>
                 {dept.experiences.map((exp, i) => (
-                    <div key={i} className={`${exp.customGradient || dept.gradient} text-white p-6 rounded-2xl shadow-lg flex flex-col gap-4 border border-white/10`}>
-                        <div className="flex items-center gap-3">
-                             {React.cloneElement(exp.icon as React.ReactElement<any>, { size: 24, className: "text-white/80" })}
-                             <h4 className="text-xl font-bold uppercase tracking-tight">{exp.title}</h4>
+                    <div 
+                        key={i} 
+                        // UPDATED: Apply aspect-square if defined in department config, and ensure full height coverage
+                        className={`${exp.customGradient || dept.gradient} text-white p-6 rounded-2xl shadow-lg flex flex-col gap-4 border border-white/10 ${dept.tileAspectRatio || ''} h-full justify-between`}
+                    >
+                        <div>
+                            <div className="flex items-center gap-3 mb-4">
+                                {React.cloneElement(exp.icon as React.ReactElement<any>, { size: 24, className: "text-white/80" })}
+                                <h4 className="text-xl font-bold uppercase tracking-tight">{exp.title}</h4>
+                            </div>
+                            <div className="h-px w-full bg-white/20 mb-4" />
+                            <p className="text-white/80 font-medium leading-relaxed text-sm">
+                                {exp.description}
+                            </p>
                         </div>
-                        <div className="h-px w-full bg-white/20" />
-                        <p className="text-white/80 font-medium leading-relaxed text-sm">
-                            {exp.description}
-                        </p>
                     </div>
                 ))}
             </div>
@@ -311,24 +327,21 @@ export const SectionServing: React.FC = () => {
                     hoverEffect={true}
                     onClick={() => openModal(dept)}
                 >
-                    {/* UPDATED: Layout structure to enforce line alignment */}
-                    <div className="relative z-10 flex flex-col h-full">
-                        {/* 1. Header with FIXED height to align separation lines */}
-                        {/* h-[80px] ensures every card, regardless of title length, puts the divider at same Y pos */}
-                        <div className="h-[80px] flex flex-col justify-end mb-4 shrink-0">
-                             <h3 className="text-2xl font-black uppercase tracking-tight leading-none text-white line-clamp-2">{dept.title}</h3>
-                             <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 mt-1">{dept.value}</p>
+                    {/* UPDATED: Layout structure to push content to edges and creating center space */}
+                    <div className="relative z-10 flex flex-col h-full justify-between">
+                        {/* 1. Header Group - Aligned Top */}
+                        <div>
+                             <h3 className="text-2xl font-black uppercase tracking-tight leading-none text-white line-clamp-2 mb-1">{dept.title}</h3>
+                             <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 mb-4">{dept.value}</p>
+                             <div className="h-px w-full bg-white/30" />
                         </div>
                         
-                        {/* 2. Divider Line - now at consistent vertical position relative to top of card */}
-                        <div className="h-px w-full bg-white/30 mb-4 shrink-0" />
-                        
-                        {/* 3. Detail Text taking remaining space */}
-                        <p className="text-sm md:text-base font-medium text-white/80 line-clamp-3 flex-grow">
+                        {/* 2. Detail Text - Aligned Bottom with margin-top to ensure spacing */}
+                        <p className="text-sm md:text-base font-medium text-white/80 line-clamp-3 mt-4">
                             {dept.detail}
                         </p>
                         
-                        {/* 4. Hover Arrow */}
+                        {/* 3. Hover Arrow */}
                         <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0">
                              <ArrowRight size={20} className="text-white" />
                         </div>

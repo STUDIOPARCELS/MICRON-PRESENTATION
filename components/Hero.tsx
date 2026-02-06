@@ -264,8 +264,8 @@ export const Hero: React.FC = () => {
       <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4">
         
         {/* TOP SECTION */}
-        {/* UPDATED: Reverted to md:h-[640px] to restore rectangular aspect ratio and prevent text cropping */}
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 h-auto md:h-[640px] w-full">
+        {/* UPDATED: Reduced height to md:h-[450px] to crop empty top space */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 h-auto md:h-[450px] w-full">
             
             {/* 1. TEXT ANIMATION AREA */}
             <div 
@@ -276,8 +276,8 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    // UPDATED: Repositioned logo on desktop to md:top-28 (closer to text) instead of bottom right
-                    className="absolute top-2 left-0 right-0 mx-auto w-fit md:top-28 md:right-20 md:left-auto md:mx-0 z-20"
+                    // UPDATED: Adjusted position to top-12 for better fit in reduced height
+                    className="absolute top-2 left-0 right-0 mx-auto w-fit md:top-12 md:right-20 md:left-auto md:mx-0 z-20"
                  >
                     {/* UPDATED: Added micro-interaction rotation on hover */}
                     <motion.img 

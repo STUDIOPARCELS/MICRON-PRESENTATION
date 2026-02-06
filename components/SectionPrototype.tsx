@@ -193,7 +193,8 @@ const getCardData = (id: number): ModalContent => {
                     {/* UPDATED: Darkened gray line (zinc-200) for better visibility */}
                     <div className="w-full h-px bg-zinc-200 mb-6 relative z-10" />
 
-                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 text-zinc-600 text-base font-medium leading-relaxed relative z-10">
+                    {/* UPDATED: Text size set to text-sm to match colored boxes exactly */}
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 text-zinc-600 text-sm font-medium leading-relaxed relative z-10">
                         <p>
                             Five minutes from downtown. Fifteen from the airport. Fifteen from Micron headquarters. The home sits at the center of everything Boise offers — and Optimus and Cybercab are the mechanism that brings it through the front door.
                         </p>
@@ -347,10 +348,12 @@ const getCardData = (id: number): ModalContent => {
 
                    <div className="flex flex-col gap-4 h-full">
                         {/* UPDATED: Converted to motion.div for slide-in from RIGHT animation */}
+                        {/* UPDATED: Added viewport once: true and increased duration to prevent jagged animation on scroll */}
                         <motion.div 
                             initial={{ opacity: 0, x: 100 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                             className="bg-micron-eggplant rounded-xl p-6 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
                         >
                             <div className="absolute top-4 right-4 opacity-30"><Cpu size={24} /></div>
@@ -367,10 +370,12 @@ const getCardData = (id: number): ModalContent => {
                         </motion.div>
 
                         {/* UPDATED: Converted to motion.div for slide-in from RIGHT animation */}
+                        {/* UPDATED: Added viewport once: true and increased duration */}
                         <motion.div 
                             initial={{ opacity: 0, x: 100 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1.5, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
                             className="bg-black rounded-xl p-6 text-white relative overflow-hidden flex flex-col justify-between shadow-lg flex-1 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
                         >
                             <div className="absolute top-4 right-4 opacity-30"><Bot size={24} /></div>
@@ -394,7 +399,8 @@ const getCardData = (id: number): ModalContent => {
                <motion.div 
                     initial={{ opacity: 0, y: 100 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
                     className="bg-micron-eggplant-light rounded-xl p-6 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300"
                >
                     <div className="flex items-center gap-3 mb-4 pb-4 border-b border-micron-eggplant/20">
@@ -513,8 +519,8 @@ export const SectionPrototype: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
-            // UPDATED: Removed border-b and reduced mb-8 to mb-6 to remove 'wrapper' look
-            className="mb-6 flex flex-col md:flex-row md:items-end gap-6 pb-2"
+            // UPDATED: Added mb-12 (was pb-2) to double the visual space between header and grid
+            className="flex flex-col md:flex-row md:items-end gap-6 mb-12"
         >
             <div className="flex-shrink-0">
                 <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">01 / VISION</span>
@@ -650,4 +656,17 @@ export const SectionPrototype: React.FC = () => {
                 <HoverVideoPlayer src={VIDEO_PLACE} isHovering={hoveredCard === 4} />
                 <div className="relative z-10 mt-auto pt-6">
                     {/* UPDATED: Title hover color reverted to text-micron-eggplant-light (Blue) */}
-                    <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text
+                    <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-micron-eggplant-light transition-colors duration-300 mb-4">
+                        PLACE
+                    </h3>
+                    <p className="text-xs font-bold uppercase tracking-widest text-white/50 group-hover:text-white transition-colors">
+                        GROUNDING THE TECHNOLOGY
+                    </p>
+                </div>
+            </BentoCard>
+
+        </div>
+      <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
+    </section>
+  );
+}

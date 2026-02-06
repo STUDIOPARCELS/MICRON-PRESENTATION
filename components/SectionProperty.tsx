@@ -47,34 +47,60 @@ export const SectionProperty: React.FC = () => {
       });
   };
 
+  // Helper for Modal Cards
+  const ModalCard = ({ title, description, colorClass, icon, image }: any) => (
+      <div className={`${colorClass} rounded-2xl p-6 md:p-8 text-white shadow-lg flex flex-col h-full relative overflow-hidden group border border-white/10`}>
+          {image && (
+               <>
+                  <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+               </>
+          )}
+          <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-4">
+                  {icon && React.cloneElement(icon, { size: 24, className: "text-white/90" })}
+                  <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-none drop-shadow-md">{title}</h3>
+              </div>
+               <p className="text-sm md:text-base font-medium leading-relaxed text-white/90 drop-shadow-sm">
+                  {description}
+              </p>
+          </div>
+      </div>
+  );
+
   const openInfoModal = (type: 'wellness' | 'autonomous' | 'history') => {
       if (type === 'wellness') {
         setModalData({
-            title: "GEOTHERMAL & WELLNESS",
-            subtitle: "NATURE'S ENERGY",
+            title: "WELLNESS & NATURE",
+            subtitle: "RESTORATIVE INFRASTRUCTURE",
             category: 'showcase',
             theme: 'light',
             modalLayout: 'default',
+            maxWidth: 'max-w-7xl',
             content: (
-                <div className="flex flex-col gap-6">
-                    <p className="text-xl font-light text-zinc-600 leading-relaxed">
-                        The property is connected to the Boise Warm Springs Water District, the oldest geothermal heating district in North America (est. 1890).
+                <div className="flex flex-col gap-8">
+                    <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed">
+                        Powered by a 177°F direct-use aquifer. Geothermal water flows through the home's radiators and feeds the outdoor soaking tub. The grounds feature mature fruit trees and a Concord grapevine.
                     </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-micron-green/10 p-5 rounded-xl border border-micron-green/20">
-                            <div className="flex items-center gap-2 mb-2 text-micron-green">
-                                <Thermometer size={20} />
-                                <h4 className="font-bold uppercase tracking-wider text-sm">Thermal Source</h4>
-                            </div>
-                            <p className="text-zinc-700 text-sm">Natural 177°F water pumped directly from the aquifer to heat the home and spa amenities.</p>
-                        </div>
-                        <div className="bg-micron-green/10 p-5 rounded-xl border border-micron-green/20">
-                             <div className="flex items-center gap-2 mb-2 text-micron-green">
-                                <Leaf size={20} />
-                                <h4 className="font-bold uppercase tracking-wider text-sm">Living Grounds</h4>
-                            </div>
-                            <p className="text-zinc-700 text-sm">Mature ecosystem featuring producing peach, plum, and cherry trees alongside a historic Concord grapevine.</p>
-                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <ModalCard 
+                            title="CONTRAST THERAPY" 
+                            colorClass="bg-micron-eggplant-light"
+                            icon={<Waves />} 
+                            description="Alternating thermal exposure drives circulation to flush systemic inflammation and accelerate deep tissue recovery. The rapid temperature shift triggers a proven 250% increase in dopamine, delivering sustained alertness, mental clarity, and elevated mood."
+                        />
+                         <ModalCard 
+                            title="WHOLE BODY VIBRATION" 
+                            colorClass="bg-micron-grey1"
+                            icon={<Activity />} 
+                            description="Invented in 1960 by Vladimir Nazarov for the Soviet Space Program to combat zero-gravity bone loss. By engaging 90% of muscle fibers (vs. 40% in standard training), it rapidly builds bone density, counteracts neuropathy, and stimulates neuro-repair for improved mental health."
+                        />
+                         <ModalCard 
+                            title="ORGANIC GARDEN" 
+                            colorClass="bg-micron-green"
+                            icon={<Sprout />} 
+                            description="2025 research on the 'Soil-Plant-Gut Axis' confirms fresh-harvested produce delivers essential soil-based probiotics missing from sterilized commercial food. Homegrown crops retain up to 50% more nutrient density than store-bought options, directly fueling the gut microbiome and immune system."
+                        />
                     </div>
                 </div>
             )
@@ -82,58 +108,67 @@ export const SectionProperty: React.FC = () => {
       } else if (type === 'autonomous') {
         setModalData({
             title: "AUTONOMOUS SERVICE",
-            subtitle: "INTELLIGENT INFRASTRUCTURE",
+            subtitle: "LIVING LAB",
             category: 'showcase',
             theme: 'light', 
+            maxWidth: 'max-w-6xl',
             content: (
-                 <div className="flex flex-col gap-6">
-                    <p className="text-xl font-light text-zinc-600 leading-relaxed">
-                        A functional proving ground where abstract technology becomes a seamless, daily reality. The residence is mapped for high-precision autonomous navigation.
+                 <div className="flex flex-col gap-8">
+                    <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed">
+                        Autonomous service via Cybercab and Optimus. A functional proving ground where abstract technology becomes a seamless, daily reality.
                     </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-micron-eggplant-light/10 p-5 rounded-xl border border-micron-eggplant-light/20">
-                            <div className="flex items-center gap-2 mb-2 text-micron-eggplant-light">
-                                <Car size={20} />
-                                <h4 className="font-bold uppercase tracking-wider text-sm">Cybercab Logistics</h4>
-                            </div>
-                            <p className="text-zinc-700 text-sm">Dedicated drop-off and charging integration for autonomous transport of guests and supplies.</p>
-                        </div>
-                        <div className="bg-micron-eggplant-light/10 p-5 rounded-xl border border-micron-eggplant-light/20">
-                             <div className="flex items-center gap-2 mb-2 text-micron-eggplant-light">
-                                <Bot size={20} />
-                                <h4 className="font-bold uppercase tracking-wider text-sm">Optimus Integration</h4>
-                            </div>
-                            <p className="text-zinc-700 text-sm">Service layers operated by humanoid robotics, from security monitoring to housekeeping support.</p>
-                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                         <ModalCard 
+                            title="CYBERCAB" 
+                            colorClass="bg-black"
+                            icon={<Car />} 
+                            image="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop"
+                            description="Tesla's first fully autonomous vehicle — a two-passenger cabin with butterfly doors, inductive charging, and a 20.5-inch display. Cybercab manages all airport transfers, downtown shuttles, and guest logistics autonomously."
+                        />
+                         <ModalCard 
+                            title="OPTIMUS" 
+                            colorClass="bg-micron-eggplant-light"
+                            icon={<Bot />} 
+                            image="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop"
+                            description="Tesla's Gen 3 humanoid — 5'8\", 125 lbs, with 22 degrees of freedom in each hand and vision-based autonomy. Optimus manages property maintenance, perimeter monitoring, and routine service tasks within defined geofenced zones across the residence."
+                        />
                     </div>
                 </div>
             )
         });
       } else if (type === 'history') {
          setModalData({
-            title: "HISTORIC REGISTER",
-            subtitle: "WARM SPRINGS AVENUE",
+            title: "HISTORIC LEGACY",
+            subtitle: "1890 - PRESENT",
             category: 'showcase',
             theme: 'light',
+            maxWidth: 'max-w-6xl',
             content: (
-                 <div className="flex flex-col gap-6">
-                    <p className="text-xl font-light text-zinc-600 leading-relaxed">
-                        Located on Boise's most prestigious historic corridor, anchored by the homes of the city's founders.
+                 <div className="flex flex-col gap-8">
+                    <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed">
+                        Anchored by the C.W. Moore House (1891) and the neighboring George Whitfield Russell House. A corridor defined by the legacy of Western pioneers and energy ingenuity.
                     </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-micron-eggplant/10 p-5 rounded-xl border border-micron-eggplant/20">
-                            <div className="flex items-center gap-2 mb-2 text-micron-eggplant">
-                                <History size={20} />
-                                <h4 className="font-bold uppercase tracking-wider text-sm">C.W. Moore House</h4>
-                            </div>
-                            <p className="text-zinc-700 text-sm">Neighboring the 1891 mansion of Christopher W. Moore, a founder of the First National Bank of Idaho.</p>
+                    
+                    <div className="bg-micron-eggplant rounded-3xl p-8 md:p-10 text-white shadow-xl relative overflow-hidden border border-white/10">
+                        <div className="flex items-center gap-3 mb-6 border-b border-white/20 pb-6">
+                            <History size={32} className="text-white/80" />
+                            <h3 className="text-3xl font-black uppercase tracking-tight">C.W. MOORE & THE DISTRICT</h3>
                         </div>
-                        <div className="bg-micron-eggplant/10 p-5 rounded-xl border border-micron-eggplant/20">
-                             <div className="flex items-center gap-2 mb-2 text-micron-eggplant">
-                                <ShieldCheck size={20} />
-                                <h4 className="font-bold uppercase tracking-wider text-sm">Preservation</h4>
+                        
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div className="lg:col-span-2 text-white/90 font-medium leading-relaxed space-y-4">
+                                <p>
+                                    In 1890, Christopher W. Moore, founder of the First National Bank of Idaho, drilled two wells near the base of Table Rock. He struck 170-degree water. By 1892, he had piped it to his mansion on Warm Springs Avenue—marking the first use of geothermal water for home heating in the United States.
+                                </p>
+                                <p>
+                                    Today, the Boise Warm Springs Water District remains the oldest continuously operating geothermal district in North America. The Micron House sits on this historic line, utilizing the same clean, ancient energy source that Moore tapped over 130 years ago. It is a National Register of Historic Places corridor defined by energy innovation.
+                                </p>
                             </div>
-                            <p className="text-zinc-700 text-sm">Maintained in accordance with National Register standards, preserving the architectural legacy of the Western frontier.</p>
+                            
+                            <div className="bg-black/20 rounded-xl p-6 flex flex-col justify-end h-full border border-white/10 min-h-[200px]">
+                                <span className="text-4xl font-black block mb-1">EST. 1890</span>
+                                <span className="text-sm font-bold uppercase tracking-widest opacity-80">Warm Springs Avenue</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -193,7 +228,12 @@ export const SectionProperty: React.FC = () => {
               </div>
               <h4 className={`text-2xl font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors`}>{title}</h4>
           </div>
-          <ul className="space-y-3 mb-6 flex-1">
+          
+          {/* UPDATED: Added Divider Line */}
+          <div className="w-full h-px bg-white/20 mb-4" />
+
+          {/* UPDATED: Reduced bottom margin from mb-6 to mb-2 to reduce padding between list and gallery */}
+          <ul className="space-y-3 mb-2 flex-1">
               {items.map((item: string, i: number) => (
                   <li key={i} className={`flex items-start gap-3 text-sm md:text-base font-medium leading-snug text-white`}>
                       <div className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-white opacity-50`} />
@@ -214,7 +254,8 @@ export const SectionProperty: React.FC = () => {
       </motion.div>
   );
 
-  const InfoCard = ({ title, subtitle, icon, text, className, gradient, onClick, delay = 0 }: any) => (
+  // UPDATED: InfoCard now supports background images to restore "Bento" look
+  const InfoCard = ({ title, subtitle, icon, text, className, gradient, image, onClick, delay = 0 }: any) => (
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -222,30 +263,39 @@ export const SectionProperty: React.FC = () => {
         transition={{ duration: 1.5, delay, ease: [0.22, 1, 0.36, 1] }}
         whileHover={{ y: -5, scale: 1.01 }}
         onClick={onClick}
-        // UPDATED: Reduced padding (p-5 md:p-6) and min-height (min-h-[240px]) to reduce size by ~20%
-        className={`${gradient} backdrop-blur-md rounded-2xl p-5 md:p-6 border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] transition-shadow duration-300 h-full min-h-[240px] cursor-pointer group text-white relative flex flex-col ${className}`}
+        // UPDATED: Added overflow-hidden for image containment
+        className={`${gradient} backdrop-blur-md rounded-2xl p-5 md:p-6 border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] transition-shadow duration-300 h-full min-h-[240px] cursor-pointer group text-white relative flex flex-col overflow-hidden ${className}`}
       >
-          <div className="flex justify-between items-start mb-4">
-               <div className="flex items-center gap-3">
-                   <div className={`text-white/70 group-hover:text-white group-hover:scale-110 transition-transform duration-300`}>{icon}</div>
-                   <h4 className="text-base md:text-lg font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors leading-tight">{title}</h4>
-               </div>
-          </div>
-          
-          <div className="h-px w-full bg-white/20 mb-6 group-hover:bg-white/40 transition-colors" />
+          {/* OPTIONAL BACKGROUND IMAGE */}
+          {image && (
+             <>
+                <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition-colors duration-300" />
+             </>
+          )}
 
-          {/* UPDATED: Reduced bottom margin (mb-4) to tighten spacing */}
-          <p className="text-sm md:text-base text-white font-medium leading-relaxed mb-4 flex-1">
-             {text}
-          </p>
-          
-          <div className="mt-auto flex justify-end items-center gap-3">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
-                  {subtitle}
-              </span>
-              <div className="opacity-50 group-hover:opacity-100 transition-opacity duration-300">
-                  <ArrowUpRight size={20} />
-              </div>
+          <div className="relative z-10 flex flex-col h-full">
+            <div className="flex justify-between items-start mb-4">
+                 <div className="flex items-center gap-3">
+                     <div className={`text-white/70 group-hover:text-white group-hover:scale-110 transition-transform duration-300`}>{icon}</div>
+                     <h4 className="text-base md:text-lg font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors leading-tight">{title}</h4>
+                 </div>
+            </div>
+            
+            <div className="h-px w-full bg-white/20 mb-6 group-hover:bg-white/40 transition-colors" />
+
+            <p className="text-sm md:text-base text-white/90 font-medium leading-relaxed mb-4 flex-1 drop-shadow-sm">
+               {text}
+            </p>
+            
+            <div className="mt-auto flex justify-end items-center gap-3">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
+                    {subtitle}
+                </span>
+                <div className="opacity-50 group-hover:opacity-100 transition-opacity duration-300">
+                    <ArrowUpRight size={20} />
+                </div>
+            </div>
           </div>
       </motion.div>
   );
@@ -259,7 +309,8 @@ export const SectionProperty: React.FC = () => {
             transition={{ duration: 1.0 }}
         >
             {/* 1. HEADER */}
-            <div className="mb-5 md:mb-10 flex flex-col md:flex-row gap-4 md:gap-12 border-b border-zinc-100 pb-5 md:pb-10">
+            {/* UPDATED: Reduced margins by half to reduce gap between header and content */}
+            <div className="mb-2 md:mb-5 flex flex-col md:flex-row gap-4 md:gap-12 border-b border-zinc-100 pb-2 md:pb-5">
                  <div className="flex-shrink-0">
                      <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">02 / ASSET</span>
                      <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant-light leading-none font-sans">
@@ -276,7 +327,6 @@ export const SectionProperty: React.FC = () => {
 
             {/* 2. STATS GRID */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-                {/* UPDATED: Removed CSS transforms to prevent conflict with Framer Motion */}
                 <StatCard delay={0} className="bg-micron-eggplant rounded-xl p-4 md:p-8 text-white text-center flex flex-col justify-center items-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] md:h-40 border border-white/10 cursor-pointer">
                     <span className="text-3xl md:text-5xl font-black tracking-tighter mb-1 font-sans">1906</span>
                     <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-70 font-sans">Year Built</span>
@@ -302,7 +352,6 @@ export const SectionProperty: React.FC = () => {
                       <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-micron-eggplant font-sans">LOCATION DETAILS</h3>
                  </div>
                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
-                      {/* UPDATED: Removed CSS transforms */}
                       <LocationPill delay={0} label="Micron HQ" time="15 min" color="bg-micron-green" icon={<Building2 size={16}/>} />
                       <LocationPill delay={0.4} label="Airport" time="10 min" color="bg-micron-eggplant" icon={<Plane size={16}/>} />
                       <LocationPill delay={0.1} label="Downtown" time="3 min" color="bg-micron-eggplant-light" icon={<Building2 size={16}/>} />
@@ -363,7 +412,7 @@ export const SectionProperty: React.FC = () => {
                  </div>
             </div>
             
-            {/* 5. TECHNOLOGY, WELLNESS & HISTORY */}
+            {/* 5. TECHNOLOGY, WELLNESS & HISTORY - UPDATED WITH IMAGES */}
             <div>
                  <div className="flex items-center gap-2 mb-4">
                       <Zap size={16} className="text-micron-eggplant" />
@@ -375,15 +424,20 @@ export const SectionProperty: React.FC = () => {
                         subtitle="NATURE"
                         icon={<Leaf size={24} />}
                         gradient="bg-micron-green" 
+                        // UPDATED: Added Spa Image
+                        image="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070&auto=format&fit=crop"
                         delay={0.1}
                         text="Geothermal spa utilizing the district's 177°F source. The home is heated through geothermal radiant heat as well as the hot tub. The grounds feature mature producing fruit trees and a Concord grapevine."
                         onClick={() => openInfoModal('wellness')}
                     />
                     <InfoCard 
-                        title="AUTONOMOUS SERVICE"
+                        // UPDATED: Title to Security & Service
+                        title="AUTONOMOUS SECURITY & SERVICE"
                         subtitle="INTELLIGENCE"
                         icon={<Cpu size={24} />}
                         gradient="bg-micron-eggplant-light" 
+                        // UPDATED: Added Tech Image
+                        image="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop"
                         delay={0.3}
                         text="Autonomous service via Cybercab and Optimus. A functional proving ground where abstract technology becomes a seamless, daily reality."
                         onClick={() => openInfoModal('autonomous')}
@@ -393,6 +447,8 @@ export const SectionProperty: React.FC = () => {
                         subtitle="LEGACY"
                         icon={<TreeDeciduous size={24} />}
                         gradient="bg-micron-eggplant"
+                        // UPDATED: Added Historic Image
+                        image="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
                         delay={0.5}
                         text="Anchored by the C.W. Moore House (1891) and the neighboring George Whitfield Russell House. A corridor defined by the legacy of Western pioneers and energy ingenuity."
                         onClick={() => openInfoModal('history')}
