@@ -27,7 +27,7 @@ const sentences = [
         layout: "default"
     },
     {
-        // Sentence 3 - UPDATED: Split "THERE'S" and "NO" but used mixed layout to keep them on same line
+        // Sentence 3 - UPDATED: Mobile Layout - "WITHOUT PLACE," (Line 1), "THERE'S NO" (Line 2), "PERSPECTIVE." (Line 3)
         words: ["WITHOUT", "PLACE,", "THERE'S", "NO", "PERSPECTIVE."], 
         color: "text-zinc-400",
         highlightColor: "text-micron-green",
@@ -35,8 +35,14 @@ const sentences = [
         highlights: ["PLACE,", "PERSPECTIVE."],
         textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
         layout: "mixed",
-        // Custom layout classes to force line breaks: Full, Full, Auto, Auto, Full
-        layoutOverrides: ["w-full basis-full mb-1", "w-full basis-full mb-1", "w-auto", "w-auto", "w-full basis-full mt-1"]
+        // UPDATED: Using flex-grow on mobile to force line breaks after specific words while keeping desktop inline
+        layoutOverrides: [
+            "w-auto mr-2 md:mr-4",                                     // WITHOUT
+            "flex-grow text-left md:w-auto md:flex-grow-0 md:mr-4",    // PLACE, (Forces break after on mobile)
+            "w-auto mr-2 md:mr-4",                                     // THERE'S
+            "flex-grow text-left md:w-auto md:flex-grow-0 md:mr-4",    // NO (Forces break after on mobile)
+            "w-full md:w-auto"                                         // PERSPECTIVE.
+        ]
     },
 ];
 
@@ -372,8 +378,8 @@ export const Hero: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
-            // UPDATED: Single background color bg-micron-eggplant-light, min-h-400px to give room for diagonal text
-            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row min-h-[400px] mt-4 p-8 md:p-12 items-stretch gap-8 group"
+            // UPDATED: Increased min-height for mobile to make room for cursive text (min-h-[600px])
+            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row min-h-[600px] md:min-h-[400px] mt-4 p-8 md:p-12 justify-between items-stretch gap-8 group"
         >
             {/* ABSOLUTE CURSIVE TEXT LAYER - Diagonally positioned */}
             <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
@@ -381,22 +387,26 @@ export const Hero: React.FC = () => {
                      initial="hidden"
                      animate={showCursiveText ? "visible" : "hidden"}
                      variants={{
-                         visible: { transition: { staggerChildren: 0.04, delayChildren: 0.2 } },
+                         // UPDATED: Twice as slow = 0.35 stagger
+                         visible: { transition: { staggerChildren: 0.35, delayChildren: 0.2 } },
                          hidden: {}
                      }}
                      // Positioning: Diagonal slant across the center space
-                     className="absolute top-[20%] left-[5%] md:left-[32%] w-[90%] md:w-[45%] -rotate-6 origin-center"
+                     // UPDATED: Adjusted positioning to utilize whitespace better given smaller font (top-[35%])
+                     className="absolute top-[35%] left-[10%] md:left-[32%] w-[80%] md:w-[45%] -rotate-6 origin-center"
                 >
                     {/* Scale-y-110 makes the font look a bit more condensed/handwritten style like 'Smith Mossery' */}
-                    <p className="font-micron text-3xl md:text-5xl text-black/90 leading-tight md:leading-snug drop-shadow-sm transform scale-y-110">
+                    {/* UPDATED: Size reduced by ~50% (text-xl md:text-2xl), Color opacity reduced for 'thinner' look (text-micron-eggplant/80) */}
+                    <p className="font-micron text-xl md:text-2xl text-micron-eggplant/80 leading-relaxed md:leading-relaxed transform scale-y-110">
                         {cursiveQuoteText.split(" ").map((word, i) => (
                             <motion.span
                                 key={i}
                                 variants={{
                                     hidden: { opacity: 0 },
-                                    visible: { opacity: 1, transition: { duration: 0.05 } } // Very fast fade in per word
+                                    // UPDATED: Slower fade in per word to match stagger
+                                    visible: { opacity: 1, transition: { duration: 0.3 } } 
                                 }}
-                                className="mr-3 inline-block"
+                                className="mr-2 inline-block"
                             >
                                 {word}
                             </motion.span>
@@ -420,7 +430,7 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* Right Side: Map Card */}
-            <div className="w-full md:w-[450px] aspect-[4/3] md:aspect-auto md:h-auto bg-zinc-100 rounded-2xl overflow-hidden shadow-2xl relative border-4 border-white/20 z-10">
+            <div className="w-full md:w-[450px] aspect-[4/3] md:aspect-auto md:h-auto bg-zinc-100 rounded-2xl overflow-hidden shadow-2xl relative border-4 border-white/20 z-10 mt-auto md:mt-0">
                  <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.234!2d-116.1898!3d43.6088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54aef8d1b0b3b8e7%3A0x0!2s1020%20E%20Warm%20Springs%20Ave%2C%20Boise%2C%20ID%2083712!5e0!3m2!1sen!2sus!4v1706000000000"
                     width="100%"

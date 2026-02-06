@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
@@ -179,22 +178,19 @@ export const SectionServingTesla: React.FC = () => {
 
                     {/* RIGHT: Stacked Cards */}
                     <div className="flex flex-col gap-4 h-full">
-                         {/* Card 1: Purple */}
+                         {/* Card 1: Purple - THE FEEDBACK LOOP */}
                          <motion.div 
                             variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
                             transition={{ delay: 0.1 }}
-                            className="bg-micron-eggplant text-white p-6 rounded-2xl shadow-lg border border-white/10 flex-1 flex flex-col justify-center"
+                            className="bg-micron-eggplant text-white p-6 rounded-2xl shadow-lg border border-white/10 flex-1 flex flex-col justify-center relative overflow-hidden group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
                          >
-                            <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-white">THE FEEDBACK LOOP</h3>
+                            <h3 className="text-2xl font-black uppercase tracking-tight mb-4 text-white">THE FEEDBACK LOOP</h3>
                             <ul className="space-y-3 text-sm font-medium text-white/80 leading-relaxed mb-4">
                                 <li className="flex gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
                                     <span>Optimus prepares a private dining room for a confidential executive dinner — a James Beard semifinalist in the kitchen, Snake River Valley wines on the table.</span>
                                 </li>
-                                <li className="flex gap-3">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
-                                    <span>Optimus and Cybercab host a live capability demonstration for Boise State engineering students on the back terrace.</span>
-                                </li>
+                                {/* REMOVED 2nd Bullet as requested */}
                                 <li className="flex gap-3">
                                     <span className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0"></span>
                                     <span>Optimus manages a quiet household for an employee's family visiting from overseas while a loved one recovers at St. Luke's a mile away.</span>
@@ -205,49 +201,56 @@ export const SectionServingTesla: React.FC = () => {
                                 </li>
                             </ul>
                             <p className="text-white font-bold italic border-l-2 border-white/30 pl-3">
-                                Four scenarios. Four emotional registers. Each one training autonomous systems in ways a controlled environment never could.
+                                Three scenarios. Three emotional registers. Each one training autonomous systems in ways a controlled environment never could.
                             </p>
                          </motion.div>
 
-                         {/* Card 2: Dark/Charcoal */}
+                         {/* Card 2: Black - PRE-PUBLIC DEPLOYMENT (Updated from grey1 to black to match Collaboration modal) */}
                          <motion.div 
                              variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
                              transition={{ delay: 0.2 }}
-                             className="bg-micron-grey1 text-white p-6 rounded-2xl shadow-lg border border-white/10 flex-shrink-0"
+                             // UPDATED: bg-black, p-6 pl-8 to match Tesla card style
+                             className="bg-black text-white p-6 pl-8 rounded-2xl shadow-lg border border-white/10 flex-shrink-0 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
                          >
-                            <h3 className="text-xl font-black uppercase tracking-tight mb-3 text-white">PRE-PUBLIC DEPLOYMENT</h3>
-                            <p className="text-white/80 text-sm font-medium leading-relaxed">
-                                Micron's leadership experiences Optimus and Cybercab across the full spectrum of real life before any consumer on earth. Confidential. Celebratory. Compassionate. Political. Every week of operational variety builds institutional knowledge competitors will spend years catching up to.
+                            <h3 className="text-2xl font-black uppercase tracking-tight mb-3 text-white">PRE-PUBLIC DEPLOYMENT</h3>
+                            <div className="mb-2 pl-4 border-l-2 border-white/30">
+                                <p className="text-white/90 text-sm md:text-base font-medium leading-relaxed italic">
+                                    Micron's leadership experiences Optimus and Cybercab across the full spectrum of real life before any consumer on earth.
+                                </p>
+                            </div>
+                            <p className="text-white/70 text-xs font-medium leading-relaxed mt-3">
+                                Confidential. Celebratory. Compassionate. Political. Every week of operational variety builds institutional knowledge competitors will spend years catching up to.
                             </p>
                          </motion.div>
                     </div>
                 </div>
 
-                {/* BOTTOM: Full-width Blue Card */}
+                {/* BOTTOM: Full-width Blue Card - THE CLOSED LOOP */}
                 <motion.div 
                     variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
                     transition={{ delay: 0.3 }}
                     className="bg-micron-eggplant-light text-zinc-900 rounded-2xl p-6 shadow-xl border border-white/20"
                 >
                     <div className="flex items-center gap-3 mb-4 pb-4 border-b border-zinc-900/10">
-                        <h3 className="text-2xl font-black uppercase tracking-tight text-white">THE CLOSED LOOP</h3>
+                        <h3 className="text-3xl font-black uppercase tracking-tight text-white">THE CLOSED LOOP</h3>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
                         {/* Stats Column */}
                         <div className="md:col-span-4 flex flex-col gap-4 border-b md:border-b-0 md:border-r border-zinc-900/10 pb-4 md:pb-0 justify-center">
                             <div>
-                                <h4 className="text-3xl md:text-4xl font-black text-white tracking-tighter">15 min</h4>
+                                <h4 className="text-4xl font-black text-white tracking-tighter">15 min</h4>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-700">FAB TO FRONT DOOR</p>
                             </div>
                             <div>
-                                <h4 className="text-3xl md:text-4xl font-black text-white tracking-tighter">1</h4>
+                                <h4 className="text-4xl font-black text-white tracking-tighter">1</h4>
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-700">ADDRESS</p>
                             </div>
                         </div>
                         {/* Text Column */}
                         <div className="md:col-span-8 flex flex-col justify-center">
-                            <p className="text-zinc-800 text-sm md:text-base font-medium leading-relaxed">
-                                Micron silicon is fabricated fifteen minutes from the front door. Optimus and Cybercab run on Micron silicon. The executives who designed the memory architecture host guests, close recruits, and entertain partners alongside machines powered by their own work. <strong className="text-white">Feedback travels from the dining room to the fab floor by morning.</strong>
+                            {/* UPDATED: Increased text size and replaced first sentence as requested */}
+                            <p className="text-zinc-800 text-lg md:text-xl font-medium leading-relaxed">
+                                Optimus and Cybercab run on Micron silicon fabricated 15 minutes from the front door. The executives who designed the memory architecture host guests, close recruits, and entertain partners alongside machines powered by their own work. <strong className="text-white">Feedback travels from the dining room to the fab floor by morning.</strong>
                             </p>
                         </div>
                     </div>
