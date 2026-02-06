@@ -123,6 +123,7 @@ export const Hero: React.FC = () => {
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState<number | null>(null);
   const [key, setKey] = useState(0); 
   const [showCursiveText, setShowCursiveText] = useState(false);
+  const [layoutShift, setLayoutShift] = useState(false);
 
   // Icon Controls
   const iconControls = useAnimation();
@@ -179,18 +180,27 @@ export const Hero: React.FC = () => {
               }
           });
 
+          // Layout Shift Timer - trigger just before logo arrives
+          const shiftTimer = setTimeout(() => {
+              setLayoutShift(true);
+          }, 1800);
+
           // Cursive Text Timer
           // UPDATED: Delay synced to appear when "Perspective" populates
           const cursiveTimer = setTimeout(() => {
               setShowCursiveText(true);
           }, 1600);
 
-          return () => clearTimeout(cursiveTimer);
+          return () => {
+              clearTimeout(cursiveTimer);
+              clearTimeout(shiftTimer);
+          };
 
       } else if (currentSentenceIndex === 0) {
           // Only manual reset triggers this now (since scroll reset is removed)
           iconControls.set({ x: 200, rotate: -360, opacity: 0 });
           setShowCursiveText(false);
+          setLayoutShift(false);
       }
   }, [currentSentenceIndex, iconControls]);
 
@@ -251,8 +261,10 @@ export const Hero: React.FC = () => {
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 h-auto md:h-[450px] w-full">
             
             {/* 1. TEXT ANIMATION AREA (White Bento) */}
-            <div 
-                className="min-h-[300px] md:h-full w-full flex flex-col justify-end items-start order-1 bg-white rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] px-6 pt-6 pb-12 md:px-12 md:pt-12 md:pb-12 relative overflow-hidden group"
+            <motion.div 
+                layout
+                transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                className={`min-h-[300px] md:h-full w-full flex flex-col ${layoutShift ? 'justify-end' : 'justify-center'} md:justify-end items-start order-1 bg-white rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] px-6 pt-6 pb-12 md:px-12 md:pt-12 md:pb-12 relative overflow-hidden group`}
             >
                  {/* Logo Animation */}
                  <motion.div 
@@ -269,7 +281,11 @@ export const Hero: React.FC = () => {
                     />
                  </motion.div>
                  
-                 <div className="w-full relative z-10 mt-36 md:mt-0">
+                 <motion.div 
+                    layout
+                    transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                    className={`w-full relative z-10 ${layoutShift ? 'mt-36' : 'mt-0'} md:mt-0`}
+                 >
                      <AnimatePresence mode="wait">
                        {currentSentenceIndex !== null && (
                            <motion.div 
@@ -297,8 +313,8 @@ export const Hero: React.FC = () => {
                            </motion.div>
                        )}
                      </AnimatePresence>
-                 </div>
-            </div>
+                 </motion.div>
+            </motion.div>
 
             {/* 2. VIDEO AREA */}
             <motion.div 
@@ -359,7 +375,8 @@ export const Hero: React.FC = () => {
                              visible: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } }, // Faster stagger for words
                              hidden: {}
                          }}
-                         className="font-micron text-2xl text-center text-black leading-relaxed transform scale-y-110 -rotate-3"
+                         // UPDATED: Changed back to font-micron for cursive, kept text-white
+                         className="font-micron text-2xl text-center text-white leading-relaxed -rotate-3"
                       >
                          {/* Joined into one paragraph block */}
                          <p className="inline">
@@ -390,10 +407,9 @@ export const Hero: React.FC = () => {
                             hidden: {}
                         }}
                         // UPDATED: 
-                        // 1. text-left (Left Justified)
-                        // 2. opacity-85 (Simulate lighter weight)
-                        // 3. max-w-lg with wrapping
-                        className="font-micron font-normal text-2xl md:text-3xl text-black/85 leading-normal text-left -rotate-6 max-w-lg w-full"
+                        // 1. font-micron (Cursive)
+                        // 2. text-white
+                        className="font-micron text-2xl md:text-3xl text-white leading-relaxed text-left -rotate-6 max-w-lg w-full"
                 >
                      {/* Joined into one paragraph block */}
                      <p className="inline">

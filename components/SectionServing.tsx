@@ -295,9 +295,9 @@ export const SectionServing: React.FC = () => {
                  <div className="pl-6 border-l-4 border-micron-eggplant/20 hover:border-micron-eggplant transition-colors duration-500">
                     <p className="text-base font-light text-zinc-600 leading-snug font-body">
                        <span className="font-bold text-micron-eggplant block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
-                           STRATEGIC UTILITY
+                           STRATEGIC ALIGNMENT
                        </span>
-                       Optimizing the asset across seven distinct verticals to ensure maximum return on experience for Micron Technology.
+                       A new class of corporate asset. The first autonomous residence purpose-built to serve a single company's executives, recruits, partners, and community — across every department that touches people.
                     </p>
                  </div>
             </div>
