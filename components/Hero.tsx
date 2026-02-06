@@ -62,8 +62,8 @@ const InteractiveParadigmTitle: React.FC = () => {
                         key={i}
                         initial={{ y: 20, opacity: 0, color: '#008f25' }}
                         whileInView={{ y: 0, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.5, duration: 1.0 }}
+                        viewport={{ once: false }}
+                        transition={{ delay: 0.5, duration: 1.5 }}
                         // UPDATED: Hover animation cycle with slow return
                         whileHover={cycleAnimation}
                         style={{ transition: "color 1.5s ease-out" }} // Slow return transition
@@ -78,8 +78,8 @@ const InteractiveParadigmTitle: React.FC = () => {
                         key={i}
                         initial={{ y: 20, opacity: 0, color: '#2c0f38' }}
                         whileInView={{ y: 0, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.7, duration: 1.0 }}
+                        viewport={{ once: false }}
+                        transition={{ delay: 0.7, duration: 1.5 }}
                         whileHover={cycleAnimation}
                         style={{ transition: "color 1.5s ease-out" }}
                         className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block text-micron-eggplant"
@@ -95,8 +95,8 @@ const InteractiveParadigmTitle: React.FC = () => {
                         key={i}
                         initial={{ y: 20, opacity: 0, color: '#2c0f38' }}
                         whileInView={{ y: 0, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.9, duration: 1.0 }}
+                        viewport={{ once: false }}
+                        transition={{ delay: 0.9, duration: 1.5 }}
                         whileHover={cycleAnimation}
                         style={{ transition: "color 1.5s ease-out" }}
                         className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block text-micron-eggplant"
@@ -188,9 +188,9 @@ export const Hero: React.FC = () => {
               transition: { 
                   delay: totalDelay,
                   type: "spring",
-                  stiffness: 30, // Lower stiffness for slower movement
-                  damping: 20,   // Higher damping for less bounce, more drag
-                  duration: 3.0, // Very slow motion
+                  stiffness: 20, // Lower stiffness for slower movement
+                  damping: 25,   // Higher damping for less bounce, more drag
+                  duration: 4.0, // Very slow motion
                   bounce: 0
               }
           });
@@ -257,8 +257,8 @@ export const Hero: React.FC = () => {
   return (
     <section 
         ref={containerRef}
-        // REDUCED PADDING: pt-48 pb-16
-        className="relative w-full bg-white text-zinc-900 pt-32 md:pt-48 pb-12 md:pb-16 flex flex-col justify-end"
+        // REDUCED PADDING: pt-32/48 -> pt-24/32
+        className="relative w-full bg-white text-zinc-900 pt-24 md:pt-32 pb-12 md:pb-16 flex flex-col justify-end"
     >
       <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4">
         
@@ -269,15 +269,14 @@ export const Hero: React.FC = () => {
             {/* 1. TEXT ANIMATION AREA */}
             <div 
                 // FLOATING 3D EFFECT
-                // UPDATED: Removed transition-all duration-500 to keep box stationary
                 className="min-h-[300px] md:h-full w-full flex flex-col justify-end items-start order-1 bg-white rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] px-6 pt-6 pb-12 md:px-12 md:pt-12 md:pb-12 relative overflow-hidden group"
             >
                  {/* Logo Animation */}
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    // REVERTED DESKTOP: md:top-8 -> md:top-16 to restore desktop look. Mobile stays top-2.
-                    className="absolute top-2 left-0 right-0 mx-auto w-fit md:top-16 md:right-20 md:left-auto md:mx-0 z-20"
+                    // UPDATED: Moved down significantly (top-2 -> top-6 mobile, top-16 -> top-48 desktop)
+                    className="absolute top-6 left-0 right-0 mx-auto w-fit md:top-48 md:right-20 md:left-auto md:mx-0 z-20"
                  >
                     {/* UPDATED: Added micro-interaction rotation on hover */}
                     <motion.img 
@@ -327,8 +326,9 @@ export const Hero: React.FC = () => {
             {/* 2. VIDEO AREA */}
             <motion.div 
                 initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.2, delay: 0.2 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: false }}
+                transition={{ duration: 1.5, delay: 0.2 }}
                 className="h-[300px] md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black border border-zinc-800 order-2 group"
             >
                 <video 
@@ -348,10 +348,10 @@ export const Hero: React.FC = () => {
         {/* BOTTOM SECTION: PARADIGM & QUOTE - UPDATED */}
         <motion.div 
             ref={bottomSectionRef}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
             // UPDATED: Single background color bg-micron-eggplant-light
             className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row min-h-[300px] mt-4 p-8 md:p-12 items-center gap-8 group"
         >

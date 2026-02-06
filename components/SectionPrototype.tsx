@@ -15,7 +15,7 @@ const VIDEO_PROTOTYPE = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/obj
 // --- HELPER COMPONENTS ---
 
 const InnerBento = ({ title, children, gradient, icon, className = "", delay = 0, textColor = "text-white", padding = "p-5", direction = "up" }: any) => {
-    let initial: { opacity: number; x?: number; y?: number } = { opacity: 0, y: 20 };
+    let initial: { opacity: number; x?: number; y?: number } = { opacity: 0, y: 30 };
     if (direction === "left") initial = { opacity: 0, x: -30 };
     if (direction === "right") initial = { opacity: 0, x: 30 };
     if (direction === "down") initial = { opacity: 0, y: -30 };
@@ -24,8 +24,8 @@ const InnerBento = ({ title, children, gradient, icon, className = "", delay = 0
         <motion.div 
             initial={initial}
             whileInView={{ opacity: 1, x: 0, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay, duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
+            viewport={{ once: false }}
+            transition={{ delay, duration: 1.2, ease: [0.25, 0.4, 0.25, 1] }}
             className={`
                 ${gradient} rounded-xl ${padding} ${textColor} relative overflow-hidden group 
                 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] 
@@ -472,10 +472,10 @@ export const SectionPrototype: React.FC = () => {
     // UPDATED: Padding increased to px-8 on mobile, pb-6 on mobile to close gap to Property
     <section id="prototype" className="container mx-auto px-8 md:px-12 pt-0 pb-6 md:pb-12 bg-white text-zinc-900">
         <motion.div 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
             // UPDATED: Removed border-b and reduced mb-8 to mb-6 to remove 'wrapper' look
             className="mb-6 flex flex-col md:flex-row md:items-end gap-6 pb-2"
         >
@@ -493,7 +493,7 @@ export const SectionPrototype: React.FC = () => {
                                         key={i}
                                         initial={{ opacity: 0, x: -5 }}
                                         whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true }}
+                                        viewport={{ once: false }}
                                         whileHover={{ 
                                             y: -4, 
                                             x: 2, 
@@ -501,7 +501,7 @@ export const SectionPrototype: React.FC = () => {
                                             color: word === "BOISE." ? '#008f25' : (word === "TESLA." ? '#000000' : '#2c0f38'),
                                             transition: { duration: 0.2 } 
                                         }}
-                                        transition={{ duration: 0.4, delay: i * 0.2 }} 
+                                        transition={{ duration: 1.5, delay: i * 0.2 }} 
                                         className="mr-3 inline-block"
                                 >
                                     {word}
@@ -512,8 +512,8 @@ export const SectionPrototype: React.FC = () => {
                         <motion.span 
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.8, delay: (mainTitleWords.length * 0.2) + 0.2 }}
+                                viewport={{ once: false }}
+                                transition={{ duration: 1.5, delay: (mainTitleWords.length * 0.2) + 0.2 }}
                                 className="text-micron-eggplant block text-base"
                         >
                             Creating the first autonomous corporate residence. Where Micron's semiconductor revolution, Tesla's autonomous ecosystem, and Boise's emergence as a global tech hub <strong className="font-bold">converge at an inflection point to deliver the first tangible glimpse of the autonomous era</strong>.
@@ -578,7 +578,7 @@ export const SectionPrototype: React.FC = () => {
                 textColor="text-white"
                 borderColor="border-white/10"
                 delay={0.3}
-                duration={1.0}
+                duration={1.5}
                 hoverEffect={true}
                 hideArrow={true}
                 onClick={() => setModalData(getCardData(2))}
@@ -603,7 +603,7 @@ export const SectionPrototype: React.FC = () => {
                 textColor="text-white" 
                 borderColor="border-white/10" 
                 delay={0.5} 
-                duration={1.0}
+                duration={1.5}
                 hoverEffect={true}
                 hideArrow={true}
                 onClick={() => setModalData(getCardData(4))}

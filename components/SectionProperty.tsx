@@ -250,10 +250,10 @@ export const SectionProperty: React.FC = () => {
 
   const StatCard = ({ children, delay = 0, className }: any) => (
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay, ease: "easeOut" }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 1.5, delay, ease: "easeOut" }}
         className={className}
       >
           {children}
@@ -262,10 +262,10 @@ export const SectionProperty: React.FC = () => {
 
   const LocationPill = ({ label, time, color, icon, delay = 0 }: any) => (
     <motion.div 
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay, ease: "easeOut" }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 1.5, delay, ease: "easeOut" }}
         className={`${color} rounded-xl p-3 flex flex-col justify-between items-start text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:scale-105 transition-transform cursor-default h-[80px] border border-white/10`}
     >
         <div className="opacity-80">{icon}</div>
@@ -280,10 +280,10 @@ export const SectionProperty: React.FC = () => {
 
   const SpecCard = ({ title, icon, items, onGallery, className, gradient = "bg-zinc-900", delay = 0 }: any) => (
       <motion.div 
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay, ease: "easeOut" }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 1.5, delay, ease: "easeOut" }}
         whileHover={{ y: -8, transition: { duration: 0.3 } }}
         className={`rounded-2xl p-5 md:p-6 flex flex-col h-full cursor-pointer group ${gradient} text-white border border-white/10 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] transition-all ${className}`}
         onClick={onGallery}
@@ -316,10 +316,10 @@ export const SectionProperty: React.FC = () => {
 
   const InfoCard = ({ title, subtitle, icon, text, className, gradient, onClick, delay = 0 }: any) => (
       <motion.div 
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay, ease: "easeOut" }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 1.5, delay, ease: "easeOut" }}
         whileHover={{ y: -5, scale: 1.01 }}
         onClick={onClick}
         className={`${gradient} backdrop-blur-md rounded-2xl p-6 md:p-8 border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] transition-all h-full cursor-pointer group text-white relative ${className}`}
@@ -350,10 +350,10 @@ export const SectionProperty: React.FC = () => {
     // UPDATED: Padding increased to px-8 on mobile, py-4 on mobile to close gap to Prototype
     <section id="property" className="container mx-auto px-8 md:px-12 py-4 md:py-12 bg-white text-zinc-900">
         <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 1.0 }}
+            viewport={{ once: false, amount: 0.1 }}
+            transition={{ duration: 1.5 }}
         >
             {/* 1. HEADER - UPDATED: Reduced spacing on mobile (gap-4, mb-5, pb-5) */}
             <div className="mb-5 md:mb-10 flex flex-col md:flex-row gap-4 md:gap-12 border-b border-zinc-100 pb-5 md:pb-10">

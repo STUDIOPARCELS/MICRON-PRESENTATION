@@ -4,7 +4,7 @@ import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
 import { ModalContent } from '../types';
 import { motion } from 'framer-motion';
-import { Wine, Car, BedDouble, Shield, Music, Mic, Armchair, Heart, Trophy, Snowflake, Utensils, Cpu, Users, Map, Fish } from 'lucide-react';
+import { Wine, Car, BedDouble, Shield, Music, Mic, Armchair, Heart, Trophy, Snowflake, Utensils, Cpu, Users, Map, Fish, Stethoscope, ArrowRight } from 'lucide-react';
 
 interface Experience {
   title: string;
@@ -196,180 +196,122 @@ const departments: Department[] = [
     gradient: "bg-micron-eggplant", 
     modalHeaderColor: "text-micron-eggplant", 
     modalIconColor: "text-zinc-400", 
-    modalTagColor: "border-micron-eggplant",
+    modalTagColor: "border-micron-grey1",
     experiences: [
       {
-        title: "Healing House",
-        icon: <Heart />,
-        description: "A restorative alternative to a hotel for families during treatment at St. Luke's (2 min away). Radiant heat, wood fireplace.",
+        title: "Medical Proximity",
+        icon: <Stethoscope />, 
+        description: "Located 0.8 miles from St. Luke's Boise Medical Center. Immediate access for families while retaining privacy.",
         customGradient: "bg-micron-eggplant"
-      }
-    ]
-  },
-  { 
-    id: "employee", 
-    title: "Employee Incentives", 
-    value: "Milestone rewards", 
-    detail: "Recognition for exceptional performance, unique reward beyond standard compensation.", 
-    gradient: "bg-micron-green", 
-    modalHeaderColor: "text-micron-green", 
-    modalIconColor: "text-zinc-400", 
-    modalTagColor: "border-micron-eggplant-light",
-    experiences: [
-      {
-        title: "Alpine Days",
-        icon: <Snowflake />,
-        description: "Heli-ski Idaho backcountry. Return for geothermal hot tub and contrast therapy. Recovery meal by a local chef.",
-        customGradient: "bg-micron-green"
       },
       {
-        title: "Spa Recovery",
-        icon: <Armchair />,
-        description: "In-home massage therapy followed by a geothermal soak. Physical restoration occurs entirely within the property lines.",
-        customGradient: "bg-micron-eggplant-light"
+        title: "Compassionate Stay",
+        icon: <Heart />,
+        description: "A private, fully equipped home for families facing long-term treatment scenarios. Dignity and comfort during crisis.",
+        customGradient: "bg-micron-grey1"
       }
     ]
-  }, 
+  }
 ];
 
 export const SectionServing: React.FC = () => {
   const [modalData, setModalData] = useState<ModalContent | null>(null);
 
-  const openDeptModal = (dept: Department) => {
-      // FORCE PORTRAIT STYLE & NO EXTRA SPACE
-      const maxWidth = "max-w-2xl";
-
-      setModalData({
-        title: dept.title,
-        subtitle: dept.value,
-        category: 'showcase', 
-        theme: 'light', 
-        headerClassName: dept.modalHeaderColor, 
-        maxWidth: maxWidth,
-        content: (
-            <div className="flex flex-col gap-6">
-                 {/* DESCRIPTION HEADER */}
-                 <motion.div 
-                    variants={{ hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1 } }}
-                    // UPDATED: Reduced padding (p-4) and added stronger shadow-lg and border to make it float visibly
-                    className="w-full bg-white rounded-xl p-4 shadow-lg border border-zinc-200 flex flex-col items-start justify-center text-left relative z-10"
-                 >
-                     <p className="text-base md:text-lg font-light text-zinc-600 leading-relaxed font-body text-left">
-                        {dept.detail}
-                     </p>
-                 </motion.div>
-                 
-                 <div className="w-full">
-                    <motion.h3 
-                        variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
-                        className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 ml-1"
-                    >
-                        Curated Experiences
-                    </motion.h3>
-                    
-                    <div className="grid grid-cols-1 gap-4">
-                        {dept.experiences.map((exp, i) => {
-                             return (
-                                <motion.div 
-                                    key={i}
-                                    variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
-                                    whileHover={{ y: -2 }}
-                                    className={`
-                                        w-full
-                                        ${exp.customGradient || dept.gradient} 
-                                        rounded-xl p-6
-                                        shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]
-                                        hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.6)]
-                                        transition-all duration-300
-                                        group relative overflow-hidden flex flex-col justify-between
-                                        min-h-[160px]
-                                    `}
-                                >
-                                    {/* 3D Highlight Gradient at top */}
-                                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-50" />
-                                    
-                                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none" />
-
-                                    <div className="relative z-10 flex flex-col gap-3 h-full">
-                                        <div className="flex justify-between items-start">
-                                            <h4 className="text-xl md:text-2xl font-black uppercase tracking-tight text-white drop-shadow-md pr-4">
-                                                {exp.title}
-                                            </h4>
-                                            <div className="text-white/90 group-hover:text-white transition-colors drop-shadow-md bg-white/10 p-2 rounded-full backdrop-blur-sm">
-                                                {React.cloneElement(exp.icon as React.ReactElement<any>, { size: 18, strokeWidth: 2 })}
-                                            </div>
-                                        </div>
-
-                                        <div className="h-px w-full bg-white/20 my-1"></div>
-                                        
-                                        <div className="text-white/70 text-base md:text-lg leading-relaxed font-medium drop-shadow-sm group-hover:text-white transition-colors duration-300">
-                                            {exp.description}
-                                        </div>
-                                    </div>
-                                </motion.div>
-                             );
-                        })}
-                    </div>
-                 </div>
+  const openModal = (dept: Department) => {
+    setModalData({
+      title: dept.title,
+      subtitle: dept.value,
+      category: 'showcase',
+      theme: 'light',
+      maxWidth: 'max-w-6xl',
+      headerClassName: dept.modalHeaderColor,
+      content: (
+        <div className="flex flex-col gap-8 pb-4">
+             <div className={`border-l-4 ${dept.modalTagColor.replace('border-', 'border-')} pl-6 py-1`}>
+                <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
+                    {dept.detail}
+                </p>
             </div>
-        )
-      });
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {dept.experiences.map((exp, i) => (
+                    <div key={i} className={`${exp.customGradient || dept.gradient} text-white p-6 rounded-2xl shadow-lg flex flex-col gap-4 border border-white/10`}>
+                        <div className="flex items-center gap-3">
+                             {React.cloneElement(exp.icon as React.ReactElement, { size: 24, className: "text-white/80" })}
+                             <h4 className="text-xl font-bold uppercase tracking-tight">{exp.title}</h4>
+                        </div>
+                        <div className="h-px w-full bg-white/20" />
+                        <p className="text-white/80 font-medium leading-relaxed text-sm">
+                            {exp.description}
+                        </p>
+                    </div>
+                ))}
+            </div>
+        </div>
+      )
+    });
   };
 
   return (
-    // UPDATED: Padding increased to px-8 on mobile
-    <section id="serving" className="container mx-auto px-8 md:px-12 py-8 md:py-12 bg-white text-zinc-900">
-      
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
+    <section id="serving" className="container mx-auto px-8 md:px-12 py-12 bg-white text-zinc-900">
+        <motion.div
+            initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.8 }}
             className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8"
-          >
+        >
             <div className="flex-shrink-0">
-               <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">04 / ENGAGEMENT</span>
-               <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant leading-none">SERVING MICRON</h2>
+                <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">04 / STAKEHOLDERS</span>
+                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant leading-none font-sans">
+                    SERVING MICRON
+                </h2>
             </div>
             
             <div className="md:ml-auto max-w-2xl pb-1">
                  <div className="pl-6 border-l-4 border-micron-eggplant/20 hover:border-micron-eggplant transition-colors duration-500">
                     <p className="text-base font-light text-zinc-600 leading-snug font-body">
                        <span className="font-bold text-micron-eggplant block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
-                           STRATEGIC ALIGNMENT
+                           STRATEGIC UTILITY
                        </span>
-                       Integrating the residence into Micron's operational fabric. It serves not just as accommodation, but as a strategic asset for talent acquisition, executive privacy, and brand equity.
+                       Optimizing the asset across seven distinct verticals to ensure maximum return on experience for Micron Technology.
                     </p>
                  </div>
             </div>
-          </motion.div>
+        </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {departments.map((dept, i) => (
-              <BentoCard 
-                key={dept.id} 
-                className="flex flex-col justify-between min-h-[100px] md:min-h-[120px] !py-5 !pl-8 !pr-5 relative overflow-hidden group shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)]" 
-                gradient={dept.gradient}
-                textColor="text-white"
-                borderColor="border-white/10"
-                delay={i * 0.05}
-                hoverEffect={true}
-                onClick={() => openDeptModal(dept)}
-              >
-                <div className="mt-2">
-                   <h3 className="text-xl font-bold text-white/70 mb-2 uppercase tracking-tight">
-                     {dept.title}
-                   </h3>
-                   
-                   <p className="text-xs font-bold uppercase tracking-widest text-white font-sans">
-                      {dept.value}
-                   </p>
-                </div>
-              </BentoCard>
+                <BentoCard
+                    key={dept.id}
+                    className={`flex flex-col min-h-[240px] p-6 relative overflow-hidden group shadow-lg hover:shadow-2xl transition-all duration-300 ${dept.gradient}`}
+                    gradient={dept.gradient}
+                    textColor="text-white"
+                    borderColor="border-white/10"
+                    delay={i * 0.05}
+                    hoverEffect={true}
+                    onClick={() => openModal(dept)}
+                >
+                    <div className="relative z-10 flex flex-col h-full justify-between">
+                        <div>
+                             <h3 className="text-2xl font-black uppercase tracking-tight mb-2 leading-none text-white">{dept.title}</h3>
+                             <p className="text-[10px] font-bold uppercase tracking-widest text-white/70">{dept.value}</p>
+                        </div>
+                        <div className="mt-4">
+                            <div className="h-px w-12 bg-white/30 mb-4" />
+                            <p className="text-sm font-medium text-white/80 line-clamp-3">
+                                {dept.detail}
+                            </p>
+                        </div>
+                        <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0">
+                             <ArrowRight size={20} className="text-white" />
+                        </div>
+                    </div>
+                </BentoCard>
             ))}
-          </div>
+        </div>
 
-      <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
+        <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
     </section>
   );
 };
