@@ -310,13 +310,13 @@ export const SectionServingTesla: React.FC = () => {
     // UPDATED: Padding increased to px-8 on mobile, reduced header margins for tightness
     <section id="serving-tesla" className="container mx-auto px-8 md:px-12 py-6 md:py-12 bg-white text-zinc-900">
         
-        {/* Header - Reduced gaps and margins to reduce 'wrapper' space */}
+        {/* Header - Updated margins to mb-12, pb-8 and added items-end to match Vision */}
         <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-6 flex flex-col md:flex-row md:items-end gap-6 border-b border-zinc-100 pb-4"
+            className="mb-12 flex flex-col md:flex-row md:items-end gap-6 border-b border-zinc-100 pb-8"
         >
             <div className="flex-shrink-0">
                 <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">05 / LIVING LAB</span>

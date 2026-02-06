@@ -109,7 +109,7 @@ export const SectionUseCases: React.FC = () => {
       >
           {/* Header */}
           <div 
-             className="mb-8 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-200 pb-8"
+             className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-200 pb-8"
           >
             <div className="flex-shrink-0">
                <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">03 / USE CASE</span>

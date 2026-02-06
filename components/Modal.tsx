@@ -19,6 +19,44 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
     return () => setMounted(false);
   }, []);
 
+  // NEW: Handle Body Scroll Lock to prevent layout shift
+  useEffect(() => {
+    if (isOpen) {
+      // Calculate scrollbar width
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      
+      // Lock body scroll and add padding to prevent shift
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+      
+      // Also apply to fixed nav to prevent it from jumping
+      const nav = document.querySelector('nav');
+      if (nav) {
+          nav.style.paddingRight = `${scrollbarWidth}px`;
+      }
+
+    } else {
+      // Restore
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+      
+      const nav = document.querySelector('nav');
+      if (nav) {
+          nav.style.paddingRight = '';
+      }
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+      
+      const nav = document.querySelector('nav');
+      if (nav) {
+          nav.style.paddingRight = '';
+      }
+    };
+  }, [isOpen]);
+
   if (!mounted || !data) return null;
 
   return createPortal(

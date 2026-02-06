@@ -297,8 +297,15 @@ const getCardData = (id: number): ModalContent => {
                    </div>
                    
                    <div className="flex flex-col gap-4 h-full justify-between lg:col-span-2">
-                        {/* UPDATED: Adjusted padding - less top padding, more bottom padding */}
-                        <InnerBento title="BOISE'S MOMENT" gradient="bg-micron-eggplant-light" icon={<TrendingUp />} className="flex-1" padding="pt-6 pb-12 px-8">
+                        {/* UPDATED: Added delay 0.2 */}
+                        <InnerBento 
+                            title="BOISE'S MOMENT" 
+                            gradient="bg-micron-eggplant-light" 
+                            icon={<TrendingUp />} 
+                            className="flex-1" 
+                            padding="pt-6 pb-12 px-8"
+                            delay={0.2}
+                        >
                             <div className="w-full h-px bg-white/20 mb-4" />
                             <div className="space-y-4 text-base md:text-lg text-white/90 leading-relaxed">
                                 <p>
@@ -307,15 +314,30 @@ const getCardData = (id: number): ModalContent => {
                             </div>
                         </InnerBento>
 
-                        {/* UPDATED: Reduced padding - p-3 was already small, trying p-4 pb-2 for tighter bottom */}
-                        <InnerBento title="RUNWAY" gradient="bg-micron-green" icon={<Activity />} className="flex-1" padding="pt-5 pb-2 px-5">
+                        {/* UPDATED: Added delay 0.4 */}
+                        <InnerBento 
+                            title="RUNWAY" 
+                            gradient="bg-micron-green" 
+                            icon={<Activity />} 
+                            className="flex-1" 
+                            padding="pt-5 pb-2 px-5"
+                            delay={0.4}
+                        >
                             <div className="w-full h-px bg-white/20 mb-4" />
                             {/* UPDATED: "Micron executives" lower case e */}
                             <p className="mb-2 text-base md:text-lg text-white/90 leading-relaxed">
                                 Micron executives, employees, and their guests live alongside, interact, and engage with the technology before the world does.
                             </p>
                         </InnerBento>
-                        <InnerBento title="3 ARCS CONVERGING" gradient="bg-micron-eggplant" icon={<Zap />} className="flex-1">
+
+                        {/* UPDATED: Added delay 0.6 */}
+                        <InnerBento 
+                            title="3 ARCS CONVERGING" 
+                            gradient="bg-micron-eggplant" 
+                            icon={<Zap />} 
+                            className="flex-1"
+                            delay={0.6}
+                        >
                              <div className="w-full h-px bg-white/20 mb-4" />
                              <div className="space-y-4 text-white/90 text-base md:text-lg mb-3 leading-relaxed">
                                 {/* UPDATED: Changed 'placing' to 'innovating' */}

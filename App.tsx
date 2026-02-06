@@ -149,10 +149,12 @@ function App() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 onClick={scrollToTop}
-                className="fixed bottom-6 right-6 z-[90] bg-micron-eggplant text-white p-3 rounded-full shadow-lg border border-white/20 hover:bg-micron-eggplant-light transition-colors"
+                // UPDATED: Reduced padding and position for mobile
+                className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[90] bg-micron-eggplant text-white p-2 md:p-3 rounded-full shadow-lg border border-white/20 hover:bg-micron-eggplant-light transition-colors"
                 aria-label="Scroll to top"
             >
-                <ArrowUp size={24} />
+                {/* UPDATED: Responsive icon size */}
+                <ArrowUp className="w-4 h-4 md:w-6 md:h-6" />
             </motion.button>
         )}
       </AnimatePresence>

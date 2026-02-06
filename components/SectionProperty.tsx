@@ -309,8 +309,8 @@ export const SectionProperty: React.FC = () => {
             transition={{ duration: 1.0 }}
         >
             {/* 1. HEADER */}
-            {/* UPDATED: Reduced margins by half to reduce gap between header and content */}
-            <div className="mb-2 md:mb-5 flex flex-col md:flex-row gap-4 md:gap-12 border-b border-zinc-100 pb-2 md:pb-5">
+            {/* UPDATED: Increased margins (mb-12, pb-8) and added items-end to match Vision section style */}
+            <div className="mb-12 flex flex-col md:flex-row md:items-end gap-4 md:gap-12 border-b border-zinc-100 pb-8">
                  <div className="flex-shrink-0">
                      <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">02 / ASSET</span>
                      <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant-light leading-none font-sans">
@@ -424,8 +424,6 @@ export const SectionProperty: React.FC = () => {
                         subtitle="NATURE"
                         icon={<Leaf size={24} />}
                         gradient="bg-micron-green" 
-                        // UPDATED: Added Spa Image
-                        image="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070&auto=format&fit=crop"
                         delay={0.1}
                         text="Geothermal spa utilizing the district's 177°F source. The home is heated through geothermal radiant heat as well as the hot tub. The grounds feature mature producing fruit trees and a Concord grapevine."
                         onClick={() => openInfoModal('wellness')}
@@ -435,9 +433,7 @@ export const SectionProperty: React.FC = () => {
                         title="AUTONOMOUS SECURITY & SERVICE"
                         subtitle="INTELLIGENCE"
                         icon={<Cpu size={24} />}
-                        gradient="bg-micron-eggplant-light" 
-                        // UPDATED: Added Tech Image
-                        image="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop"
+                        gradient="bg-micron-grey1" 
                         delay={0.3}
                         text="Autonomous service via Cybercab and Optimus. A functional proving ground where abstract technology becomes a seamless, daily reality."
                         onClick={() => openInfoModal('autonomous')}
@@ -447,8 +443,6 @@ export const SectionProperty: React.FC = () => {
                         subtitle="LEGACY"
                         icon={<TreeDeciduous size={24} />}
                         gradient="bg-micron-eggplant"
-                        // UPDATED: Added Historic Image
-                        image="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
                         delay={0.5}
                         text="Anchored by the C.W. Moore House (1891) and the neighboring George Whitfield Russell House. A corridor defined by the legacy of Western pioneers and energy ingenuity."
                         onClick={() => openInfoModal('history')}

@@ -178,10 +178,11 @@ export const Hero: React.FC = () => {
   useEffect(() => {
       // UPDATED: Trigger on the THIRD sentence (index 2) as requested ("WITHOUT PLACE...")
       if (currentSentenceIndex === 2) {
-          // Delay to start in the middle of the sentence population
+          // Delay to start AFTER the last sentence is populated
           // Sentence has 4 items. Stagger is 0.4s. 
-          // Middle is around 0.8s - 1.0s.
-          const totalDelay = 1.0; 
+          // Last word starts at 1.2s. Duration 0.5s. Ends at 1.7s.
+          // Setting delay to 2.2s ensures it rolls in cleanly after text is done.
+          const totalDelay = 2.2; 
 
           iconControls.start({
               x: 0,
