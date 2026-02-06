@@ -127,9 +127,9 @@ const departments: Department[] = [
     modalHeaderColor: "text-micron-eggplant-light", 
     modalIconColor: "text-zinc-400", 
     modalTagColor: "border-micron-grey1",
-    // UPDATED: Forced vertical aspect ratio and restricted width
-    modalAspectRatio: "aspect-[3/4]",
-    modalMaxWidth: "max-w-lg",
+    // UPDATED: Square pop-out centered, removing extra space
+    modalAspectRatio: "aspect-square",
+    modalMaxWidth: "max-w-md", // Compact size for single tile
     experiences: [
       {
         title: "Soft Landings",
@@ -208,9 +208,9 @@ const departments: Department[] = [
     modalHeaderColor: "text-micron-eggplant", 
     modalIconColor: "text-zinc-400", 
     modalTagColor: "border-micron-grey1",
-    // UPDATED: Forced square aspect ratio and restricted width
+    // UPDATED: Forced square aspect ratio, wider to fit 2 tiles with gap
     modalAspectRatio: "aspect-square",
-    modalMaxWidth: "max-w-2xl",
+    modalMaxWidth: "max-w-4xl",
     tileAspectRatio: "aspect-square", // UPDATED: Force square tiles
     experiences: [
       {
@@ -268,6 +268,7 @@ export const SectionServing: React.FC = () => {
                                 <h4 className="text-xl font-bold uppercase tracking-tight">{exp.title}</h4>
                             </div>
                             <div className="h-px w-full bg-white/20 mb-4" />
+                            {/* UPDATED: Standardized font size to text-sm for all tiles */}
                             <p className="text-white/80 font-medium leading-relaxed text-sm">
                                 {exp.description}
                             </p>

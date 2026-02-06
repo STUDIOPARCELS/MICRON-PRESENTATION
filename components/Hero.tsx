@@ -157,8 +157,8 @@ export const Hero: React.FC = () => {
     if (currentSentenceIndex === null) return;
     if (currentSentenceIndex >= sentences.length - 1) return;
 
-    // UPDATED: Reduced cycle duration for faster speed (9000 -> 4500)
-    const cycleDuration = 4500; 
+    // UPDATED: Increased cycle duration to allow slower word population (6000ms)
+    const cycleDuration = 6000; 
 
     const timer = setTimeout(() => {
         setCurrentSentenceIndex((prev) => {
@@ -176,10 +176,12 @@ export const Hero: React.FC = () => {
 
   // Effect for Icon Roll-In Logic
   useEffect(() => {
-      // UPDATED: Trigger on the SECOND sentence (index 1) as requested
-      if (currentSentenceIndex === 1) {
-          // Minimal delay so it starts rolling as sentence populates
-          const totalDelay = 0.5; 
+      // UPDATED: Trigger on the THIRD sentence (index 2) as requested ("WITHOUT PLACE...")
+      if (currentSentenceIndex === 2) {
+          // Delay to start in the middle of the sentence population
+          // Sentence has 4 items. Stagger is 0.4s. 
+          // Middle is around 0.8s - 1.0s.
+          const totalDelay = 1.0; 
 
           iconControls.start({
               x: 0,
@@ -188,9 +190,9 @@ export const Hero: React.FC = () => {
               transition: { 
                   delay: totalDelay,
                   type: "spring",
-                  stiffness: 20, // Lower stiffness for slower movement
-                  damping: 25,   // Higher damping for less bounce, more drag
-                  duration: 4.0, // Very slow motion
+                  stiffness: 30, 
+                  damping: 20,   
+                  duration: 3.0, 
                   bounce: 0
               }
           });
@@ -239,8 +241,8 @@ export const Hero: React.FC = () => {
                    visible: { 
                        y: 0, 
                        opacity: 1, 
-                       // UPDATED: Faster duration (1.5 -> 0.8) for snappier reveal within the slower card animation
-                       transition: { duration: 0.8, ease: "easeOut" } 
+                       // UPDATED: Faster duration (0.5s) combined with slower stagger for distinct word pop
+                       transition: { duration: 0.5, ease: "easeOut" } 
                    },
                    exit: {
                        y: -30,
@@ -305,8 +307,8 @@ export const Hero: React.FC = () => {
                                   hidden: { opacity: 1 },
                                   visible: { 
                                       opacity: 1,
-                                      // UPDATED: Much faster stagger (0.4 -> 0.15) for faster sentence flow
-                                      transition: { staggerChildren: 0.15 } 
+                                      // UPDATED: Slower stagger (0.4s) so words populate one at a time
+                                      transition: { staggerChildren: 0.4 } 
                                   },
                                   exit: { 
                                       opacity: 1, 
