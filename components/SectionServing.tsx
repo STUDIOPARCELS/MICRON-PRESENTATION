@@ -342,10 +342,7 @@ export const SectionServing: React.FC = () => {
                             {dept.detail}
                         </p>
                         
-                        {/* 3. Hover Arrow */}
-                        <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0">
-                             <ArrowRight size={20} className="text-white" />
-                        </div>
+                        {/* UPDATED: Removed explicit bottom-right arrow div; implicit top-right arrow from BentoCard remains */}
                     </div>
                 </BentoCard>
             ))}

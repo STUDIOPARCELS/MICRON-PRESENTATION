@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, ArrowUp, ArrowUpRight, Cpu, TreeDeciduous, Zap, Waves, Activity, Sprout, Clock, Car, Bot, Grape, Thermometer, ShieldCheck, History } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Modal } from './Modal';
+import { BentoCard } from './BentoCard'; // Imported BentoCard
 import { ModalContent } from '../types';
 
 export const SectionProperty: React.FC = () => {
@@ -145,39 +146,42 @@ export const SectionProperty: React.FC = () => {
             maxWidth: 'max-w-6xl',
             content: (
                  <div className="flex flex-col gap-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Tile 1: Photograph */}
-                        <div className="md:col-span-2 relative h-64 md:h-80 rounded-2xl overflow-hidden shadow-lg border border-black/10 group">
+                    {/* UPDATED: Split grid with square image and stacked text tiles */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
+                        {/* Tile 1: Square Image */}
+                        <div className="relative aspect-square w-full rounded-2xl overflow-hidden shadow-lg border border-black/10 group">
                              <img 
                                 src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/old%20warm%20springs.webp" 
                                 alt="Old Warm Springs" 
                                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                              />
-                             <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-                                <span className="text-white/90 text-xs font-bold uppercase tracking-widest">Est. 1890</span>
-                             </div>
+                             {/* REMOVED Est. 1890 Overlay */}
+                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
                         </div>
 
-                        {/* Tile 2: Paragraph 1 */}
-                        <div className="bg-micron-eggplant rounded-2xl p-6 md:p-8 text-white shadow-lg border border-white/10 flex flex-col justify-center">
-                            <div className="flex items-center gap-3 mb-4">
-                                <History className="text-white/80" size={24} />
-                                <h4 className="text-xl font-black uppercase tracking-tight text-white/90">Origins</h4>
-                            </div>
-                             <p className="font-medium leading-relaxed text-white/80">
-                                In 1890, Christopher W. Moore, founder of the First National Bank of Idaho, drilled two wells near the base of Table Rock. He struck 170-degree water. By 1892, he had piped it to his mansion on Warm Springs Avenue—marking the first use of geothermal water for home heating in the United States.
-                             </p>
-                        </div>
-
-                        {/* Tile 3: Paragraph 2 */}
-                        <div className="bg-micron-grey1 rounded-2xl p-6 md:p-8 text-white shadow-lg border border-white/10 flex flex-col justify-center">
-                             <div className="flex items-center gap-3 mb-4">
-                                <TreeDeciduous className="text-white/80" size={24} />
-                                <h4 className="text-xl font-black uppercase tracking-tight text-white/90">Continuity</h4>
+                        {/* Right Column: Stacked Text Tiles */}
+                        <div className="flex flex-col gap-6 h-full">
+                             {/* Tile 2: Origins */}
+                             <div className="bg-micron-eggplant rounded-2xl p-6 md:p-8 text-white shadow-lg border border-white/10 flex flex-col justify-center flex-1">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <History className="text-white/80" size={24} />
+                                    <h4 className="text-xl font-black uppercase tracking-tight text-white/90">Origins</h4>
+                                </div>
+                                 <p className="font-medium leading-relaxed text-white/80">
+                                    In 1890, Christopher W. Moore, founder of the First National Bank of Idaho, drilled two wells near the base of Table Rock. He struck 170-degree water. By 1892, he had piped it to his mansion on Warm Springs Avenue—marking the first use of geothermal water for home heating in the United States.
+                                 </p>
                              </div>
-                             <p className="font-medium leading-relaxed text-white/80">
-                                Today, the Boise Warm Springs Water District remains the oldest continuously operating geothermal district in North America. The Micron House sits on this historic line, utilizing the same clean, ancient energy source that Moore tapped over 130 years ago. It is a National Register of Historic Places corridor defined by energy innovation.
-                             </p>
+
+                             {/* Tile 3: Continuity */}
+                             <div className="bg-micron-grey1 rounded-2xl p-6 md:p-8 text-white shadow-lg border border-white/10 flex flex-col justify-center flex-1">
+                                 <div className="flex items-center gap-3 mb-4">
+                                    <TreeDeciduous className="text-white/80" size={24} />
+                                    <h4 className="text-xl font-black uppercase tracking-tight text-white/90">Continuity</h4>
+                                 </div>
+                                 <p className="font-medium leading-relaxed text-white/80">
+                                    Today, the Boise Warm Springs Water District remains the oldest continuously operating geothermal district in North America. The Micron House sits on this historic line, utilizing the same clean, ancient energy source that Moore tapped over 130 years ago. It is a National Register of Historic Places corridor defined by energy innovation.
+                                 </p>
+                             </div>
                         </div>
                     </div>
                 </div>
@@ -190,9 +194,8 @@ export const SectionProperty: React.FC = () => {
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }} // UPDATED: once: true to freeze
         transition={{ duration: 1.5, delay, ease: [0.22, 1, 0.36, 1] }}
-        // UPDATED: Added whileHover for micro-interaction
         whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)" }}
         className={className}
       >
@@ -204,9 +207,8 @@ export const SectionProperty: React.FC = () => {
     <motion.div 
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }} // UPDATED: once: true to freeze
         transition={{ duration: 1.5, delay, ease: [0.22, 1, 0.36, 1] }}
-        // UPDATED: Added whileHover for micro-interaction
         whileHover={{ y: -5, scale: 1.02, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.3)" }}
         className={`${color} rounded-xl p-3 flex flex-col justify-between items-start text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] cursor-default h-[80px] border border-white/10`}
     >
@@ -220,16 +222,19 @@ export const SectionProperty: React.FC = () => {
     </motion.div>
   );
 
+  // UPDATED: Using BentoCard for consistency and "Bento" look
   const SpecCard = ({ title, icon, items, onGallery, className, gradient = "bg-zinc-900", delay = 0 }: any) => (
-      <motion.div 
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.2 }}
-        transition={{ duration: 1.5, delay, ease: [0.22, 1, 0.36, 1] }}
-        whileHover={{ y: -8, transition: { duration: 0.3 } }}
-        // UPDATED: Removed transition-all from className to prevent jagged movement
-        className={`rounded-2xl p-5 md:p-6 flex flex-col h-full cursor-pointer group ${gradient} text-white border border-white/10 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] transition-shadow duration-300 ${className}`}
+      <BentoCard 
+        gradient={gradient}
+        delay={delay}
         onClick={onGallery}
+        hoverEffect={true}
+        // Force viewport once true to prevent re-animation on modal open/close (layout shifts)
+        viewport={{ once: true, amount: 0.1 }} 
+        textColor="text-white"
+        borderColor="border-white/10"
+        className={`flex flex-col h-full ${className}`}
+        hideArrow={true} // We use custom arrow placement
       >
           <div className="flex items-center gap-3 mb-4">
               <div className={`text-white/70 group-hover:text-white transition-colors duration-300`}>
@@ -238,10 +243,8 @@ export const SectionProperty: React.FC = () => {
               <h4 className={`text-2xl font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors`}>{title}</h4>
           </div>
           
-          {/* UPDATED: Added Divider Line */}
           <div className="w-full h-px bg-white/20 mb-4" />
 
-          {/* UPDATED: Reduced bottom margin from mb-6 to mb-2 to reduce padding between list and gallery */}
           <ul className="space-y-3 mb-2 flex-1">
               {items.map((item: string, i: number) => (
                   <li key={i} className={`flex items-start gap-3 text-sm md:text-base font-medium leading-snug text-white`}>
@@ -251,7 +254,6 @@ export const SectionProperty: React.FC = () => {
               ))}
           </ul>
           
-          {/* UPDATED: Replaced button with bottom-right aligned text and arrow matching InfoCard style */}
           <div className="mt-auto flex justify-end items-center gap-3">
               <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
                   GALLERY
@@ -260,27 +262,29 @@ export const SectionProperty: React.FC = () => {
                   <ArrowUpRight size={20} />
               </div>
           </div>
-      </motion.div>
+      </BentoCard>
   );
 
-  // UPDATED: InfoCard now supports background images to restore "Bento" look
+  // UPDATED: Using BentoCard for consistency
   const InfoCard = ({ title, subtitle, icon, text, className, gradient, image, onClick, delay = 0 }: any) => (
-      <motion.div 
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.2 }}
-        transition={{ duration: 1.5, delay, ease: [0.22, 1, 0.36, 1] }}
-        whileHover={{ y: -5, scale: 1.01 }}
+      <BentoCard 
+        gradient={gradient}
+        delay={delay}
         onClick={onClick}
-        // UPDATED: Added overflow-hidden for image containment
-        className={`${gradient} backdrop-blur-md rounded-2xl p-5 md:p-6 border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] transition-shadow duration-300 h-full min-h-[240px] cursor-pointer group text-white relative flex flex-col overflow-hidden ${className}`}
+        hoverEffect={true}
+        // Force viewport once true to prevent re-animation on modal open/close
+        viewport={{ once: true, amount: 0.1 }}
+        textColor="text-white"
+        borderColor="border-white/10"
+        className={`flex flex-col h-full min-h-[240px] relative ${className}`}
+        hideArrow={true}
       >
           {/* OPTIONAL BACKGROUND IMAGE */}
           {image && (
-             <>
-                <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+             <div className="absolute inset-0 w-full h-full z-0">
+                <img src={image} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition-colors duration-300" />
-             </>
+             </div>
           )}
 
           <div className="relative z-10 flex flex-col h-full">
@@ -306,7 +310,7 @@ export const SectionProperty: React.FC = () => {
                 </div>
             </div>
           </div>
-      </motion.div>
+      </BentoCard>
   );
 
   return (
@@ -314,11 +318,11 @@ export const SectionProperty: React.FC = () => {
         <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.1 }}
+            // UPDATED: Set viewport.once to true to prevent entire section from re-animating/shifting when modal opens/closes
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 1.0 }}
         >
             {/* 1. HEADER */}
-            {/* UPDATED: Increased margins (mb-12, pb-8) and added items-end to match Vision section style */}
             <div className="mb-12 flex flex-col md:flex-row md:items-end gap-4 md:gap-12 border-b border-zinc-100 pb-8">
                  <div className="flex-shrink-0">
                      <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">02 / ASSET</span>
@@ -381,7 +385,8 @@ export const SectionProperty: React.FC = () => {
                       <SpecCard 
                         title="MAIN LEVEL" 
                         icon={<Home />} 
-                        gradient="bg-micron-grey2" 
+                        // UPDATED: Changed from bg-micron-grey2 to bg-micron-grey1 to match screenshot Dark Gray
+                        gradient="bg-micron-grey1" 
                         delay={0}
                         items={[
                             "Foyer Entry",
@@ -421,7 +426,7 @@ export const SectionProperty: React.FC = () => {
                  </div>
             </div>
             
-            {/* 5. TECHNOLOGY, WELLNESS & HISTORY - UPDATED WITH IMAGES */}
+            {/* 5. TECHNOLOGY, WELLNESS & HISTORY */}
             <div>
                  <div className="flex items-center gap-2 mb-4">
                       <Zap size={16} className="text-micron-eggplant" />
@@ -438,7 +443,6 @@ export const SectionProperty: React.FC = () => {
                         onClick={() => openInfoModal('wellness')}
                     />
                     <InfoCard 
-                        // UPDATED: Title to Security & Service
                         title="AUTONOMOUS SECURITY & SERVICE"
                         subtitle="INTELLIGENCE"
                         icon={<Cpu size={24} />}

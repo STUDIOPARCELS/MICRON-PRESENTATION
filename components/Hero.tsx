@@ -28,14 +28,14 @@ const sentences = [
         layout: "default"
     },
     {
-        // Sentence 3
+        // Sentence 3 - UPDATED: Grouped "THERE'S NO" and set layout to vertical_all for specific line breaking
         words: ["WITHOUT", "PLACE,", "THERE'S NO", "PERSPECTIVE."], 
         color: "text-zinc-400",
         highlightColor: "text-micron-green",
         hoverColor: "hover:text-green-900", 
         highlights: ["PLACE,", "PERSPECTIVE."],
         textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
-        layout: "default"
+        layout: "vertical_all"
     },
 ];
 
@@ -228,10 +228,6 @@ export const Hero: React.FC = () => {
       let layoutClass = "";
       if (currentSet.layout === "vertical_all") {
           layoutClass = "w-full basis-full mb-1";
-      }
-      // Explicitly force "THERE'S NO" to break onto a new line by taking full width
-      if (word === "THERE'S NO") {
-          layoutClass = "w-full basis-full";
       }
 
       return (
