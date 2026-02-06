@@ -243,7 +243,7 @@ export const SectionServingTesla: React.FC = () => {
 
                         {/* PRE-PUBLIC DEPLOYMENT - BOTTOM */}
                         <motion.div 
-                             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                             variants={{ hidden: { opacity: 0, y: 0 }, visible: { opacity: 1, y: 0 } }}
                              transition={{ delay: 0.3 }}
                              className="bg-black text-white p-6 pl-8 rounded-2xl shadow-lg border border-white/10 group hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
                          >
@@ -265,36 +265,32 @@ export const SectionServingTesla: React.FC = () => {
         );
     }
     
-    // CONTENT FOR "THE TECTONIC SHIFT" (ID 1)
+    // CONTENT FOR "THE TECTONIC SHIFT" (ID 1) -> UPDATED TO "HUMANOIDS SCALING TO BILLIONS"
     return (
         <div className="flex flex-col gap-6 h-full pb-8">
-            <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
-                 <h3 className="text-zinc-400 font-bold uppercase tracking-widest text-xs mb-4 ml-2 flex items-center gap-3">
-                    The Zoom Out
-                    <svg width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-80 hover:opacity-100 transition-opacity cursor-help">
-                        <path d="M9 2C5 2 2 8 2 14C2 19.5 5 22 9 22C13 22 16 19.5 16 14C16 8 13 2 9 2Z" fill="#a1a1aa"/>
-                        <circle cx="6" cy="10" r="1.5" fill="#7db0d3"/>
-                        <circle cx="12" cy="8" r="1.2" fill="#7db0d3"/>
-                        <circle cx="9" cy="14" r="1.8" fill="#7db0d3"/>
-                        <circle cx="5" cy="16" r="1" fill="#7db0d3"/>
-                        <circle cx="13" cy="15" r="1.3" fill="#7db0d3"/>
-                        <circle cx="8" cy="7" r="1" fill="#7db0d3"/>
-                    </svg>
-                 </h3>
+            <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }} className="w-full">
+                <h3 className="text-3xl font-black text-micron-eggplant mb-4 uppercase leading-none tracking-tight">Humanoids Scaling to Billions</h3>
+                <p className="text-lg md:text-xl text-zinc-600 font-light leading-relaxed">
+                    Daily life transforms permanently. Micron House invites the architects of tomorrow to navigate the profound questions involved in bringing this future to the world.
+                </p>
+                <div className="mt-4 pt-4 border-t border-zinc-100">
+                    <p className="text-lg md:text-xl text-zinc-800 font-medium leading-relaxed">
+                        Does the constant sight of robots create comfort or anxiety? Where is the boundary between helpful anticipation and intrusive surveillance?
+                    </p>
+                </div>
             </motion.div>
 
-            {/* TOP ROW: Thesis and Psychology side-by-side */}
+            {/* TOP ROW: SCALE & FRICTION */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
                 <motion.div 
                     variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
                     className="bg-white text-zinc-900 rounded-3xl p-8 border border-zinc-200 shadow-xl relative overflow-hidden flex flex-col justify-between"
                 >
                     <div className="mb-4">
-                        <h4 className="text-zinc-400 font-bold uppercase text-xs tracking-[0.2em] mb-4">The Thesis</h4>
-                        <h5 className="text-3xl font-black text-micron-eggplant mb-4 uppercase leading-none">Crisis of<br/>"Shared Reality"</h5>
+                        <h5 className="text-2xl font-black text-micron-eggplant mb-2 uppercase leading-none tracking-tight">SCALE</h5>
                     </div>
                     <p className="text-zinc-600 font-medium leading-relaxed">
-                        For 200,000 years, a bipedal figure meant a mind. That certainty is vanishing. We risk a conceptual disruption regarding personhood and moral agency.
+                        Autonomous systems are moving from thousands to billions within a decade. Speed of adoption outpaces all previous technological transition — electricity, the internet, smartphones. Micron silicon powers the memory in every unit.
                     </p>
                 </motion.div>
 
@@ -303,49 +299,55 @@ export const SectionServingTesla: React.FC = () => {
                     className="bg-white text-zinc-900 rounded-3xl p-8 border border-zinc-200 shadow-xl relative overflow-hidden flex flex-col justify-between"
                 >
                     <div className="mb-4">
-                        <h4 className="text-zinc-400 font-bold uppercase text-xs tracking-[0.2em] mb-4">The Psychology</h4>
-                        <h5 className="text-3xl font-black text-micron-eggplant mb-4 uppercase leading-none">Uncanny<br/>Stress</h5>
+                         <h5 className="text-2xl font-black text-micron-eggplant mb-2 uppercase leading-none tracking-tight">FRICTION</h5>
                     </div>
                     <p className="text-zinc-600 font-medium leading-relaxed">
-                        Flooding the "Face Network" with synthetic entities causes "Social Inflammation." At what density does human psychological comfort break down?
+                        Each autonomous unit carries cameras, sensors, and microphones. Billions of mobile platforms operating in homes, neighborhoods, schools, and public spaces permanently alter the sensory landscape of daily life.
                     </p>
                 </motion.div>
             </div>
 
-            {/* BOTTOM ROW: The Open Questions (Full Width) - UPDATED TO COLORED TILES */}
+            {/* BOTTOM ROW: The Open Questions */}
             <motion.div 
                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
                 className="bg-white rounded-[2rem] p-8 md:p-10 border border-zinc-200 shadow-xl flex flex-col justify-center gap-6 mt-2 text-zinc-900"
             >
                 <div className="flex items-center gap-3 mb-2">
                     <Info size={24} className="text-zinc-400" />
-                    <h4 className="text-micron-eggplant font-bold uppercase text-sm tracking-[0.2em]">Open Questions</h4>
+                    <h4 className="text-micron-eggplant font-bold uppercase text-sm tracking-[0.2em]">OPEN QUESTIONS</h4>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* 1. Empathy - Green */}
+                    {/* 1. SURVEILLANCE - Green */}
                     <div className="flex flex-col gap-3 bg-micron-green text-white p-6 rounded-xl shadow-sm border border-white/10 hover:-translate-y-1 transition-transform">
-                        <span className="text-white font-bold uppercase text-xs tracking-widest">Empathy</span>
+                        <span className="text-white font-bold uppercase text-xs tracking-widest">SURVEILLANCE</span>
                         <p className="text-white/80 font-medium leading-relaxed text-sm">
-                            Does the presence of humanoid robots in domestic spaces alter human empathy?
+                            Sensors moving through private spaces, sidewalks, schools, parks. What is being recorded, stored, and shared — and by whom?
                         </p>
                     </div>
                     
-                    {/* 2. Privacy - Grey2 */}
+                    {/* 2. VISUAL VERNACULAR - Grey2 */}
                     <div className="flex flex-col gap-3 bg-micron-grey2 text-white p-6 rounded-xl shadow-sm border border-white/10 hover:-translate-y-1 transition-transform">
-                        <span className="text-white font-bold uppercase text-xs tracking-widest">Privacy</span>
+                        <span className="text-white font-bold uppercase text-xs tracking-widest">VISUAL VERNACULAR</span>
                         <p className="text-white/80 font-medium leading-relaxed text-sm">
-                             What is the legal definition of "home" when it is monitored by sensors for autonomous navigation?
+                             Streets, homes, and neighborhoods filled with humanoid machines. How does permanent autonomous presence in everyday life change how people feel in their own communities?
                         </p>
                     </div>
                     
-                    {/* 3. Etiquette - Eggplant */}
+                    {/* 3. WORST CASE - Eggplant */}
                     <div className="flex flex-col gap-3 bg-micron-eggplant text-white p-6 rounded-xl shadow-sm border border-white/10 hover:-translate-y-1 transition-transform">
-                        <span className="text-white font-bold uppercase text-xs tracking-widest">Etiquette</span>
+                        <span className="text-white font-bold uppercase text-xs tracking-widest">WORST CASE</span>
                         <p className="text-white/80 font-medium leading-relaxed text-sm">
-                            How do we encode "politeness" and "personal space" into autonomous movement protocols?
+                            Mass malfunction. Security breach across millions of units. Coordinated exploit. What does preparedness look like before deployment — and who is in the room when those scenarios are discussed?
                         </p>
                     </div>
+                </div>
+
+                {/* Bottom Line */}
+                <div className="mt-4 pt-4 border-t border-zinc-100">
+                    <p className="text-zinc-600 font-medium italic text-center text-sm md:text-base leading-relaxed">
+                        Micron House is where these concerns are explored — in person, between the people designing the systems and the people governing them.
+                    </p>
                 </div>
             </motion.div>
         </div>
