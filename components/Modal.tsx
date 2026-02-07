@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -311,35 +310,75 @@ const ReferenceModalContent: React.FC<{ data: ModalContent; onClose: () => void 
   );
 };
 
-// Category D: Gallery
+// Category D: Gallery (UPDATED)
 const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }> = ({ data, onClose }) => {
     const images = data.galleryImages || [];
+    const count = images.length;
 
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="pointer-events-auto relative w-full max-w-6xl h-[85vh] overflow-hidden rounded-2xl bg-zinc-950/95 backdrop-blur-xl shadow-2xl border border-white/10 flex flex-col"
+            // UPDATED: White background, no scroll, floating images, perfect fit
+            className="pointer-events-auto relative w-full max-w-[90vw] h-[90vh] overflow-hidden rounded-[2rem] bg-white shadow-2xl p-8 flex flex-col"
         >
-            <div className="p-4 md:p-6 border-b border-white/10 flex justify-between items-center bg-black/50 flex-shrink-0">
+            {/* Header - Minimal & Clean */}
+            <div className="flex justify-between items-center mb-6 flex-shrink-0">
                 <div>
-                    <h2 className="text-lg md:text-xl font-bold uppercase tracking-tight text-white">{data.title}</h2>
-                    <p className="text-zinc-400 text-xs">{images.length} Photos</p>
+                    <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 leading-none">{data.title}</h2>
+                    <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-1">{count} Photos</p>
                 </div>
-                <button onClick={onClose} className="rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors border border-white/10 cursor-pointer">
-                    <X size={20} />
+                <button 
+                    onClick={onClose} 
+                    className="rounded-full bg-zinc-100 p-3 text-zinc-900 hover:bg-zinc-200 transition-colors cursor-pointer"
+                >
+                    <X size={24} />
                 </button>
             </div>
             
-            <div className="flex-1 overflow-y-auto p-4 custom-scrollbar min-h-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {images.map((img, i) => (
-                        <div key={i} className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-zinc-900 border border-white/5 cursor-pointer">
-                            <img src={img} alt={`Gallery ${i}`} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100" />
-                        </div>
-                    ))}
-                </div>
+            {/* Grid Container - No Scroll, Perfect Fit */}
+            <div className="flex-1 w-full h-full min-h-0">
+                 <div className={`grid w-full h-full gap-6 ${
+                     count === 4 ? 'grid-cols-2 grid-rows-2' : 
+                     count === 6 ? 'grid-cols-3 grid-rows-2' : 
+                     'grid-cols-1 md:grid-cols-6 grid-rows-2' // For 5 items
+                 }`}>
+                    {images.map((img, i) => {
+                        let spanClass = "";
+                        // Logic for 5 items: 
+                        // Row 1: 2 items (span 3 each)
+                        // Row 2: 3 items (span 2 each)
+                        if (count === 5) {
+                            if (i < 2) spanClass = "md:col-span-3";
+                            else spanClass = "md:col-span-2";
+                        }
+
+                        return (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 + (i * 0.05), duration: 0.5 }}
+                                className={`
+                                    relative w-full h-full rounded-2xl overflow-hidden group
+                                    /* Floating Shadow Effect */
+                                    shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)] 
+                                    hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.35)] 
+                                    hover:-translate-y-1 transition-all duration-500
+                                    bg-zinc-100
+                                    ${spanClass}
+                                `}
+                            >
+                                <img 
+                                    src={img} 
+                                    alt={`Gallery ${i}`} 
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                                />
+                            </motion.div>
+                        );
+                    })}
+                 </div>
             </div>
         </motion.div>
     );
