@@ -319,15 +319,16 @@ export const SectionServing: React.FC = () => {
                     hoverEffect={true}
                     onClick={() => openModal(dept)}
                 >
-                    <div className="relative z-10 flex flex-col h-full justify-between">
+                    {/* UPDATED: Removed justify-between to keep content top-aligned, preventing gaps for short text */}
+                    <div className="relative z-10 flex flex-col h-full">
                         <div>
                              <h3 className="text-2xl font-black uppercase tracking-tight leading-none text-white line-clamp-2 mb-1">{dept.title}</h3>
                              <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 mb-4">{dept.value}</p>
                              <div className="h-px w-full bg-white/30" />
                         </div>
                         
-                        {/* UPDATED: Increased font size to text-lg to match Wellness modal tiles standard */}
-                        <p className="text-lg font-medium text-white/80 line-clamp-3 mt-4 leading-relaxed">
+                        {/* UPDATED: Increased font size to text-lg to match Wellness modal tiles standard. Reduced mt from 4 to 3. */}
+                        <p className="text-lg font-medium text-white/80 line-clamp-3 mt-3 leading-relaxed">
                             {dept.detail}
                         </p>
                     </div>

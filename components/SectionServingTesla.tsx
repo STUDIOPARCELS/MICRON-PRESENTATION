@@ -464,17 +464,19 @@ export const SectionServingTesla: React.FC = () => {
               className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8"
           >
               <div className="flex-shrink-0">
-                  <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">05 / LIVING LAB</span>
-                  <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-zinc-400 leading-none font-sans">
-                      TESLA
+                  {/* UPDATED: Changed label from '05 / LIVING LAB' to '05 / PARTNERSHIP' */}
+                  <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">05 / PARTNERSHIP</span>
+                  {/* UPDATED: Changed 'TESLA' to 'LIVING LAB' and color to text-micron-grey1 */}
+                  <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-grey1 leading-none font-sans">
+                      LIVING LAB
                   </h2>
               </div>
               
               <div className="md:ml-auto max-w-2xl pb-1">
                    <div className="pl-6 border-l-4 border-micron-eggplant-light/20 hover:border-micron-eggplant-light transition-colors duration-500">
                       <p className="text-base font-light text-zinc-600 leading-snug font-body">
-                         {/* UPDATED: Changed color to text-zinc-400 (Tesla Gray) */}
-                         <span className="font-bold text-zinc-400 block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
+                         {/* UPDATED: Changed color to text-micron-grey1 to match the bento box gray */}
+                         <span className="font-bold text-micron-grey1 block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                              AUTONOMOUS ECOSYSTEM
                          </span>
                          The first residential deployment of the Tesla autonomous ecosystem. Optimus and Cybercab operating in a living environment — creating a continuous feedback loop between the technology and the human experience.
@@ -488,12 +490,13 @@ export const SectionServingTesla: React.FC = () => {
               {teslaCards.map((card, i) => (
                   <BentoCard 
                       key={card.id}
-                      className={`flex flex-col min-h-[400px] p-8 relative overflow-hidden group ${card.gradient}`}
+                      className={`flex flex-col min-h-[300px] p-8 relative overflow-hidden group ${card.gradient}`}
                       gradient={card.gradient}
                       textColor="text-white"
                       borderColor={card.border}
                       delay={i * 0.1}
                       hoverEffect={true}
+                      hideArrow={true}
                       onClick={() => openModal(card)}
                   >
                        <div className="relative z-10 flex flex-col h-full">
@@ -504,16 +507,10 @@ export const SectionServingTesla: React.FC = () => {
                                <p className={`text-xs font-bold uppercase tracking-widest mb-6 ${card.subtitleColor}`}>
                                    {card.subtitle}
                                </p>
-                               <div className="w-12 h-1 bg-white/20 mb-6" />
+                               <div className="w-full h-px bg-white/20 mb-6" />
                                <p className={`text-lg font-medium leading-relaxed ${card.descriptionColor}`}>
                                    {card.content}
                                </p>
-                           </div>
-                           
-                           <div className="mt-8 flex justify-end">
-                              <div className="p-2 rounded-full border border-white/20 bg-white/5 group-hover:bg-white/10 transition-colors">
-                                  <ArrowRight size={20} className="text-white" />
-                              </div>
                            </div>
                        </div>
                   </BentoCard>

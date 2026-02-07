@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -38,7 +37,8 @@ const roadmapItems = [
   },
   { 
     id: 5, 
-    date: "SEPT", 
+    // UPDATED: Changed from 'SEPT' to '2027' as requested
+    date: "2027", 
     title: "FULL AUTONOMY", 
     subtitle: "Zero human intervention.", 
     bg: "bg-micron-eggplant",

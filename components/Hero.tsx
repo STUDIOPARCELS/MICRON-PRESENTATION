@@ -256,18 +256,18 @@ export const Hero: React.FC = () => {
                 layout
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                 className={`
-                    ${layoutShift ? 'min-h-[300px] px-6 pt-6 pb-12 justify-end' : 'min-h-[200px] p-6 justify-center'}
+                    ${layoutShift ? 'min-h-[160px] px-6 pt-2 pb-12 justify-end' : 'min-h-[200px] p-6 justify-center'}
                     md:min-h-[300px] md:h-full md:justify-end md:px-12 md:pt-12 md:pb-12
                     w-full flex flex-col items-start order-1 bg-white rounded-3xl 
-                    shadow-[0_40px_80px_-15px_rgba(0,0,0,0.2)] relative overflow-hidden group
+                    shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] border border-zinc-200 relative overflow-hidden group
                 `}
             >
                  {/* Logo Animation */}
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    // UPDATED: Mobile positioning bottom-right (right-4 bottom-10) to nudge up slightly, md desktop top-right
-                    className="absolute bottom-10 right-4 w-fit md:top-12 md:right-20 md:bottom-auto md:left-auto md:mx-0 z-20"
+                    // UPDATED: Mobile positioning right-6 (was right-4) to nudge left
+                    className="absolute bottom-10 right-6 w-fit md:top-12 md:right-20 md:bottom-auto md:left-auto md:mx-0 z-20"
                  >
                     <motion.img 
                         whileHover={{ rotate: 6 }}
