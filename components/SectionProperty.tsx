@@ -3,7 +3,7 @@ import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, Arrow
 import { motion } from 'framer-motion';
 import { Modal } from './Modal';
 import { BentoCard } from './BentoCard'; // Imported BentoCard
-import { ModalContent } from '../types';
+import { ModalContent, GalleryItem } from '../types';
 
 // --- HELPER COMPONENTS (MOVED OUTSIDE) ---
 
@@ -158,37 +158,42 @@ export const SectionProperty: React.FC = () => {
 
   const openLevelGallery = (level: 'main' | 'upper' | 'grounds') => {
       let title = "";
-      let images: string[] = [];
+      let images: GalleryItem[] = [];
 
       if (level === 'main') {
           title = "MAIN LEVEL GALLERY";
-          // UPDATED: Main Floor Images
+          // MAP: Auto-Sized Masonry Layout
+          // SWAPPED: Now contains Dining, Entry, and Living/Stairs images
           images = [
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br1.3.JPEG",
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br1.5.JPEG",
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.4.JPEG",
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.5.JPEG",
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.6.JPEG",
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/BR2.8.jpg"
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dining.1.JPEG" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dining.6.JPEG" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/entry.0.JPEG" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/entry.3.JPEG" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dusting2.png" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dusting.jpeg" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/stairs.jpg" }
           ];
       } else if (level === 'upper') {
           title = "UPPER LEVEL GALLERY";
-          // UPDATED: Upper Floor Images
+          // MAP: Auto-Sized Masonry Layout
+          // SWAPPED: Now contains Bedroom images
           images = [
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dining.1.JPEG",
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dining.6.JPEG",
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/entry.0.JPEG",
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/entry.3.JPEG"
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br1.3.JPEG" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.4.JPEG" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br1.5.JPEG" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.6.JPEG" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.5.JPEG" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/BR2.8.jpg" }
           ];
       } else {
-          title = "EXTERIOR GALLERY"; // Renamed from Grounds Gallery for consistency with prompt
-          // UPDATED: Exterior Images
+          title = "EXTERIOR GALLERY"; 
+          // MAP: Auto-Sized Masonry Layout
           images = [
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior_4.JPG",
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.3.jpg",
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.4.JPEG",
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.4.jpg",
-              "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/fall.jpg"
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior_4.JPG" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.3.jpg" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.4.JPEG" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.4.jpg" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/fall.jpg" }
           ];
       }
 
@@ -201,6 +206,7 @@ export const SectionProperty: React.FC = () => {
   };
 
   const openInfoModal = (type: 'wellness' | 'autonomous' | 'history') => {
+      // ... (Rest of the function remains unchanged)
       if (type === 'wellness') {
         setModalData({
             title: "WELLNESS & NATURE",
@@ -380,7 +386,6 @@ export const SectionProperty: React.FC = () => {
             transition={{ duration: 1.0 }}
         >
             {/* 1. HEADER */}
-            {/* UPDATED: Reduced bottom margins on mobile (mb-6/pb-4) from mb-12/pb-8 */}
             <div className="mb-6 md:mb-12 flex flex-col md:flex-row md:items-end gap-4 md:gap-12 border-b border-zinc-100 pb-4 md:pb-8">
                  <div className="flex-shrink-0">
                      <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">02 / ASSET</span>

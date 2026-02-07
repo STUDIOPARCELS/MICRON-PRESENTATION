@@ -25,12 +25,10 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       
       // Lock body scroll and add padding to prevent shift
-      // UPDATED: Added lock to document.documentElement for broader browser compatibility
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
       document.body.style.paddingRight = `${scrollbarWidth}px`;
       
-      // Also apply to fixed nav to prevent it from jumping
       const nav = document.querySelector('nav');
       if (nav) {
           nav.style.paddingRight = `${scrollbarWidth}px`;
@@ -168,20 +166,11 @@ const CinematicModalContent: React.FC<{ data: ModalContent; onClose: () => void 
 // Category B: Showcase Use-Cases
 const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }> = ({ data, onClose }) => {
   const isLight = data.theme === 'light';
-
-  // Default to max-w-4xl for tighter layout if no maxWidth provided
   const maxWidthClass = data.maxWidth || (isLight ? 'max-w-6xl' : 'max-w-7xl');
-
-  // RESPONSIVE FIX:
-  // On Mobile: Use `h-auto` and `w-full` so content stacks naturally without forced aspect ratios.
-  // On Desktop (md+): Apply the specific `aspectRatio` (e.g. 6/4 or Square) if provided.
   const aspectRatioClass = data.aspectRatio 
     ? `md:${data.aspectRatio} w-full h-auto md:h-full` 
     : 'w-full max-h-[85vh] md:max-h-[95vh]';
-  
   const flexClass = data.aspectRatio ? 'flex flex-col' : 'flex flex-col';
-
-  // Determine Background Class
   let backgroundClass = '';
   if (data.customBackground) {
     backgroundClass = data.customBackground;
@@ -190,9 +179,6 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
   } else {
     backgroundClass = 'bg-zinc-900 border-white/10 ring-1 ring-white/5';
   }
-
-  // UPDATED: Determine Padding Class (use prop if exists, else default)
-  // Increased mobile padding from px-6 to px-10 as requested
   const paddingClass = data.paddingClassName || "px-10 md:px-12 pb-10 md:pb-12 pt-0";
 
   return (
@@ -210,10 +196,7 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
         ${backgroundClass}
       `}
     >
-        {/* Border Overlay */}
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50 pointer-events-none" />
-
-        {/* CLOSE BUTTON - UPDATED: Increased Size, Z-Index, and Background for visibility over any content */}
         <div className="absolute top-3 right-3 md:top-5 md:right-5 z-[100]">
             <button
                 onClick={onClose}
@@ -231,22 +214,18 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
                 <X size={24} />
             </button>
         </div>
-
       <div className={`
           relative z-10 
           px-10 py-5 md:px-12 md:py-6
           flex-shrink-0
           flex flex-col justify-center
           min-h-[80px] md:min-h-[100px]
-          /* If customBackground is set, rely on parent background, otherwise use standard headers */
           ${data.customBackground ? '' : (isLight ? 'bg-gradient-to-b from-white to-zinc-50' : 'bg-gradient-to-b from-zinc-800 to-zinc-900')}
       `}>
          <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }}>
-            {/* UPDATED: Title first */}
             <h2 className={`text-2xl md:text-3xl font-black uppercase tracking-tight leading-none pr-8 ${isLight && !data.customBackground ? 'text-zinc-900' : 'text-white drop-shadow-lg'}`}>
             {data.title}
             </h2>
-            {/* UPDATED: Subtitle second */}
             {data.subtitle && (
             <div className={`flex items-center gap-2 mt-2`}>
                 <span className={`hidden md:block h-px w-6 ${isLight && !data.customBackground ? 'bg-zinc-300' : 'bg-white/50'}`}></span>
@@ -257,7 +236,6 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
             )}
          </motion.div>
       </div>
-
       <div className="flex-1 overflow-y-auto custom-scrollbar relative z-10 min-h-0">
         <motion.div 
             initial="hidden" animate="visible"
@@ -302,7 +280,6 @@ const ReferenceModalContent: React.FC<{ data: ModalContent; onClose: () => void 
           <X size={20} />
         </button>
       </div>
-      
       <div className={`p-6 md:p-8 overflow-y-auto custom-scrollbar min-h-0 ${contentContainerClasses}`}>
         {data.content}
       </div>
@@ -310,74 +287,66 @@ const ReferenceModalContent: React.FC<{ data: ModalContent; onClose: () => void 
   );
 };
 
-// Category D: Gallery (UPDATED)
+// Category D: Gallery (UPDATED: MAXIMIZED IMAGE SIZE & SHARP CORNERS)
 const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }> = ({ data, onClose }) => {
     const images = data.galleryImages || [];
     const count = images.length;
 
+    // REDUCED COLUMN COUNTS to maximize image size
+    // Large screens = 3 columns (was 4)
+    // Medium screens = 2 columns (was 3)
+    let columnClass = "";
+    if (count >= 6) {
+        columnClass = "columns-1 md:columns-2 lg:columns-3"; 
+    } else {
+        columnClass = "columns-1 md:columns-2"; 
+    }
+
     return (
         <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            // UPDATED: White background, no scroll, floating images, perfect fit
-            className="pointer-events-auto relative w-full max-w-[90vw] h-[90vh] overflow-hidden rounded-[2rem] bg-white shadow-2xl p-8 flex flex-col"
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            // EXPANDED MAX WIDTH: max-w-[90vw] to let images breathe
+            className="pointer-events-auto relative w-full h-full max-w-[90vw] max-h-[90vh] rounded-[2rem] bg-white shadow-2xl flex flex-col overflow-hidden"
         >
-            {/* Header - Minimal & Clean */}
-            <div className="flex justify-between items-center mb-6 flex-shrink-0">
+            {/* Header */}
+            <div className="flex justify-between items-center p-8 md:p-12 pb-4 flex-shrink-0 z-20 bg-white">
                 <div>
-                    <h2 className="text-3xl font-black uppercase tracking-tighter text-zinc-900 leading-none">{data.title}</h2>
+                    <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-zinc-900 leading-none">{data.title}</h2>
                     <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-1">{count} Photos</p>
                 </div>
                 <button 
                     onClick={onClose} 
-                    className="rounded-full bg-zinc-100 p-3 text-zinc-900 hover:bg-zinc-200 transition-colors cursor-pointer"
+                    className="rounded-full bg-zinc-100 p-4 text-zinc-900 hover:bg-zinc-200 transition-colors cursor-pointer"
                 >
-                    <X size={24} />
+                    <X size={28} />
                 </button>
             </div>
             
-            {/* Grid Container - No Scroll, Perfect Fit */}
-            <div className="flex-1 w-full h-full min-h-0">
-                 <div className={`grid w-full h-full gap-6 ${
-                     count === 4 ? 'grid-cols-2 grid-rows-2' : 
-                     count === 6 ? 'grid-cols-3 grid-rows-2' : 
-                     'grid-cols-1 md:grid-cols-6 grid-rows-2' // For 5 items
-                 }`}>
-                    {images.map((img, i) => {
-                        let spanClass = "";
-                        // Logic for 5 items: 
-                        // Row 1: 2 items (span 3 each)
-                        // Row 2: 3 items (span 2 each)
-                        if (count === 5) {
-                            if (i < 2) spanClass = "md:col-span-3";
-                            else spanClass = "md:col-span-2";
-                        }
-
-                        return (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1 + (i * 0.05), duration: 0.5 }}
-                                className={`
-                                    relative w-full h-full rounded-2xl overflow-hidden group
-                                    /* Floating Shadow Effect */
-                                    shadow-[0_20px_50px_-12px_rgba(0,0,0,0.25)] 
-                                    hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.35)] 
-                                    hover:-translate-y-1 transition-all duration-500
-                                    bg-zinc-100
-                                    ${spanClass}
-                                `}
-                            >
-                                <img 
-                                    src={img} 
-                                    alt={`Gallery ${i}`} 
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                                />
-                            </motion.div>
-                        );
-                    })}
+            {/* Gallery Container - Masonry Layout */}
+            <div className="flex-1 w-full h-full overflow-y-auto custom-scrollbar relative z-10 px-8 md:px-12 pb-12">
+                 {/* MASONRY WRAPPER */}
+                 {/* Gap reduced to gap-4 to minimize "extra space" */}
+                 <div className={`${columnClass} gap-4 space-y-4 pb-12`}>
+                    {images.map((img, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: i * 0.1 }}
+                            // SQUARE CORNERS (rounded-none)
+                            // SUBTLE SHADOW (shadow-lg) - No more floating
+                            className="break-inside-avoid relative w-full overflow-hidden group bg-zinc-100 shadow-sm hover:shadow-lg transition-shadow duration-300"
+                        >
+                            <img 
+                                src={img.url} 
+                                alt={`Gallery ${i}`} 
+                                className="w-full h-auto object-cover block" 
+                            />
+                        </motion.div>
+                    ))}
                  </div>
             </div>
         </motion.div>
