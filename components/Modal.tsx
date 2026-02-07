@@ -18,13 +18,10 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
     return () => setMounted(false);
   }, []);
 
-  // NEW: Handle Body Scroll Lock to prevent layout shift
+  // Handle Body Scroll Lock to prevent layout shift
   useEffect(() => {
     if (isOpen) {
-      // Calculate scrollbar width
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      
-      // Lock body scroll and add padding to prevent shift
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
       document.body.style.paddingRight = `${scrollbarWidth}px`;
@@ -35,7 +32,6 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
       }
 
     } else {
-      // Restore
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       document.body.style.paddingRight = '';
@@ -287,20 +283,22 @@ const ReferenceModalContent: React.FC<{ data: ModalContent; onClose: () => void 
   );
 };
 
-// Category D: Gallery (UPDATED: MAXIMIZED IMAGE SIZE & SHARP CORNERS)
+// Category D: Gallery (UPDATED: ALGORITHMIC JUSTIFIED GRID)
 const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }> = ({ data, onClose }) => {
     const images = data.galleryImages || [];
     const count = images.length;
 
-    // REDUCED COLUMN COUNTS to maximize image size
-    // Large screens = 3 columns (was 4)
-    // Medium screens = 2 columns (was 3)
-    let columnClass = "";
-    if (count >= 6) {
-        columnClass = "columns-1 md:columns-2 lg:columns-3"; 
-    } else {
-        columnClass = "columns-1 md:columns-2"; 
-    }
+    // --- AI/MATH LAYOUT LOGIC ---
+    // 1. Parse aspect ratio from class string or default
+    // 2. Use flex-grow proportional to aspect ratio to create perfectly justified rows
+    // 3. Set a target row height (baseHeight) to control density. 
+    //    - 400px ensures images are larger, forcing fewer images per row (balancing top heaviness).
+    const getAspectRatio = (cls?: string) => {
+        if (cls?.includes('[3/2]')) return 1.5;   // Landscape
+        if (cls?.includes('[2/3]')) return 0.666; // Portrait
+        if (cls?.includes('square')) return 1;    // Square
+        return 1.5; // Default fallback
+    };
 
     return (
         <motion.div
@@ -308,11 +306,10 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            // EXPANDED MAX WIDTH: max-w-[90vw] to let images breathe
-            className="pointer-events-auto relative w-full h-full max-w-[90vw] max-h-[90vh] rounded-[2rem] bg-white shadow-2xl flex flex-col overflow-hidden"
+            className="pointer-events-auto relative w-full h-full max-w-[95vw] max-h-[92vh] rounded-[2rem] bg-white shadow-2xl flex flex-col overflow-hidden"
         >
             {/* Header */}
-            <div className="flex justify-between items-center p-8 md:p-12 pb-4 flex-shrink-0 z-20 bg-white">
+            <div className="flex justify-between items-center p-8 md:p-10 pb-4 flex-shrink-0 z-20 bg-white">
                 <div>
                     <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-zinc-900 leading-none">{data.title}</h2>
                     <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-1">{count} Photos</p>
@@ -325,28 +322,45 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
                 </button>
             </div>
             
-            {/* Gallery Container - Masonry Layout */}
-            <div className="flex-1 w-full h-full overflow-y-auto custom-scrollbar relative z-10 px-8 md:px-12 pb-12">
-                 {/* MASONRY WRAPPER */}
-                 {/* Gap reduced to gap-4 to minimize "extra space" */}
-                 <div className={`${columnClass} gap-4 space-y-4 pb-12`}>
-                    {images.map((img, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: i * 0.1 }}
-                            // SQUARE CORNERS (rounded-none)
-                            // SUBTLE SHADOW (shadow-lg) - No more floating
-                            className="break-inside-avoid relative w-full overflow-hidden group bg-zinc-100 shadow-sm hover:shadow-lg transition-shadow duration-300"
-                        >
-                            <img 
-                                src={img.url} 
-                                alt={`Gallery ${i}`} 
-                                className="w-full h-auto object-cover block" 
-                            />
-                        </motion.div>
-                    ))}
+            {/* Gallery Container - Justified Flex Layout */}
+            <div className="flex-1 w-full h-full overflow-y-auto custom-scrollbar relative z-10 px-8 md:px-10 pb-12">
+                 {/* 
+                    JUSTIFIED GRID IMPLEMENTATION 
+                    - flex-wrap: allows wrapping
+                    - gap-4: Increased padding between images (tripled from gap-1)
+                 */}
+                 <div className="flex flex-wrap gap-4 w-full">
+                    {images.map((img, i) => {
+                        const ratio = getAspectRatio(img.className);
+                        // Math: flex-grow is ratio * 100 to ensure distribution weight
+                        // Flex-basis is the target width at the base height
+                        // We use a base height of ~400px to force large images / fewer per row
+                        const baseHeight = 400; 
+                        const flexBasis = baseHeight * ratio;
+                        
+                        return (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.4, delay: i * 0.05 }}
+                                className="relative flex-grow h-[40vh] min-h-[320px] bg-zinc-100 group overflow-hidden"
+                                style={{ 
+                                    flexBasis: `${flexBasis}px`,
+                                    flexGrow: ratio * 100, 
+                                }}
+                            >
+                                {/* Force exact aspect ratio match for the image itself if needed, but flex container handles sizing */}
+                                <img 
+                                    src={img.url} 
+                                    alt={`Gallery ${i}`} 
+                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                                />
+                            </motion.div>
+                        );
+                    })}
+                    {/* SPACER: Prevents the last row from stretching if it has few items */}
+                    <div className="flex-grow-[999] bg-transparent min-h-0" style={{ flexBasis: '400px' }}></div>
                  </div>
             </div>
         </motion.div>

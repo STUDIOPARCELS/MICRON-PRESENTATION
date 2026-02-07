@@ -163,37 +163,38 @@ export const SectionProperty: React.FC = () => {
       if (level === 'main') {
           title = "MAIN LEVEL GALLERY";
           // MAP: Auto-Sized Masonry Layout
-          // SWAPPED: Now contains Dining, Entry, and Living/Stairs images
+          // Enforced Aspect Ratios: Horizontal [3/2], Vertical [2/3]
           images = [
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dining.1.JPEG" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dining.6.JPEG" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/entry.0.JPEG" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/entry.3.JPEG" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dusting2.png" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dusting.jpeg" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/stairs.jpg" }
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dining.1.JPEG", className: "aspect-[3/2]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dining.6.JPEG", className: "aspect-[3/2]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/entry.0.JPEG", className: "aspect-[2/3]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/entry.3.JPEG", className: "aspect-[2/3]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dusting2.png", className: "aspect-[3/2]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dusting.jpeg", className: "aspect-[3/2]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/stairs.jpg", className: "aspect-[2/3]" }
           ];
       } else if (level === 'upper') {
           title = "UPPER LEVEL GALLERY";
           // MAP: Auto-Sized Masonry Layout
-          // SWAPPED: Now contains Bedroom images
+          // Enforced Aspect Ratios: Horizontal [3/2], Vertical [2/3]
           images = [
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br1.3.JPEG" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.4.JPEG" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br1.5.JPEG" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.6.JPEG" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.5.JPEG" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/BR2.8.jpg" }
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br1.3.JPEG", className: "aspect-[3/2]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.4.JPEG", className: "aspect-[3/2]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br1.5.JPEG", className: "aspect-[3/2]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.6.JPEG", className: "aspect-[2/3]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.5.JPEG", className: "aspect-[3/2]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/BR2.8.jpg", className: "aspect-[2/3]" }
           ];
       } else {
           title = "EXTERIOR GALLERY"; 
           // MAP: Auto-Sized Masonry Layout
+          // Enforced Aspect Ratios: All Horizontal [3/2]
           images = [
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior_4.JPG" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.3.jpg" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.4.JPEG" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.4.jpg" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/fall.jpg" }
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior_4.JPG", className: "aspect-[3/2]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.3.jpg", className: "aspect-[3/2]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.4.JPEG", className: "aspect-[3/2]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.4.jpg", className: "aspect-[3/2]" },
+              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/fall.jpg", className: "aspect-[3/2]" }
           ];
       }
 
