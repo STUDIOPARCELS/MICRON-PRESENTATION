@@ -115,53 +115,74 @@ function App() {
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label="Toggle menu"
             >
-                {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                {mobileMenuOpen ? <X size={28} className="opacity-0" /> : <Menu size={28} />}
             </button>
         </div>
 
-        {/* Mobile Full Screen Menu */}
+        {/* Mobile Compact Dropdown Menu */}
         <AnimatePresence>
             {mobileMenuOpen && (
-                <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: '100dvh' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="fixed inset-0 bg-white z-[100] flex flex-col pt-24 px-6 overflow-y-auto md:hidden"
-                >
-                    <div className="flex flex-col gap-2 text-xl font-bold uppercase tracking-widest text-zinc-800 pb-10">
-                        {navLinks.map((link, i) => (
-                            <motion.a 
-                                key={link.id}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.1 + (i * 0.05) }}
-                                href={`#${link.id}`} 
-                                onClick={(e) => scrollToSection(e, link.id)} 
-                                className="border-b border-zinc-100 py-6 flex justify-between items-center group cursor-pointer active:bg-zinc-50"
-                            >
-                                {link.label}
-                                <ArrowRight size={20} className="text-micron-green" />
-                            </motion.a>
-                        ))}
-                    </div>
-                    
+                <>
+                    {/* Backdrop */}
                     <motion.div 
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                        className="mt-auto pb-12 flex flex-col gap-4 text-zinc-500 text-sm"
+                        exit={{ opacity: 0 }}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="fixed inset-0 bg-black/30 backdrop-blur-sm z-[110] md:hidden"
+                    />
+                    
+                    {/* Compact Menu Card */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9, y: -20, x: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
+                        exit={{ opacity: 0, scale: 0.9, y: -20, x: 20 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="fixed top-2 right-2 z-[120] w-[calc(100vw-1rem)] max-w-[320px] bg-white rounded-2xl shadow-2xl border border-zinc-100 overflow-hidden md:hidden flex flex-col"
                     >
-                        <div className="flex items-center gap-2">
-                             <MapPin size={16} className="text-micron-green" />
-                             <span>1020 E Warm Springs Ave, Boise</span>
+                        {/* Header with Close Button */}
+                        <div className="flex items-center justify-between p-4 pb-2">
+                             <div className="flex items-center gap-1.5 opacity-0">
+                                {/* Spacer */}
+                             </div>
+                             <button 
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="p-2 -mr-2 text-zinc-800 hover:bg-zinc-100 rounded-full transition-colors"
+                            >
+                                <X size={28} />
+                            </button>
                         </div>
-                        <div className="flex items-center gap-2">
-                             <Mail size={16} className="text-micron-green" />
-                             <span>inquiry@micronhouse.com</span>
+
+                        {/* Nav Links */}
+                        <div className="flex flex-col pb-4 px-1">
+                            {navLinks.map((link, i) => (
+                                <a 
+                                    key={link.id}
+                                    href={`#${link.id}`} 
+                                    onClick={(e) => scrollToSection(e, link.id)} 
+                                    className="group flex items-center justify-between px-6 py-4 border-b border-zinc-50 last:border-0 hover:bg-zinc-50 transition-colors"
+                                >
+                                    <span className="font-bold uppercase tracking-widest text-sm text-zinc-900 group-hover:text-micron-eggplant transition-colors">
+                                        {link.label}
+                                    </span>
+                                    <ArrowRight size={18} className="text-micron-green" />
+                                </a>
+                            ))}
+                        </div>
+                        
+                        {/* Footer Contact Info */}
+                        <div className="bg-zinc-50 p-6 flex flex-col gap-3 border-t border-zinc-100">
+                             <div className="flex items-start gap-3">
+                                  <MapPin size={16} className="text-micron-green mt-0.5 shrink-0" />
+                                  <span className="text-xs text-zinc-500 font-medium leading-snug">1020 E Warm Springs Ave, Boise</span>
+                             </div>
+                             <div className="flex items-center gap-3">
+                                  <Mail size={16} className="text-micron-green shrink-0" />
+                                  <a href="mailto:inquiry@micronhouse.com" className="text-xs text-zinc-500 font-medium hover:text-micron-eggplant transition-colors">inquiry@micronhouse.com</a>
+                             </div>
                         </div>
                     </motion.div>
-                </motion.div>
+                </>
             )}
         </AnimatePresence>
       </nav>
