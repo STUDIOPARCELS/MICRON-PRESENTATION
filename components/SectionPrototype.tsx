@@ -223,8 +223,8 @@ const getCardData = (id: number): ModalContent => {
                          >
                             <ModalVideo 
                                 src={VIDEO_PROTOTYPE}
-                                // UPDATED: Changed aspect ratio to aspect-video on mobile to prevent stretching
-                                className="w-full aspect-video md:aspect-[1.5/1.1] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group"
+                                // UPDATED: Strictly enforced aspect-[1.5/1.1] to match BentoCard exactly
+                                className="w-full aspect-[1.5/1.1] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group"
                             />
                          </motion.div>
                     </div>
@@ -284,8 +284,8 @@ const getCardData = (id: number): ModalContent => {
                </div>
 
                <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 h-full">
-                   {/* UPDATED: Switched from min-h to aspect-video on mobile for better sizing */}
-                   <div className="w-full aspect-video lg:aspect-auto lg:h-full lg:col-span-3">
+                   {/* UPDATED: Strictly enforced aspect-[1.5/1.1] to match BentoCard exactly */}
+                   <div className="w-full aspect-[1.5/1.1] lg:col-span-3">
                         <motion.div 
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
@@ -362,8 +362,8 @@ const getCardData = (id: number): ModalContent => {
             <div className="flex flex-col gap-6 h-auto pb-12">
                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full items-stretch">
                    
-                   {/* UPDATED: Switched from min-h to aspect-video on mobile for better sizing */}
-                   <div className="w-full aspect-video lg:aspect-auto lg:h-full">
+                   {/* UPDATED: Strictly enforced aspect-[1.5/1.1] to match BentoCard exactly */}
+                   <div className="w-full aspect-[1.5/1.1]">
                         <ModalVideo 
                             src={VIDEO_COLLAB} 
                             className="w-full h-full shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group"
@@ -484,8 +484,8 @@ const getCardData = (id: number): ModalContent => {
         content: (
         <div className="flex flex-col gap-4 h-full">
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
-               {/* UPDATED: Switched from aspect-[4/3] to aspect-video on mobile for better sizing */}
-               <div className="w-full h-auto aspect-video md:aspect-[4/3]">
+               {/* UPDATED: Strictly enforced aspect-[1.5/1.1] to match BentoCard exactly */}
+               <div className="w-full aspect-[1.5/1.1]">
                     <ModalVideo 
                         src={VIDEO_PLACE} 
                         className="w-full h-full shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200"
