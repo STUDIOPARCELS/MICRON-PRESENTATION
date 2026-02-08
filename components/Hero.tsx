@@ -447,8 +447,11 @@ export const Hero: React.FC = () => {
                          whileInView="visible"
                          viewport={{ once: true, amount: 0.1 }}
                          variants={{
-                             // UPDATED: Slowed down from 0.25 to 0.40 (approx 50% slower)
-                             visible: { transition: { staggerChildren: 0.40, delayChildren: 0.1 } }, 
+                             // UPDATED: Added opacity: 1 to ensure visibility when triggered
+                             visible: { 
+                                opacity: 1, 
+                                transition: { staggerChildren: 0.40, delayChildren: 0.1 } 
+                             }, 
                              hidden: { opacity: 0 }
                          }}
                          className="font-micron text-2xl text-center text-white leading-relaxed -rotate-3"
