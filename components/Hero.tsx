@@ -163,7 +163,6 @@ const InteractiveParadigmTitle: React.FC = () => {
 export const Hero: React.FC = () => {
   const containerRef = useRef(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const bottomSectionRef = useRef(null);
   
   // UPDATED: Lowered threshold to 0.1 to ensure it triggers more reliably on desktop
   const isInView = useInView(containerRef, { amount: 0.1 });
@@ -196,7 +195,7 @@ export const Hero: React.FC = () => {
   }, []);
 
   // Unified Start Sequence Function
-  // Resets everything, starts video immediately, waits 3.0s (UPDATED), starts text
+  // Resets everything, starts video immediately, waits for delay, starts text
   const startSequence = () => {
     // 1. Clear any pending timers
     if (sequenceTimer.current) clearTimeout(sequenceTimer.current);
@@ -213,10 +212,10 @@ export const Hero: React.FC = () => {
         videoRef.current.play().catch((e) => console.log("Video play error:", e));
     }
 
-    // 4. Schedule Text Start (3.0s delay as requested)
+    // 4. Schedule Text Start (UPDATED: Added 2 seconds, now 5000ms/5s)
     sequenceTimer.current = setTimeout(() => {
         setCurrentSentenceIndex(0);
-    }, 3000);
+    }, 5000);
   };
 
   // Handle Video Loop (End of video triggers replay)
@@ -289,7 +288,6 @@ export const Hero: React.FC = () => {
         cycleDuration = baseDuration * 2.25; 
     } else if (currentSentenceIndex === 1) {
         // UPDATED: Reduced multiplier from 2.0 to 1.5. 
-        // 16s was likely too long and perceived as "not running". 12s is still a long pause but safer.
         cycleDuration = baseDuration * 1.5; 
     }
 
@@ -493,13 +491,10 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* BOTTOM SECTION: PARADIGM & QUOTE */}
-        {/* UPDATED: Changed to whileInView for scroll activation on desktop */}
-        {/* UPDATED: Removed mt-4 to tighten gap with top section */}
+        {/* UPDATED: Removed 'whileInView' and linked animation to 'isInView' of the parent container to insure mobile population */}
         <motion.div 
-            ref={bottomSectionRef}
             initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
             transition={{ duration: 2.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row md:items-stretch min-h-[400px] md:min-h-[360px] p-8 md:p-8 gap-4 md:gap-8 group"
         >
