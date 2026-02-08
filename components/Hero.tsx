@@ -357,11 +357,12 @@ export const Hero: React.FC = () => {
             {/* 2. VIDEO AREA */}
             {/* UPDATED: Changed order to order-1 (Top on Mobile, Left on Desktop) */}
             {/* UPDATED: Changed to animate for guaranteed population */}
+            {/* UPDATED: Changed mobile height from fixed h-[300px] to aspect-video (16:9) to match desktop proportions */}
             <motion.div 
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 2.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="h-[300px] md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-1 group"
+                className="aspect-video h-auto md:aspect-auto md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-1 group"
             >
                 <video 
                     ref={videoRef}
