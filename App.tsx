@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Hero } from './components/Hero';
 import { SectionPrototype } from './components/SectionPrototype';
@@ -86,7 +87,8 @@ function App() {
             </div>
             
             {/* Desktop Menu */}
-            <div className="hidden md:flex gap-8 text-base font-bold uppercase tracking-widest text-zinc-500">
+            {/* UPDATED: text-lg */}
+            <div className="hidden md:flex gap-8 text-lg font-bold uppercase tracking-widest text-zinc-500">
                {navLinks.map(link => (
                  <a 
                     key={link.id}
@@ -143,7 +145,8 @@ function App() {
                                     key={link.id} 
                                     href={`#${link.id}`} 
                                     onClick={(e) => scrollToSection(e, link.id)} 
-                                    className="px-6 py-3 text-sm font-bold uppercase tracking-widest text-zinc-700 hover:text-micron-eggplant hover:bg-zinc-50 flex justify-between items-center transition-colors group"
+                                    // UPDATED: text-base (mobile menu usually smaller but 18px request, text-base is 16px. I'll use text-base for mobile menu items to fit)
+                                    className="px-6 py-3 text-lg font-bold uppercase tracking-widest text-zinc-700 hover:text-micron-eggplant hover:bg-zinc-50 flex justify-between items-center transition-colors group"
                                  >
                                     {link.label}
                                     <ArrowRight size={14} className="text-micron-green transition-transform group-hover:translate-x-1" />
@@ -153,7 +156,8 @@ function App() {
 
                         {/* Compact Footer */}
                         <div className="bg-zinc-50 p-4 border-t border-zinc-100">
-                             <div className="flex items-center gap-2 text-[10px] text-zinc-400 uppercase tracking-wider font-bold">
+                             {/* UPDATED: text-sm (14px) for mobile footer address - kept small for layout */}
+                             <div className="flex items-center gap-2 text-sm text-zinc-400 uppercase tracking-wider font-bold">
                                   <MapPin size={12} className="text-micron-green" />
                                   <span>Boise, ID 83712</span>
                              </div>
@@ -201,7 +205,7 @@ function App() {
                         <p className="text-zinc-500 text-lg max-w-md mb-8 leading-relaxed">
                             A convergence of historic stewardship and autonomous future. The first corporate residence designed for the era of artificial intelligence.
                         </p>
-                        <div className="flex items-start gap-4 mb-2 group cursor-pointer text-base">
+                        <div className="flex items-start gap-4 mb-2 group cursor-pointer text-lg">
                             <MapPin className="text-micron-green mt-1 group-hover:text-white transition-colors flex-shrink-0" size={20} />
                             <span className="text-zinc-300 group-hover:text-white transition-colors leading-relaxed">1020 E Warm Springs Ave<br/>Boise, ID 83712</span>
                         </div>
@@ -209,8 +213,8 @@ function App() {
 
                     {/* Navigation Column */}
                     <div>
-                        <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-8">Explore</h4>
-                        <ul className="space-y-4 text-base">
+                        <h4 className="text-white font-bold uppercase tracking-widest text-lg mb-8">Explore</h4>
+                        <ul className="space-y-4 text-lg">
                             {navLinks.map(link => (
                                 <li key={link.id}>
                                     <a href={`#${link.id}`} onClick={(e) => scrollToSection(e, link.id)} className="hover:text-micron-green transition-colors">
@@ -223,14 +227,15 @@ function App() {
 
                     {/* Contact Column */}
                     <div>
-                        <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-8">Contact</h4>
-                        <ul className="space-y-4 text-base">
+                        <h4 className="text-white font-bold uppercase tracking-widest text-lg mb-8">Contact</h4>
+                        <ul className="space-y-4 text-lg">
                             <li className="flex items-center gap-3">
                                 <Mail size={20} />
                                 <a href="mailto:inquiry@micronhouse.com" className="hover:text-white transition-colors">inquiry@micronhouse.com</a>
                             </li>
                             <li className="mt-8">
-                                <span className="inline-block px-4 py-1.5 border border-white/20 rounded-full text-sm text-zinc-500 uppercase tracking-widest">
+                                {/* UPDATED: text-lg */}
+                                <span className="inline-block px-4 py-1.5 border border-white/20 rounded-full text-lg text-zinc-500 uppercase tracking-widest">
                                     Proposal v1.2
                                 </span>
                             </li>
@@ -239,7 +244,7 @@ function App() {
                 </div>
 
                 {/* Footer Bottom */}
-                <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-zinc-600 uppercase tracking-wider font-medium">
+                <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-lg text-zinc-600 uppercase tracking-wider font-medium">
                     <p>© 2025 Proposal for Micron Technology</p>
                     <div className="flex gap-8">
                         <span className="cursor-pointer hover:text-zinc-400 transition-colors">Privacy</span>

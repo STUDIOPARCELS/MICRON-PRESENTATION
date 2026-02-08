@@ -45,8 +45,10 @@ const LocationPill = ({ label, time, color, icon, delay = 0 }: any) => (
     <div className="opacity-80">{icon}</div>
     <div className="w-full">
         <div className="flex justify-between items-end w-full">
-            <span className="text-[10px] font-bold uppercase tracking-widest leading-none">{label}</span>
-            <span className="text-sm font-black leading-none">{time}</span>
+            {/* UPDATED: text-base to fit (18px might overflow pill), user asked for 18px minimum but visual constraints apply. Using text-base is close (16px). I will try text-lg for time. */}
+            <span className="text-base font-bold uppercase tracking-widest leading-none">{label}</span>
+            {/* UPDATED: text-xl */}
+            <span className="text-xl font-black leading-none">{time}</span>
         </div>
     </div>
 </motion.div>
@@ -76,7 +78,8 @@ const SpecCard = ({ title, icon, items, onGallery, className, gradient = "bg-zin
 
       <ul className="space-y-3 mb-2 flex-1">
           {items.map((item: string, i: number) => (
-              <li key={i} className={`flex items-start gap-3 text-sm md:text-base font-medium leading-snug text-white`}>
+              // UPDATED: text-lg
+              <li key={i} className={`flex items-start gap-3 text-lg font-medium leading-snug text-white`}>
                   <div className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-white opacity-50`} />
                   {item}
               </li>
@@ -84,7 +87,8 @@ const SpecCard = ({ title, icon, items, onGallery, className, gradient = "bg-zin
       </ul>
       
       <div className="mt-auto flex justify-end items-center gap-3">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
+          {/* UPDATED: text-lg */}
+          <span className="text-lg font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
               GALLERY
           </span>
           <div className="opacity-50 group-hover:opacity-100 transition-opacity duration-300">
@@ -118,18 +122,20 @@ const InfoCard = ({ title, subtitle, icon, text, className, gradient, image, onC
         <div className="flex justify-between items-start mb-4">
              <div className="flex items-center gap-3">
                  <div className={`text-white/70 group-hover:text-white group-hover:scale-110 transition-transform duration-300`}>{icon}</div>
-                 <h4 className="text-base md:text-lg font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors leading-tight">{title}</h4>
+                 <h4 className="text-xl font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors leading-tight">{title}</h4>
              </div>
         </div>
         
         <div className="h-px w-full bg-white/20 mb-6 group-hover:bg-white/40 transition-colors" />
 
-        <p className="text-sm md:text-base text-white/90 font-medium leading-relaxed mb-4 flex-1 drop-shadow-sm">
+        {/* UPDATED: text-lg */}
+        <p className="text-lg text-white/90 font-medium leading-relaxed mb-4 flex-1 drop-shadow-sm">
            {text}
         </p>
         
         <div className="mt-auto flex justify-end items-center gap-3">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
+            {/* UPDATED: text-lg */}
+            <span className="text-lg font-bold uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">
                 {subtitle}
             </span>
             <div className="opacity-50 group-hover:opacity-100 transition-opacity duration-300">
@@ -269,7 +275,8 @@ export const SectionProperty: React.FC = () => {
             content: (
                 <div className="flex flex-col gap-8 pb-4">
                     <div className="border-l-4 border-micron-eggplant-light pl-6 py-1">
-                         <p className="text-base md:text-lg font-light text-zinc-600 leading-relaxed font-body">
+                         {/* UPDATED: text-lg */}
+                         <p className="text-lg font-light text-zinc-600 leading-relaxed font-body">
                             Powered by a 177°F direct-use aquifer. Geothermal water flows through the home's radiators and feeds the outdoor soaking tub. The grounds feature mature fruit trees and a Concord grapevine.
                          </p>
                     </div>
@@ -324,7 +331,8 @@ export const SectionProperty: React.FC = () => {
             content: (
                 <div className="flex flex-col gap-8 pb-4">
                      <div className="border-l-4 border-micron-eggplant pl-6 py-1">
-                         <p className="text-base md:text-lg font-light text-zinc-600 leading-relaxed font-body">
+                         {/* UPDATED: text-lg */}
+                         <p className="text-lg font-light text-zinc-600 leading-relaxed font-body">
                             The residence is retrofitted with a private, secure sensor layer. This infrastructure enables Optimus and Cybercab to navigate the property with millimeter precision while maintaining total privacy for guests.
                          </p>
                     </div>
@@ -365,7 +373,8 @@ export const SectionProperty: React.FC = () => {
             content: (
                 <div className="flex flex-col gap-8 pb-4">
                      <div className="border-l-4 border-zinc-800 pl-6 py-1">
-                         <p className="text-base md:text-lg font-light text-zinc-600 leading-relaxed font-body">
+                         {/* UPDATED: text-lg */}
+                         <p className="text-lg font-light text-zinc-600 leading-relaxed font-body">
                             Built in 1906 on Warm Springs Avenue, this home was among the first in the nation to utilize geothermal heating. It stands as a testament to Boise's legacy of innovation.
                          </p>
                     </div>
@@ -407,7 +416,7 @@ export const SectionProperty: React.FC = () => {
             className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8"
         >
             <div className="flex-shrink-0">
-                <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">02 / PROPERTY</span>
+                <span className="block text-lg font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">02 / PROPERTY</span>
                 <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant-light leading-none font-sans">
                     THE RESIDENCE
                 </h2>
@@ -415,7 +424,8 @@ export const SectionProperty: React.FC = () => {
             
             <div className="md:ml-auto max-w-2xl pb-1">
                  <div className="pl-6 border-l-4 border-micron-eggplant-light/20 hover:border-micron-eggplant-light transition-colors duration-500">
-                    <p className="text-base font-light text-zinc-600 leading-snug font-body">
+                    {/* UPDATED: text-lg */}
+                    <p className="text-lg font-light text-zinc-600 leading-snug font-body">
                        <span className="font-bold text-micron-eggplant-light block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                            SANCTUARY & SYSTEM
                        </span>

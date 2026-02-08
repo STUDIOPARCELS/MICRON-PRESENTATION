@@ -229,19 +229,15 @@ export const Hero: React.FC = () => {
     if (currentSentenceIndex === null) return;
     if (currentSentenceIndex >= sentences.length - 1) return;
 
-    // Cycle duration to allow slower word population (8000ms = 33% slower than 6000)
-    const baseDuration = 8000;
+    let cycleDuration = 8000; // default base fallback
     
-    // UPDATED: Logic for durations
-    let cycleDuration = baseDuration;
-    
+    // HARDCODED TIMING LOGIC
     if (currentSentenceIndex === 0) {
-        // UPDATED: Doubled the pause (approx 18s total) as requested
-        cycleDuration = baseDuration * 2.25; 
+        // Reduced by another second (was ~18000)
+        cycleDuration = 17000; 
     } else if (currentSentenceIndex === 1) {
-        // UPDATED: Reduced multiplier from 2.0 to 1.5. 
-        // 16s was likely too long and perceived as "not running". 12s is still a long pause but safer.
-        cycleDuration = baseDuration * 1.5; 
+        // Added 2 seconds (was ~12000)
+        cycleDuration = 14000; 
     }
 
     const timer = setTimeout(() => {
@@ -410,7 +406,7 @@ export const Hero: React.FC = () => {
                     onTimeUpdate={handleVideoTimeUpdate}
                     className="absolute inset-0 w-full h-full object-cover opacity-100"
                 >
-                     <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/NEW%20MICRON%20HOUSE.mp4" type="video/mp4" />
+                     <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/DA%20MICRON%20HOUSE.mp4" type="video/mp4" />
                 </video>
             </motion.div>
 
@@ -437,8 +433,10 @@ export const Hero: React.FC = () => {
                  {/* UPDATED: Added h-fit to prevent line stretching, removed mt logic due to gap-10 */}
                  <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4 relative z-10 mt-auto md:mt-auto h-fit">
                         <h3 className="text-white font-bold text-xl uppercase tracking-wider">Micron House</h3>
-                        <p className="text-micron-eggplant font-bold text-sm md:text-lg uppercase tracking-widest whitespace-nowrap">1020 East Warm Springs Ave</p>
-                        <p className="text-micron-eggplant/80 text-sm md:text-lg uppercase tracking-widest">Boise, Idaho 83712</p>
+                        {/* UPDATED: text-lg */}
+                        <p className="text-micron-eggplant font-bold text-lg uppercase tracking-widest whitespace-nowrap">1020 East Warm Springs Ave</p>
+                        {/* UPDATED: text-lg */}
+                        <p className="text-micron-eggplant/80 text-lg uppercase tracking-widest">Boise, Idaho 83712</p>
                  </div>
 
                  {/* MOBILE QUOTE - IN FLOW */}

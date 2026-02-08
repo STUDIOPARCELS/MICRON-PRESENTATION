@@ -141,14 +141,14 @@ const CinematicModalContent: React.FC<{ data: ModalContent; onClose: () => void 
       <div className={`${textSectionClasses} p-6 md:p-10 flex flex-col justify-center overflow-y-auto bg-gradient-to-br from-zinc-950 to-zinc-900 overscroll-contain`}>
         <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.1 } } }}>
           {data.label && (
-            <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }} className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-micron-eggplant-light">
+            <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }} className="mb-4 text-lg font-bold uppercase tracking-[0.2em] text-micron-eggplant-light">
               {data.label}
             </motion.div>
           )}
           <motion.h2 variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }} className="text-3xl md:text-5xl text-white mb-6 md:mb-8 leading-none font-bold uppercase tracking-tight">
             {data.title}
           </motion.h2>
-          <div className="space-y-6 text-base md:text-lg text-zinc-400 font-light leading-relaxed">
+          <div className="space-y-6 text-lg text-zinc-400 font-light leading-relaxed">
              <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}>
                {data.content}
              </motion.div>
@@ -226,7 +226,7 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
             {data.subtitle && (
             <div className={`flex items-center gap-2 mt-2`}>
                 <span className={`hidden md:block h-px w-6 ${isLight && !data.customBackground ? 'bg-zinc-300' : 'bg-white/50'}`}></span>
-                <span className={`text-[10px] font-bold uppercase tracking-[0.2em] ${isLight && !data.customBackground ? 'text-zinc-400' : 'text-white/70'}`}>
+                <span className={`text-lg font-bold uppercase tracking-[0.2em] ${isLight && !data.customBackground ? 'text-zinc-400' : 'text-white/70'}`}>
                     {data.subtitle}
                 </span>
             </div>
@@ -269,7 +269,7 @@ const ReferenceModalContent: React.FC<{ data: ModalContent; onClose: () => void 
           <h2 className={`text-2xl font-bold uppercase tracking-tight mb-1 ${titleColor}`}>
             {data.title}
           </h2>
-          <p className={`text-[10px] font-bold uppercase tracking-widest ${subtitleColor}`}>
+          <p className={`text-lg font-bold uppercase tracking-widest ${subtitleColor}`}>
             {data.subtitle}
           </p>
         </div>
@@ -305,7 +305,7 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
             <div className="flex justify-between items-center p-8 md:p-10 pb-4 flex-shrink-0 z-20 bg-white">
                 <div>
                     <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-zinc-900 leading-none">{data.title}</h2>
-                    <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-1">{count} Photos</p>
+                    <p className="text-zinc-400 text-lg font-bold uppercase tracking-widest mt-1">{count} Photos</p>
                 </div>
                 <button 
                     onClick={onClose} 

@@ -242,7 +242,7 @@ export const SectionServing: React.FC = () => {
         <div className="flex flex-col gap-8 pb-4">
              <div className={`border-l-4 ${dept.modalTagColor.replace('border-', 'border-')} pl-6 py-1`}>
                 {/* UPDATED: Increased font size to text-lg md:text-xl to denote header section relative to tiles */}
-                <p className="text-lg md:text-xl font-light text-zinc-600 leading-relaxed font-body">
+                <p className="text-xl md:text-2xl font-light text-zinc-600 leading-relaxed font-body">
                     {dept.detail}
                 </p>
             </div>
@@ -260,7 +260,7 @@ export const SectionServing: React.FC = () => {
                                 <h4 className="text-xl font-bold uppercase tracking-tight">{exp.title}</h4>
                             </div>
                             <div className="h-px w-full bg-white/20 mb-4" />
-                            {/* UPDATED: Verified font size is text-lg to match Wellness standard */}
+                            {/* UPDATED: Verified font size is text-lg to match Wellness modal tiles standard */}
                             <p className="text-white/80 font-medium leading-relaxed text-lg">
                                 {exp.description}
                             </p>
@@ -286,7 +286,7 @@ export const SectionServing: React.FC = () => {
             className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8"
         >
             <div className="flex-shrink-0">
-                <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">04 / STAKEHOLDERS</span>
+                <span className="block text-lg font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">04 / STAKEHOLDERS</span>
                 <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant leading-none font-sans">
                     SERVING MICRON
                 </h2>
@@ -294,7 +294,8 @@ export const SectionServing: React.FC = () => {
             
             <div className="md:ml-auto max-w-2xl pb-1">
                  <div className="pl-6 border-l-4 border-micron-eggplant/20 hover:border-micron-eggplant transition-colors duration-500">
-                    <p className="text-base font-light text-zinc-600 leading-snug font-body">
+                    {/* UPDATED: text-lg */}
+                    <p className="text-lg font-light text-zinc-600 leading-snug font-body">
                        <span className="font-bold text-micron-eggplant block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                            STRATEGIC ALIGNMENT
                        </span>
@@ -322,7 +323,8 @@ export const SectionServing: React.FC = () => {
                     <div className="relative z-10 flex flex-col h-full">
                         <div>
                              <h3 className="text-2xl font-black uppercase tracking-tight leading-none text-white line-clamp-2 mb-1">{dept.title}</h3>
-                             <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 mb-4">{dept.value}</p>
+                             {/* UPDATED: text-lg */}
+                             <p className="text-lg font-bold uppercase tracking-widest text-white/70 mb-4">{dept.value}</p>
                              <div className="h-px w-full bg-white/30" />
                         </div>
                         
