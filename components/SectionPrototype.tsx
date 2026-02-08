@@ -162,99 +162,100 @@ const getCardData = (id: number): ModalContent => {
         modalLayout: 'default', 
         maxWidth: 'max-w-7xl', 
         content: (
-            // UPDATED: Removed extra pb-12 padding as requested
-            <div className="flex flex-col gap-6 h-auto">
+            // UPDATED LAYOUT: SEAMLESS 2-ROW GRID
+            <div className="flex flex-col gap-6 h-full w-full">
                 
-                {/* 1. TOP SECTION: VIDEO (Left) + INTRO & SERVICE TILES (Right) */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* VIDEO (Left 2/3) */}
-                    <div className="lg:col-span-2 w-full h-full">
+                {/* ROW 1: VIDEO (2/3) + INTRO (1/3) */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full items-stretch">
+                    
+                    {/* VIDEO TILE - Spans 2 */}
+                    <div className="lg:col-span-2 w-full h-full min-h-[300px]">
                          <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1, duration: 0.8 }}
                             className="w-full h-full"
                          >
+                            {/* Force h-full to fill grid cell, object-cover handles aspect. Removed fixed aspect class. */}
                             <ModalVideo 
                                 src={VIDEO_PROTOTYPE}
-                                // Strictly enforced aspect-[1.5/1.1] to match BentoCard exactly
-                                className="w-full aspect-[1.5/1.1] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group"
+                                className="w-full h-full shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group object-cover"
                             />
                          </motion.div>
                     </div>
-                    
-                    {/* RIGHT COLUMN: STACKED INTRO & SERVICE (Right 1/3) */}
-                    <div className="lg:col-span-1 flex flex-col gap-6 h-full">
-                        
-                        {/* TILE 1: INTRO TEXT (Moved from top, New Tile) */}
-                        <motion.div 
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.3, duration: 0.8 }}
-                            className="w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] border border-zinc-200 relative overflow-hidden group flex flex-col justify-center flex-1"
-                        >
-                            {/* UPDATED: Text size set to text-lg (18px) */}
-                            <div className="text-zinc-600 text-lg font-medium leading-relaxed relative z-10">
-                                <p>
-                                    A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
-                                </p>
-                            </div>
-                        </motion.div>
 
-                        {/* TILE 2: SERVICE & SECURITY (Moved Down) */}
-                        <motion.div 
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.5, duration: 0.8 }}
-                            className="w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] border border-zinc-200 relative overflow-hidden group flex flex-col flex-1"
-                        >
-                            <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green relative z-10 leading-none">SERVICE & SECURITY</h3>
-                            <div className="w-full h-px bg-zinc-200 mb-5 relative z-10" />
-
-                            {/* UPDATED: Text size set to text-lg (18px) */}
-                            <div className="flex flex-col gap-6 text-zinc-600 text-lg font-medium leading-relaxed relative z-10">
-                                <p>
-                                    Five minutes from downtown. Fifteen from the airport. Fifteen from Micron headquarters.
-                                </p>
-                                <p>
-                                    Optimus and Cybercab handle arrivals, departures, transfers, and coordinate deliveries, services, and experiences directly into the residence.
-                                </p>
-                            </div>
-                        </motion.div>
-                    </div>
+                    {/* INTRO TILE - Spans 1 */}
+                    <motion.div 
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3, duration: 0.8 }}
+                        // Added h-full and floating shadow
+                        className="lg:col-span-1 w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] relative overflow-hidden group flex flex-col justify-center h-full"
+                    >
+                        <div className="text-zinc-600 text-lg font-medium leading-relaxed relative z-10">
+                            <p>
+                                A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
+                            </p>
+                        </div>
+                    </motion.div>
                 </div>
 
-                {/* 2. BOTTOM ROW: INTEGRATION + INFLECTION POINT */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* ROW 2: SERVICE (1/3) + INTEGRATION (1/3) + INFLECTION (1/3) */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full items-stretch">
+                    
+                    {/* SERVICE & SECURITY - Now in bottom row */}
+                     <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4, duration: 0.8 }}
+                        // Added h-full and floating shadow
+                        className="w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] relative overflow-hidden group flex flex-col h-full"
+                    >
+                        <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green relative z-10 leading-none">SERVICE & SECURITY</h3>
+                        <div className="w-full h-px bg-zinc-200 mb-5 relative z-10" />
+
+                        <div className="flex flex-col gap-6 text-zinc-600 text-lg font-medium leading-relaxed relative z-10 flex-1">
+                            <p>
+                                Five minutes from downtown. Fifteen from the airport. Fifteen from Micron headquarters.
+                            </p>
+                            <p>
+                                Optimus and Cybercab handle arrivals, departures, transfers, and coordinate deliveries, services, and experiences directly into the residence.
+                            </p>
+                        </div>
+                    </motion.div>
+
+                    {/* INTEGRATION */}
                     <InnerBento 
                         gradient="bg-micron-eggplant" 
                         direction="up" 
-                        delay={0.7} 
-                        className="flex-grow min-h-[200px]" 
+                        delay={0.5} 
+                        className="h-full" 
+                        padding="p-6 md:p-8"
                     >
                         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">INTEGRATION</h3>
                         <div className="w-full h-px bg-white/20 mb-4" />
-                        {/* Reference Size: text-lg */}
-                        <div className="space-y-4 text-white/70 text-lg font-medium leading-relaxed">
+                        <div className="space-y-4 text-white/70 text-lg font-medium leading-relaxed flex-1">
                             <p className="font-bold text-white text-xl">A Venue for Leadership.</p>
-                            <p>A residential venue where Micron executives host, entertain, and recruit alongside Optimus and Cybercab in full operation. Board members, partners, visiting engineers, families, and dignitaries experience autonomous systems as part of daily life.</p>
+                            <p>A residential venue where Micron executives host, entertain, and recruit alongside Optimus and Cybercab in full operation. Board members and partners experience autonomous systems as part of daily life.</p>
                         </div>
                     </InnerBento>
 
+                    {/* INFLECTION POINT */}
                     <InnerBento 
                         gradient="bg-micron-grey1" 
                         direction="up" 
-                        delay={0.9} 
-                        className="flex-grow min-h-[200px]" 
+                        delay={0.6} 
+                        className="h-full" 
+                        padding="p-6 md:p-8"
                     >
                         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">INFLECTION POINT</h3>
                         <div className="w-full h-px bg-white/20 mb-4" />
-                        {/* Reference Size: text-lg */}
-                        <div className="space-y-4 text-white/70 text-lg font-medium leading-relaxed">
+                        <div className="space-y-4 text-white/70 text-lg font-medium leading-relaxed flex-1">
                             <p className="font-bold text-white text-xl">Scaling to Billions.</p>
-                            <p>Tesla is producing Optimus at million-unit annual capacity. Deployment into homes, businesses, and public spaces accelerates from here. Micron House is operational at the earliest stage of that curve — generating institutional knowledge from day one.</p>
+                            <p>Tesla is producing Optimus at million-unit annual capacity. Micron House is operational at the earliest stage of that curve — generating institutional knowledge from day one.</p>
                         </div>
                     </InnerBento>
+
                 </div>
             </div>
         )
@@ -307,12 +308,12 @@ const getCardData = (id: number): ModalContent => {
                    {/* RIGHT COLUMN: NEW INTRO TILE + PURPLE + GREEN TILES */}
                    <div className="flex flex-col gap-6 h-full lg:col-span-2">
                         
-                        {/* 1. NEW INTRO TILE (White) - Moved from top */}
+                        {/* 1. NEW INTRO TILE (White) - UPDATED: FLOATING EFFECT (No border, strong shadow) */}
                         <motion.div 
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.2, duration: 0.8 }}
-                            className="w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] border border-zinc-200 relative overflow-hidden group flex flex-col justify-center flex-1"
+                            className="w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] relative overflow-hidden group flex flex-col justify-center flex-1"
                         >
                             <div className="text-zinc-600 text-lg font-medium leading-relaxed relative z-10">
                                 <p>
@@ -465,7 +466,7 @@ const getCardData = (id: number): ModalContent => {
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-600">Optimus Capacity</p>
                             </div>
                         </div>
-                        {/* UPDATED: Standardized to text-lg for mobile/desktop (18px) */}
+                        {/* UPDATED: Standardized to text-lg for mobile/desktop (18px) and Updated Text content */}
                         <div className="md:col-span-8 flex flex-col gap-3 text-lg font-medium text-zinc-700 leading-relaxed justify-center">
                             <p>
                                 In June 2025, Micron announced <strong className="text-micron-eggplant">$200 billion</strong> in U.S. semiconductor manufacturing — the largest memory infrastructure commitment in American history.
@@ -474,7 +475,7 @@ const getCardData = (id: number): ModalContent => {
                                 Tesla is targeting <strong className="text-micron-eggplant">50,000 Optimus units by this year and million-unit annual capacity</strong>. Every unit is a mobile supercomputer requiring Micron silicon.
                             </p>
                             <p>
-                                Elon Musk and Sanjay Mehrotra are scaling toward a <strong className="text-micron-eggplant">future where autonomous systems outnumber people</strong> — and both leaders have acknowledged that the speed of this transition carries a shared responsibility.
+                                Musk and Mehrotra are building toward a <strong className="text-micron-eggplant">future where autonomous systems outnumber people</strong>. The pace of that deployment carries weight — and Micron House is where the implications are explored firsthand.
                             </p>
                         </div>
                     </div>

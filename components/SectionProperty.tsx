@@ -172,10 +172,6 @@ export const SectionProperty: React.FC = () => {
   const openLevelGallery = (level: 'main' | 'upper' | 'grounds') => {
       let title = "";
       
-      // CONFIGURATION FOR GALLERIES
-      // aspect-[4/3] = Landscape (1.33)
-      // aspect-[3/4] = Portrait (0.75)
-      
       const galleryConfig = {
           main: {
               folder: "UPPER FLOOR", 
@@ -198,16 +194,10 @@ export const SectionProperty: React.FC = () => {
                   { file: "BR1.7.jpg", aspect: "aspect-[4/3]" },
                   { file: "BR2.7.JPEG", aspect: "aspect-[4/3]" },
                   { file: "BR2_8.jpg", aspect: "aspect-[4/3]" },
-                  { file: "BR3.1.JPEG", aspect: "aspect-[4/3]" },
                   { file: "IMG_0728.JPEG", aspect: "aspect-[3/4]" },
-                  { file: "IMG_0731.JPEG", aspect: "aspect-[3/4]" },
                   { file: "MABA.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "br1.3.JPEG", aspect: "aspect-[4/3]" },
                   { file: "br1.6.JPEG", aspect: "aspect-[4/3]" },
                   { file: "br2.3.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "br2.4.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "br2.6.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "br3.0.jpg", aspect: "aspect-[4/3]" },
                   { file: "br3_0.jpg", aspect: "aspect-[4/3]" },
                   { file: "dusting.jpeg", aspect: "aspect-[3/4]" },
                   { file: "dusting2.png", aspect: "aspect-[3/4]" },

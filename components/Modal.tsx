@@ -284,25 +284,15 @@ const ReferenceModalContent: React.FC<{ data: ModalContent; onClose: () => void 
   );
 };
 
-// Category D: Gallery (UPDATED: SIMPLIFIED LAYOUT)
+// Category D: Gallery (UPDATED: MASONRY LAYOUT)
+// Using CSS columns for true seamless masonry layout without cropping
 const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }> = ({ data, onClose }) => {
-    // Local state to ensure reactivity
     const [items, setItems] = useState(data.galleryImages || []);
     const count = items.length;
 
     useEffect(() => {
         setItems(data.galleryImages || []);
     }, [data.galleryImages]);
-
-    // --- AI/MATH LAYOUT LOGIC ---
-    const getAspectRatio = (cls?: string) => {
-        if (cls?.includes('[3/2]')) return 1.5;   
-        if (cls?.includes('[2/3]')) return 0.666; 
-        if (cls?.includes('[4/3]')) return 1.33;  // Landscape
-        if (cls?.includes('[3/4]')) return 0.75;  // Portrait
-        if (cls?.includes('square')) return 1;    
-        return 1.33; // Default
-    };
 
     return (
         <motion.div
@@ -326,37 +316,24 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
                 </button>
             </div>
             
-            {/* Gallery Container - Stable Flex Layout */}
+            {/* Gallery Container - Masonry Layout */}
             <div className="flex-1 w-full h-full overflow-y-auto custom-scrollbar relative z-10 px-8 md:px-10 pb-12 overscroll-contain">
-                 <div className="flex flex-wrap gap-4 w-full">
-                    {items.map((img, i) => {
-                        const ratio = getAspectRatio(img.className);
-                        const baseHeight = 360; 
-                        const flexBasis = baseHeight * ratio;
-                        const objectFitClass = img.objectFit === 'contain' ? 'object-contain' : 'object-cover';
-                        
-                        return (
-                            <div
-                                key={`${img.url}-${i}`}
-                                // UPDATED: Changed bg-zinc-100 to bg-white to ensure seamless letterboxing
-                                className="relative flex-grow h-[36vh] min-h-[300px] bg-white group overflow-hidden rounded-lg hover:opacity-95 transition-opacity duration-200"
-                                style={{ 
-                                    flexBasis: `${flexBasis}px`,
-                                    flexGrow: ratio * 100, 
-                                }}
-                            >
-                                <img 
-                                    src={img.url} 
-                                    alt="Gallery Item" 
-                                    loading="lazy"
-                                    decoding="async"
-                                    className={`absolute inset-0 w-full h-full ${objectFitClass}`}
-                                />
-                            </div>
-                        );
-                    })}
-                    {/* SPACER: Prevents the last row from stretching if it has few items */}
-                    <div className="flex-grow-[999] bg-transparent min-h-0" style={{ flexBasis: '360px' }}></div>
+                 {/* CSS Columns for Masonry Effect */}
+                 <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
+                    {items.map((img, i) => (
+                        <div 
+                            key={`${img.url}-${i}`}
+                            className="break-inside-avoid mb-4 relative group rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
+                        >
+                            <img 
+                                src={img.url} 
+                                alt="Gallery Item" 
+                                loading="lazy"
+                                decoding="async"
+                                className="w-full h-auto object-contain block" 
+                            />
+                        </div>
+                    ))}
                  </div>
             </div>
         </motion.div>
