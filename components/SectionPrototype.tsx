@@ -170,8 +170,8 @@ const getCardData = (id: number): ModalContent => {
                     transition={{ delay: 0.1 }} // Staggered: 0.1s
                     className="w-full flex flex-col items-start"
                 >
-                    {/* UPDATED: Changed to text-sm md:text-base to match subtext size of inner tiles */}
-                    <div className="text-zinc-900 text-sm md:text-base font-medium leading-relaxed">
+                    {/* UPDATED: Changed to text-lg to match request for 18pt */}
+                    <div className="text-zinc-900 text-lg font-medium leading-relaxed">
                         <p>
                             A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
                         </p>
@@ -206,8 +206,8 @@ const getCardData = (id: number): ModalContent => {
                         <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green relative z-10 leading-none">SERVICE & SECURITY</h3>
                         <div className="w-full h-px bg-zinc-200 mb-5 relative z-10" />
 
-                        {/* UPDATED: Changed to text-sm md:text-base to match subtext size of inner tiles */}
-                        <div className="flex flex-col gap-6 text-zinc-600 text-sm md:text-base font-medium leading-relaxed relative z-10 flex-1">
+                        {/* UPDATED: Changed to text-lg to match request for 18pt */}
+                        <div className="flex flex-col gap-6 text-zinc-600 text-lg font-medium leading-relaxed relative z-10 flex-1">
                             <p>
                                 Five minutes from downtown. Fifteen from the airport. Fifteen from Micron headquarters.
                             </p>
@@ -231,9 +231,9 @@ const getCardData = (id: number): ModalContent => {
                     >
                         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">INTEGRATION</h3>
                         <div className="w-full h-px bg-white/20 mb-4" />
-                        {/* Reference Size: text-sm md:text-base */}
-                        <div className="space-y-4 text-white/70 text-sm md:text-base font-medium leading-relaxed">
-                            <p className="font-bold text-white text-base md:text-lg">A Venue for Leadership.</p>
+                        {/* Reference Size: text-lg */}
+                        <div className="space-y-4 text-white/70 text-lg font-medium leading-relaxed">
+                            <p className="font-bold text-white text-xl">A Venue for Leadership.</p>
                             <p>A residential venue where Micron executives host, entertain, and recruit alongside Optimus and Cybercab in full operation. Board members, partners, visiting engineers, families, and dignitaries experience autonomous systems as part of daily life.</p>
                         </div>
                     </InnerBento>
@@ -246,9 +246,9 @@ const getCardData = (id: number): ModalContent => {
                     >
                         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">INFLECTION POINT</h3>
                         <div className="w-full h-px bg-white/20 mb-4" />
-                        {/* Reference Size: text-sm md:text-base */}
-                        <div className="space-y-4 text-white/70 text-sm md:text-base font-medium leading-relaxed">
-                            <p className="font-bold text-white text-base md:text-lg">Scaling to Billions.</p>
+                        {/* Reference Size: text-lg */}
+                        <div className="space-y-4 text-white/70 text-lg font-medium leading-relaxed">
+                            <p className="font-bold text-white text-xl">Scaling to Billions.</p>
                             <p>Tesla is producing Optimus at million-unit annual capacity. Deployment into homes, businesses, and public spaces accelerates from here. Micron House is operational at the earliest stage of that curve — generating institutional knowledge from day one.</p>
                         </div>
                     </InnerBento>
