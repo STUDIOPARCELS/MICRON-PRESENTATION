@@ -157,23 +157,18 @@ const getCardData = (id: number): ModalContent => {
     case 1: return { 
         ...base, 
         title: 'PROTOTYPE', 
-        // UPDATED: Added subtitle here so it gets the divider line automatically in the Modal header
         subtitle: 'AUTONOMOUS HUB', 
         modalLayout: 'default', 
         maxWidth: 'max-w-7xl', 
-        // UPDATED: Removed fixed aspect ratio to allow natural height expansion and proper bottom padding
-        // aspectRatio: 'aspect-[3/4]', 
         content: (
-            // UPDATED: Added pb-12 for bottom padding and increased gap to gap-8
-            <div className="flex flex-col gap-8 h-auto pb-12">
-                {/* 1. AUTONOMOUS HUB (Full Width) */}
+            <div className="flex flex-col gap-6 h-auto pb-12">
+                {/* 1. AUTONOMOUS HUB (Full Width) - Intro */}
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }} // Staggered: 0.1s
                     className="w-full flex flex-col items-start"
                 >
-                    {/* UPDATED: Removed the manual header and divider since it's now in the modal title/subtitle */}
                     <div className="text-zinc-900 text-lg font-medium leading-relaxed">
                         <p>
                             A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
@@ -181,10 +176,10 @@ const getCardData = (id: number): ModalContent => {
                     </div>
                 </motion.div>
 
-                {/* 2. VIDEO GRID (Moved Above Service Layer) */}
+                {/* 2. MIDDLE ROW: VIDEO (Left) + SERVICE LAYER (Right) */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {/* VIDEO (Left 2/3) */}
                     <div className="lg:col-span-2 w-full h-full">
-                         {/* UPDATED: Wrapped Video in motion.div for Staggered Entrance (0.3s) */}
                          <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -193,76 +188,69 @@ const getCardData = (id: number): ModalContent => {
                          >
                             <ModalVideo 
                                 src={VIDEO_PROTOTYPE}
-                                // UPDATED: Strictly enforced aspect-[1.5/1.1] to match BentoCard exactly
+                                // Strictly enforced aspect-[1.5/1.1] to match BentoCard exactly
                                 className="w-full aspect-[1.5/1.1] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group"
                             />
                          </motion.div>
                     </div>
                     
-                    <div className="lg:col-span-1 flex flex-col gap-4 h-full">
-                        <InnerBento 
-                            gradient="bg-micron-eggplant" 
-                            direction="right" 
-                            delay={0.5} // UPDATED: Staggered 0.5s
-                            className="flex-grow" 
-                        >
-                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">INTEGRATION</h3>
-                            <div className="w-full h-px bg-white/20 mb-4" />
-                            {/* UPDATED: Increased text size to text-base md:text-lg to match Service Layer */}
-                            <div className="space-y-4 text-white/90 text-base md:text-lg font-medium leading-relaxed">
-                                <p className="font-bold text-white">A Venue for Leadership.</p>
-                                <p>A residential venue for the leaders and policy makers building and governing the future.</p>
-                                <p>Guests meet to experience the shift to autonomous systems directly.</p>
-                            </div>
-                        </InnerBento>
+                    {/* SERVICE & SECURITY LAYER (Right 1/3 - MOVED FROM BOTTOM) */}
+                    <motion.div 
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.5, duration: 0.8 }}
+                        className="lg:col-span-1 w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] border border-zinc-200 relative overflow-hidden group flex flex-col h-full"
+                    >
+                        <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green relative z-10 leading-none">SERVICE & SECURITY</h3>
+                        <div className="w-full h-px bg-zinc-200 mb-5 relative z-10" />
 
-                        <InnerBento 
-                            gradient="bg-micron-grey1" 
-                            direction="right" 
-                            delay={0.7} // UPDATED: Staggered 0.7s
-                            className="flex-grow" 
-                        >
-                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">INFLECTION POINT</h3>
-                            <div className="w-full h-px bg-white/20 mb-4" />
-                            {/* UPDATED: Increased text size to text-base md:text-lg to match Service Layer */}
-                            <div className="space-y-4 text-white/90 text-base md:text-lg font-medium leading-relaxed">
-                                <p className="font-bold text-white">Scaling to Billions.</p>
-                                <p>Daily life transforms permanently. This setting invites the architects of tomorrow to navigate the profound questions involved in bringing this future to the world.</p>
-                            </div>
-                        </InnerBento>
-                    </div>
+                        {/* UPDATED: Increased font size to text-lg md:text-xl */}
+                        <div className="flex flex-col gap-6 text-zinc-600 text-lg md:text-xl font-medium leading-relaxed relative z-10 flex-1">
+                            <p>
+                                Five minutes from downtown. Fifteen from the airport. Fifteen from Micron headquarters.
+                            </p>
+                            
+                            {/* UPDATED: Removed green vertical separator */}
+
+                            <p>
+                                Optimus and Cybercab handle arrivals, departures, transfers, and coordinate deliveries, services, and experiences directly into the residence.
+                            </p>
+                        </div>
+                    </motion.div>
                 </div>
 
-                {/* 3. SERVICE & SECURITY LAYER (Moved Below Video Grid) */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.9 }} // Staggered: 0.9s
-                    className="w-full bg-white rounded-xl px-6 py-5 md:px-8 md:py-6 text-zinc-900 shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] relative overflow-hidden group"
-                >
-                    <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green relative z-10">SERVICE & SECURITY LAYER</h3>
-                    {/* UPDATED: Darkened gray line (zinc-200) for better visibility */}
-                    <div className="w-full h-px bg-zinc-200 mb-6 relative z-10" />
-
-                    {/* UPDATED: Text size increased to text-base md:text-lg to match request */}
-                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 text-zinc-600 text-base md:text-lg font-medium leading-relaxed relative z-10">
-                        <p>
-                            Five minutes from downtown. Fifteen from the airport. Fifteen from Micron headquarters. The home sits at the center of everything Boise offers — and Optimus and Cybercab are the mechanism that brings it through the front door.
-                        </p>
-                        
-                        {/* Separator Line */}
-                        {/* UPDATED: Wrapped in flex container to ensure horizontal centering within the column */}
-                        <div className="hidden md:flex justify-center h-full">
-                            <div className="w-[3px] bg-micron-green h-full rounded-full"></div>
+                {/* 3. BOTTOM ROW: INTEGRATION + INFLECTION POINT (MOVED FROM RIGHT OF VIDEO) */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <InnerBento 
+                        gradient="bg-micron-eggplant" 
+                        direction="up" 
+                        delay={0.7} 
+                        className="flex-grow min-h-[200px]" 
+                    >
+                        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">INTEGRATION</h3>
+                        <div className="w-full h-px bg-white/20 mb-4" />
+                        {/* UPDATED: Reduced subtext size (text-sm md:text-base) and lighter color (text-white/70). Title kept prominent. */}
+                        <div className="space-y-4 text-white/70 text-sm md:text-base font-medium leading-relaxed">
+                            <p className="font-bold text-white text-base md:text-lg">A Venue for Leadership.</p>
+                            <p>A residential venue where Micron executives host, entertain, and recruit alongside Optimus and Cybercab in full operation. Board members, partners, visiting engineers, families, and dignitaries experience autonomous systems as part of daily life.</p>
                         </div>
-                        {/* Mobile horizontal divider */}
-                        <div className="md:hidden w-full h-[3px] bg-micron-green rounded-full"></div>
+                    </InnerBento>
 
-                        <p>
-                            Culinary, wellness, recreation, entertainment — each delivered into an intimate, private setting with a level of coordination and discretion that the autonomous infrastructure sustains across every event.
-                        </p>
-                    </div>
-                </motion.div>
+                    <InnerBento 
+                        gradient="bg-micron-grey1" 
+                        direction="up" 
+                        delay={0.9} 
+                        className="flex-grow min-h-[200px]" 
+                    >
+                        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">INFLECTION POINT</h3>
+                        <div className="w-full h-px bg-white/20 mb-4" />
+                        {/* UPDATED: Reduced subtext size (text-sm md:text-base) and lighter color (text-white/70). Title kept prominent. */}
+                        <div className="space-y-4 text-white/70 text-sm md:text-base font-medium leading-relaxed">
+                            <p className="font-bold text-white text-base md:text-lg">Scaling to Billions.</p>
+                            <p>Tesla is producing Optimus at million-unit annual capacity. Deployment into homes, businesses, and public spaces accelerates from here. Micron House is operational at the earliest stage of that curve — generating institutional knowledge from day one.</p>
+                        </div>
+                    </InnerBento>
+                </div>
             </div>
         )
     };
@@ -386,10 +374,12 @@ const getCardData = (id: number): ModalContent => {
                         >
                             <div className="absolute top-4 right-4 opacity-30"><Cpu size={24} /></div>
                             <div>
-                                <h3 className="text-2xl font-black uppercase mb-1">MICRON</h3>
-                                <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-4">Sanjay Mehrotra, CEO</p>
-                                <div className="mb-2 pl-3 border-l-2 border-white/30">
-                                    <p className="text-sm md:text-[1.05rem] font-bold italic text-white/90 leading-relaxed tracking-tight">"Transform how the world uses information to enrich life for all."</p>
+                                <h3 className="text-3xl font-black uppercase mb-1">MICRON</h3>
+                                {/* UPDATED: Increased font size to text-sm */}
+                                <p className="text-sm font-bold uppercase tracking-widest text-white/50 mb-4">Sanjay Mehrotra, CEO</p>
+                                <div className="mb-2 pl-4 border-l-2 border-white/30">
+                                    {/* UPDATED: Increased quote size to text-lg md:text-2xl */}
+                                    <p className="text-lg md:text-2xl font-bold italic text-white/90 leading-relaxed tracking-tight">"Transform how the world uses information to enrich life for all."</p>
                                 </div>
                             </div>
                             <div className="text-white/70 font-medium mt-4">
@@ -412,11 +402,13 @@ const getCardData = (id: number): ModalContent => {
                         >
                             <div className="absolute top-4 right-4 opacity-30"><Bot size={24} /></div>
                             <div>
-                                <h3 className="text-2xl font-black uppercase mb-1">TESLA</h3>
-                                <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-4">Elon Musk, CEO</p>
-                                {/* UPDATED: Increased quote border padding to pl-12 */}
-                                <div className="mb-2 pl-12 border-l-2 border-white/30">
-                                    <p className="text-sm md:text-[1.05rem] font-bold italic text-white/90 leading-relaxed tracking-tight">
+                                <h3 className="text-3xl font-black uppercase mb-1">TESLA</h3>
+                                {/* UPDATED: Increased font size to text-sm */}
+                                <p className="text-sm font-bold uppercase tracking-widest text-white/50 mb-4">Elon Musk, CEO</p>
+                                {/* UPDATED: Responsive padding for quote border (pl-6 on mobile, pl-12 on desktop) */}
+                                <div className="mb-2 pl-6 md:pl-12 border-l-2 border-white/30">
+                                    {/* UPDATED: Increased quote size to text-lg md:text-2xl */}
+                                    <p className="text-lg md:text-2xl font-bold italic text-white/90 leading-relaxed tracking-tight">
                                         "Accelerate the world's transition to sustainable energy. Build a world of amazing abundance."
                                     </p>
                                 </div>
@@ -440,10 +432,10 @@ const getCardData = (id: number): ModalContent => {
                     }}
                     className="bg-micron-eggplant-light rounded-xl p-6 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 will-change-transform"
                >
-                    {/* UPDATED: Arrow moved to right side */}
-                    <div className="flex items-center justify-between mb-4 pb-4 border-b border-micron-eggplant/20">
+                    {/* UPDATED: Arrow moved to left side next to title (justify-start gap-4) and increased icon size */}
+                    <div className="flex items-center justify-start gap-4 mb-4 pb-4 border-b border-micron-eggplant/20">
                         <h3 className="text-3xl font-black uppercase tracking-tight text-white">FUTURE SCALE</h3>
-                        <TrendingUp className="text-white" size={24} />
+                        <TrendingUp className="text-white" size={32} />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
                         <div className="md:col-span-4 flex flex-col gap-4 border-b md:border-b-0 md:border-r border-micron-eggplant/20 pb-4 md:pb-0 justify-center">

@@ -313,7 +313,8 @@ export const Hero: React.FC = () => {
       <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4">
         
         {/* TOP SECTION */}
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 h-auto md:h-[450px] w-full">
+        {/* UPDATED: Changed grid layout to [55fr_45fr] for desktop to make video wider */}
+        <div className="flex flex-col lg:grid lg:grid-cols-[55fr_45fr] gap-4 h-auto md:h-[450px] w-full">
             
             {/* 1. TEXT ANIMATION AREA (White Bento) */}
             {/* UPDATED: Changed order to order-2 (Bottom on Mobile, Right on Desktop) */}
@@ -528,4 +529,4 @@ export const Hero: React.FC = () => {
       </div>
     </section>
   );
-};
+}

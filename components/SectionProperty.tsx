@@ -172,9 +172,8 @@ export const SectionProperty: React.FC = () => {
       let title = "";
       
       // CONFIGURATION FOR GALLERIES
-      // UPDATED: All aspect ratios are now strictly 4:3 (Landscape) or 3:4 (Portrait)
-      // aspect-[4/3] = Landscape
-      // aspect-[3/4] = Portrait
+      // aspect-[4/3] = Landscape (1.33)
+      // aspect-[3/4] = Portrait (0.75)
       
       const galleryConfig = {
           main: {
@@ -231,8 +230,8 @@ export const SectionProperty: React.FC = () => {
                   { file: "BR2.7.JPEG", aspect: "aspect-[4/3]" },
                   { file: "BR2_8.jpg", aspect: "aspect-[4/3]" },
                   { file: "BR3.1.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0728.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0731.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0728.JPEG", aspect: "aspect-[3/4]" },
+                  { file: "IMG_0731.JPEG", aspect: "aspect-[3/4]" },
                   { file: "MABA.JPEG", aspect: "aspect-[4/3]" },
                   { file: "br1.3.JPEG", aspect: "aspect-[4/3]" },
                   { file: "br1.6.JPEG", aspect: "aspect-[4/3]" },
@@ -241,8 +240,8 @@ export const SectionProperty: React.FC = () => {
                   { file: "br2.6.JPEG", aspect: "aspect-[4/3]" },
                   { file: "br3.0.jpg", aspect: "aspect-[4/3]" },
                   { file: "br3_0.jpg", aspect: "aspect-[4/3]" },
-                  { file: "dusting.jpeg", aspect: "aspect-[4/3]" },
-                  { file: "dusting2.png", aspect: "aspect-[4/3]" },
+                  { file: "dusting.jpeg", aspect: "aspect-[3/4]" },
+                  { file: "dusting2.png", aspect: "aspect-[3/4]" },
                   { file: "stairs.jpg", aspect: "aspect-[3/4]" }
               ]
           },
@@ -259,9 +258,6 @@ export const SectionProperty: React.FC = () => {
                   { file: "back_yard_6.JPEG", aspect: "aspect-[4/3]" },
                   { file: "exterior.3.jpg", aspect: "aspect-[4/3]" },
                   { file: "exterior.4.JPEG", aspect: "aspect-[4/3]" },
-                  // REMOVED: exterior.4.jpg (Duplicate)
-                  // REMOVED: exterior_3.JPG (Duplicate)
-                  // REMOVED: exterior_4.JPG (Duplicate)
                   { file: "fall.jpg", aspect: "aspect-[4/3]" },
                   { file: "front.jpg", aspect: "aspect-[4/3]" },
                   { file: "front.winter.png", aspect: "aspect-[4/3]" },
@@ -274,7 +270,7 @@ export const SectionProperty: React.FC = () => {
 
       const config = galleryConfig[level];
       
-      // UPDATED: Removed 'GALLERY' from titles as requested
+      // Removed 'GALLERY' from titles as requested
       if (level === 'main') title = "MAIN LEVEL";
       if (level === 'upper') title = "UPPER LEVEL";
       if (level === 'grounds') title = "EXTERIOR";

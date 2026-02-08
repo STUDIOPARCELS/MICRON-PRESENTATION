@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence, Reorder } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { ModalContent } from '../types';
 
@@ -283,9 +283,9 @@ const ReferenceModalContent: React.FC<{ data: ModalContent; onClose: () => void 
   );
 };
 
-// Category D: Gallery (UPDATED: DRAG & DROP ENABLED)
+// Category D: Gallery (UPDATED: SIMPLIFIED LAYOUT)
 const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }> = ({ data, onClose }) => {
-    // Local state for drag and drop reordering
+    // Local state to ensure reactivity
     const [items, setItems] = useState(data.galleryImages || []);
     const count = items.length;
 
@@ -294,14 +294,13 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
     }, [data.galleryImages]);
 
     // --- AI/MATH LAYOUT LOGIC ---
-    // 1. Parse aspect ratio from class string or default
     const getAspectRatio = (cls?: string) => {
-        if (cls?.includes('[3/2]')) return 1.5;   // Landscape (Old)
-        if (cls?.includes('[2/3]')) return 0.666; // Portrait (Old)
-        if (cls?.includes('[4/3]')) return 1.33;  // Landscape (New)
-        if (cls?.includes('[3/4]')) return 0.75;  // Portrait (New)
-        if (cls?.includes('square')) return 1;    // Square
-        return 1.33; // Default fallback to 4:3
+        if (cls?.includes('[3/2]')) return 1.5;   
+        if (cls?.includes('[2/3]')) return 0.666; 
+        if (cls?.includes('[4/3]')) return 1.33;  // Landscape
+        if (cls?.includes('[3/4]')) return 0.75;  // Portrait
+        if (cls?.includes('square')) return 1;    
+        return 1.33; // Default
     };
 
     return (
@@ -326,47 +325,36 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
                 </button>
             </div>
             
-            {/* Gallery Container - Reorderable Grid */}
+            {/* Gallery Container - Stable Flex Layout */}
             <div className="flex-1 w-full h-full overflow-y-auto custom-scrollbar relative z-10 px-8 md:px-10 pb-12 overscroll-contain">
-                 {/* 
-                    JUSTIFIED GRID IMPLEMENTATION + REORDER
-                    Using Reorder.Group for drag and drop list functionality
-                 */}
-                 <Reorder.Group 
-                    axis="y" 
-                    values={items} 
-                    onReorder={setItems} 
-                    className="flex flex-wrap gap-4 w-full"
-                 >
-                    {items.map((img) => {
+                 <div className="flex flex-wrap gap-4 w-full">
+                    {items.map((img, i) => {
                         const ratio = getAspectRatio(img.className);
-                        const baseHeight = 360; // Adjusted base height for better 4:3 fit
+                        const baseHeight = 360; 
                         const flexBasis = baseHeight * ratio;
                         
                         return (
-                            <Reorder.Item
-                                key={img.url}
-                                value={img}
-                                className="relative flex-grow h-[36vh] min-h-[300px] bg-zinc-100 group overflow-hidden cursor-grab active:cursor-grabbing rounded-lg"
+                            <div
+                                key={`${img.url}-${i}`}
+                                className="relative flex-grow h-[36vh] min-h-[300px] bg-zinc-100 group overflow-hidden rounded-lg hover:opacity-95 transition-opacity duration-200"
                                 style={{ 
                                     flexBasis: `${flexBasis}px`,
                                     flexGrow: ratio * 100, 
                                 }}
-                                whileDrag={{ scale: 1.05, zIndex: 50 }}
                             >
                                 <img 
                                     src={img.url} 
                                     alt="Gallery Item" 
                                     loading="lazy"
                                     decoding="async"
-                                    className="absolute inset-0 w-full h-full object-cover pointer-events-none" 
+                                    className="absolute inset-0 w-full h-full object-cover" 
                                 />
-                            </Reorder.Item>
+                            </div>
                         );
                     })}
                     {/* SPACER: Prevents the last row from stretching if it has few items */}
                     <div className="flex-grow-[999] bg-transparent min-h-0" style={{ flexBasis: '360px' }}></div>
-                 </Reorder.Group>
+                 </div>
             </div>
         </motion.div>
     );
