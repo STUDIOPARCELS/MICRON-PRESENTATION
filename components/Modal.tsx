@@ -285,7 +285,6 @@ const ReferenceModalContent: React.FC<{ data: ModalContent; onClose: () => void 
 };
 
 // Category D: Gallery (UPDATED: PERFECT GRID LAYOUT)
-// Using CSS Grid with fixed aspect ratio containers and object-contain to avoid cropping while maintaining perfect grid
 const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }> = ({ data, onClose }) => {
     const [items, setItems] = useState(data.galleryImages || []);
     const count = items.length;
@@ -318,22 +317,21 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
             
             {/* Gallery Container - Grid Layout */}
             <div className="flex-1 w-full h-full overflow-y-auto custom-scrollbar relative z-10 px-8 md:px-10 pb-12 overscroll-contain">
-                 {/* CSS Grid for Perfect Layout */}
-                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-8">
+                 {/* CSS Grid for Perfect Layout with Mixed Aspect Ratios */}
+                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-8">
                     {items.map((img, i) => {
                         return (
                             <div 
                                 key={`${img.url}-${i}`}
-                                // Fixed aspect ratio container (4:3) to ensure perfect alignment
-                                className="relative aspect-[4/3] w-full rounded-xl overflow-hidden bg-zinc-50 shadow-sm border border-zinc-100"
+                                // UPDATED: Floating shadow effect added
+                                className="relative aspect-square w-full rounded-2xl overflow-hidden bg-white border border-zinc-100 flex items-center justify-center p-6 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.2)] hover:shadow-[0_40px_80px_-12px_rgba(0,0,0,0.3)] hover:-translate-y-2 transition-all duration-300"
                             >
                                 <img 
                                     src={img.url} 
                                     alt="Gallery Item" 
                                     loading="lazy"
                                     decoding="async"
-                                    // UPDATED: object-contain to ensure no cropping
-                                    className="w-full h-full object-contain p-2" 
+                                    className="w-full h-full object-contain drop-shadow-sm" 
                                 />
                             </div>
                         );

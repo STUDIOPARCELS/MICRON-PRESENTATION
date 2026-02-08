@@ -370,7 +370,7 @@ export const Hero: React.FC = () => {
                                   hidden: { opacity: 1 },
                                   visible: { 
                                       opacity: 1,
-                                      // UPDATED: Slower stagger (0.7s was 0.55s) to slow down by ~25%
+                                      // UPDATED: Slower stagger (0.7s was 0.5s) to slow down by ~25%
                                       transition: { staggerChildren: 0.7 } 
                                   },
                                   exit: { 
@@ -410,7 +410,7 @@ export const Hero: React.FC = () => {
                     onTimeUpdate={handleVideoTimeUpdate}
                     className="absolute inset-0 w-full h-full object-cover opacity-100"
                 >
-                     <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MICRON%20HOUSE_NEW.mp4" type="video/mp4" />
+                     <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/NEW%20MICRON%20HOUSE.mp4" type="video/mp4" />
                 </video>
             </motion.div>
 
