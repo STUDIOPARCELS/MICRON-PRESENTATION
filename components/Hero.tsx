@@ -140,7 +140,7 @@ export const Hero: React.FC = () => {
   const iconControls = useAnimation();
 
   // Unified Start Sequence Function
-  // Resets everything, starts video immediately, waits 1.5s, starts text
+  // Resets everything, starts video immediately, waits 1.0s, starts text
   const startSequence = () => {
     // 1. Clear any pending timers
     if (sequenceTimer.current) clearTimeout(sequenceTimer.current);
@@ -151,16 +151,16 @@ export const Hero: React.FC = () => {
     setLogoVisible(false);
     iconControls.set({ x: 200, rotate: -360, opacity: 0 });
 
-    // 3. Restart Video Immediately
+    // 3. Restart Video Immediately (No Delay)
     if (videoRef.current) {
         videoRef.current.currentTime = 0;
         videoRef.current.play().catch((e) => console.log("Video play error:", e));
     }
 
-    // 4. Schedule Text Start (1.5s delay)
+    // 4. Schedule Text Start (1.0s delay)
     sequenceTimer.current = setTimeout(() => {
         setCurrentSentenceIndex(0);
-    }, 1500);
+    }, 1000);
   };
 
   // Handle Video Loop (End of video triggers replay)
