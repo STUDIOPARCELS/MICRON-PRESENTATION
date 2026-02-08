@@ -111,7 +111,8 @@ export const SectionServingTesla: React.FC = () => {
                             <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Lisa Wood • Founder</p>
                          </div>
                          <div className="w-12 h-1 bg-micron-green/20 mb-6"></div>
-                         <div className="space-y-4 text-zinc-600 leading-relaxed text-base font-medium">
+                         {/* UPDATED: Standardized font size to text-lg (18px) */}
+                         <div className="space-y-4 text-zinc-600 leading-relaxed text-lg font-medium">
                             <p>Three decades in tech. Retired 2023. Artist, athlete, researcher.</p>
                             <p>This Boise property has been a second home for 25 years — barely used. I love what Micron and Tesla are building. I also respect what it demands of us.</p>
                             <p>I created the Micron House concept — the strategy, the design, the branding — to propose a partnership that puts this historic asset to its highest use.</p>
@@ -124,7 +125,8 @@ export const SectionServingTesla: React.FC = () => {
                         className="bg-[#2c2e33] text-white rounded-[2rem] p-8 border border-zinc-700 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
                     >
                         <h3 className="text-2xl font-bold tracking-tight text-white/90 mb-4">Long-Term Relationship</h3>
-                        <p className="text-zinc-300 font-light leading-relaxed text-base">
+                        {/* UPDATED: Standardized font size to text-lg (18px) */}
+                        <p className="text-zinc-300 font-light leading-relaxed text-lg">
                             The objective of this presentation is to formalize a long-term agreement. Micron and Tesla stakeholders utilize this residence as a premier corporate amenity and entertainment hub. The security and service layers enabled by your technology turn a second home into a strategic asset.
                         </p>
                     </motion.div>
@@ -203,9 +205,8 @@ export const SectionServingTesla: React.FC = () => {
                     transition={{ delay: 0.1 }}
                     className="w-full flex flex-col items-start"
                 >
-                    {/* REMOVED HEADER "THE LIVING LABORATORY" AS REQUESTED */}
-                    {/* UPDATED: Font size increased to text-xl */}
-                    <div className="text-zinc-900 text-xl font-medium leading-relaxed">
+                    {/* UPDATED: Standardized font size to text-lg (18px) */}
+                    <div className="text-zinc-900 text-lg font-medium leading-relaxed">
                         <p>
                             Domestic intelligence generated at Micron House feeds directly into product development cycles. The residence becomes an active research node — gathering real-world behavioral data in a controlled, premium environment.
                         </p>
@@ -232,8 +233,8 @@ export const SectionServingTesla: React.FC = () => {
                     {/* UPDATED: Reduced bottom margin */}
                     <div className="w-full h-px bg-zinc-200 mb-4 relative z-10" />
 
-                    {/* UPDATED: Increased base text to text-lg md:text-xl, reduced grid gap */}
-                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 text-zinc-600 text-lg md:text-xl font-medium leading-relaxed relative z-10 items-center">
+                    {/* UPDATED: Standardized text to text-lg (18px), reduced grid gap */}
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 text-zinc-600 text-lg font-medium leading-relaxed relative z-10 items-center">
                         <div className="flex flex-col gap-6 md:gap-8">
                              <div>
                                  <span className="block text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-none">15 <span className="text-2xl font-bold align-top text-zinc-400">min</span></span>
@@ -313,9 +314,9 @@ export const SectionServingTesla: React.FC = () => {
                                     "Optimus manages a quiet household for an employee's family.",
                                     "Cybercab delivers a senior Washington official to a fireside."
                                 ].map((item, i) => (
-                                    // UPDATED: Increased to text-base
-                                    <li key={i} className="flex items-start gap-3 text-white/90 text-base font-medium leading-snug">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-1.5 shrink-0" />
+                                    // UPDATED: Increased to text-lg (18px)
+                                    <li key={i} className="flex items-start gap-3 text-white/90 text-lg font-medium leading-snug">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0" />
                                         <span>{item}</span>
                                     </li>
                                 ))}
@@ -342,8 +343,8 @@ export const SectionServingTesla: React.FC = () => {
                                 <span className="text-xs uppercase tracking-widest text-white/50">First Access</span>
                             </div>
                             <div className="w-full h-px bg-white/20 mb-4" />
-                            {/* UPDATED: Increased to text-base */}
-                            <div className="space-y-4 text-white/90 text-base font-medium leading-relaxed">
+                            {/* UPDATED: Increased to text-lg (18px) */}
+                            <div className="space-y-4 text-white/90 text-lg font-medium leading-relaxed">
                                 <p>
                                     Micron's leadership experiences Optimus and Cybercab across the full spectrum of real life before any consumer on earth.
                                 </p>
@@ -373,7 +374,8 @@ export const SectionServingTesla: React.FC = () => {
                  {/* Scale Section */}
                  <div>
                     <h5 className="text-3xl font-black text-white mb-3 uppercase leading-none tracking-tight">SCALE</h5>
-                    <p className="text-white font-medium leading-relaxed text-lg md:text-xl">
+                    {/* UPDATED: Standardized to text-lg (18px) */}
+                    <p className="text-white font-medium leading-relaxed text-lg">
                         Autonomous systems are moving from thousands to billions within a decade. Speed of adoption outpaces all previous technological transition — electricity, the internet, smartphones. Micron silicon powers the memory in every unit.
                     </p>
                  </div>
@@ -384,7 +386,8 @@ export const SectionServingTesla: React.FC = () => {
                  {/* Friction Section */}
                  <div>
                     <h5 className="text-3xl font-black text-white mb-3 uppercase leading-none tracking-tight">FRICTION</h5>
-                    <p className="text-white font-medium leading-relaxed text-lg md:text-xl">
+                    {/* UPDATED: Standardized to text-lg (18px) */}
+                    <p className="text-white font-medium leading-relaxed text-lg">
                         Each autonomous unit carries cameras, sensors, and microphones. Billions of mobile platforms operating in homes, neighborhoods, schools, and public spaces permanently alter the sensory landscape of daily life.
                     </p>
                  </div>

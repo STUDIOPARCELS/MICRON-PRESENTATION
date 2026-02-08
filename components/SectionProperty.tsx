@@ -174,70 +174,78 @@ export const SectionProperty: React.FC = () => {
       
       const galleryConfig = {
           main: {
-              folder: "UPPER FLOOR", 
+              // UPDATED: Using MAIN FLOOR images
+              folder: "MAIN FLOOR", 
               files: [
-                  { file: "BR1.7.jpg", aspect: "aspect-[4/3]" },
-                  { file: "BR2_8.jpg", aspect: "aspect-[4/3]" },
-                  { file: "MABA.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "br1.6.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "br2.3.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "br3.0.jpg", aspect: "aspect-[4/3]" },
-                  { file: "br3_0.jpg", aspect: "aspect-[4/3]" },
-                  { file: "dusting.jpeg", aspect: "aspect-[3/4]" },
-                  { file: "stairs.jpg", aspect: "aspect-[3/4]" }
+                  "IMG_0701.JPEG",
+                  "IMG_0705.JPEG",
+                  "IMG_0709 copy.jpg",
+                  "IMG_0710.JPEG",
+                  "IMG_0735.JPEG",
+                  "IMG_0736.JPEG",
+                  "IMG_0737.JPEG",
+                  "IMG_0738.JPEG",
+                  "IMG_0761.JPEG",
+                  "LIVING.0.jpg",
+                  "dining.2.JPEG",
+                  "dining.6.JPEG",
+                  "entry.0.JPEG",
+                  "entry.1.JPEG",
+                  "kitchen.1.jpg",
+                  "living.3.JPEG",
+                  "living.4.JPEG",
+                  "living.5.JPEG",
+                  "living.9.JPEG",
+                  "office.1.JPEG",
+                  "office.3.JPEG"
               ]
           },
           upper: {
               folder: "UPPER FLOOR", 
               files: [
-                  { file: "3rd BA_2.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "BR1.7.jpg", aspect: "aspect-[4/3]" },
-                  { file: "BR2.7.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "BR2_8.jpg", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0728.JPEG", aspect: "aspect-[3/4]" },
-                  { file: "MABA.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "br1.6.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "br2.3.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "br3_0.jpg", aspect: "aspect-[4/3]" },
-                  { file: "dusting.jpeg", aspect: "aspect-[3/4]" },
-                  { file: "dusting2.png", aspect: "aspect-[3/4]" },
-                  { file: "stairs.jpg", aspect: "aspect-[3/4]" }
+                  "3rd BA_2.JPEG",
+                  "BR1.7.jpg",
+                  "BR2.7.JPEG",
+                  "BR2_8.jpg",
+                  "IMG_0728.JPEG",
+                  "MABA.JPEG",
+                  "br1.6.JPEG",
+                  "br2.3.JPEG",
+                  "br3_0.jpg",
+                  "dusting.jpeg",
+                  "dusting2.png",
+                  "stairs.jpg"
               ]
           },
           grounds: {
               folder: "GROUNDS", 
               files: [
-                  { file: "GARDEN.2.jpg", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0304.JPEG", aspect: "aspect-[3/4]" },
-                  { file: "IMG_2422.jpg", aspect: "aspect-[4/3]" },
-                  { file: "back_yard_1.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "back_yard_3.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "back_yard_4.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "back_yard_5.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "back_yard_6.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "exterior.3.jpg", aspect: "aspect-[4/3]" },
-                  { file: "exterior.4.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "fall.jpg", aspect: "aspect-[4/3]" },
-                  { file: "front.jpg", aspect: "aspect-[4/3]" },
-                  { file: "front.winter.png", aspect: "aspect-[4/3]" },
-                  { file: "fruit.3.jpg", aspect: "aspect-[3/4]" },
-                  { file: "garden.10.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "night.jpg", aspect: "aspect-[4/3]" }
+                  "GARDEN.2.jpg",
+                  "IMG_0304.JPEG",
+                  "back_yard_1.JPEG",
+                  "exterior.3.jpg",
+                  "exterior.4.JPEG",
+                  "exterior.4.jpg",
+                  "exterior_3.JPG",
+                  "exterior_4.JPG",
+                  "fall.jpg",
+                  "front.winter.png",
+                  "garden.10.JPEG",
+                  "night.jpg"
               ]
           }
       };
 
       const config = galleryConfig[level];
       
-      // Removed 'GALLERY' from titles as requested
       if (level === 'main') title = "MAIN LEVEL";
       if (level === 'upper') title = "UPPER LEVEL";
       if (level === 'grounds') title = "EXTERIOR";
 
-      const images: GalleryItem[] = config.files.map(item => ({
-          url: buildUrl(config.folder, item.file),
-          className: item.aspect,
-          // UPDATED: Use 'contain' to ensure full image is visible without cropping
+      const images: GalleryItem[] = config.files.map(filename => ({
+          url: buildUrl(config.folder, filename),
+          // Removing manual aspect class to rely on grid layout
+          className: "aspect-[4/3]",
           objectFit: 'contain'
       }));
 

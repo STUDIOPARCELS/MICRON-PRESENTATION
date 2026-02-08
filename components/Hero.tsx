@@ -36,9 +36,9 @@ const sentences = [
         // UPDATED: Changed layout to mixed to support manual line breaking
         layout: "mixed",
         layoutOverrides: {
-            0: "w-full basis-full", // WITHOUT (Line 1)
-            1: "w-full basis-full"  // PLACE, (Line 2)
-            // THERE'S (starts Line 3 automatically)
+            0: "md:w-full md:basis-full", // WITHOUT (Inline mobile, Stacked desktop)
+            1: "md:w-full md:basis-full"  // PLACE, (Inline mobile, Stacked desktop)
+            // THERE'S (starts Line 3 automatically on desktop, flows on mobile)
         }
     },
 ];
@@ -417,12 +417,13 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* BOTTOM SECTION: PARADIGM & QUOTE */}
-        {/* UPDATED: Changed to animate for guaranteed population on mobile */}
+        {/* UPDATED: Changed to whileInView for scroll activation on desktop */}
         <motion.div 
             ref={bottomSectionRef}
             initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 2.5, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 2.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row md:items-stretch min-h-[400px] md:min-h-[360px] mt-4 p-8 md:p-8 gap-4 md:gap-8 group"
         >
             {/* LEFT: Title + Address Block (Flex-1) */}
@@ -482,12 +483,12 @@ export const Hero: React.FC = () => {
                 <motion.div
                         initial="hidden"
                         whileInView="visible"
-                        // UPDATED: Adjusted viewport amount and margin to "wait for scroll" before animating.
-                        // margin-bottom of -100px helps delay trigger until user scrolls further down.
-                        viewport={{ once: true, amount: 0.5, margin: "0px 0px -100px 0px" }}
+                        // UPDATED: Aggressive viewport settings to ensure scroll trigger. 
+                        // margin-bottom of -250px forces element to be well within view before triggering.
+                        viewport={{ once: true, amount: 0.5, margin: "0px 0px -250px 0px" }}
                         variants={{
-                            // UPDATED: Slowed down from 0.25 to 0.40 and maintained delay
-                            visible: { transition: { staggerChildren: 0.40, delayChildren: 1.5 } },
+                            // UPDATED: Reduced delayChildren slightly since we rely on scroll trigger
+                            visible: { transition: { staggerChildren: 0.40, delayChildren: 0.2 } },
                             hidden: {}
                         }}
                         className="font-micron text-2xl md:text-3xl text-white leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4"

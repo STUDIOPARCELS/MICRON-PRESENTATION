@@ -100,7 +100,8 @@ const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: st
 const ModalVideo = ({ src, className = "" }: { src: string; className?: string }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
-    const isInView = useInView(containerRef, { amount: 0.5 });
+    // UPDATED: Reduced threshold to 0.1 to ensure immediate detection on mount
+    const isInView = useInView(containerRef, { amount: 0.1 });
     const [hasPlayed, setHasPlayed] = useState(false);
 
     useEffect(() => {
@@ -143,6 +144,8 @@ const ModalVideo = ({ src, className = "" }: { src: string; className?: string }
                 autoPlay 
                 muted 
                 playsInline 
+                // UPDATED: Added preload="auto" to prioritize loading
+                preload="auto"
                 onEnded={handleEnded}
                 // Important: loop is false so it plays once then stops
                 loop={false}
@@ -191,9 +194,12 @@ const getCardData = (id: number): ModalContent => {
                         transition={{ delay: 0.3, duration: 0.8 }}
                         className="lg:col-span-1 w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] relative overflow-hidden group flex flex-col justify-center h-full"
                     >
-                        <h3 className="text-2xl font-black text-black mb-4 leading-tight">
-                            First Corporate Autonomous Residence
+                        {/* UPDATED: Removed "Corporate", now "First Autonomous Residence" */}
+                        <h3 className="text-lg md:text-xl font-black text-black mb-3 leading-tight">
+                            First Autonomous Residence
                         </h3>
+                        <div className="w-full h-px bg-zinc-200 mb-4" />
+                        
                         <div className="text-zinc-600 text-lg font-medium leading-relaxed relative z-10">
                             <p>
                                 A private corporate residence powered by autonomous systems — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
@@ -422,8 +428,8 @@ const getCardData = (id: number): ModalContent => {
                                 <h3 className="text-3xl font-black uppercase mb-1">TESLA</h3>
                                 {/* UPDATED: Increased font size to text-sm */}
                                 <p className="text-sm font-bold uppercase tracking-widest text-white/50 mb-4">Elon Musk, CEO</p>
-                                {/* UPDATED: Responsive padding for quote border (pl-6 on mobile, pl-12 on desktop) */}
-                                <div className="mb-2 pl-6 md:pl-12 border-l-2 border-white/30">
+                                {/* UPDATED: Adjusted padding to pl-4 to match Micron card */}
+                                <div className="mb-2 pl-4 border-l-2 border-white/30">
                                     {/* UPDATED: Standardized to text-lg for mobile/desktop (18px) */}
                                     <p className="text-lg font-bold italic text-white/90 leading-relaxed tracking-tight">
                                         "Accelerate the world's transition to sustainable energy. Build a world of amazing abundance."
@@ -493,13 +499,18 @@ const getCardData = (id: number): ModalContent => {
         content: (
         <div className="flex flex-col gap-4 h-full">
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
-               {/* UPDATED: Strictly enforced aspect-[1.5/1.1] to match BentoCard exactly */}
-               <div className="w-full aspect-[1.5/1.1]">
+               {/* UPDATED: Added wrapper with immediate animation trigger to prevent delay */}
+               <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="w-full aspect-[1.5/1.1]"
+               >
                     <ModalVideo 
                         src={VIDEO_PLACE} 
                         className="w-full h-full shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200"
                     />
-               </div>
+               </motion.div>
                
                {/* UPDATED: ENERGY - First (0.2) */}
                <InnerBento 
