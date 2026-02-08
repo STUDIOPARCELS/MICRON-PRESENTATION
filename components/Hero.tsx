@@ -32,14 +32,7 @@ const sentences = [
         hoverColor: "hover:text-green-900", 
         highlights: ["PLACE,", "PERSPECTIVE."],
         textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
-        layout: "mixed",
-        layoutOverrides: [
-            "w-auto mr-2 md:mr-4",                                     // WITHOUT
-            "flex-grow text-left md:w-auto md:flex-grow-0 md:mr-4",    // PLACE,
-            "w-auto mr-2 md:mr-4",                                     // THERE'S
-            "flex-grow text-left md:w-auto md:flex-grow-0 md:mr-4",    // NO
-            "w-full md:w-auto"                                         // PERSPECTIVE.
-        ]
+        layout: "default"
     },
 ];
 
