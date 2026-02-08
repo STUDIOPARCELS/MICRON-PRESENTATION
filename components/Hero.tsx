@@ -285,16 +285,17 @@ export const Hero: React.FC = () => {
                 layout
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                 className={`
-                    /* UPDATED: Mobile Logic
-                       - When layoutShift is true (Sentence 3):
-                         Expand min-height to 340px, padding-top to 36 (9rem) to fit logo at top, align text start.
-                       - Default: min-height 220px, normal padding, center alignment.
+                    /* UPDATED: Mobile Logic for Balanced Padding
+                       - layoutShift True (Sentence 3):
+                         min-h-[290px] (reduced from 340 for less white space)
+                         pt-32 (128px) -> Matches logo height (80px) + spacing (24px x 2)
+                         pb-6 (24px)
                        
                        Desktop Logic (md:):
                        - Always min-height 300px, justify-end (bottom align), standard padding.
                     */
                     ${layoutShift 
-                        ? 'min-h-[340px] px-6 pt-36 pb-8 justify-start' 
+                        ? 'min-h-[290px] px-6 pt-32 pb-6 justify-start' 
                         : 'min-h-[220px] p-6 justify-center'
                     }
                     md:min-h-[300px] md:h-full md:justify-end md:px-12 md:pt-12 md:pb-12
@@ -306,17 +307,17 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    // UPDATED: Mobile positioning: Top-8, Center Horizontally (left-0 right-0 mx-auto).
-                    // Desktop positioning: Top-16 Right-28 (absolute right positioning).
-                    className="absolute top-8 left-0 right-0 mx-auto w-fit md:top-16 md:right-28 md:left-auto md:mx-0 md:bottom-auto z-20"
+                    // UPDATED: Mobile positioning: Top-6 (24px), Center Horizontally.
+                    // Desktop positioning: Top-12, Center Horizontally (Centered layout on Desktop).
+                    className="absolute top-6 left-0 right-0 mx-auto w-fit md:top-12 md:left-0 md:right-0 md:mx-auto z-20"
                  >
                     <motion.img 
                         whileHover={{ rotate: 6 }}
                         transition={{ type: "spring", stiffness: 300, damping: 10 }}
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                         alt="Micron Logo"
-                        // UPDATED: Mobile size h-24 w-24 (10% bump). Desktop md:h-[11.5rem] md:w-[11.5rem]
-                        className="h-24 w-24 md:h-[11.5rem] md:w-[11.5rem] object-contain cursor-pointer"
+                        // UPDATED: Mobile size h-20 w-20 (80px). Desktop md:h-40 md:w-40 (160px).
+                        className="h-20 w-20 md:h-40 md:w-40 object-contain cursor-pointer"
                     />
                  </motion.div>
                  
