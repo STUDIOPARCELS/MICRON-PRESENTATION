@@ -215,7 +215,7 @@ export const Hero: React.FC = () => {
     // 4. Schedule Text Start (UPDATED: Added 2 seconds, now 5000ms/5s)
     sequenceTimer.current = setTimeout(() => {
         setCurrentSentenceIndex(0);
-    }, 5000);
+    }, 7000);
   };
 
   // Handle Video Loop (End of video triggers replay)
@@ -353,12 +353,13 @@ export const Hero: React.FC = () => {
   const quoteWords = quoteText.split(" ");
 
   // Shared container variants for the word-by-word animation
+  // RESTORED: To previous version (slower stagger, no blur)
   const quoteContainerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: { 
         opacity: 1, 
         transition: { 
-            // UPDATED: Slowed down stagger from 0.3 to 0.6 for a significantly slower read speed
+            // RESTORED: 0.6s stagger
             staggerChildren: 0.6, 
             delayChildren: 0.2 
         } 
@@ -366,18 +367,26 @@ export const Hero: React.FC = () => {
   };
 
   const quoteWordVariants: Variants = {
-    hidden: { opacity: 0, y: 10 },
+    hidden: { 
+        opacity: 0, 
+        y: 10,
+        // RESTORED: No blur
+    },
     visible: { 
         opacity: 1, 
         y: 0, 
-        // UPDATED: Smoother transition for individual words
-        transition: { duration: 0.8, ease: "easeOut" } 
+        // RESTORED: No blur, 0.8s duration
+        transition: { 
+            duration: 0.8, 
+            ease: "easeOut" 
+        } 
     }
   };
 
   // Logic to determine if quote should show
-  // Only show if user has scrolled OR video has finished at least one loop
-  const shouldShowQuote = hasScrolled || videoCompleted;
+  // Using isInView to ensure visibility on mobile/desktop without strict scroll gating, 
+  // but preserving animation reset capability.
+  const shouldShowQuote = isInView;
 
   return (
     <section 
@@ -521,7 +530,7 @@ export const Hero: React.FC = () => {
                          initial="hidden"
                          animate={shouldShowQuote ? "visible" : "hidden"} // UPDATED: Gated by scroll or video
                          variants={quoteContainerVariants}
-                         className="font-micron text-2xl text-center text-white font-thin leading-relaxed -rotate-3"
+                         className="font-micron text-2xl text-center text-white font-thin leading-relaxed -rotate-3 pb-4 will-change-transform" // Added pb-4 and will-change to fix clipping
                       >
                          {/* Joined into one paragraph block */}
                          <p className="inline">
@@ -546,7 +555,7 @@ export const Hero: React.FC = () => {
                         initial="hidden"
                         animate={shouldShowQuote ? "visible" : "hidden"} // UPDATED: Gated by scroll or video
                         variants={quoteContainerVariants}
-                        className="font-micron text-2xl md:text-3xl text-white font-thin leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4"
+                        className="font-micron text-2xl md:text-3xl text-white font-thin leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4 pb-4 will-change-transform" // Added pb-4 and will-change to fix clipping
                 >
                      {/* Joined into one paragraph block */}
                      <p className="inline">

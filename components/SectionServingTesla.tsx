@@ -150,7 +150,6 @@ export const SectionServingTesla: React.FC = () => {
                                 <Mountain size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Earth</span>
                             </div>
-                            {/* UPDATED: Added Home, Ground */}
                             <p className="text-white/80 text-lg leading-relaxed font-medium">Boise, Home, Ground</p>
                         </div>
 
@@ -169,7 +168,7 @@ export const SectionServingTesla: React.FC = () => {
                                 <Layers size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Memory</span>
                             </div>
-                            <p className="text-white/80 text-lg leading-relaxed font-medium">Micron, Intelligence</p>
+                            <p className="text-white/80 text-lg leading-relaxed font-medium">Micron, Intelligence, Meaning</p>
                         </div>
 
                         {/* Vision - Grey */}
@@ -178,7 +177,6 @@ export const SectionServingTesla: React.FC = () => {
                                 <Eye size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Vision</span>
                             </div>
-                            {/* UPDATED: Added Autonomy */}
                             <p className="text-white/80 text-lg leading-relaxed font-medium">Abundance, Autonomy, Tesla, SpaceX</p>
                         </div>
                      </div>

@@ -472,7 +472,7 @@ export const SectionProperty: React.FC = () => {
                            HISTORIC CONTEXT
                        </span>
                        <p className="mb-4">
-                           A modest home drawing on North America's oldest continuously operating geothermal district (est. 1890). This site taps into the nation's largest historic direct-use aquifer.
+                           A modest home drawing on North America's oldest continuously operating geothermal district (est. 1890). This site taps into the nation's largest direct-use aquifer.
                        </p>
                        <p className="font-bold text-micron-eggplant">
                            A profound convergence of harnessed earth energy and energy from the stars.
