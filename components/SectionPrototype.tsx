@@ -192,9 +192,12 @@ const getCardData = (id: number): ModalContent => {
                         // Added h-full and floating shadow
                         className="lg:col-span-1 w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] relative overflow-hidden group flex flex-col justify-center h-full"
                     >
+                        <h3 className="text-2xl font-black text-black mb-4 leading-tight">
+                            First Corporate Autonomous Residence
+                        </h3>
                         <div className="text-zinc-600 text-lg font-medium leading-relaxed relative z-10">
                             <p>
-                                A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
+                                A private corporate residence powered by autonomous systems — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
                             </p>
                         </div>
                     </motion.div>
