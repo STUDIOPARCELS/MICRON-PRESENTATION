@@ -61,12 +61,20 @@ const InteractiveParadigmTitle: React.FC = () => {
             color: cEggplant, // Static end state
             transition: { 
                 y: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) },
-                opacity: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) }
+                opacity: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) },
+                // Slow return transition if hover is interrupted
+                color: { duration: 3.0, ease: "easeInOut" }
             }
         }),
         hover: {
-            color: [cLightGreen, cDarkGreen, cEggplant],
-            transition: { duration: 0.6, ease: "easeInOut", times: [0, 0.5, 1] }
+            color: [cEggplant, cLightGreen, cDarkGreen, cEggplant],
+            // UPDATED: Very slow, delayed interaction
+            transition: { 
+                duration: 5.0, 
+                ease: "easeInOut", 
+                delay: 1.0, // Long delay before starting
+                times: [0, 0.2, 0.5, 1] 
+            }
         }
     };
 
@@ -80,12 +88,20 @@ const InteractiveParadigmTitle: React.FC = () => {
             color: cLightGreen, // Static end state
             transition: { 
                 y: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) },
-                opacity: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) }
+                opacity: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) },
+                 // Slow return transition if hover is interrupted
+                color: { duration: 3.0, ease: "easeInOut" }
             }
         }),
         hover: {
             color: [cLightGreen, cDarkGreen, cEggplant, cLightGreen],
-            transition: { duration: 0.8, ease: "easeInOut", times: [0, 0.33, 0.66, 1] }
+            // UPDATED: Very slow, delayed interaction
+            transition: { 
+                duration: 5.0, 
+                ease: "easeInOut", 
+                delay: 1.0, // Long delay before starting
+                times: [0, 0.33, 0.66, 1] 
+            }
         }
     };
 
@@ -157,12 +173,27 @@ export const Hero: React.FC = () => {
   const [key, setKey] = useState(0); 
   const [layoutShift, setLayoutShift] = useState(false);
   const [logoVisible, setLogoVisible] = useState(false);
+  
+  // New States for Quote Animation Control
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const [videoCompleted, setVideoCompleted] = useState(false);
 
   // Timer Ref to manage cleanup
   const sequenceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Icon Controls
   const iconControls = useAnimation();
+
+  // Scroll Listener
+  useEffect(() => {
+    const onScroll = () => {
+        if (window.scrollY > 50) { // Slight threshold to avoid jitter
+            setHasScrolled(true);
+        }
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Unified Start Sequence Function
   // Resets everything, starts video immediately, waits 3.0s (UPDATED), starts text
@@ -190,6 +221,7 @@ export const Hero: React.FC = () => {
 
   // Handle Video Loop (End of video triggers replay)
   const handleVideoLoop = () => {
+      setVideoCompleted(true); // Enable quote animation on first loop complete
       startSequence();
   };
   
@@ -345,6 +377,10 @@ export const Hero: React.FC = () => {
     }
   };
 
+  // Logic to determine if quote should show
+  // Only show if user has scrolled OR video has finished at least one loop
+  const shouldShowQuote = hasScrolled || videoCompleted;
+
   return (
     <section 
         ref={containerRef}
@@ -488,8 +524,7 @@ export const Hero: React.FC = () => {
                  <div className="md:hidden w-full flex-grow pt-4 pb-12 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
-                         whileInView="visible"
-                         viewport={{ once: false, amount: 0.2 }} // UPDATED: Re-triggers on scroll
+                         animate={shouldShowQuote ? "visible" : "hidden"} // UPDATED: Gated by scroll or video
                          variants={quoteContainerVariants}
                          className="font-micron text-2xl text-center text-white font-thin leading-relaxed -rotate-3"
                       >
@@ -514,9 +549,7 @@ export const Hero: React.FC = () => {
                 {/* UPDATED: Changed text to text-white (Bright White) and font-thin for reduced heaviness */}
                 <motion.div
                         initial="hidden"
-                        whileInView="visible"
-                        // UPDATED: Standardized viewport and stagger for consistent scroll trigger
-                        viewport={{ once: false, amount: 0.2 }} // UPDATED: Re-triggers on scroll
+                        animate={shouldShowQuote ? "visible" : "hidden"} // UPDATED: Gated by scroll or video
                         variants={quoteContainerVariants}
                         className="font-micron text-2xl md:text-3xl text-white font-thin leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4"
                 >
