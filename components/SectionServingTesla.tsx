@@ -114,7 +114,8 @@ export const SectionServingTesla: React.FC = () => {
                          <div className="w-12 h-1 bg-micron-green/20 mb-6"></div>
                          {/* UPDATED: Standardized font size to text-lg (18px) */}
                          <div className="space-y-4 text-zinc-600 leading-relaxed text-lg font-medium">
-                            <p>Three decades in tech. Retired 2023. Artist, athlete, researcher.</p>
+                            {/* UPDATED: Removed "Retired 2023" */}
+                            <p>Three decades in tech. Artist, athlete, explorer, researcher.</p>
                             <p>This Boise property has been a second home for 25 years — barely used. I love what Micron and Tesla are building. I also respect what it demands of us.</p>
                             <p>I created the Micron House concept — the strategy, the design, the branding — to propose a partnership that puts this historic asset to its highest use.</p>
                          </div>
@@ -126,9 +127,9 @@ export const SectionServingTesla: React.FC = () => {
                         className="bg-[#2c2e33] text-white rounded-[2rem] p-8 border border-zinc-700 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
                     >
                         <h3 className="text-2xl font-bold tracking-tight text-white/90 mb-4">Long-Term Relationship</h3>
-                        {/* UPDATED: Standardized font size to text-lg (18px) */}
+                        {/* UPDATED: New Proposal Text */}
                         <p className="text-zinc-300 font-light leading-relaxed text-lg">
-                            The objective of this presentation is to formalize a long-term agreement. Micron and Tesla stakeholders utilize this residence as a premier corporate amenity and entertainment hub. The security and service layers enabled by your technology turn a second home into a strategic asset.
+                            I'm proposing a long-term partnership. The most interesting version of Micron House is the one we haven't imagined yet — and getting there requires years of shared commitment.
                         </p>
                     </motion.div>
                 </div>
@@ -146,7 +147,8 @@ export const SectionServingTesla: React.FC = () => {
                             className="w-40 h-40 object-contain opacity-90 mb-6"
                         />
                         <h3 className="text-2xl font-bold text-micron-eggplant leading-tight tracking-tight">Concept & Design</h3>
-                        <p className="text-sm text-zinc-500 mt-2 font-medium">
+                        {/* UPDATED: Increased font size to text-lg (18px) */}
+                        <p className="text-lg text-zinc-500 mt-2 font-medium">
                             I designed this emblem to represent the convergence at play in this house. A visual map of the autonomous home.
                         </p>
                      </div>
@@ -158,7 +160,8 @@ export const SectionServingTesla: React.FC = () => {
                                 <Mountain size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Earth</span>
                             </div>
-                            <p className="text-white/80 text-xs leading-relaxed font-medium">The foundation. Geothermal energy and renewable resources.</p>
+                            {/* UPDATED: Boise */}
+                            <p className="text-white/80 text-sm leading-relaxed font-medium">Boise.</p>
                         </div>
 
                         {/* Sky - Blue */}
@@ -167,7 +170,8 @@ export const SectionServingTesla: React.FC = () => {
                                 <Star size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Sky</span>
                             </div>
-                            <p className="text-white/80 text-xs leading-relaxed font-medium">The stars. Infinite potential.</p>
+                            {/* UPDATED: Starlink. Energy. */}
+                            <p className="text-white/80 text-sm leading-relaxed font-medium">Starlink. Energy.</p>
                         </div>
 
                         {/* Memory - Eggplant */}
@@ -176,16 +180,19 @@ export const SectionServingTesla: React.FC = () => {
                                 <Layers size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Memory</span>
                             </div>
-                            <p className="text-white/80 text-xs leading-relaxed font-medium">The intelligence. Micron. Silicon memory and processing power.</p>
+                            {/* UPDATED: Micron. Intelligence. */}
+                            <p className="text-white/80 text-sm leading-relaxed font-medium">Micron. Intelligence.</p>
                         </div>
 
-                        {/* Velocity - Grey */}
+                        {/* Vision - Grey */}
                         <div className="bg-micron-grey1 text-white rounded-xl p-5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10 flex flex-col gap-2">
                             <div className="flex items-center gap-2 mb-1">
                                 <Zap size={18} className="text-white/80" />
-                                <span className="font-bold uppercase text-xs tracking-widest">Velocity</span>
+                                {/* UPDATED: Vision */}
+                                <span className="font-bold uppercase text-xs tracking-widest">Vision</span>
                             </div>
-                            <p className="text-white/80 text-xs leading-relaxed font-medium">The autonomy. Tesla. SpaceX. The service and security layer.</p>
+                            {/* UPDATED: Autonomy. Tesla. SpaceX. */}
+                            <p className="text-white/80 text-sm leading-relaxed font-medium">Autonomy. Tesla. SpaceX.</p>
                         </div>
                      </div>
                 </motion.div>

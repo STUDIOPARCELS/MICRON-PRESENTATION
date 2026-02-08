@@ -322,8 +322,9 @@ export const SectionProperty: React.FC = () => {
             content: (
                 <div className="flex flex-col gap-8 pb-4">
                      <div className="border-l-4 border-zinc-900 pl-6 py-1">
+                         {/* UPDATED: Removed "Autonomous service via Cybercab and Optimus." as requested */}
                          <p className="text-base md:text-lg font-light text-zinc-600 leading-relaxed font-body">
-                            Autonomous service via Cybercab and Optimus. A functional proving ground where abstract technology becomes a seamless, daily reality.
+                            A functional proving ground where abstract technology becomes a seamless, daily reality.
                          </p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">

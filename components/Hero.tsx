@@ -313,8 +313,8 @@ export const Hero: React.FC = () => {
     visible: { 
         opacity: 1, 
         transition: { 
-            // UPDATED: Faster stagger (0.08) for word-by-word typing effect
-            staggerChildren: 0.08, 
+            // UPDATED: Slowed down stagger from 0.08 to 0.16 (100% slower)
+            staggerChildren: 0.16, 
             delayChildren: 0.2 
         } 
     }
