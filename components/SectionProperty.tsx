@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, ArrowUp, ArrowUpRight, Cpu, TreeDeciduous, Zap, Waves, Activity, Sprout, Clock, Car, Bot, Grape, Thermometer, ShieldCheck, History, Landmark, Timer } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -125,7 +124,8 @@ const InfoCard = ({ title, subtitle, icon, text, className, gradient, image, onC
         
         <div className="h-px w-full bg-white/20 mb-6 group-hover:bg-white/40 transition-colors" />
 
-        <p className="text-sm md:text-base text-white/90 font-medium leading-relaxed mb-4 flex-1 drop-shadow-sm">
+        {/* UPDATED: Increased text size from text-sm md:text-base to text-base md:text-lg */}
+        <p className="text-base md:text-lg text-white/90 font-medium leading-relaxed mb-4 flex-1 drop-shadow-sm">
            {text}
         </p>
         
@@ -458,7 +458,8 @@ export const SectionProperty: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8 }}
-            className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8"
+            // UPDATED: Reduced padding from mb-12 to mb-6 to tighten section
+            className="mb-6 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8"
         >
             <div className="flex-shrink-0">
                 <span className="block text-sm font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">02 / ASSET</span>
@@ -484,8 +485,38 @@ export const SectionProperty: React.FC = () => {
             </div>
         </motion.div>
 
-        {/* RESTORED: Location Pills */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-12">
+        {/* NEW STATS ROW - UPDATED: Reduced bottom padding (mb-6), Added Floating Effects */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+             {/* 1906 */}
+             <div className="bg-micron-eggplant text-white rounded-xl p-6 flex flex-col items-center justify-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10">
+                 <span className="text-4xl md:text-5xl font-black tracking-tighter">1906</span>
+                 <span className="text-[10px] font-bold uppercase tracking-widest opacity-70 mt-1">Year Built</span>
+             </div>
+             {/* 3,374 */}
+             <div className="bg-micron-grey1 text-white rounded-xl p-6 flex flex-col items-center justify-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10">
+                 <span className="text-4xl md:text-5xl font-black tracking-tighter">3,374</span>
+                 <span className="text-[10px] font-bold uppercase tracking-widest opacity-70 mt-1">Square Feet</span>
+             </div>
+             {/* 3/4 */}
+             <div className="bg-micron-green text-white rounded-xl p-6 flex flex-col items-center justify-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10">
+                 <span className="text-4xl md:text-5xl font-black tracking-tighter">3/4</span>
+                 <span className="text-[10px] font-bold uppercase tracking-widest opacity-70 mt-1">Bed / Bath</span>
+             </div>
+             {/* 1892 */}
+             <div className="bg-micron-eggplant-light text-white rounded-xl p-6 flex flex-col items-center justify-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10">
+                 <span className="text-4xl md:text-5xl font-black tracking-tighter">1892</span>
+                 <span className="text-[10px] font-bold uppercase tracking-widest opacity-70 mt-1">Geothermal Rights</span>
+             </div>
+        </div>
+
+        {/* Location Details Header - UPDATED: Reduced padding (mb-4) */}
+        <div className="flex items-center gap-2 mb-4">
+            <MapPin size={16} className="text-zinc-400" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 font-sans">LOCATION DETAILS</span>
+        </div>
+
+        {/* RESTORED: Location Pills - UPDATED: Reduced padding (mb-6) */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
             {locations.map((loc, i) => (
                 <LocationPill 
                     key={i}
@@ -498,8 +529,8 @@ export const SectionProperty: React.FC = () => {
             ))}
         </div>
 
-        {/* RESTORED: Sub-header */}
-        <div className="flex items-center gap-2 mb-6">
+        {/* RESTORED: Sub-header - UPDATED: Reduced padding (mb-4) */}
+        <div className="flex items-center gap-2 mb-4">
             <Home size={16} className="text-zinc-400" />
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 font-sans">RESIDENCE SPECIFICATIONS</span>
         </div>

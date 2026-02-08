@@ -52,7 +52,8 @@ const teslaCards = [
     id: 2, 
     title: "REAL-WORLD INFERENCE", 
     subtitle: "A Living Laboratory",
-    content: "Where the people building the systems sit down with the people governing them. The conversations that happen here shape how this technology enters the world.",
+    // UPDATED TEXT
+    content: "Where Micron executives, engineers, guests, and partners generate domestic intelligence from Optimus and Cybercab — across real dinners, real stays, and real events.",
     icon: null,
     gradient: "bg-micron-grey1", 
     border: "border-white/10",
@@ -65,7 +66,8 @@ const teslaCards = [
     id: 1,
     title: "A TECTONIC SHIFT", 
     subtitle: "Anthropology of the Future",
-    content: "Moving beyond laws and sidewalks into the anthropology of the future. How humanity adapts to the 'Crisis of Shared Reality' in the age of ubiquitous robotics.",
+    // UPDATED TEXT
+    content: "Moving beyond regulation and infrastructure into the deeper questions. How daily life, neighborhoods, and human comfort adapt when autonomous systems become permanent residents.",
     icon: null,
     // UPDATED: Changed to Blue
     gradient: "bg-micron-eggplant-light", 
@@ -198,22 +200,9 @@ export const SectionServingTesla: React.FC = () => {
             // MATCHING PROTOTYPE LAYOUT STRUCTURE
             <div className="flex flex-col gap-8 h-auto pb-12">
                 
-                {/* 1. INTRO TEXT (Full Width) */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="w-full flex flex-col items-start"
-                >
-                    {/* UPDATED: Standardized font size to text-lg (18px) */}
-                    <div className="text-zinc-900 text-lg font-medium leading-relaxed">
-                        <p>
-                            Domestic intelligence generated at Micron House feeds directly into product development cycles. The residence becomes an active research node — gathering real-world behavioral data in a controlled, premium environment.
-                        </p>
-                    </div>
-                </motion.div>
+                {/* 1. INTRO TEXT REMOVED AS REQUESTED */}
 
-                {/* 2. BOTTOM GRID (Split 2/3 + 1/3) - MOVED UP AS REQUESTED */}
+                {/* 2. BOTTOM GRID (Split 2/3 + 1/3) */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
                     {/* LEFT: IMAGE (Col Span 2) */}
@@ -259,15 +248,15 @@ export const SectionServingTesla: React.FC = () => {
                                     "Optimus manages a quiet household for an employee's family.",
                                     "Cybercab delivers a senior Washington official to a fireside."
                                 ].map((item, i) => (
-                                    // UPDATED: Increased to text-lg (18px)
-                                    <li key={i} className="flex items-start gap-3 text-white/90 text-lg font-medium leading-snug">
+                                    // UPDATED: Decreased to text-base from text-lg as requested
+                                    <li key={i} className="flex items-start gap-3 text-white/90 text-base font-medium leading-snug">
                                         <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0" />
                                         <span>{item}</span>
                                     </li>
                                 ))}
                             </ul>
-                            {/* UPDATED: Increased to text-sm */}
-                            <p className="text-sm text-white/60 font-bold uppercase tracking-wide leading-relaxed border-t border-white/10 pt-3">
+                            {/* UPDATED: Removed uppercase, used sentence case */}
+                            <p className="text-sm text-white/60 font-bold tracking-wide leading-relaxed border-t border-white/10 pt-3">
                                 Three scenarios. Three emotional registers. Each one training autonomous systems.
                             </p>
                         </InnerBento>
@@ -288,16 +277,17 @@ export const SectionServingTesla: React.FC = () => {
                                 <span className="text-xs uppercase tracking-widest text-white/50">First Access</span>
                             </div>
                             <div className="w-full h-px bg-white/20 mb-4" />
-                            {/* UPDATED: Increased to text-lg (18px) */}
-                            <div className="space-y-4 text-white/90 text-lg font-medium leading-relaxed">
+                            {/* UPDATED: Decreased to text-base from text-lg as requested */}
+                            <div className="space-y-4 text-white/90 text-base font-medium leading-relaxed">
                                 <p>
                                     Micron's leadership experiences Optimus and Cybercab across the full spectrum of real life before any consumer on earth.
                                 </p>
                                 <p>
                                     Operational variety builds institutional knowledge. Every scenario deepens the data, sharpens the model, and strengthens the partnership.
                                 </p>
-                                {/* UPDATED: Increased to text-sm */}
-                                <p className="text-sm font-bold uppercase tracking-widest text-micron-green pt-2">
+                                {/* UPDATED: Added separator line and removed uppercase */}
+                                <div className="w-full h-px bg-white/20 mt-4 mb-3" />
+                                <p className="text-sm font-bold tracking-widest text-micron-green">
                                     Confidential. Celebratory. Compassionate. Political.
                                 </p>
                             </div>
@@ -321,8 +311,8 @@ export const SectionServingTesla: React.FC = () => {
                         {/* DELETED: Proximity Advantage span as requested */}
                     </div>
                     
-                    {/* UPDATED: Reduced mb-4 to mb-3 */}
-                    <div className="w-full h-px bg-zinc-200 mb-3 relative z-10" />
+                    {/* UPDATED: Reduced mb-3 to mb-1 to tighten padding between Green Line and 15 min */}
+                    <div className="w-full h-px bg-zinc-200 mb-1 relative z-10" />
 
                     {/* UPDATED: Standardized text to text-lg (18px), reduced grid gap */}
                     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 text-zinc-600 text-lg font-medium leading-relaxed relative z-10 items-center">
@@ -381,48 +371,45 @@ export const SectionServingTesla: React.FC = () => {
                  </div>
             </motion.div>
 
-            {/* BOTTOM ROW: The Open Questions */}
+            {/* BOTTOM ROW: Questions */}
             <motion.div 
                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
                 className="bg-white rounded-[2rem] p-8 md:p-10 border border-zinc-200 flex flex-col justify-center gap-6 mt-2 text-zinc-900 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
             >
                 <div className="flex items-center gap-3 mb-2">
-                    <Info size={24} className="text-zinc-400" />
-                    <h4 className="text-micron-eggplant font-bold uppercase text-sm tracking-[0.2em]">OPEN QUESTIONS</h4>
+                    {/* REMOVED: Info icon and word OPEN */}
+                    <h4 className="text-micron-eggplant font-bold uppercase text-sm tracking-[0.2em]">QUESTIONS</h4>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* 1. SURVEILLANCE - Green */}
                     <div className="flex flex-col gap-3 bg-micron-green text-white p-6 rounded-xl border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300">
-                        <span className="text-white font-bold uppercase text-xs tracking-widest">SURVEILLANCE</span>
-                        <p className="text-white/80 font-medium leading-relaxed text-sm">
+                        {/* UPDATED: Increased to text-sm */}
+                        <span className="text-white font-bold uppercase text-sm tracking-widest">SURVEILLANCE</span>
+                        {/* UPDATED: Increased to text-base */}
+                        <p className="text-white/80 font-medium leading-relaxed text-base">
                             Sensors moving through private spaces, sidewalks, schools, parks. What is being recorded, stored, and shared — and by whom?
                         </p>
                     </div>
                     
                     {/* 2. VISUAL VERNACULAR - Grey2 */}
                     <div className="flex flex-col gap-3 bg-micron-grey2 text-white p-6 rounded-xl border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300">
-                        <span className="text-white font-bold uppercase text-xs tracking-widest">VISUAL VERNACULAR</span>
-                        <p className="text-white/80 font-medium leading-relaxed text-sm">
+                        <span className="text-white font-bold uppercase text-sm tracking-widest">VISUAL VERNACULAR</span>
+                        <p className="text-white/80 font-medium leading-relaxed text-base">
                              Streets, homes, and neighborhoods filled with humanoid machines. How does permanent autonomous presence in everyday life change how people feel in their own communities?
                         </p>
                     </div>
                     
                     {/* 3. WORST CASE - Eggplant */}
                     <div className="flex flex-col gap-3 bg-micron-eggplant text-white p-6 rounded-xl border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300">
-                        <span className="text-white font-bold uppercase text-xs tracking-widest">WORST CASE</span>
-                        <p className="text-white/80 font-medium leading-relaxed text-sm">
+                        <span className="text-white font-bold uppercase text-sm tracking-widest">WORST CASE</span>
+                        <p className="text-white/80 font-medium leading-relaxed text-base">
                             Mass malfunction. Security breach across millions of units. Coordinated exploit. What does preparedness look like before deployment — and who is in the room when those scenarios are discussed?
                         </p>
                     </div>
                 </div>
 
-                {/* Bottom Line */}
-                <div className="mt-4 pt-4 border-t border-zinc-100">
-                    <p className="text-zinc-600 font-medium italic text-center text-sm md:text-base leading-relaxed">
-                        Micron House is where these concerns are explored — in person, between the people designing the systems and the people governing them.
-                    </p>
-                </div>
+                {/* REMOVED: Bottom Line Footer as requested */}
             </motion.div>
         </div>
     );
