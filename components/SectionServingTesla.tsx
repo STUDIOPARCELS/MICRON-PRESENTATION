@@ -114,15 +114,30 @@ export const SectionServingTesla: React.FC = () => {
                          </div>
                     </motion.div>
 
-                    {/* Proposal Card */}
+                    {/* Proposal Card - UPDATED WITH CONTACT INFO */}
                     <motion.div 
                         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                        className="bg-[#2c2e33] text-white rounded-[2rem] p-8 border border-zinc-700 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
+                        className="bg-[#2c2e33] text-white rounded-[2rem] p-8 border border-zinc-700 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
                     >
-                        <h3 className="text-2xl font-bold tracking-tight text-white/90 mb-4">Long-Term Relationship</h3>
-                        <p className="text-zinc-300 font-light leading-relaxed text-lg">
-                            I'm proposing a long-term partnership. The most interesting version of Micron House is the one we haven't imagined yet — and getting there requires years of shared commitment.
-                        </p>
+                        <div>
+                            <h3 className="text-2xl font-bold tracking-tight text-white/90 mb-4">Long-Term Relationship</h3>
+                            <div className="text-zinc-300 font-light leading-relaxed text-lg space-y-4">
+                                <p>
+                                    I'm proposing a long-term partnership. The most interesting version of Micron House is the one we haven't imagined yet — and getting there requires years of shared commitment.
+                                </p>
+                                <p>
+                                    The next step is a visit. I'd love to show you the property in person.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="mt-8 pt-6 border-t border-zinc-600">
+                             <p className="text-white font-bold text-lg mb-1">Lisa Wood</p>
+                             <div className="flex flex-col gap-1 text-zinc-400 font-medium">
+                                <a href="tel:2087202433" className="hover:text-white transition-colors w-fit">208.720.2433</a>
+                                <a href="mailto:lisa@lisawoodstudio.com" className="hover:text-white transition-colors w-fit border-b border-transparent hover:border-white">lisa@lisawoodstudio.com</a>
+                             </div>
+                        </div>
                     </motion.div>
                 </div>
 
