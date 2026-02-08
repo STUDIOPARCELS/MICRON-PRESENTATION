@@ -2,10 +2,20 @@ import React, { useState } from 'react';
 import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, ArrowUp, ArrowUpRight, Cpu, TreeDeciduous, Zap, Waves, Activity, Sprout, Clock, Car, Bot, Grape, Thermometer, ShieldCheck, History } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Modal } from './Modal';
-import { BentoCard } from './BentoCard'; // Imported BentoCard
+import { BentoCard } from './BentoCard'; 
 import { ModalContent, GalleryItem } from '../types';
 
-// --- HELPER COMPONENTS (MOVED OUTSIDE) ---
+// --- CONFIGURATION ---
+const BUCKET_BASE_URL = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE";
+
+// Helper to build URL based on folder presence
+const buildUrl = (folder: string, filename: string) => {
+    // If folder is empty, return path from root, otherwise add folder slash
+    const path = folder ? `${folder}/${filename}` : filename;
+    return `${BUCKET_BASE_URL}/${path}`;
+};
+
+// --- HELPER COMPONENTS ---
 
 const StatCard = ({ children, delay = 0, className }: any) => (
   <motion.div
@@ -127,7 +137,6 @@ const InfoCard = ({ title, subtitle, icon, text, className, gradient, image, onC
   </BentoCard>
 );
 
-// Helper for Modal Cards content
 const ModalCard = ({ title, description, colorClass, icon, image }: any) => (
   <div className={`${colorClass} rounded-2xl p-6 text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative overflow-hidden group border border-white/10`}>
       {image && (
@@ -158,45 +167,57 @@ export const SectionProperty: React.FC = () => {
 
   const openLevelGallery = (level: 'main' | 'upper' | 'grounds') => {
       let title = "";
-      let images: GalleryItem[] = [];
+      
+      // CONFIGURATION FOR GALLERIES
+      // INSTRUCTION: Once you upload images to folders in Supabase, 
+      // change 'folder' to "main", "upper", or "grounds" and update filenames.
+      
+      const galleryConfig = {
+          main: {
+              folder: "", // CHANGE TO "main" when ready
+              files: [
+                  { file: "dining.1.JPEG", aspect: "aspect-[3/2]" },
+                  { file: "dining.6.JPEG", aspect: "aspect-[3/2]" },
+                  { file: "entry.0.JPEG", aspect: "aspect-[2/3]" },
+                  { file: "entry.3.JPEG", aspect: "aspect-[2/3]" },
+                  { file: "dusting2.png", aspect: "aspect-[3/2]" },
+                  { file: "dusting.jpeg", aspect: "aspect-[3/2]" },
+                  { file: "stairs.jpg", aspect: "aspect-[2/3]" }
+              ]
+          },
+          upper: {
+              folder: "", // CHANGE TO "upper" when ready
+              files: [
+                  { file: "br1.3.JPEG", aspect: "aspect-[3/2]" },
+                  { file: "br2.4.JPEG", aspect: "aspect-[3/2]" },
+                  { file: "br1.5.JPEG", aspect: "aspect-[3/2]" },
+                  { file: "br2.6.JPEG", aspect: "aspect-[2/3]" },
+                  { file: "br2.5.JPEG", aspect: "aspect-[3/2]" },
+                  { file: "BR2.8.jpg", aspect: "aspect-[2/3]" }
+              ]
+          },
+          grounds: {
+              folder: "", // CHANGE TO "grounds" when ready
+              files: [
+                  { file: "exterior_4.JPG", aspect: "aspect-[3/2]" },
+                  { file: "exterior.3.jpg", aspect: "aspect-[3/2]" },
+                  { file: "exterior.4.JPEG", aspect: "aspect-[3/2]" },
+                  { file: "exterior.4.jpg", aspect: "aspect-[3/2]" },
+                  { file: "fall.jpg", aspect: "aspect-[3/2]" }
+              ]
+          }
+      };
 
-      if (level === 'main') {
-          title = "MAIN LEVEL GALLERY";
-          // MAP: Auto-Sized Masonry Layout
-          // Enforced Aspect Ratios: Horizontal [3/2], Vertical [2/3]
-          images = [
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dining.1.JPEG", className: "aspect-[3/2]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dining.6.JPEG", className: "aspect-[3/2]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/entry.0.JPEG", className: "aspect-[2/3]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/entry.3.JPEG", className: "aspect-[2/3]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dusting2.png", className: "aspect-[3/2]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/dusting.jpeg", className: "aspect-[3/2]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/stairs.jpg", className: "aspect-[2/3]" }
-          ];
-      } else if (level === 'upper') {
-          title = "UPPER LEVEL GALLERY";
-          // MAP: Auto-Sized Masonry Layout
-          // Enforced Aspect Ratios: Horizontal [3/2], Vertical [2/3]
-          images = [
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br1.3.JPEG", className: "aspect-[3/2]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.4.JPEG", className: "aspect-[3/2]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br1.5.JPEG", className: "aspect-[3/2]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.6.JPEG", className: "aspect-[2/3]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/br2.5.JPEG", className: "aspect-[3/2]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/BR2.8.jpg", className: "aspect-[2/3]" }
-          ];
-      } else {
-          title = "EXTERIOR GALLERY"; 
-          // MAP: Auto-Sized Masonry Layout
-          // Enforced Aspect Ratios: All Horizontal [3/2]
-          images = [
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior_4.JPG", className: "aspect-[3/2]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.3.jpg", className: "aspect-[3/2]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.4.JPEG", className: "aspect-[3/2]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/exterior.4.jpg", className: "aspect-[3/2]" },
-              { url: "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/fall.jpg", className: "aspect-[3/2]" }
-          ];
-      }
+      const config = galleryConfig[level];
+      
+      if (level === 'main') title = "MAIN LEVEL GALLERY";
+      if (level === 'upper') title = "UPPER LEVEL GALLERY";
+      if (level === 'grounds') title = "EXTERIOR GALLERY";
+
+      const images: GalleryItem[] = config.files.map(item => ({
+          url: buildUrl(config.folder, item.file),
+          className: item.aspect
+      }));
 
       setModalData({
         title: title,
@@ -207,7 +228,6 @@ export const SectionProperty: React.FC = () => {
   };
 
   const openInfoModal = (type: 'wellness' | 'autonomous' | 'history') => {
-      // ... (Rest of the function remains unchanged)
       if (type === 'wellness') {
         setModalData({
             title: "WELLNESS & NATURE",

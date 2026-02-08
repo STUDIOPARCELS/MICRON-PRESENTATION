@@ -32,7 +32,13 @@ const sentences = [
         hoverColor: "hover:text-green-900", 
         highlights: ["PLACE,", "PERSPECTIVE."],
         textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
-        layout: "default"
+        // UPDATED: Changed layout to mixed to support manual line breaking
+        layout: "mixed",
+        layoutOverrides: {
+            0: "w-full basis-full", // WITHOUT (Line 1)
+            1: "w-full basis-full"  // PLACE, (Line 2)
+            // THERE'S (starts Line 3 automatically)
+        }
     },
 ];
 
@@ -278,8 +284,8 @@ export const Hero: React.FC = () => {
                    visible: { 
                        y: 0, 
                        opacity: 1, 
-                       // UPDATED: Slower entry duration (0.7s)
-                       transition: { duration: 0.7, ease: "easeOut" } 
+                       // UPDATED: Slower entry duration (0.9s was 0.7s) to slow down by ~25%
+                       transition: { duration: 0.9, ease: "easeOut" } 
                    },
                    exit: {
                        y: -30,
@@ -363,8 +369,8 @@ export const Hero: React.FC = () => {
                                   hidden: { opacity: 1 },
                                   visible: { 
                                       opacity: 1,
-                                      // UPDATED: Slower stagger (0.55s)
-                                      transition: { staggerChildren: 0.55 } 
+                                      // UPDATED: Slower stagger (0.7s was 0.55s) to slow down by ~25%
+                                      transition: { staggerChildren: 0.7 } 
                                   },
                                   exit: { 
                                       opacity: 1, 
