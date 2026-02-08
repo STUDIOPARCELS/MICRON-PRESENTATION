@@ -329,7 +329,7 @@ export const Hero: React.FC = () => {
                     playsInline 
                     className="absolute inset-0 w-full h-full object-cover opacity-100"
                 >
-                     <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MICRON%20HOUSE_FINAL.mp4" type="video/mp4" />
+                     <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MICRON%20HOUSE_NEW.mp4" type="video/mp4" />
                 </video>
             </motion.div>
 
