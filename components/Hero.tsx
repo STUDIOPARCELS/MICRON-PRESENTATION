@@ -48,12 +48,14 @@ const InteractiveParadigmTitle: React.FC = () => {
     const paradigmLine2 = ["PARADIGM"];
     const paradigmLine3 = ["SHIFTS."];
 
+    // UPDATED: Automatic animation loop for mobile visibility
     const cycleAnimation = {
-        color: ["#008f25", "#064e16", "#2c0f38", "#ffffff"],
+        color: ["#008f25", "#2c0f38", "#008f25"], // Cycle Green -> Eggplant -> Green
         transition: { 
-            duration: 2.0, 
+            duration: 4.0, 
             ease: "easeInOut" as const,
-            times: [0, 0.33, 0.66, 1] 
+            repeat: Infinity,
+            repeatType: "reverse" as const
         }
     };
 
@@ -66,9 +68,9 @@ const InteractiveParadigmTitle: React.FC = () => {
                         key={i}
                         initial={{ y: 20, opacity: 0, color: '#008f25' }}
                         whileInView={{ y: 0, opacity: 1 }}
+                        animate={cycleAnimation} // UPDATED: Auto-animate
                         viewport={{ once: false }}
                         transition={{ delay: 0.5, duration: 1.5 }}
-                        whileHover={cycleAnimation}
                         style={{ transition: "color 1.5s ease-out" }}
                         className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block text-micron-green"
                     >
@@ -81,9 +83,9 @@ const InteractiveParadigmTitle: React.FC = () => {
                         key={i}
                         initial={{ y: 20, opacity: 0, color: '#2c0f38' }}
                         whileInView={{ y: 0, opacity: 1 }}
+                        animate={cycleAnimation} // UPDATED: Auto-animate
                         viewport={{ once: false }}
                         transition={{ delay: 0.7, duration: 1.5 }}
-                        whileHover={cycleAnimation}
                         style={{ transition: "color 1.5s ease-out" }}
                         className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block text-micron-eggplant"
                     >
@@ -98,9 +100,9 @@ const InteractiveParadigmTitle: React.FC = () => {
                         key={i}
                         initial={{ y: 20, opacity: 0, color: '#2c0f38' }}
                         whileInView={{ y: 0, opacity: 1 }}
+                        animate={cycleAnimation} // UPDATED: Auto-animate
                         viewport={{ once: false }}
                         transition={{ delay: 0.9, duration: 1.5 }}
-                        whileHover={cycleAnimation}
                         style={{ transition: "color 1.5s ease-out" }}
                         className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block text-micron-eggplant"
                     >
@@ -285,38 +287,34 @@ export const Hero: React.FC = () => {
                 layout
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                 className={`
-                    /* UPDATED: Mobile Logic
-                       - Initial state: min-h-[190px] (reduced to avoid extra whitespace above text)
-                       - Expanded state (logo visible): 
-                         min-h-[300px] 
-                         pt-[135px] -> Logo 110px + Top 16px = 126px. Gap = ~9px.
+                    /* UPDATED: Mobile Logic 
+                       - Removed dynamic expansion/shift logic for mobile.
+                       - Fixed comfortable padding (p-6) and min-height (min-h-[220px]) on mobile.
                        
                        Desktop Logic (md:):
-                       - Always min-height 300px, justify-end (bottom align), standard padding.
+                       - Retains original behavior but relies on layoutShift for desktop expansion if needed, 
+                         though simplified to standard layout.
                     */
-                    ${layoutShift 
-                        ? 'min-h-[300px] px-6 pt-[135px] pb-6 justify-start' 
-                        : 'min-h-[190px] p-6 justify-center'
-                    }
+                    min-h-[220px] p-6 justify-center
                     md:min-h-[300px] md:h-full md:justify-end md:px-12 md:pt-12 md:pb-12
                     w-full flex flex-col items-start order-2 bg-white rounded-3xl 
                     shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] border border-zinc-200 relative overflow-hidden group
                 `}
             >
-                 {/* Logo Animation */}
+                 {/* Logo Animation - UPDATED: Hidden on Mobile */}
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    // UPDATED: Desktop Position nudged left to right-20.
-                    className="absolute top-4 left-0 right-0 mx-auto w-fit md:top-14 md:right-20 md:left-auto md:mx-0 z-20"
+                    // UPDATED: Hidden on mobile (hidden), visible on desktop (md:block)
+                    className="hidden md:block absolute md:top-14 md:right-20 md:left-auto md:mx-0 z-20"
                  >
                     <motion.img 
                         whileHover={{ rotate: 6 }}
                         transition={{ type: "spring", stiffness: 300, damping: 10 }}
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                         alt="Micron Logo"
-                        // UPDATED: Desktop Size increased 10% (h-40 w-40 = 160px vs previous 144px). Mobile remains 110px.
-                        className="h-[110px] w-[110px] md:h-40 md:w-40 object-contain cursor-pointer"
+                        // UPDATED: Desktop Size increased 10% (h-40 w-40 = 160px)
+                        className="md:h-40 md:w-40 object-contain cursor-pointer"
                     />
                  </motion.div>
                  
