@@ -6,21 +6,21 @@ import { MapPin } from 'lucide-react';
 const sentences = [
     {
         // Sentence 1
-        words: ["WITHOUT", "MEMORY,", "THERE'S", "NO", "MEANING."],
-        color: "text-zinc-400",
-        highlightColor: "text-micron-eggplant",
-        hoverColor: "hover:text-micron-eggplant/60", 
-        highlights: ["MEMORY,", "MEANING."],
-        textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
-        layout: "default"
-    },
-    {
-        // Sentence 2
         words: ["WITHOUT", "VISION,", "THERE'S", "NO", "VELOCITY."],
         color: "text-zinc-400",
         highlightColor: "text-zinc-700",
         hoverColor: "hover:text-black", 
         highlights: ["VISION,", "VELOCITY."],
+        textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
+        layout: "default"
+    },
+    {
+        // Sentence 2
+        words: ["WITHOUT", "MEMORY,", "THERE'S", "NO", "MEANING."],
+        color: "text-zinc-400",
+        highlightColor: "text-micron-eggplant",
+        hoverColor: "hover:text-micron-eggplant/60", 
+        highlights: ["MEMORY,", "MEANING."],
         textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
         layout: "default"
     },
@@ -143,7 +143,9 @@ export const Hero: React.FC = () => {
     if (currentSentenceIndex >= sentences.length - 1) return;
 
     // Cycle duration to allow slower word population (6000ms)
-    const cycleDuration = 6000; 
+    // UPDATED: Added logic to extend the first sentence (Vision) by 1s to match video
+    const baseDuration = 6000;
+    const cycleDuration = currentSentenceIndex === 0 ? baseDuration + 1000 : baseDuration;
 
     const timer = setTimeout(() => {
         setCurrentSentenceIndex((prev) => {
@@ -367,7 +369,8 @@ export const Hero: React.FC = () => {
                          whileInView="visible"
                          viewport={{ once: true, amount: 0.3 }}
                          variants={{
-                             visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } }, 
+                             // UPDATED: Slowed down from 0.15 to 0.25 (approx 50% slower)
+                             visible: { transition: { staggerChildren: 0.25, delayChildren: 0.1 } }, 
                              hidden: {}
                          }}
                          className="font-micron text-2xl text-center text-white leading-relaxed -rotate-3"
@@ -398,7 +401,8 @@ export const Hero: React.FC = () => {
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.3 }}
                         variants={{
-                            visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
+                            // UPDATED: Slowed down from 0.15 to 0.25 (approx 50% slower)
+                            visible: { transition: { staggerChildren: 0.25, delayChildren: 0.1 } },
                             hidden: {}
                         }}
                         className="font-micron text-2xl md:text-3xl text-white leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4"

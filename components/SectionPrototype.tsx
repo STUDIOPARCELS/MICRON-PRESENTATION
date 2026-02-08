@@ -181,11 +181,63 @@ const getCardData = (id: number): ModalContent => {
                     </div>
                 </motion.div>
 
-                {/* 2. SERVICE & SECURITY LAYER (Full Width, Underneath) */}
+                {/* 2. VIDEO GRID (Moved Above Service Layer) */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="lg:col-span-2 w-full h-full">
+                         {/* UPDATED: Wrapped Video in motion.div for Staggered Entrance (0.3s) */}
+                         <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3, duration: 0.8 }}
+                            className="w-full h-full"
+                         >
+                            <ModalVideo 
+                                src={VIDEO_PROTOTYPE}
+                                // UPDATED: Strictly enforced aspect-[1.5/1.1] to match BentoCard exactly
+                                className="w-full aspect-[1.5/1.1] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group"
+                            />
+                         </motion.div>
+                    </div>
+                    
+                    <div className="lg:col-span-1 flex flex-col gap-4 h-full">
+                        <InnerBento 
+                            gradient="bg-micron-eggplant" 
+                            direction="right" 
+                            delay={0.5} // UPDATED: Staggered 0.5s
+                            className="flex-grow" 
+                        >
+                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">INTEGRATION</h3>
+                            <div className="w-full h-px bg-white/20 mb-4" />
+                            {/* UPDATED: Increased text size to text-base md:text-lg to match Service Layer */}
+                            <div className="space-y-4 text-white/90 text-base md:text-lg font-medium leading-relaxed">
+                                <p className="font-bold text-white">A Venue for Leadership.</p>
+                                <p>A residential venue for the leaders and policy makers building and governing the future.</p>
+                                <p>Guests meet to experience the shift to autonomous systems directly.</p>
+                            </div>
+                        </InnerBento>
+
+                        <InnerBento 
+                            gradient="bg-micron-grey1" 
+                            direction="right" 
+                            delay={0.7} // UPDATED: Staggered 0.7s
+                            className="flex-grow" 
+                        >
+                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">INFLECTION POINT</h3>
+                            <div className="w-full h-px bg-white/20 mb-4" />
+                            {/* UPDATED: Increased text size to text-base md:text-lg to match Service Layer */}
+                            <div className="space-y-4 text-white/90 text-base md:text-lg font-medium leading-relaxed">
+                                <p className="font-bold text-white">Scaling to Billions.</p>
+                                <p>Daily life transforms permanently. This setting invites the architects of tomorrow to navigate the profound questions involved in bringing this future to the world.</p>
+                            </div>
+                        </InnerBento>
+                    </div>
+                </div>
+
+                {/* 3. SERVICE & SECURITY LAYER (Moved Below Video Grid) */}
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }} // Staggered: 0.3s
+                    transition={{ delay: 0.9 }} // Staggered: 0.9s
                     className="w-full bg-white rounded-xl px-6 py-5 md:px-8 md:py-6 text-zinc-900 shadow-[0_30px_60px_-10px_rgba(0,0,0,0.3)] relative overflow-hidden group"
                 >
                     <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green relative z-10">SERVICE & SECURITY LAYER</h3>
@@ -211,57 +263,6 @@ const getCardData = (id: number): ModalContent => {
                         </p>
                     </div>
                 </motion.div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className="lg:col-span-2 w-full h-full">
-                         {/* UPDATED: Wrapped Video in motion.div for Staggered Entrance (0.5s) */}
-                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5, duration: 0.8 }}
-                            className="w-full h-full"
-                         >
-                            <ModalVideo 
-                                src={VIDEO_PROTOTYPE}
-                                // UPDATED: Strictly enforced aspect-[1.5/1.1] to match BentoCard exactly
-                                className="w-full aspect-[1.5/1.1] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.3)] border border-zinc-200 group"
-                            />
-                         </motion.div>
-                    </div>
-                    
-                    <div className="lg:col-span-1 flex flex-col gap-4 h-full">
-                        <InnerBento 
-                            gradient="bg-micron-eggplant" 
-                            direction="right" 
-                            delay={0.7} // UPDATED: Staggered 0.7s - Integration appears first
-                            className="flex-grow" 
-                        >
-                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">INTEGRATION</h3>
-                            <div className="w-full h-px bg-white/20 mb-4" />
-                            {/* UPDATED: Increased text size to text-base md:text-lg to match Service Layer */}
-                            <div className="space-y-4 text-white/90 text-base md:text-lg font-medium leading-relaxed">
-                                <p className="font-bold text-white">A Venue for Leadership.</p>
-                                <p>A residential venue for the leaders and policy makers building and governing the future.</p>
-                                <p>Guests meet to experience the shift to autonomous systems directly.</p>
-                            </div>
-                        </InnerBento>
-
-                        <InnerBento 
-                            gradient="bg-micron-grey1" 
-                            direction="right" 
-                            delay={1.0} // UPDATED: Staggered 1.0s - Inflection Point appears second with delay gap
-                            className="flex-grow" 
-                        >
-                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3 font-sans">INFLECTION POINT</h3>
-                            <div className="w-full h-px bg-white/20 mb-4" />
-                            {/* UPDATED: Increased text size to text-base md:text-lg to match Service Layer */}
-                            <div className="space-y-4 text-white/90 text-base md:text-lg font-medium leading-relaxed">
-                                <p className="font-bold text-white">Scaling to Billions.</p>
-                                <p>Daily life transforms permanently. This setting invites the architects of tomorrow to navigate the profound questions involved in bringing this future to the world.</p>
-                            </div>
-                        </InnerBento>
-                    </div>
-                </div>
             </div>
         )
     };
