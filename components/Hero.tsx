@@ -319,7 +319,7 @@ export const Hero: React.FC = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: false }}
                 transition={{ duration: 2.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="h-[300px] md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black border border-zinc-800 order-2 group"
+                className="h-[300px] md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-2 group"
             >
                 <video 
                     ref={videoRef}
@@ -329,7 +329,7 @@ export const Hero: React.FC = () => {
                     playsInline 
                     className="absolute inset-0 w-full h-full object-cover opacity-100"
                 >
-                     <source src="https://assets.mixkit.co/videos/preview/mixkit-rotating-earth-from-space-1616-large.mp4" type="video/mp4" />
+                     <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MICRON%20HOUSE_FINAL.mp4" type="video/mp4" />
                 </video>
             </motion.div>
 
