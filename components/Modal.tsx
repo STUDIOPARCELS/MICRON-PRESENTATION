@@ -338,7 +338,8 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
                         return (
                             <div
                                 key={`${img.url}-${i}`}
-                                className="relative flex-grow h-[36vh] min-h-[300px] bg-zinc-100 group overflow-hidden rounded-lg hover:opacity-95 transition-opacity duration-200"
+                                // UPDATED: Changed bg-zinc-100 to bg-white to ensure seamless letterboxing
+                                className="relative flex-grow h-[36vh] min-h-[300px] bg-white group overflow-hidden rounded-lg hover:opacity-95 transition-opacity duration-200"
                                 style={{ 
                                     flexBasis: `${flexBasis}px`,
                                     flexGrow: ratio * 100, 
