@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useInView, AnimatePresence, useAnimation } from 'framer-motion';
+import { motion, useInView, AnimatePresence, useAnimation, Variants } from 'framer-motion';
 import { MapPin } from 'lucide-react';
 
 // Defined outside to prevent re-creation on render
@@ -48,31 +48,45 @@ const InteractiveParadigmTitle: React.FC = () => {
     const paradigmLine2 = ["PARADIGM"];
     const paradigmLine3 = ["SHIFTS."];
 
-    // UPDATED: Automatic animation loop for mobile visibility
-    const cycleAnimation = {
-        color: ["#008f25", "#2c0f38", "#008f25"], // Cycle Green -> Eggplant -> Green
-        transition: { 
-            duration: 4.0, 
-            ease: "easeInOut" as const,
-            repeat: Infinity,
-            repeatType: "reverse" as const
-        }
-    };
+    // Colors
+    const cLightGreen = "#008f25"; 
+    const cDarkGreen = "#14532d"; 
+    const cPurple = "#2c0f38"; 
+
+    // Animation Variants
+    // Transitions from Light Green -> Dark Green -> Purple -> Final Color
+    const getVariant = (finalColor: string): Variants => ({
+        hidden: { y: 20, opacity: 0, color: cLightGreen },
+        visible: (customDelay: number) => ({
+            y: 0, 
+            opacity: 1,
+            color: [cLightGreen, cDarkGreen, cPurple, finalColor],
+            transition: { 
+                y: { duration: 1.5, ease: "easeOut", delay: customDelay },
+                opacity: { duration: 1.5, ease: "easeOut", delay: customDelay },
+                color: { 
+                    duration: 2.5, 
+                    ease: "easeInOut", 
+                    times: [0, 0.33, 0.66, 1],
+                    delay: customDelay 
+                }
+            }
+        })
+    });
 
     return (
         <div className="flex flex-col items-start cursor-default">
-            {/* Line 1 & 2 - UPDATED: Ensure they stay together if possible */}
+            {/* Line 1 & 2 */}
             <div className="flex flex-wrap gap-x-2 md:gap-x-4 items-baseline">
                 {paradigmLine1.map((word, i) => (
                     <motion.span
-                        key={i}
-                        initial={{ y: 20, opacity: 0, color: '#008f25' }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        animate={cycleAnimation} // UPDATED: Auto-animate
-                        viewport={{ once: false }}
-                        transition={{ delay: 0.5, duration: 1.5 }}
-                        style={{ transition: "color 1.5s ease-out" }}
-                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block text-micron-green"
+                        key={`l1-${i}`}
+                        custom={0.5} // Delay
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }} // Plays once
+                        variants={getVariant(cPurple)}
+                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block"
                     >
                         {word}
                     </motion.span>
@@ -80,14 +94,13 @@ const InteractiveParadigmTitle: React.FC = () => {
                 
                 {paradigmLine2.map((word, i) => (
                     <motion.span
-                        key={i}
-                        initial={{ y: 20, opacity: 0, color: '#2c0f38' }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        animate={cycleAnimation} // UPDATED: Auto-animate
-                        viewport={{ once: false }}
-                        transition={{ delay: 0.7, duration: 1.5 }}
-                        style={{ transition: "color 1.5s ease-out" }}
-                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block text-micron-eggplant"
+                        key={`l2-${i}`}
+                        custom={0.7} // Delay
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }} // Plays once
+                        variants={getVariant(cPurple)}
+                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block"
                     >
                         {word}
                     </motion.span>
@@ -97,14 +110,13 @@ const InteractiveParadigmTitle: React.FC = () => {
             <div className="flex flex-wrap gap-x-2 md:gap-x-4">
                 {paradigmLine3.map((word, i) => (
                     <motion.span
-                        key={i}
-                        initial={{ y: 20, opacity: 0, color: '#2c0f38' }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        animate={cycleAnimation} // UPDATED: Auto-animate
-                        viewport={{ once: false }}
-                        transition={{ delay: 0.9, duration: 1.5 }}
-                        style={{ transition: "color 1.5s ease-out" }}
-                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block text-micron-eggplant"
+                        key={`l3-${i}`}
+                        custom={0.9} // Delay
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }} // Plays once
+                        variants={getVariant(cLightGreen)} // Ends in Green
+                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block"
                     >
                         {word}
                     </motion.span>
@@ -288,14 +300,14 @@ export const Hero: React.FC = () => {
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                 className={`
                     /* UPDATED: Mobile Logic 
-                       - Removed dynamic expansion/shift logic for mobile.
-                       - Fixed comfortable padding (p-6) and min-height (min-h-[220px]) on mobile.
+                       - Reduced padding from p-6 to p-3 (50% reduction).
+                       - Fixed comfortable padding (p-3) and min-height (min-h-[220px]) on mobile.
                        
                        Desktop Logic (md:):
                        - Retains original behavior but relies on layoutShift for desktop expansion if needed, 
                          though simplified to standard layout.
                     */
-                    min-h-[220px] p-6 justify-center
+                    min-h-[220px] p-3 justify-center
                     md:min-h-[300px] md:h-full md:justify-end md:px-12 md:pt-12 md:pb-12
                     w-full flex flex-col items-start order-2 bg-white rounded-3xl 
                     shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] border border-zinc-200 relative overflow-hidden group
@@ -357,12 +369,12 @@ export const Hero: React.FC = () => {
             {/* 2. VIDEO AREA */}
             {/* UPDATED: Changed order to order-1 (Top on Mobile, Left on Desktop) */}
             {/* UPDATED: Changed to animate for guaranteed population */}
-            {/* UPDATED: Changed mobile height from fixed h-[300px] to aspect-video (16:9) to match desktop proportions */}
+            {/* UPDATED: Changed mobile height from aspect-video (1.77) to aspect-[1.55/1] (~15% taller) */}
             <motion.div 
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 2.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="aspect-video h-auto md:aspect-auto md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-1 group"
+                className="aspect-[1.55/1] h-auto md:aspect-auto md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-1 group"
             >
                 <video 
                     ref={videoRef}
