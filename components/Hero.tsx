@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence, useAnimation, Variants } from 'framer-motion';
 import { MapPin } from 'lucide-react';
@@ -87,7 +86,7 @@ const InteractiveParadigmTitle: React.FC = () => {
                         custom={0.2} // Delay
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true }} // Plays once
+                        viewport={{ once: false }} // UPDATED: Re-triggers on scroll
                         variants={getVariant(cPurple)} // Ends in Purple
                         className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block"
                     >
@@ -101,7 +100,7 @@ const InteractiveParadigmTitle: React.FC = () => {
                         custom={0.4} // Delay
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true }} // Plays once
+                        viewport={{ once: false }} // UPDATED: Re-triggers on scroll
                         variants={getVariant(cPurple)} // Ends in Purple
                         className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block"
                     >
@@ -117,7 +116,7 @@ const InteractiveParadigmTitle: React.FC = () => {
                         custom={0.6} // Delay
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true }} // Plays once
+                        viewport={{ once: false }} // UPDATED: Re-triggers on scroll
                         variants={getVariant(cLightGreen)} // Ends in Green
                         className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block"
                     >
@@ -417,7 +416,7 @@ export const Hero: React.FC = () => {
             {/* 2. VIDEO AREA */}
             {/* UPDATED: Changed order to order-1 (Top on Mobile, Left on Desktop) */}
             {/* UPDATED: REMOVED DELAY so video plays instantly */}
-            {/* UPDATED: Changed mobile height from aspect-[1.55/1] to aspect-[1.4/1] (Taller by ~10%) */}
+            {/* UPDATED: Changed mobile height from aspect-[1.4/1] to aspect-[1.4/1] (Taller by ~10%) */}
             <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -473,7 +472,7 @@ export const Hero: React.FC = () => {
                       <motion.div
                          initial="hidden"
                          whileInView="visible"
-                         viewport={{ once: true, amount: 0.2 }}
+                         viewport={{ once: false, amount: 0.2 }} // UPDATED: Re-triggers on scroll
                          variants={quoteContainerVariants}
                          className="font-micron text-2xl text-center text-white leading-relaxed -rotate-3"
                       >
@@ -499,7 +498,7 @@ export const Hero: React.FC = () => {
                         initial="hidden"
                         whileInView="visible"
                         // UPDATED: Standardized viewport and stagger for consistent scroll trigger
-                        viewport={{ once: true, amount: 0.2 }}
+                        viewport={{ once: false, amount: 0.2 }} // UPDATED: Re-triggers on scroll
                         variants={quoteContainerVariants}
                         className="font-micron text-2xl md:text-3xl text-white leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4"
                 >
