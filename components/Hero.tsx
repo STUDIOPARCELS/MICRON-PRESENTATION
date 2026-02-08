@@ -143,9 +143,16 @@ export const Hero: React.FC = () => {
     if (currentSentenceIndex >= sentences.length - 1) return;
 
     // Cycle duration to allow slower word population (8000ms = 33% slower than 6000)
-    // UPDATED: Added logic to extend the first sentence (Vision) by 1.3s to match video
     const baseDuration = 8000;
-    const cycleDuration = currentSentenceIndex === 0 ? baseDuration + 1300 : baseDuration;
+    
+    // UPDATED: Logic for durations
+    let cycleDuration = baseDuration;
+    
+    if (currentSentenceIndex === 0) {
+        cycleDuration = baseDuration + 1300; // Extend first sentence slightly
+    } else if (currentSentenceIndex === 1) {
+        cycleDuration = baseDuration * 2.0; // UPDATED: Double the pause before Sentence 3
+    }
 
     const timer = setTimeout(() => {
         setCurrentSentenceIndex((prev) => {
@@ -275,7 +282,8 @@ export const Hero: React.FC = () => {
                 layout
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                 className={`
-                    ${layoutShift ? 'min-h-[160px] px-6 pt-12 pb-12 justify-end' : 'min-h-[200px] p-6 justify-center'}
+                    /* UPDATED: Standardized min-height to 220px to prevent jagged jumps. Adjusted padding. */
+                    ${layoutShift ? 'min-h-[220px] px-6 pt-12 pb-12 justify-end' : 'min-h-[220px] p-6 justify-center'}
                     md:min-h-[300px] md:h-full md:justify-end md:px-12 md:pt-12 md:pb-12
                     w-full flex flex-col items-start order-2 bg-white rounded-3xl 
                     shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] border border-zinc-200 relative overflow-hidden group
@@ -285,16 +293,16 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    // UPDATED: Desktop positioning: top-16 (was 12), right-28 (was 20). Mobile right-6 remains.
-                    className="absolute bottom-10 right-6 w-fit md:top-16 md:right-28 md:bottom-auto md:left-auto md:mx-0 z-20"
+                    // UPDATED: Mobile positioning: bottom-10 right-10 (nudged left). Desktop top-16 right-28.
+                    className="absolute bottom-10 right-10 w-fit md:top-16 md:right-28 md:bottom-auto md:left-auto md:mx-0 z-20"
                  >
                     <motion.img 
                         whileHover={{ rotate: 6 }}
                         transition={{ type: "spring", stiffness: 300, damping: 10 }}
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                         alt="Micron Logo"
-                        // UPDATED: Desktop size md:h-[11.5rem] md:w-[11.5rem] (approx 15% bigger than h-40)
-                        className="h-24 w-24 md:h-[11.5rem] md:w-[11.5rem] object-contain cursor-pointer"
+                        // UPDATED: Mobile size h-28 w-28 (approx 15% bigger). Desktop md:h-[11.5rem] md:w-[11.5rem]
+                        className="h-28 w-28 md:h-[11.5rem] md:w-[11.5rem] object-contain cursor-pointer"
                     />
                  </motion.div>
                  
