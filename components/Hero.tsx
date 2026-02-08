@@ -389,8 +389,8 @@ export const Hero: React.FC = () => {
                          whileInView="visible"
                          viewport={{ once: true, amount: 0.6, margin: "0px 0px -50px 0px" }}
                          variants={{
-                             // UPDATED: Slowed down from 0.15 to 0.25 (approx 50% slower)
-                             visible: { transition: { staggerChildren: 0.25, delayChildren: 0.1 } }, 
+                             // UPDATED: Slowed down from 0.25 to 0.40 (approx 50% slower)
+                             visible: { transition: { staggerChildren: 0.40, delayChildren: 0.1 } }, 
                              hidden: {}
                          }}
                          className="font-micron text-2xl text-center text-white leading-relaxed -rotate-3"
@@ -402,7 +402,8 @@ export const Hero: React.FC = () => {
                                     key={i}
                                     variants={{
                                         hidden: { opacity: 0 },
-                                        visible: { opacity: 1, transition: { duration: 0.5, ease: "easeInOut" } }
+                                        // UPDATED: Slower fade duration 1.0s (was 0.5s)
+                                        visible: { opacity: 1, transition: { duration: 1.0, ease: "easeInOut" } }
                                     }}
                                     className="mr-1.5 inline-block"
                                 >
@@ -423,8 +424,8 @@ export const Hero: React.FC = () => {
                         // margin-bottom of -100px helps delay trigger until user scrolls further down.
                         viewport={{ once: true, amount: 0.5, margin: "0px 0px -100px 0px" }}
                         variants={{
-                            // UPDATED: Added delayChildren: 1.5s to ensure a pause before text starts appearing
-                            visible: { transition: { staggerChildren: 0.25, delayChildren: 1.5 } },
+                            // UPDATED: Slowed down from 0.25 to 0.40 and maintained delay
+                            visible: { transition: { staggerChildren: 0.40, delayChildren: 1.5 } },
                             hidden: {}
                         }}
                         className="font-micron text-2xl md:text-3xl text-white leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4"
@@ -436,7 +437,8 @@ export const Hero: React.FC = () => {
                             key={i}
                             variants={{
                                 hidden: { opacity: 0, y: 5 },
-                                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                                // UPDATED: Slower fade duration 1.0s (was 0.5s)
+                                visible: { opacity: 1, y: 0, transition: { duration: 1.0, ease: "easeOut" } }
                             }}
                             className="mr-2 inline-block"
                         >
