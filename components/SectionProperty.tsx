@@ -214,8 +214,6 @@ export const SectionProperty: React.FC = () => {
                   "br1.6.JPEG",
                   "br2.3.JPEG",
                   "br3_0.jpg",
-                  "dusting.jpeg",
-                  "dusting2.png",
                   "stairs.jpg"
               ]
           },
@@ -226,7 +224,6 @@ export const SectionProperty: React.FC = () => {
                   "IMG_0304.JPEG",
                   "back_yard_1.JPEG",
                   "exterior.3.jpg",
-                  "exterior.4.JPEG",
                   "exterior.4.jpg",
                   "exterior_3.JPG",
                   "exterior_4.JPG",
