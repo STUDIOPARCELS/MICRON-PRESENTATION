@@ -142,14 +142,17 @@ export const Hero: React.FC = () => {
   // Icon Controls
   const iconControls = useAnimation();
 
-  // Start the sequence after mount
-  useEffect(() => {
-    // UPDATED: Increased delay to 1500ms (1.5s) to ensure video is underway before text starts
-    const startTimer = setTimeout(() => {
-        setCurrentSentenceIndex(0);
-    }, 1500);
-    return () => clearTimeout(startTimer);
-  }, []);
+  // Handle Video Loop to sync animation
+  const handleVideoLoop = () => {
+    if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play();
+    }
+    // Reset animation states to trigger replay
+    setCurrentSentenceIndex(null);
+    setLayoutShift(false);
+    iconControls.set({ x: 200, rotate: -360, opacity: 0 });
+  };
   
   // Effect to cycle through sentences
   useEffect(() => {
@@ -164,7 +167,8 @@ export const Hero: React.FC = () => {
     let cycleDuration = baseDuration;
     
     if (currentSentenceIndex === 0) {
-        cycleDuration = baseDuration + 1300; // Extend first sentence slightly
+        // UPDATED: Doubled the pause (approx 18s total) as requested
+        cycleDuration = baseDuration * 2.25; 
     } else if (currentSentenceIndex === 1) {
         // UPDATED: Reduced multiplier from 2.0 to 1.5. 
         // 16s was likely too long and perceived as "not running". 12s is still a long pause but safer.
@@ -221,7 +225,7 @@ export const Hero: React.FC = () => {
       }
   }, [currentSentenceIndex, iconControls]);
 
-  // Replay logic when scrolling back up
+  // Replay logic when scrolling back up OR when reset via video loop
   useEffect(() => {
       if (!isInView && currentSentenceIndex !== null) {
           setCurrentSentenceIndex(null);
@@ -233,7 +237,7 @@ export const Hero: React.FC = () => {
           }, 1500); // UPDATED: Match the initial delay on scroll-back replay too
           return () => clearTimeout(startTimer);
       }
-  }, [isInView]);
+  }, [isInView, currentSentenceIndex]); // Added currentSentenceIndex to deps to catch the null reset from video loop
 
   // Video Speed Control
   useEffect(() => {
@@ -379,9 +383,11 @@ export const Hero: React.FC = () => {
                 <video 
                     ref={videoRef}
                     autoPlay 
-                    loop 
+                    // UPDATED: Removed loop to allow onEnded trigger for sync
+                    loop={false} 
                     muted 
                     playsInline 
+                    onEnded={handleVideoLoop}
                     className="absolute inset-0 w-full h-full object-cover opacity-100"
                 >
                      <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MICRON%20HOUSE_NEW.mp4" type="video/mp4" />
