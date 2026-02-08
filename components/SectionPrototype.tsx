@@ -615,7 +615,8 @@ export const SectionPrototype: React.FC = () => {
                 borderColor="border-white/10"
                 delay={0} // Stagger Pattern: 1st
                 hoverEffect={true}
-                hideArrow={true}
+                arrowPosition="bottom-right" // UPDATED: Position arrow bottom-right
+                // UPDATED: Enabled arrow (removed hideArrow={true})
                 onClick={() => setModalData(getCardData(1))}
                 onMouseEnter={() => setHoveredCard(1)}
                 onMouseLeave={() => setHoveredCard(null)}
@@ -639,7 +640,8 @@ export const SectionPrototype: React.FC = () => {
                 borderColor="border-white/10"
                 delay={0.3} // Stagger Pattern: 3rd
                 hoverEffect={true}
-                hideArrow={true}
+                arrowPosition="bottom-right" // UPDATED: Position arrow bottom-right
+                // UPDATED: Enabled arrow (removed hideArrow={true})
                 onClick={() => setModalData(getCardData(3))}
                 onMouseEnter={() => setHoveredCard(3)}
                 onMouseLeave={() => setHoveredCard(null)}
@@ -664,7 +666,8 @@ export const SectionPrototype: React.FC = () => {
                 delay={0.1} // Stagger Pattern: 2nd
                 duration={2.5}
                 hoverEffect={true}
-                hideArrow={true}
+                arrowPosition="bottom-right" // UPDATED: Position arrow bottom-right
+                // UPDATED: Enabled arrow (removed hideArrow={true})
                 onClick={() => setModalData(getCardData(2))}
                 onMouseEnter={() => setHoveredCard(2)}
                 onMouseLeave={() => setHoveredCard(null)}
@@ -689,7 +692,8 @@ export const SectionPrototype: React.FC = () => {
                 delay={0.4} // Stagger Pattern: 4th
                 duration={2.5}
                 hoverEffect={true}
-                hideArrow={true}
+                arrowPosition="bottom-right" // UPDATED: Position arrow bottom-right
+                // UPDATED: Enabled arrow (removed hideArrow={true})
                 onClick={() => setModalData(getCardData(4))}
                 onMouseEnter={() => setHoveredCard(4)}
                 onMouseLeave={() => setHoveredCard(null)}

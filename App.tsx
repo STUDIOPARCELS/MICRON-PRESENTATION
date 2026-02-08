@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Hero } from './components/Hero';
 import { SectionPrototype } from './components/SectionPrototype';
@@ -26,6 +25,16 @@ function App() {
       return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Prevent scrolling when mobile menu is open
+  useEffect(() => {
+      if (mobileMenuOpen) {
+          document.body.style.overflow = 'hidden';
+      } else {
+          document.body.style.overflow = 'unset';
+      }
+      return () => { document.body.style.overflow = 'unset'; };
+  }, [mobileMenuOpen]);
+
   // Helper function to handle smooth scrolling with header offset
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -51,28 +60,23 @@ function App() {
     { label: "Vision", id: "prototype" },
     { label: "Property", id: "property" },
     { label: "Serving Micron", id: "serving" },
-    // Changed label from "Serving Tesla" to "Living Lab"
     { label: "Living Lab", id: "serving-tesla" },
     { label: "Timeline", id: "timeline" },
   ];
 
   return (
     <div className="min-h-screen w-full bg-white text-zinc-900 font-sans">
-      {/* Navigation Overlay - Z-50 to stay on top */}
-      {/* UPDATED: Changed transition-all to transition-colors to prevent layout shift on modal open */}
+      {/* Navigation Overlay - Z-100 to stay on top */}
       <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/95 backdrop-blur-xl border-b border-zinc-200 shadow-sm transition-colors duration-300">
-        <div className="container mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
+        <div className="container mx-auto px-4 md:px-6 py-3 flex items-center justify-between relative z-[110]">
             {/* ANIMATED BRAND LOGO */}
             <div 
-              // UPDATED: Reduced gap from gap-2 (8px) to gap-1.5 (6px) -> 20% closer
-              className="flex items-center gap-1.5 cursor-pointer z-50 relative group" 
+              className="flex items-center gap-1.5 cursor-pointer group" 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
               <motion.img 
-                // UPDATED: New Transparent Overlap Logo
                 src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-transparent.png"
                 alt="Micron House Logo"
-                // UPDATED: Reduced size by 20% from previous (h-3.6rem -> h-2.9rem, md:h-4.2rem -> md:h-3.4rem)
                 className="h-[2.9rem] w-[2.9rem] md:h-[3.4rem] md:w-[3.4rem] object-contain"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -85,14 +89,13 @@ function App() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.0, duration: 0.8 }}
-                // UPDATED: Text color to transparent eggplant (opacity 80)
                 className="text-lg md:text-xl font-black tracking-tight text-micron-eggplant/80 uppercase font-sans"
               >
                 Micron House
               </motion.span>
             </div>
             
-            {/* Desktop Menu - Font Size Increased to text-base */}
+            {/* Desktop Menu */}
             <div className="hidden md:flex gap-8 text-base font-bold uppercase tracking-widest text-zinc-500">
                {navLinks.map(link => (
                  <a 
@@ -108,35 +111,56 @@ function App() {
 
             {/* Mobile Menu Toggle */}
             <button 
-                className="md:hidden text-zinc-800 z-50 relative p-2"
+                className="md:hidden text-zinc-800 p-2 rounded-md hover:bg-zinc-100 transition-colors"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle menu"
             >
-                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
         </div>
 
-        {/* Mobile Full Screen Menu - Z-40 (Under Navbar but above content) */}
+        {/* Mobile Full Screen Menu */}
         <AnimatePresence>
             {mobileMenuOpen && (
                 <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="fixed inset-0 bg-white z-40 flex flex-col pt-24 px-6 overflow-y-auto"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: '100dvh' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="fixed inset-0 bg-white z-[100] flex flex-col pt-24 px-6 overflow-y-auto md:hidden"
                 >
-                    <div className="flex flex-col gap-6 text-xl font-bold uppercase tracking-widest text-zinc-800 pb-10">
-                        {navLinks.map(link => (
-                            <a 
+                    <div className="flex flex-col gap-2 text-xl font-bold uppercase tracking-widest text-zinc-800 pb-10">
+                        {navLinks.map((link, i) => (
+                            <motion.a 
                                 key={link.id}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.1 + (i * 0.05) }}
                                 href={`#${link.id}`} 
                                 onClick={(e) => scrollToSection(e, link.id)} 
-                                className="border-b border-zinc-100 pb-4 flex justify-between items-center group cursor-pointer"
+                                className="border-b border-zinc-100 py-6 flex justify-between items-center group cursor-pointer active:bg-zinc-50"
                             >
                                 {link.label}
-                                <ArrowRight size={20} className="text-micron-green opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all" />
-                            </a>
+                                <ArrowRight size={20} className="text-micron-green" />
+                            </motion.a>
                         ))}
                     </div>
+                    
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className="mt-auto pb-12 flex flex-col gap-4 text-zinc-500 text-sm"
+                    >
+                        <div className="flex items-center gap-2">
+                             <MapPin size={16} className="text-micron-green" />
+                             <span>1020 E Warm Springs Ave, Boise</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                             <Mail size={16} className="text-micron-green" />
+                             <span>inquiry@micronhouse.com</span>
+                        </div>
+                    </motion.div>
                 </motion.div>
             )}
         </AnimatePresence>
@@ -150,11 +174,9 @@ function App() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 onClick={scrollToTop}
-                // UPDATED: Reduced padding and position for mobile
                 className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[90] bg-micron-eggplant text-white p-2 md:p-3 rounded-full shadow-lg border border-white/20 hover:bg-micron-eggplant-light transition-colors"
                 aria-label="Scroll to top"
             >
-                {/* UPDATED: Responsive icon size */}
                 <ArrowUp className="w-4 h-4 md:w-6 md:h-6" />
             </motion.button>
         )}
@@ -163,7 +185,6 @@ function App() {
       <main>
         <Hero />
         
-        {/* UPDATED: Removed bg-white class to prevent potential double-background wrapper issues */}
         <div className="relative z-20">
           <SectionPrototype />
           <SectionProperty />

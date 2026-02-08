@@ -138,23 +138,107 @@ export const Hero: React.FC = () => {
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState<number | null>(null);
   const [key, setKey] = useState(0); 
   const [layoutShift, setLayoutShift] = useState(false);
+  const [logoVisible, setLogoVisible] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false); // Track scroll for mobile quote
+
+  // Timer Ref to manage cleanup
+  const sequenceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Icon Controls
   const iconControls = useAnimation();
 
-  // Handle Video Loop to sync animation
-  const handleVideoLoop = () => {
-    if (videoRef.current) {
-        videoRef.current.currentTime = 0;
-        videoRef.current.play();
-    }
-    // Reset animation states to trigger replay
+  // Scroll Listener for Mobile Quote
+  useEffect(() => {
+    const handleScroll = () => {
+        if (window.scrollY > 20) {
+            setHasScrolled(true);
+        }
+    };
+    
+    // Check initially (in case user refreshes on page)
+    if (window.scrollY > 20) setHasScrolled(true);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Unified Start Sequence Function
+  // Resets everything, starts video immediately, waits 1.5s, starts text
+  const startSequence = () => {
+    // 1. Clear any pending timers
+    if (sequenceTimer.current) clearTimeout(sequenceTimer.current);
+
+    // 2. Reset Text & Icon State
     setCurrentSentenceIndex(null);
     setLayoutShift(false);
+    setLogoVisible(false);
     iconControls.set({ x: 200, rotate: -360, opacity: 0 });
+
+    // 3. Restart Video Immediately
+    if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play().catch((e) => console.log("Video play error:", e));
+    }
+
+    // 4. Schedule Text Start (1.5s delay)
+    sequenceTimer.current = setTimeout(() => {
+        setCurrentSentenceIndex(0);
+    }, 1500);
+  };
+
+  // Handle Video Loop (End of video triggers replay)
+  const handleVideoLoop = () => {
+      startSequence();
   };
   
-  // Effect to cycle through sentences
+  // SYNC LOGO TO VIDEO TIME
+  // Trigger roughly when car rolls in (approx 4.0s mark)
+  const handleVideoTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+      const time = e.currentTarget.currentTime;
+      if (time >= 4.0 && !logoVisible) {
+          setLogoVisible(true);
+          
+          // Trigger Logo Animation
+          iconControls.start({
+              x: 0,
+              rotate: 0, // End rotation
+              opacity: 1,
+              transition: { 
+                  type: "spring",
+                  stiffness: 30, 
+                  damping: 20,   
+                  duration: 3.0, 
+                  bounce: 0
+              }
+          });
+
+          // Trigger Layout Shift (Bento Expand) shortly after logo starts moving
+          setTimeout(() => {
+              setLayoutShift(true);
+          }, 800);
+      }
+  };
+
+  // Handle Scroll Visibility (Scroll back up triggers replay)
+  // This also handles the initial mount because isInView becomes true on load
+  useEffect(() => {
+      if (isInView) {
+          startSequence();
+      } else {
+          // Clean up if we scroll away
+          if (sequenceTimer.current) clearTimeout(sequenceTimer.current);
+          setCurrentSentenceIndex(null);
+          setLayoutShift(false);
+          setLogoVisible(false);
+          iconControls.set({ x: 200, rotate: -360, opacity: 0 });
+      }
+
+      return () => {
+          if (sequenceTimer.current) clearTimeout(sequenceTimer.current);
+      };
+  }, [isInView]); // Removed other dependencies to rely purely on visibility toggle
+  
+  // Effect to cycle through sentences (Once started)
   useEffect(() => {
     // If not started, or at end, stop automatic cycling
     if (currentSentenceIndex === null) return;
@@ -188,56 +272,6 @@ export const Hero: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, [currentSentenceIndex]);
-
-  // Effect for Icon Roll-In Logic
-  useEffect(() => {
-      // Trigger on the THIRD sentence (index 2)
-      if (currentSentenceIndex === 2) {
-          const totalDelay = 3.0; // UPDATED: Increased from 2.2 for slower text
-
-          iconControls.start({
-              x: 0,
-              rotate: 0, // End rotation
-              opacity: 1,
-              transition: { 
-                  delay: totalDelay,
-                  type: "spring",
-                  stiffness: 30, 
-                  damping: 20,   
-                  duration: 3.0, 
-                  bounce: 0
-              }
-          });
-
-          // Layout Shift Timer - trigger just before logo arrives
-          const shiftTimer = setTimeout(() => {
-              setLayoutShift(true);
-          }, 2600); // UPDATED: Increased from 1800 for slower text
-
-          return () => {
-              clearTimeout(shiftTimer);
-          };
-
-      } else if (currentSentenceIndex === 0) {
-          // Only manual reset triggers this now (since scroll reset is removed)
-          iconControls.set({ x: 200, rotate: -360, opacity: 0 });
-          setLayoutShift(false);
-      }
-  }, [currentSentenceIndex, iconControls]);
-
-  // Replay logic when scrolling back up OR when reset via video loop
-  useEffect(() => {
-      if (!isInView && currentSentenceIndex !== null) {
-          setCurrentSentenceIndex(null);
-          setLayoutShift(false);
-          iconControls.set({ x: 200, rotate: -360, opacity: 0 });
-      } else if (isInView && currentSentenceIndex === null) {
-          const startTimer = setTimeout(() => {
-              setCurrentSentenceIndex(0);
-          }, 1500); // UPDATED: Match the initial delay on scroll-back replay too
-          return () => clearTimeout(startTimer);
-      }
-  }, [isInView, currentSentenceIndex]); // Added currentSentenceIndex to deps to catch the null reset from video loop
 
   // Video Speed Control
   useEffect(() => {
@@ -372,12 +406,12 @@ export const Hero: React.FC = () => {
 
             {/* 2. VIDEO AREA */}
             {/* UPDATED: Changed order to order-1 (Top on Mobile, Left on Desktop) */}
-            {/* UPDATED: Changed to animate for guaranteed population */}
+            {/* UPDATED: REMOVED DELAY so video plays instantly */}
             {/* UPDATED: Changed mobile height from aspect-[1.55/1] to aspect-[1.4/1] (Taller by ~10%) */}
             <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 2.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }} // Fast fade-in, no delay
                 className="aspect-[1.4/1] h-auto md:aspect-auto md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-1 group"
             >
                 <video 
@@ -388,6 +422,7 @@ export const Hero: React.FC = () => {
                     muted 
                     playsInline 
                     onEnded={handleVideoLoop}
+                    onTimeUpdate={handleVideoTimeUpdate}
                     className="absolute inset-0 w-full h-full object-cover opacity-100"
                 >
                      <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MICRON%20HOUSE_NEW.mp4" type="video/mp4" />
@@ -421,16 +456,15 @@ export const Hero: React.FC = () => {
                  </div>
 
                  {/* MOBILE QUOTE - IN FLOW */}
-                 {/* UPDATED: Stricter viewport settings to require scroll */}
+                 {/* UPDATED: Uses hasScrolled state to trigger animation only after user scrolls */}
                  <div className="md:hidden w-full flex-grow pt-4 pb-12 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
-                         whileInView="visible"
-                         viewport={{ once: true, amount: 0.6, margin: "0px 0px -50px 0px" }}
+                         animate={hasScrolled ? "visible" : "hidden"}
                          variants={{
                              // UPDATED: Slowed down from 0.25 to 0.40 (approx 50% slower)
                              visible: { transition: { staggerChildren: 0.40, delayChildren: 0.1 } }, 
-                             hidden: {}
+                             hidden: { opacity: 0 }
                          }}
                          className="font-micron text-2xl text-center text-white leading-relaxed -rotate-3"
                       >

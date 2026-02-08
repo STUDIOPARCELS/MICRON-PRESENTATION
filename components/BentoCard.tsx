@@ -36,8 +36,8 @@ export const BentoCard: React.FC<CardProps & {
 
   // UPDATED: Tighter corner positioning (reduced spacing from 4/6 to 3/4)
   const arrowPosClass = arrowPosition === 'bottom-right' 
-    ? 'bottom-3 right-3 md:bottom-4 md:right-4' 
-    : 'top-3 right-3 md:top-4 md:right-4';
+    ? 'bottom-4 right-4 md:bottom-5 md:right-5' 
+    : 'top-4 right-4 md:top-5 md:right-5';
 
   return (
     <motion.div
@@ -78,9 +78,16 @@ export const BentoCard: React.FC<CardProps & {
       </div>
       
       {onClick && hoverEffect && !hideArrow && (
-        <div className={`absolute ${arrowPosClass} z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0`}>
-             {/* UPDATED: Reduced size from 20 to 18 */}
-             <ArrowUpRight className={`${arrowColor} opacity-70`} size={18} />
+        <div className={`
+            absolute ${arrowPosClass} z-20 
+            transition-all duration-300 
+            /* MOBILE: Always visible, increased opacity to 80 for visibility */
+            opacity-80
+            /* DESKTOP: Hidden initially, visible on hover */
+            md:opacity-0 md:group-hover:opacity-100 md:translate-y-2 md:group-hover:translate-y-0
+        `}>
+             {/* UPDATED: Reduced size from 20 to 16 for subtle look */}
+             <ArrowUpRight className={arrowColor} size={16} />
         </div>
       )}
     </motion.div>
