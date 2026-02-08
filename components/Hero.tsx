@@ -142,10 +142,10 @@ export const Hero: React.FC = () => {
     if (currentSentenceIndex === null) return;
     if (currentSentenceIndex >= sentences.length - 1) return;
 
-    // Cycle duration to allow slower word population (6000ms)
-    // UPDATED: Added logic to extend the first sentence (Vision) by 1s to match video
-    const baseDuration = 6000;
-    const cycleDuration = currentSentenceIndex === 0 ? baseDuration + 1000 : baseDuration;
+    // Cycle duration to allow slower word population (8000ms = 33% slower than 6000)
+    // UPDATED: Added logic to extend the first sentence (Vision) by 1.3s to match video
+    const baseDuration = 8000;
+    const cycleDuration = currentSentenceIndex === 0 ? baseDuration + 1300 : baseDuration;
 
     const timer = setTimeout(() => {
         setCurrentSentenceIndex((prev) => {
@@ -165,7 +165,7 @@ export const Hero: React.FC = () => {
   useEffect(() => {
       // Trigger on the THIRD sentence (index 2)
       if (currentSentenceIndex === 2) {
-          const totalDelay = 2.2; 
+          const totalDelay = 3.0; // UPDATED: Increased from 2.2 for slower text
 
           iconControls.start({
               x: 0,
@@ -184,7 +184,7 @@ export const Hero: React.FC = () => {
           // Layout Shift Timer - trigger just before logo arrives
           const shiftTimer = setTimeout(() => {
               setLayoutShift(true);
-          }, 1800);
+          }, 2600); // UPDATED: Increased from 1800 for slower text
 
           return () => {
               clearTimeout(shiftTimer);
@@ -196,6 +196,20 @@ export const Hero: React.FC = () => {
           setLayoutShift(false);
       }
   }, [currentSentenceIndex, iconControls]);
+
+  // Replay logic when scrolling back up
+  useEffect(() => {
+      if (!isInView && currentSentenceIndex !== null) {
+          setCurrentSentenceIndex(null);
+          setLayoutShift(false);
+          iconControls.set({ x: 200, rotate: -360, opacity: 0 });
+      } else if (isInView && currentSentenceIndex === null) {
+          const startTimer = setTimeout(() => {
+              setCurrentSentenceIndex(0);
+          }, 500);
+          return () => clearTimeout(startTimer);
+      }
+  }, [isInView]);
 
   // Video Speed Control
   useEffect(() => {
@@ -224,7 +238,8 @@ export const Hero: React.FC = () => {
                    visible: { 
                        y: 0, 
                        opacity: 1, 
-                       transition: { duration: 0.5, ease: "easeOut" } 
+                       // UPDATED: Slower entry duration (0.7s)
+                       transition: { duration: 0.7, ease: "easeOut" } 
                    },
                    exit: {
                        y: -30,
@@ -246,7 +261,8 @@ export const Hero: React.FC = () => {
   return (
     <section 
         ref={containerRef}
-        className="relative w-full bg-white text-zinc-900 pt-20 md:pt-24 pb-12 md:pb-16 flex flex-col justify-end"
+        // UPDATED: pt-24 on mobile (was pt-32) to reduce padding by ~20%. md:pt-24 remains.
+        className="relative w-full bg-white text-zinc-900 pt-24 md:pt-24 pb-12 md:pb-16 flex flex-col justify-end"
     >
       <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4">
         
@@ -254,13 +270,14 @@ export const Hero: React.FC = () => {
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 h-auto md:h-[450px] w-full">
             
             {/* 1. TEXT ANIMATION AREA (White Bento) */}
+            {/* UPDATED: Changed order to order-2 (Bottom on Mobile, Right on Desktop) */}
             <motion.div 
                 layout
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                 className={`
-                    ${layoutShift ? 'min-h-[160px] px-6 pt-2 pb-12 justify-end' : 'min-h-[200px] p-6 justify-center'}
+                    ${layoutShift ? 'min-h-[160px] px-6 pt-12 pb-12 justify-end' : 'min-h-[200px] p-6 justify-center'}
                     md:min-h-[300px] md:h-full md:justify-end md:px-12 md:pt-12 md:pb-12
-                    w-full flex flex-col items-start order-1 bg-white rounded-3xl 
+                    w-full flex flex-col items-start order-2 bg-white rounded-3xl 
                     shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] border border-zinc-200 relative overflow-hidden group
                 `}
             >
@@ -268,15 +285,16 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    // UPDATED: Mobile positioning right-6 (was right-4) to nudge left
-                    className="absolute bottom-10 right-6 w-fit md:top-12 md:right-20 md:bottom-auto md:left-auto md:mx-0 z-20"
+                    // UPDATED: Desktop positioning: top-16 (was 12), right-28 (was 20). Mobile right-6 remains.
+                    className="absolute bottom-10 right-6 w-fit md:top-16 md:right-28 md:bottom-auto md:left-auto md:mx-0 z-20"
                  >
                     <motion.img 
                         whileHover={{ rotate: 6 }}
                         transition={{ type: "spring", stiffness: 300, damping: 10 }}
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                         alt="Micron Logo"
-                        className="h-24 w-24 md:h-40 md:w-40 object-contain cursor-pointer"
+                        // UPDATED: Desktop size md:h-[11.5rem] md:w-[11.5rem] (approx 15% bigger than h-40)
+                        className="h-24 w-24 md:h-[11.5rem] md:w-[11.5rem] object-contain cursor-pointer"
                     />
                  </motion.div>
                  
@@ -297,7 +315,8 @@ export const Hero: React.FC = () => {
                                   hidden: { opacity: 1 },
                                   visible: { 
                                       opacity: 1,
-                                      transition: { staggerChildren: 0.4 } 
+                                      // UPDATED: Slower stagger (0.55s)
+                                      transition: { staggerChildren: 0.55 } 
                                   },
                                   exit: { 
                                       opacity: 1, 
@@ -316,12 +335,13 @@ export const Hero: React.FC = () => {
             </motion.div>
 
             {/* 2. VIDEO AREA */}
+            {/* UPDATED: Changed order to order-1 (Top on Mobile, Left on Desktop) */}
+            {/* UPDATED: Changed to animate for guaranteed population */}
             <motion.div 
                 initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: false }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 2.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="h-[300px] md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-2 group"
+                className="h-[300px] md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-1 group"
             >
                 <video 
                     ref={videoRef}
@@ -338,12 +358,12 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* BOTTOM SECTION: PARADIGM & QUOTE */}
+        {/* UPDATED: Changed to animate for guaranteed population on mobile */}
         <motion.div 
             ref={bottomSectionRef}
             initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 2.5, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row md:items-stretch min-h-[400px] md:min-h-[360px] mt-4 p-8 md:p-8 gap-4 md:gap-8 group"
         >
             {/* LEFT: Title + Address Block (Flex-1) */}
@@ -362,12 +382,12 @@ export const Hero: React.FC = () => {
                  </div>
 
                  {/* MOBILE QUOTE - IN FLOW */}
-                 {/* UPDATED: Use whileInView for scroll-based triggering */}
+                 {/* UPDATED: Stricter viewport settings to require scroll */}
                  <div className="md:hidden w-full flex-grow pt-4 pb-12 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
                          whileInView="visible"
-                         viewport={{ once: true, amount: 0.3 }}
+                         viewport={{ once: true, amount: 0.6, margin: "0px 0px -50px 0px" }}
                          variants={{
                              // UPDATED: Slowed down from 0.15 to 0.25 (approx 50% slower)
                              visible: { transition: { staggerChildren: 0.25, delayChildren: 0.1 } }, 
@@ -399,10 +419,12 @@ export const Hero: React.FC = () => {
                 <motion.div
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true, amount: 0.3 }}
+                        // UPDATED: Adjusted viewport amount and margin to "wait for scroll" before animating.
+                        // margin-bottom of -100px helps delay trigger until user scrolls further down.
+                        viewport={{ once: true, amount: 0.5, margin: "0px 0px -100px 0px" }}
                         variants={{
-                            // UPDATED: Slowed down from 0.15 to 0.25 (approx 50% slower)
-                            visible: { transition: { staggerChildren: 0.25, delayChildren: 0.1 } },
+                            // UPDATED: Added delayChildren: 1.5s to ensure a pause before text starts appearing
+                            visible: { transition: { staggerChildren: 0.25, delayChildren: 1.5 } },
                             hidden: {}
                         }}
                         className="font-micron text-2xl md:text-3xl text-white leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4"
