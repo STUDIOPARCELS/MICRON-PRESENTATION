@@ -197,16 +197,16 @@ export const SectionServingTesla: React.FC = () => {
     if (id === 2) {
         return (
             // MATCHING PROTOTYPE LAYOUT STRUCTURE
-            <div className="flex flex-col gap-8 h-auto pb-12">
+            // UPDATED: Layout changed to place Closed Loop below the image
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-auto pb-12">
                 
                 {/* 1. INTRO TEXT REMOVED AS REQUESTED */}
 
-                {/* 2. BOTTOM GRID (Split 2/3 + 1/3) */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* LEFT COLUMN: IMAGE + CLOSED LOOP CARD */}
+                <div className="lg:col-span-2 flex flex-col gap-6">
                     
-                    {/* LEFT: IMAGE (Col Span 2) */}
-                    {/* UPDATED: Changed to aspect-square and updated image source */}
-                    <div className="lg:col-span-2 w-full aspect-square">
+                    {/* IMAGE - UPDATED: 10% Smaller (90% width centered) */}
+                    <div className="w-[90%] mx-auto aspect-square">
                          <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -222,120 +222,119 @@ export const SectionServingTesla: React.FC = () => {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
                          </motion.div>
                     </div>
-                    
-                    {/* RIGHT: STACKED BENTOS (Col Span 1) */}
-                    <div className="lg:col-span-1 flex flex-col gap-4 h-full">
-                        {/* THE FEEDBACK LOOP */}
-                        <InnerBento 
-                            gradient="bg-micron-eggplant" 
-                            direction="right" 
-                            delay={0.7} 
-                            className="flex-grow" 
-                            padding="p-6"
-                        >
-                            <div className="flex flex-col mb-3">
-                                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-1 font-sans flex items-center gap-2">
-                                    <MessageSquare size={16} /> THE FEEDBACK LOOP
-                                </h3>
-                                {/* UPDATED: Increased to text-xs */}
-                                <span className="text-xs uppercase tracking-widest text-white/50">Training Ground</span>
-                            </div>
-                            <div className="w-full h-px bg-white/20 mb-4" />
-                            <ul className="space-y-3 mb-4">
-                                {[
-                                    "Optimus prepares a private dining room for a confidential executive dinner.",
-                                    "Optimus manages a quiet household for an employee's family.",
-                                    "Cybercab delivers a senior Washington official to a fireside."
-                                ].map((item, i) => (
-                                    // UPDATED: Decreased to text-base from text-lg as requested
-                                    <li key={i} className="flex items-start gap-3 text-white/90 text-base font-medium leading-snug">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0" />
-                                        <span>{item}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                            {/* UPDATED: Removed uppercase, used sentence case */}
-                            <p className="text-sm text-white/60 font-bold tracking-wide leading-relaxed border-t border-white/10 pt-3">
-                                Three scenarios. Three emotional registers. Each one training autonomous systems.
-                            </p>
-                        </InnerBento>
 
-                        {/* PRE-PUBLIC DEPLOYMENT */}
-                        <InnerBento 
-                            gradient="bg-micron-grey1" 
-                            direction="right" 
-                            delay={1.0} 
-                            className="flex-grow" 
-                            padding="p-6"
-                        >
-                            <div className="flex flex-col mb-3">
-                                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-1 font-sans flex items-center gap-2">
-                                    <ShieldCheck size={16} /> PRE-PUBLIC DEPLOYMENT
-                                </h3>
-                                {/* UPDATED: Increased to text-xs */}
-                                <span className="text-xs uppercase tracking-widest text-white/50">First Access</span>
-                            </div>
-                            <div className="w-full h-px bg-white/20 mb-4" />
-                            {/* UPDATED: Decreased to text-base from text-lg as requested */}
-                            <div className="space-y-4 text-white/90 text-base font-medium leading-relaxed">
-                                <p>
-                                    Micron's leadership experiences Optimus and Cybercab across the full spectrum of real life before any consumer on earth.
-                                </p>
-                                <p>
-                                    Operational variety builds institutional knowledge. Every scenario deepens the data, sharpens the model, and strengthens the partnership.
-                                </p>
-                                {/* UPDATED: Added separator line and removed uppercase */}
-                                <div className="w-full h-px bg-white/20 mt-4 mb-3" />
-                                <p className="text-sm font-bold tracking-widest text-micron-green">
-                                    Confidential. Celebratory. Compassionate. Political.
-                                </p>
-                            </div>
-                        </InnerBento>
-                    </div>
-                </div>
-
-                {/* 3. WHITE FEATURE CARD (Full Width - Matches 'Service & Security Layer') - MOVED BELOW GRID */}
-                {/* UPDATED: Reduced padding from px-6 py-4 to px-6 py-3 to remove extra space */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="w-full bg-white rounded-xl px-6 py-3 md:px-8 md:py-4 text-zinc-900 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
-                >
-                    {/* UPDATED: Reduced mb-4 to mb-2 */}
-                    <div className="flex items-baseline gap-4 mb-2 relative z-10">
-                        <h3 className="text-xl font-black uppercase tracking-tight text-micron-green flex items-center gap-2">
-                            <Activity size={20} /> CLOSED LOOP
-                        </h3>
-                        {/* DELETED: Proximity Advantage span as requested */}
-                    </div>
-                    
-                    {/* UPDATED: Reduced mb-3 to mb-1 to tighten padding between Green Line and 15 min */}
-                    <div className="w-full h-px bg-zinc-200 mb-1 relative z-10" />
-
-                    {/* UPDATED: Standardized text to text-lg (18px), reduced grid gap */}
-                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 text-zinc-600 text-lg font-medium leading-relaxed relative z-10 items-center">
-                        <div className="flex flex-col justify-center">
-                             <div>
-                                 <span className="block text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-none">15 <span className="text-2xl font-bold align-top text-zinc-400">min</span></span>
-                                 {/* UPDATED: Changed text to "Micron to Front Door", removed 1 address stat */}
-                                 <span className="text-sm font-bold uppercase tracking-widest text-zinc-500">Micron to Front Door</span>
-                             </div>
+                    {/* CLOSED LOOP CARD - MOVED BELOW IMAGE */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="w-full bg-white rounded-xl px-6 py-3 md:px-8 md:py-4 text-zinc-900 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
+                    >
+                        {/* UPDATED: Reduced mb-4 to mb-2 */}
+                        <div className="flex items-baseline gap-4 mb-2 relative z-10">
+                            <h3 className="text-xl font-black uppercase tracking-tight text-micron-green flex items-center gap-2">
+                                <Activity size={20} /> CLOSED LOOP
+                            </h3>
+                            {/* DELETED: Proximity Advantage span as requested */}
                         </div>
                         
-                        {/* Separator - Reduced height from 60px to 40px to reduce padding perception */}
-                        <div className="hidden md:flex justify-center h-full min-h-[40px]">
-                            <div className="w-[3px] bg-micron-green h-full rounded-full"></div>
-                        </div>
-                        <div className="md:hidden w-full h-[3px] bg-micron-green rounded-full"></div>
+                        {/* UPDATED: Reduced mb-3 to mb-1 to tighten padding between Green Line and 15 min */}
+                        <div className="w-full h-px bg-zinc-200 mb-1 relative z-10" />
 
-                        <div className="flex flex-col gap-2">
-                             <p className="leading-snug">
-                                Optimus and Cybercab run on Micron silicon fabricated fifteen minutes from the front door. Executives host guests alongside machines powered by their own work. Feedback travels from the dining room to the fab floor by morning.
+                        {/* UPDATED: Standardized text to text-lg (18px), reduced grid gap */}
+                        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 text-zinc-600 text-lg font-medium leading-relaxed relative z-10 items-center">
+                            <div className="flex flex-col justify-center">
+                                 <div>
+                                     <span className="block text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-none">15 <span className="text-2xl font-bold align-top text-zinc-400">min</span></span>
+                                     {/* UPDATED: Changed text to "Micron to Front Door", removed 1 address stat */}
+                                     <span className="text-sm font-bold uppercase tracking-widest text-zinc-500">Micron to Front Door</span>
+                                 </div>
+                            </div>
+                            
+                            {/* Separator - Reduced height from 60px to 40px to reduce padding perception */}
+                            <div className="hidden md:flex justify-center h-full min-h-[40px]">
+                                <div className="w-[3px] bg-micron-green h-full rounded-full"></div>
+                            </div>
+                            <div className="md:hidden w-full h-[3px] bg-micron-green rounded-full"></div>
+
+                            <div className="flex flex-col gap-2">
+                                 <p className="leading-snug">
+                                    Optimus and Cybercab run on Micron silicon fabricated fifteen minutes from the front door. Executives host guests alongside machines powered by their own work. Feedback travels from the dining room to the fab floor by morning.
+                                </p>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+                
+                {/* RIGHT COLUMN: STACKED BENTOS */}
+                <div className="lg:col-span-1 flex flex-col gap-4 h-full">
+                    {/* THE FEEDBACK LOOP */}
+                    <InnerBento 
+                        gradient="bg-micron-eggplant" 
+                        direction="right" 
+                        delay={0.7} 
+                        className="flex-grow" 
+                        padding="p-6"
+                    >
+                        <div className="flex flex-col mb-3">
+                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-1 font-sans flex items-center gap-2">
+                                <MessageSquare size={16} /> THE FEEDBACK LOOP
+                            </h3>
+                            {/* UPDATED: Increased to text-xs */}
+                            <span className="text-xs uppercase tracking-widest text-white/50">Training Ground</span>
+                        </div>
+                        <div className="w-full h-px bg-white/20 mb-4" />
+                        <ul className="space-y-3 mb-4">
+                            {[
+                                "Optimus prepares a private dining room for a confidential executive dinner.",
+                                "Optimus manages a quiet household for an employee's family.",
+                                "Cybercab delivers a senior Washington official to a fireside."
+                            ].map((item, i) => (
+                                // UPDATED: Decreased to text-base from text-lg as requested
+                                <li key={i} className="flex items-start gap-3 text-white/90 text-base font-medium leading-snug">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-micron-green mt-2 shrink-0" />
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        {/* UPDATED: Removed uppercase, used sentence case */}
+                        <p className="text-sm text-white/60 font-bold tracking-wide leading-relaxed border-t border-white/10 pt-3">
+                            Three scenarios. Three emotional registers. Each one training autonomous systems.
+                        </p>
+                    </InnerBento>
+
+                    {/* PRE-PUBLIC DEPLOYMENT */}
+                    <InnerBento 
+                        gradient="bg-micron-grey1" 
+                        direction="right" 
+                        delay={1.0} 
+                        className="flex-grow" 
+                        padding="p-6"
+                    >
+                        <div className="flex flex-col mb-3">
+                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-1 font-sans flex items-center gap-2">
+                                <ShieldCheck size={16} /> PRE-PUBLIC DEPLOYMENT
+                            </h3>
+                            {/* UPDATED: Increased to text-xs */}
+                            <span className="text-xs uppercase tracking-widest text-white/50">First Access</span>
+                        </div>
+                        <div className="w-full h-px bg-white/20 mb-4" />
+                        {/* UPDATED: Decreased to text-base from text-lg as requested */}
+                        <div className="space-y-4 text-white/90 text-base font-medium leading-relaxed">
+                            <p>
+                                Micron's leadership experiences Optimus and Cybercab across the full spectrum of real life before any consumer on earth.
+                            </p>
+                            <p>
+                                Operational variety builds institutional knowledge. Every scenario deepens the data, sharpens the model, and strengthens the partnership.
+                            </p>
+                            {/* UPDATED: Added separator line and removed uppercase */}
+                            <div className="w-full h-px bg-white/20 mt-4 mb-3" />
+                            <p className="text-sm font-bold tracking-widest text-micron-green">
+                                Confidential. Celebratory. Compassionate. Political.
                             </p>
                         </div>
-                    </div>
-                </motion.div>
+                    </InnerBento>
+                </div>
             </div>
         )
     }
