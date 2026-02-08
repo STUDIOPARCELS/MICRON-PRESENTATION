@@ -189,7 +189,6 @@ const getCardData = (id: number): ModalContent => {
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.3, duration: 0.8 }}
-                        // Added h-full and floating shadow
                         className="lg:col-span-1 w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] relative overflow-hidden group flex flex-col justify-center h-full"
                     >
                         <h3 className="text-2xl font-black text-black mb-4 leading-tight">
@@ -211,7 +210,6 @@ const getCardData = (id: number): ModalContent => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, duration: 0.8 }}
-                        // Added h-full and floating shadow
                         className="w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] relative overflow-hidden group flex flex-col h-full"
                     >
                         <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green relative z-10 leading-none">SERVICE & SECURITY</h3>
@@ -491,7 +489,6 @@ const getCardData = (id: number): ModalContent => {
         title: 'PLACE',
         subtitle: 'GROUNDING THE TECHNOLOGY', 
         maxWidth: 'max-w-7xl',
-        // UPDATED: Increased padding px-10 md:px-12 for better mobile spacing
         paddingClassName: 'px-10 md:px-12 pt-0 pb-10 md:pb-12',
         content: (
         <div className="flex flex-col gap-4 h-full">
@@ -564,14 +561,12 @@ export const SectionPrototype: React.FC = () => {
   const mainTitleWords = ["MICRON.", "TESLA.", "BOISE."];
 
   return (
-    // UPDATED: Removed bg-white class to prevent wrapper issues, added padding adjustments
     <section id="prototype" className="container mx-auto px-8 md:px-12 pt-0 pb-6 md:pb-12 text-zinc-900">
         <motion.div 
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
-            // UPDATED: Added mb-12 (was pb-2) to double the visual space between header and grid
             className="flex flex-col md:flex-row md:items-end gap-6 mb-12"
         >
             <div className="flex-shrink-0">
@@ -624,17 +619,15 @@ export const SectionPrototype: React.FC = () => {
                 gradient="bg-micron-grey1" 
                 textColor="text-white"
                 borderColor="border-white/10"
-                delay={0} // Stagger Pattern: 1st
+                delay={0}
                 hoverEffect={true}
-                arrowPosition="bottom-right" // UPDATED: Position arrow bottom-right
-                // UPDATED: Enabled arrow (removed hideArrow={true})
+                arrowPosition="bottom-right"
                 onClick={() => setModalData(getCardData(1))}
                 onMouseEnter={() => setHoveredCard(1)}
                 onMouseLeave={() => setHoveredCard(null)}
             >
                 <HoverVideoPlayer src={VIDEO_PROTOTYPE} isHovering={hoveredCard === 1} />
                 <div className="relative z-10 mt-auto pt-6">
-                    {/* UPDATED: Title hover color reverted to text-micron-eggplant-light (Blue) */}
                     <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-micron-eggplant-light transition-colors duration-300 mb-4">
                         PROTOTYPE
                     </h3>
@@ -649,17 +642,15 @@ export const SectionPrototype: React.FC = () => {
                 gradient="bg-micron-eggplant-light" 
                 textColor="text-white"
                 borderColor="border-white/10"
-                delay={0.3} // Stagger Pattern: 3rd
+                delay={0.3}
                 hoverEffect={true}
-                arrowPosition="bottom-right" // UPDATED: Position arrow bottom-right
-                // UPDATED: Enabled arrow (removed hideArrow={true})
+                arrowPosition="bottom-right"
                 onClick={() => setModalData(getCardData(3))}
                 onMouseEnter={() => setHoveredCard(3)}
                 onMouseLeave={() => setHoveredCard(null)}
             >
                 <HoverVideoPlayer src={VIDEO_COLLAB} isHovering={hoveredCard === 3} />
                 <div className="relative z-10 mt-auto pt-6">
-                    {/* UPDATED: Title hover color to text-zinc-500 (Gray) */}
                     <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-zinc-500 transition-colors duration-300 mb-4">
                         COLLABORATION
                     </h3>
@@ -674,18 +665,16 @@ export const SectionPrototype: React.FC = () => {
                 gradient="bg-micron-eggplant"
                 textColor="text-white"
                 borderColor="border-white/10"
-                delay={0.1} // Stagger Pattern: 2nd
+                delay={0.1}
                 duration={2.5}
                 hoverEffect={true}
-                arrowPosition="bottom-right" // UPDATED: Position arrow bottom-right
-                // UPDATED: Enabled arrow (removed hideArrow={true})
+                arrowPosition="bottom-right"
                 onClick={() => setModalData(getCardData(2))}
                 onMouseEnter={() => setHoveredCard(2)}
                 onMouseLeave={() => setHoveredCard(null)}
             >
                 <HoverVideoPlayer src={VIDEO_TIMING} isHovering={hoveredCard === 2} />
                 <div className="relative z-10 mt-auto pt-6">
-                    {/* UPDATED: Title hover color to text-zinc-500 (Gray) */}
                     <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-zinc-500 transition-colors duration-300 mb-4">
                         TIMING
                     </h3>
@@ -700,18 +689,16 @@ export const SectionPrototype: React.FC = () => {
                 gradient="bg-micron-green" 
                 textColor="text-white" 
                 borderColor="border-white/10" 
-                delay={0.4} // Stagger Pattern: 4th
+                delay={0.4}
                 duration={2.5}
                 hoverEffect={true}
-                arrowPosition="bottom-right" // UPDATED: Position arrow bottom-right
-                // UPDATED: Enabled arrow (removed hideArrow={true})
+                arrowPosition="bottom-right"
                 onClick={() => setModalData(getCardData(4))}
                 onMouseEnter={() => setHoveredCard(4)}
                 onMouseLeave={() => setHoveredCard(null)}
             >
                 <HoverVideoPlayer src={VIDEO_PLACE} isHovering={hoveredCard === 4} />
                 <div className="relative z-10 mt-auto pt-6">
-                    {/* UPDATED: Title hover color reverted to text-micron-eggplant-light (Blue) */}
                     <h3 className="text-3xl font-black uppercase leading-[0.9] tracking-tighter text-white group-hover:text-micron-eggplant-light transition-colors duration-300 mb-4">
                         PLACE
                     </h3>

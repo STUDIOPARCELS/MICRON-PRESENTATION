@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
@@ -103,7 +104,6 @@ export const SectionServingTesla: React.FC = () => {
                     {/* Vision Card */}
                     <motion.div 
                         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                        // UPDATED: Added floating shadow effects
                         className="bg-zinc-100 rounded-[2rem] p-8 border border-zinc-200 relative overflow-hidden flex flex-col justify-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
                     >
                          <div className="mb-6">
@@ -121,7 +121,6 @@ export const SectionServingTesla: React.FC = () => {
                     {/* Proposal Card */}
                     <motion.div 
                         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                        // UPDATED: Added floating shadow effects
                         className="bg-[#2c2e33] text-white rounded-[2rem] p-8 border border-zinc-700 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
                     >
                         <h3 className="text-2xl font-bold tracking-tight text-white/90 mb-4">Long-Term Relationship</h3>
@@ -134,7 +133,6 @@ export const SectionServingTesla: React.FC = () => {
                 {/* RIGHT COLUMN: Concept Tiles */}
                 <motion.div 
                     variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0 } }}
-                    // UPDATED: Added floating shadow effects
                     className="bg-white rounded-[2rem] p-8 border border-zinc-200 flex flex-col gap-6 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
                 >
                      <div className="flex flex-col items-center text-center pb-4 border-b border-zinc-100">
@@ -272,7 +270,6 @@ export const SectionServingTesla: React.FC = () => {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5, duration: 0.8 }}
-                            // UPDATED: Added floating shadow effects
                             className="w-full h-full relative rounded-xl overflow-hidden border border-zinc-200 group shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
                          >
                             <img 
@@ -371,7 +368,6 @@ export const SectionServingTesla: React.FC = () => {
             {/* MERGED: SCALE & FRICTION into one Light Blue Tile */}
             <motion.div 
                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                // UPDATED: Added floating shadow effects
                 className="bg-micron-eggplant-light text-zinc-900 rounded-[2rem] p-8 md:p-10 border border-white/20 flex flex-col gap-8 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
             >
                  {/* Scale Section */}
@@ -397,7 +393,6 @@ export const SectionServingTesla: React.FC = () => {
             {/* BOTTOM ROW: The Open Questions */}
             <motion.div 
                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                // UPDATED: Added floating shadow effects
                 className="bg-white rounded-[2rem] p-8 md:p-10 border border-zinc-200 flex flex-col justify-center gap-6 mt-2 text-zinc-900 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
             >
                 <div className="flex items-center gap-3 mb-2">

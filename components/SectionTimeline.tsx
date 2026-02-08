@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -89,8 +90,6 @@ export const SectionTimeline: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: false, amount: 0.2 }}
                     transition={{ delay: staggeredDelays[i] || 0, duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
-                    // Added deeper shadows, 3D borders, and hover effects
-                    // UPDATED: Removed aspect-square, used h-[220px] to reduce height by ~40% (approx from 300-350 down to 220)
                     className={`
                         ${item.bg} ${item.text} 
                         h-[220px] rounded-2xl p-6 flex flex-col justify-between 

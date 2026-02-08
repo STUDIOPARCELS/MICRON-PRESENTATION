@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
@@ -307,7 +308,6 @@ export const SectionServing: React.FC = () => {
             {departments.map((dept, i) => (
                 <BentoCard
                     key={dept.id}
-                    // UPDATED: Removed 'shadow-lg hover:shadow-2xl' to let BentoCard default shadow logic (floating) take over
                     className={`
                         flex flex-col min-h-[160px] p-6 relative overflow-hidden group transition-all duration-300 ${dept.gradient}
                         w-full md:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]
@@ -319,7 +319,6 @@ export const SectionServing: React.FC = () => {
                     hoverEffect={true}
                     onClick={() => openModal(dept)}
                 >
-                    {/* UPDATED: Removed justify-between to keep content top-aligned, preventing gaps for short text */}
                     <div className="relative z-10 flex flex-col h-full">
                         <div>
                              <h3 className="text-2xl font-black uppercase tracking-tight leading-none text-white line-clamp-2 mb-1">{dept.title}</h3>

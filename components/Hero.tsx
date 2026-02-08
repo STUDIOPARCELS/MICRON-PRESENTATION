@@ -1,3 +1,4 @@
+
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence, useAnimation, Variants } from 'framer-motion';
 import { MapPin } from 'lucide-react';
@@ -340,7 +341,6 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    // UPDATED: Hidden on mobile (hidden), visible on desktop (md:block)
                     className="hidden md:block absolute md:top-14 md:right-20 md:left-auto md:mx-0 z-20"
                  >
                     <motion.img 

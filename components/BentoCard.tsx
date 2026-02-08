@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CardProps } from '../types';
@@ -53,7 +54,6 @@ export const BentoCard: React.FC<CardProps & {
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      // UPDATED: Removed 'transition-all' and replaced with specific transitions to avoid fighting Framer Motion
       className={`
         relative overflow-hidden rounded-xl 
         ${gradient} ${textColor}
