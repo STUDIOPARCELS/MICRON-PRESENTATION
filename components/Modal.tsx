@@ -67,7 +67,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
             onClick={onClose}
             className="fixed inset-0 z-[99] bg-zinc-950/80 backdrop-blur-sm"
           />
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none overflow-hidden">
              {(() => {
                 switch (data.category) {
                   case 'cinematic':
@@ -137,7 +137,7 @@ const CinematicModalContent: React.FC<{ data: ModalContent; onClose: () => void 
         </div>
       </div>
 
-      <div className={`${textSectionClasses} p-6 md:p-10 flex flex-col justify-center overflow-y-auto bg-gradient-to-br from-zinc-950 to-zinc-900`}>
+      <div className={`${textSectionClasses} p-6 md:p-10 flex flex-col justify-center overflow-y-auto bg-gradient-to-br from-zinc-950 to-zinc-900 overscroll-contain`}>
         <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.1 } } }}>
           {data.label && (
             <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }} className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-micron-eggplant-light">
@@ -232,7 +232,7 @@ const ShowcaseModalContent: React.FC<{ data: ModalContent; onClose: () => void }
             )}
          </motion.div>
       </div>
-      <div className="flex-1 overflow-y-auto custom-scrollbar relative z-10 min-h-0">
+      <div className="flex-1 overflow-y-auto custom-scrollbar relative z-10 min-h-0 overscroll-contain">
         <motion.div 
             initial="hidden" animate="visible"
             variants={{ visible: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } } }}
@@ -276,7 +276,7 @@ const ReferenceModalContent: React.FC<{ data: ModalContent; onClose: () => void 
           <X size={20} />
         </button>
       </div>
-      <div className={`p-6 md:p-8 overflow-y-auto custom-scrollbar min-h-0 ${contentContainerClasses}`}>
+      <div className={`p-6 md:p-8 overflow-y-auto custom-scrollbar min-h-0 ${contentContainerClasses} overscroll-contain`}>
         {data.content}
       </div>
     </motion.div>
@@ -323,7 +323,7 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
             </div>
             
             {/* Gallery Container - Justified Flex Layout */}
-            <div className="flex-1 w-full h-full overflow-y-auto custom-scrollbar relative z-10 px-8 md:px-10 pb-12">
+            <div className="flex-1 w-full h-full overflow-y-auto custom-scrollbar relative z-10 px-8 md:px-10 pb-12 overscroll-contain">
                  {/* 
                     JUSTIFIED GRID IMPLEMENTATION 
                     - flex-wrap: allows wrapping
