@@ -144,10 +144,10 @@ export const Hero: React.FC = () => {
 
   // Start the sequence after mount
   useEffect(() => {
-    // Increased delay to 500ms to ensure white bento is visible first
+    // UPDATED: Increased delay to 1500ms (1.5s) to ensure video is underway before text starts
     const startTimer = setTimeout(() => {
         setCurrentSentenceIndex(0);
-    }, 500);
+    }, 1500);
     return () => clearTimeout(startTimer);
   }, []);
   
@@ -230,7 +230,7 @@ export const Hero: React.FC = () => {
       } else if (isInView && currentSentenceIndex === null) {
           const startTimer = setTimeout(() => {
               setCurrentSentenceIndex(0);
-          }, 500);
+          }, 1500); // UPDATED: Match the initial delay on scroll-back replay too
           return () => clearTimeout(startTimer);
       }
   }, [isInView]);
@@ -300,14 +300,14 @@ export const Hero: React.FC = () => {
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                 className={`
                     /* UPDATED: Mobile Logic 
-                       - Reduced padding from p-6 to p-3 (50% reduction).
-                       - Fixed comfortable padding (p-3) and min-height (min-h-[220px]) on mobile.
+                       - Reduced padding from p-3 to p-1.5 (Another 50% reduction).
+                       - Reduced min-height from 220px to 180px to remove excess whitespace.
                        
                        Desktop Logic (md:):
                        - Retains original behavior but relies on layoutShift for desktop expansion if needed, 
                          though simplified to standard layout.
                     */
-                    min-h-[220px] p-3 justify-center
+                    min-h-[180px] p-1.5 justify-center
                     md:min-h-[300px] md:h-full md:justify-end md:px-12 md:pt-12 md:pb-12
                     w-full flex flex-col items-start order-2 bg-white rounded-3xl 
                     shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] border border-zinc-200 relative overflow-hidden group
@@ -369,12 +369,12 @@ export const Hero: React.FC = () => {
             {/* 2. VIDEO AREA */}
             {/* UPDATED: Changed order to order-1 (Top on Mobile, Left on Desktop) */}
             {/* UPDATED: Changed to animate for guaranteed population */}
-            {/* UPDATED: Changed mobile height from aspect-video (1.77) to aspect-[1.55/1] (~15% taller) */}
+            {/* UPDATED: Changed mobile height from aspect-[1.55/1] to aspect-[1.4/1] (Taller by ~10%) */}
             <motion.div 
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 2.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="aspect-[1.55/1] h-auto md:aspect-auto md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-1 group"
+                className="aspect-[1.4/1] h-auto md:aspect-auto md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-1 group"
             >
                 <video 
                     ref={videoRef}
