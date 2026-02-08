@@ -212,7 +212,7 @@ export const SectionProperty: React.FC = () => {
                   "BR2.7.JPEG",
                   "BR1.7.jpg",
                   "stairs.jpg",
-                  "MABA.JPEG",
+                  // Removed "MABA.JPEG" due to broken link
                   "3rd BA_2.JPEG"
               ]
           },

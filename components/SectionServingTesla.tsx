@@ -160,8 +160,8 @@ export const SectionServingTesla: React.FC = () => {
                                 <Mountain size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Earth</span>
                             </div>
-                            {/* UPDATED: Boise */}
-                            <p className="text-white/80 text-sm leading-relaxed font-medium">Boise.</p>
+                            {/* UPDATED: Boise, Increased font */}
+                            <p className="text-white/80 text-lg leading-relaxed font-medium">Boise</p>
                         </div>
 
                         {/* Sky - Blue */}
@@ -170,8 +170,8 @@ export const SectionServingTesla: React.FC = () => {
                                 <Star size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Sky</span>
                             </div>
-                            {/* UPDATED: Starlink. Energy. */}
-                            <p className="text-white/80 text-sm leading-relaxed font-medium">Starlink. Energy.</p>
+                            {/* UPDATED: Starlink, Energy, Increased font */}
+                            <p className="text-white/80 text-lg leading-relaxed font-medium">Starlink, Energy</p>
                         </div>
 
                         {/* Memory - Eggplant */}
@@ -180,19 +180,20 @@ export const SectionServingTesla: React.FC = () => {
                                 <Layers size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Memory</span>
                             </div>
-                            {/* UPDATED: Micron. Intelligence. */}
-                            <p className="text-white/80 text-sm leading-relaxed font-medium">Micron. Intelligence.</p>
+                            {/* UPDATED: Micron, Intelligence, Increased font */}
+                            <p className="text-white/80 text-lg leading-relaxed font-medium">Micron, Intelligence</p>
                         </div>
 
                         {/* Vision - Grey */}
                         <div className="bg-micron-grey1 text-white rounded-xl p-5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10 flex flex-col gap-2">
                             <div className="flex items-center gap-2 mb-1">
-                                <Zap size={18} className="text-white/80" />
+                                {/* UPDATED: Changed Zap to Eye */}
+                                <Eye size={18} className="text-white/80" />
                                 {/* UPDATED: Vision */}
                                 <span className="font-bold uppercase text-xs tracking-widest">Vision</span>
                             </div>
-                            {/* UPDATED: Autonomy. Tesla. SpaceX. */}
-                            <p className="text-white/80 text-sm leading-relaxed font-medium">Autonomy. Tesla. SpaceX.</p>
+                            {/* UPDATED: Abundance, Tesla, SpaceX, Increased font */}
+                            <p className="text-white/80 text-lg leading-relaxed font-medium">Abundance, Tesla, SpaceX</p>
                         </div>
                      </div>
                 </motion.div>
@@ -212,8 +213,8 @@ export const SectionServingTesla: React.FC = () => {
                 {/* LEFT COLUMN: IMAGE + CLOSED LOOP CARD */}
                 <div className="lg:col-span-2 flex flex-col gap-6">
                     
-                    {/* IMAGE - UPDATED: 10% Smaller (90% width centered) */}
-                    <div className="w-[90%] mx-auto aspect-square">
+                    {/* IMAGE - UPDATED: Restored to full width (was 90%) */}
+                    <div className="w-full aspect-square">
                          <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -242,33 +243,20 @@ export const SectionServingTesla: React.FC = () => {
                             <h3 className="text-xl font-black uppercase tracking-tight text-micron-green flex items-center gap-2">
                                 <Activity size={20} /> CLOSED LOOP
                             </h3>
-                            {/* DELETED: Proximity Advantage span as requested */}
                         </div>
                         
-                        {/* UPDATED: Reduced mb-3 to mb-1 to tighten padding between Green Line and 15 min */}
-                        <div className="w-full h-px bg-zinc-200 mb-1 relative z-10" />
+                        <div className="w-full h-px bg-zinc-200 mb-4 relative z-10" />
 
-                        {/* UPDATED: Standardized text to text-lg (18px), reduced grid gap */}
-                        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 text-zinc-600 text-lg font-medium leading-relaxed relative z-10 items-center">
-                            <div className="flex flex-col justify-center">
-                                 <div>
-                                     <span className="block text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-none">15 <span className="text-2xl font-bold align-top text-zinc-400">min</span></span>
-                                     {/* UPDATED: Changed text to "Micron to Front Door", removed 1 address stat */}
-                                     <span className="text-sm font-bold uppercase tracking-widest text-zinc-500">Micron to Front Door</span>
-                                 </div>
+                        {/* UPDATED: Removed grid and green line. Text goes all the way across. */}
+                        <div className="flex flex-col gap-4 text-zinc-600 text-lg font-medium leading-relaxed relative z-10">
+                            <div>
+                                 <span className="block text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-none">15 <span className="text-2xl font-bold align-top text-zinc-400">min</span></span>
+                                 <span className="text-sm font-bold uppercase tracking-widest text-zinc-500">Micron to Front Door</span>
                             </div>
                             
-                            {/* Separator - Reduced height from 60px to 40px to reduce padding perception */}
-                            <div className="hidden md:flex justify-center h-full min-h-[40px]">
-                                <div className="w-[3px] bg-micron-green h-full rounded-full"></div>
-                            </div>
-                            <div className="md:hidden w-full h-[3px] bg-micron-green rounded-full"></div>
-
-                            <div className="flex flex-col gap-2">
-                                 <p className="leading-snug">
-                                    Optimus and Cybercab run on Micron silicon fabricated fifteen minutes from the front door. Executives host guests alongside machines powered by their own work. Feedback travels from the dining room to the fab floor by morning.
-                                </p>
-                            </div>
+                            <p className="leading-snug">
+                                Optimus and Cybercab run on Micron silicon fabricated fifteen minutes from the front door.
+                            </p>
                         </div>
                     </motion.div>
                 </div>

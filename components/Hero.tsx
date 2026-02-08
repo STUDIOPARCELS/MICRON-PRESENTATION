@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence, useAnimation, Variants } from 'framer-motion';
-import { MapPin } from 'lucide-react';
 
 // Defined outside to prevent re-creation on render
 const sentences = [
@@ -50,31 +49,45 @@ const InteractiveParadigmTitle: React.FC = () => {
     // Colors
     const cLightGreen = "#008f25"; 
     const cDarkGreen = "#14532d"; 
-    const cPurple = "#2c0f38"; 
-    const cWhite = "#ffffff";
+    const cEggplant = "#2c0f38"; 
 
-    // Animation Variants
-    // Transitions from Light Green -> Dark Green -> Purple -> Final Color
-    const getVariant = (finalColor: string): Variants => ({
-        hidden: { y: 20, opacity: 0, color: cLightGreen },
-        visible: (customDelay: number) => ({
+    // Animation for "THE PARADIGM" (Ends in Eggplant/Purple)
+    // Hover: Green -> Dark Green -> Eggplant
+    const standardVariant: Variants = {
+        hidden: { y: 20, opacity: 0, color: cEggplant },
+        visible: (i: number) => ({
             y: 0, 
             opacity: 1,
-            // UPDATED: Explicit color array for the micro-interaction
-            color: [cLightGreen, cDarkGreen, cPurple, finalColor],
+            color: cEggplant, // Static end state
             transition: { 
-                y: { duration: 1.5, ease: "easeOut", delay: customDelay },
-                opacity: { duration: 1.5, ease: "easeOut", delay: customDelay },
-                // UPDATED: Color transition matches the duration to ensure visibility
-                color: { 
-                    duration: 3.0, 
-                    ease: "easeInOut", 
-                    times: [0, 0.33, 0.66, 1],
-                    delay: customDelay 
-                }
+                y: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) },
+                opacity: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) }
             }
-        })
-    });
+        }),
+        hover: {
+            color: [cLightGreen, cDarkGreen, cEggplant],
+            transition: { duration: 0.6, ease: "easeInOut", times: [0, 0.5, 1] }
+        }
+    };
+
+    // Animation for "SHIFTS." (Ends in Light Green)
+    // Hover: Green -> Dark Green -> Eggplant -> Light Green
+    const shiftsVariant: Variants = {
+        hidden: { y: 20, opacity: 0, color: cLightGreen },
+        visible: (i: number) => ({
+            y: 0, 
+            opacity: 1,
+            color: cLightGreen, // Static end state
+            transition: { 
+                y: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) },
+                opacity: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) }
+            }
+        }),
+        hover: {
+            color: [cLightGreen, cDarkGreen, cEggplant, cLightGreen],
+            transition: { duration: 0.8, ease: "easeInOut", times: [0, 0.33, 0.66, 1] }
+        }
+    };
 
     return (
         <div className="flex flex-col items-start cursor-default">
@@ -83,12 +96,13 @@ const InteractiveParadigmTitle: React.FC = () => {
                 {paradigmLine1.map((word, i) => (
                     <motion.span
                         key={`l1-${i}`}
-                        custom={0.2} // Delay
+                        custom={i}
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: false }} // UPDATED: Re-triggers on scroll
-                        variants={getVariant(cPurple)} // Ends in Purple
-                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block"
+                        whileHover="hover" // Independent interaction
+                        viewport={{ once: true }} 
+                        variants={standardVariant}
+                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block cursor-pointer"
                     >
                         {word}
                     </motion.span>
@@ -97,12 +111,13 @@ const InteractiveParadigmTitle: React.FC = () => {
                 {paradigmLine2.map((word, i) => (
                     <motion.span
                         key={`l2-${i}`}
-                        custom={0.4} // Delay
+                        custom={i + paradigmLine1.length}
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: false }} // UPDATED: Re-triggers on scroll
-                        variants={getVariant(cPurple)} // Ends in Purple
-                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block"
+                        whileHover="hover" // Independent interaction
+                        viewport={{ once: true }} 
+                        variants={standardVariant}
+                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block cursor-pointer"
                     >
                         {word}
                     </motion.span>
@@ -113,12 +128,13 @@ const InteractiveParadigmTitle: React.FC = () => {
                 {paradigmLine3.map((word, i) => (
                     <motion.span
                         key={`l3-${i}`}
-                        custom={0.6} // Delay
+                        custom={i + paradigmLine1.length + paradigmLine2.length}
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: false }} // UPDATED: Re-triggers on scroll
-                        variants={getVariant(cLightGreen)} // Ends in Green
-                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block"
+                        whileHover="hover" // Independent interaction
+                        viewport={{ once: true }} 
+                        variants={shiftsVariant}
+                        className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block cursor-pointer"
                     >
                         {word}
                     </motion.span>
@@ -178,11 +194,10 @@ export const Hero: React.FC = () => {
   };
   
   // SYNC LOGO TO VIDEO TIME
-  // Trigger exactly at 30.0s mark as requested
+  // Trigger exactly at 24.0s mark
   const handleVideoTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
       const time = e.currentTarget.currentTime;
-      // UPDATED: Changed from 4.0 to 30.0
-      if (time >= 30.0 && !logoVisible) {
+      if (time >= 24.0 && !logoVisible) {
           setLogoVisible(true);
           
           // Trigger Logo Animation
@@ -313,8 +328,8 @@ export const Hero: React.FC = () => {
     visible: { 
         opacity: 1, 
         transition: { 
-            // UPDATED: Slowed down stagger from 0.08 to 0.16 (100% slower)
-            staggerChildren: 0.16, 
+            // UPDATED: Slowed down stagger from 0.3 to 0.6 for a significantly slower read speed
+            staggerChildren: 0.6, 
             delayChildren: 0.2 
         } 
     }
@@ -325,7 +340,8 @@ export const Hero: React.FC = () => {
     visible: { 
         opacity: 1, 
         y: 0, 
-        transition: { duration: 0.5, ease: "easeOut" } 
+        // UPDATED: Smoother transition for individual words
+        transition: { duration: 0.8, ease: "easeOut" } 
     }
   };
 
@@ -468,13 +484,14 @@ export const Hero: React.FC = () => {
 
                  {/* MOBILE QUOTE - IN FLOW */}
                  {/* UPDATED: Now uses word-by-word staggered animation on scroll */}
+                 {/* UPDATED: Changed text to text-white (Bright White) and font-thin for reduced heaviness */}
                  <div className="md:hidden w-full flex-grow pt-4 pb-12 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
                          whileInView="visible"
                          viewport={{ once: false, amount: 0.2 }} // UPDATED: Re-triggers on scroll
                          variants={quoteContainerVariants}
-                         className="font-micron text-2xl text-center text-white leading-relaxed -rotate-3"
+                         className="font-micron text-2xl text-center text-white font-thin leading-relaxed -rotate-3"
                       >
                          {/* Joined into one paragraph block */}
                          <p className="inline">
@@ -494,13 +511,14 @@ export const Hero: React.FC = () => {
 
             {/* CENTER: DESKTOP QUOTE CONTAINER (Flex-Grow) */}
             <div className="hidden md:flex flex-grow items-center justify-center relative px-4 z-10">
+                {/* UPDATED: Changed text to text-white (Bright White) and font-thin for reduced heaviness */}
                 <motion.div
                         initial="hidden"
                         whileInView="visible"
                         // UPDATED: Standardized viewport and stagger for consistent scroll trigger
                         viewport={{ once: false, amount: 0.2 }} // UPDATED: Re-triggers on scroll
                         variants={quoteContainerVariants}
-                        className="font-micron text-2xl md:text-3xl text-white leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4"
+                        className="font-micron text-2xl md:text-3xl text-white font-thin leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4"
                 >
                      {/* Joined into one paragraph block */}
                      <p className="inline">
