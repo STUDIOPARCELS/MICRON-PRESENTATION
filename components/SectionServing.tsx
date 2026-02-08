@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
@@ -238,7 +237,8 @@ export const SectionServing: React.FC = () => {
         // REMOVED h-full from this wrapper to allow natural height sizing
         <div className="flex flex-col gap-8 pb-4">
              <div className={`border-l-4 ${dept.modalTagColor.replace('border-', 'border-')} pl-6 py-1`}>
-                <p className="text-xl md:text-2xl font-light text-zinc-600 leading-relaxed font-body">
+                {/* UPDATED: Changed from text-xl md:text-2xl to text-xl (20px) */}
+                <p className="text-xl font-light text-zinc-600 leading-relaxed font-body">
                     {dept.detail}
                 </p>
             </div>

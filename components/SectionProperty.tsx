@@ -205,16 +205,15 @@ export const SectionProperty: React.FC = () => {
           upper: {
               folder: "UPPER FLOOR", 
               files: [
-                  "3rd BA_2.JPEG",
-                  "BR1.7.jpg",
-                  "BR2.7.JPEG",
-                  "BR2_8.jpg",
-                  "IMG_0728.JPEG",
-                  "MABA.JPEG",
-                  "br1.6.JPEG",
-                  "br2.3.JPEG",
                   "br3_0.jpg",
-                  "stairs.jpg"
+                  "br2.3.JPEG",
+                  "br1.6.JPEG",
+                  "BR2_8.jpg",
+                  "BR2.7.JPEG",
+                  "BR1.7.jpg",
+                  "stairs.jpg",
+                  "MABA.JPEG",
+                  "3rd BA_2.JPEG"
               ]
           },
           grounds: {
@@ -281,7 +280,7 @@ export const SectionProperty: React.FC = () => {
                             description={
                                 <>
                                     <p>Alternating thermal exposure drives circulation to flush systemic inflammation and accelerate deep tissue recovery.</p>
-                                    <p>The rapid temperature shift triggers a proven <strong className="text-white font-black drop-shadow-md">250% increase in dopamine</strong>, delivering sustained alertness, mental clarity, and elevated mood.</p>
+                                    <p>The rapid temperature shift triggers a proven <strong className="text-white font-bold drop-shadow-md">250% increase in dopamine</strong>, delivering sustained alertness, mental clarity, and elevated mood.</p>
                                 </>
                             }
                         />
@@ -292,7 +291,7 @@ export const SectionProperty: React.FC = () => {
                             description={
                                 <>
                                     <p>Invented in 1960 by Vladimir Nazarov for the Soviet Space Program to combat zero-gravity bone loss.</p>
-                                    <p>By engaging 90% of muscle fibers (vs. 40% in standard training), it <strong className="text-white font-black drop-shadow-md">rapidly builds bone density</strong>, counteracts neuropathy, and stimulates neuro-repair for improved mental health.</p>
+                                    <p>By engaging 90% of muscle fibers (vs. 40% in standard training), it <strong className="text-white font-bold drop-shadow-md">rapidly builds bone density</strong>, counteracts neuropathy, and stimulates neuro-repair for improved mental health.</p>
                                 </>
                             }
                         />
@@ -303,7 +302,7 @@ export const SectionProperty: React.FC = () => {
                             description={
                                 <>
                                     <p>2025 research on the 'Soil-Plant-Gut Axis' confirms fresh-harvested produce delivers essential soil-based probiotics missing from sterilized commercial food.</p>
-                                    <p>Homegrown crops <strong className="text-white font-black drop-shadow-md">retain up to 50% more nutrient density</strong> than store-bought options, directly fueling the gut microbiome and immune system.</p>
+                                    <p>Homegrown crops <strong className="text-white font-bold drop-shadow-md">retain up to 50% more nutrient density</strong> than store-bought options, directly fueling the gut microbiome and immune system.</p>
                                 </>
                             }
                         />
@@ -532,9 +531,8 @@ export const SectionProperty: React.FC = () => {
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 font-sans">RESIDENCE SPECIFICATIONS</span>
         </div>
 
-        {/* BENTO GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[minmax(280px,auto)]">
-            
+        {/* BENTO GRID 1: Specifications */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[minmax(280px,auto)] mb-8">
             <SpecCard 
                 title="MAIN LEVEL" 
                 icon={<Home />} 
@@ -561,7 +559,16 @@ export const SectionProperty: React.FC = () => {
                 gradient="bg-micron-green"
                 delay={0.2}
             />
+        </div>
 
+        {/* NEW FEATURES HEADER */}
+        <div className="flex items-center gap-2 mb-4">
+            <Zap size={16} className="text-zinc-400" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 font-sans">FEATURES</span>
+        </div>
+
+        {/* BENTO GRID 2: Features */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[minmax(280px,auto)]">
             <InfoCard 
                 title="GEOTHERMAL & WELLNESS" 
                 subtitle="NATURE" 

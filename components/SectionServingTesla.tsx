@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { BentoCard } from './BentoCard';
 import { Modal } from './Modal';
@@ -386,6 +385,7 @@ export const SectionServingTesla: React.FC = () => {
                     <div className="flex flex-col gap-3 bg-micron-green text-white p-6 rounded-xl border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300">
                         {/* UPDATED: Increased to text-sm */}
                         <span className="text-white font-bold uppercase text-sm tracking-widest">SURVEILLANCE</span>
+                        <div className="w-full h-px bg-white/20" />
                         {/* UPDATED: Increased to text-base */}
                         <p className="text-white/80 font-medium leading-relaxed text-base">
                             Sensors moving through private spaces, sidewalks, schools, parks. What is being recorded, stored, and shared — and by whom?
@@ -395,6 +395,7 @@ export const SectionServingTesla: React.FC = () => {
                     {/* 2. VISUAL VERNACULAR - Grey2 */}
                     <div className="flex flex-col gap-3 bg-micron-grey2 text-white p-6 rounded-xl border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300">
                         <span className="text-white font-bold uppercase text-sm tracking-widest">VISUAL VERNACULAR</span>
+                        <div className="w-full h-px bg-white/20" />
                         <p className="text-white/80 font-medium leading-relaxed text-base">
                              Streets, homes, and neighborhoods filled with humanoid machines. How does permanent autonomous presence in everyday life change how people feel in their own communities?
                         </p>
@@ -403,6 +404,7 @@ export const SectionServingTesla: React.FC = () => {
                     {/* 3. WORST CASE - Eggplant */}
                     <div className="flex flex-col gap-3 bg-micron-eggplant text-white p-6 rounded-xl border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300">
                         <span className="text-white font-bold uppercase text-sm tracking-widest">WORST CASE</span>
+                        <div className="w-full h-px bg-white/20" />
                         <p className="text-white/80 font-medium leading-relaxed text-base">
                             Mass malfunction. Security breach across millions of units. Coordinated exploit. What does preparedness look like before deployment — and who is in the room when those scenarios are discussed?
                         </p>
