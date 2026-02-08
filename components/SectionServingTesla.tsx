@@ -139,7 +139,7 @@ export const SectionServingTesla: React.FC = () => {
                         />
                         <h3 className="text-2xl font-bold text-micron-eggplant leading-tight tracking-tight">Concept & Design</h3>
                         <p className="text-lg text-zinc-500 mt-2 font-medium">
-                            I designed this emblem to represent the convergence at play in this house. A visual map of the autonomous home.
+                            I designed the emblem around a single idea: balance. Earth and Sky represent the world we inherited. Intelligence and Vision represent the world Micron and Tesla are building. The star at the center is where all four forces converge — the spark of something new. An icon for the autonomous home of the future.
                         </p>
                      </div>
 
