@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -332,6 +333,7 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
                         const ratio = getAspectRatio(img.className);
                         const baseHeight = 360; 
                         const flexBasis = baseHeight * ratio;
+                        const objectFitClass = img.objectFit === 'contain' ? 'object-contain' : 'object-cover';
                         
                         return (
                             <div
@@ -347,7 +349,7 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
                                     alt="Gallery Item" 
                                     loading="lazy"
                                     decoding="async"
-                                    className="absolute inset-0 w-full h-full object-cover" 
+                                    className={`absolute inset-0 w-full h-full ${objectFitClass}`}
                                 />
                             </div>
                         );

@@ -162,30 +162,17 @@ const getCardData = (id: number): ModalContent => {
         modalLayout: 'default', 
         maxWidth: 'max-w-7xl', 
         content: (
-            <div className="flex flex-col gap-6 h-auto pb-12">
-                {/* 1. AUTONOMOUS HUB (Full Width) - Intro */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }} // Staggered: 0.1s
-                    className="w-full flex flex-col items-start"
-                >
-                    {/* UPDATED: Changed to text-lg to match request for 18pt */}
-                    <div className="text-zinc-900 text-lg font-medium leading-relaxed">
-                        <p>
-                            A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
-                        </p>
-                    </div>
-                </motion.div>
-
-                {/* 2. MIDDLE ROW: VIDEO (Left) + SERVICE LAYER (Right) */}
+            // UPDATED: Removed extra pb-12 padding as requested
+            <div className="flex flex-col gap-6 h-auto">
+                
+                {/* 1. TOP SECTION: VIDEO (Left) + INTRO & SERVICE TILES (Right) */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* VIDEO (Left 2/3) */}
                     <div className="lg:col-span-2 w-full h-full">
                          <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3, duration: 0.8 }}
+                            transition={{ delay: 0.1, duration: 0.8 }}
                             className="w-full h-full"
                          >
                             <ModalVideo 
@@ -196,32 +183,48 @@ const getCardData = (id: number): ModalContent => {
                          </motion.div>
                     </div>
                     
-                    {/* SERVICE & SECURITY LAYER (Right 1/3 - MOVED FROM BOTTOM) */}
-                    <motion.div 
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.5, duration: 0.8 }}
-                        className="lg:col-span-1 w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] border border-zinc-200 relative overflow-hidden group flex flex-col h-full"
-                    >
-                        <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green relative z-10 leading-none">SERVICE & SECURITY</h3>
-                        <div className="w-full h-px bg-zinc-200 mb-5 relative z-10" />
+                    {/* RIGHT COLUMN: STACKED INTRO & SERVICE (Right 1/3) */}
+                    <div className="lg:col-span-1 flex flex-col gap-6 h-full">
+                        
+                        {/* TILE 1: INTRO TEXT (Moved from top, New Tile) */}
+                        <motion.div 
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.3, duration: 0.8 }}
+                            className="w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] border border-zinc-200 relative overflow-hidden group flex flex-col justify-center flex-1"
+                        >
+                            {/* UPDATED: Text size set to text-lg (18px) */}
+                            <div className="text-zinc-600 text-lg font-medium leading-relaxed relative z-10">
+                                <p>
+                                    A private corporate residence powered by autonomous technology — where Micron hosts, entertains, and demonstrates the future it's building. Optimus and Cybercab units execute all logistics, delivering high-end culinary, wellness, and entertainment experiences with privacy and precision.
+                                </p>
+                            </div>
+                        </motion.div>
 
-                        {/* UPDATED: Changed to text-lg to match request for 18pt */}
-                        <div className="flex flex-col gap-6 text-zinc-600 text-lg font-medium leading-relaxed relative z-10 flex-1">
-                            <p>
-                                Five minutes from downtown. Fifteen from the airport. Fifteen from Micron headquarters.
-                            </p>
-                            
-                            {/* UPDATED: Removed green vertical separator */}
+                        {/* TILE 2: SERVICE & SECURITY (Moved Down) */}
+                        <motion.div 
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.5, duration: 0.8 }}
+                            className="w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] border border-zinc-200 relative overflow-hidden group flex flex-col flex-1"
+                        >
+                            <h3 className="text-xl font-black uppercase tracking-tight mb-4 text-micron-green relative z-10 leading-none">SERVICE & SECURITY</h3>
+                            <div className="w-full h-px bg-zinc-200 mb-5 relative z-10" />
 
-                            <p>
-                                Optimus and Cybercab handle arrivals, departures, transfers, and coordinate deliveries, services, and experiences directly into the residence.
-                            </p>
-                        </div>
-                    </motion.div>
+                            {/* UPDATED: Text size set to text-lg (18px) */}
+                            <div className="flex flex-col gap-6 text-zinc-600 text-lg font-medium leading-relaxed relative z-10">
+                                <p>
+                                    Five minutes from downtown. Fifteen from the airport. Fifteen from Micron headquarters.
+                                </p>
+                                <p>
+                                    Optimus and Cybercab handle arrivals, departures, transfers, and coordinate deliveries, services, and experiences directly into the residence.
+                                </p>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
 
-                {/* 3. BOTTOM ROW: INTEGRATION + INFLECTION POINT (MOVED FROM RIGHT OF VIDEO) */}
+                {/* 2. BOTTOM ROW: INTEGRATION + INFLECTION POINT */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <InnerBento 
                         gradient="bg-micron-eggplant" 
@@ -262,18 +265,9 @@ const getCardData = (id: number): ModalContent => {
         subtitle: "BOISE'S MOMENT",
         maxWidth: 'max-w-7xl',
         content: (
-            // UPDATED: Added Flex col wrapper to stack the new intro text
-            <div className="flex flex-col gap-10 h-full pb-12">
+            // UPDATED: Removed redundant div wrapper and flex styling, cleaned up structure
+            <div className="flex flex-col gap-6 h-auto pb-12">
                
-               {/* NEW SUBTEXT UPDATED: Removed max-width restriction */}
-               <div className="w-full">
-                    {/* UPDATED: Matched style to Prototype modal intro text (text-zinc-900, text-lg, font-medium) */}
-                    <p className="text-zinc-900 text-lg font-medium leading-relaxed">
-                        {/* UPDATED: Removed 'primarily' and redundant 'scene' as requested */}
-                        Boise has arrived. A city once known for potatoes and public land now supports a James Beard-nominated culinary scene, world-class wineries across the Snake River Valley, a thriving arts and entertainment culture, and the kind of civic energy that comes with a Division I University town.
-                    </p>
-               </div>
-
                <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 h-full">
                    {/* LEFT COLUMN: VIDEO + BLUE TILE */}
                    <div className="flex flex-col gap-6 lg:col-span-3">
@@ -310,9 +304,24 @@ const getCardData = (id: number): ModalContent => {
                         </InnerBento>
                    </div>
                    
-                   {/* RIGHT COLUMN: PURPLE + GREEN TILES */}
+                   {/* RIGHT COLUMN: NEW INTRO TILE + PURPLE + GREEN TILES */}
                    <div className="flex flex-col gap-6 h-full lg:col-span-2">
-                        {/* 3 ARCS CONVERGING (Purple) */}
+                        
+                        {/* 1. NEW INTRO TILE (White) - Moved from top */}
+                        <motion.div 
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2, duration: 0.8 }}
+                            className="w-full bg-white rounded-xl p-6 md:p-8 text-zinc-900 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] border border-zinc-200 relative overflow-hidden group flex flex-col justify-center flex-1"
+                        >
+                            <div className="text-zinc-600 text-lg font-medium leading-relaxed relative z-10">
+                                <p>
+                                    Boise has arrived. A city once known for potatoes and public land now supports a James Beard-nominated culinary scene, world-class wineries across the Snake River Valley, a thriving arts and entertainment culture, and the kind of civic energy that comes with a Division I University town.
+                                </p>
+                            </div>
+                        </motion.div>
+
+                        {/* 2. 3 ARCS CONVERGING (Purple) */}
                         <InnerBento 
                             title="3 ARCS CONVERGING" 
                             gradient="bg-micron-eggplant" 
@@ -328,7 +337,7 @@ const getCardData = (id: number): ModalContent => {
                              </div>
                         </InnerBento>
 
-                        {/* RUNWAY (Green) */}
+                        {/* 3. RUNWAY (Green) */}
                         <InnerBento 
                             title="RUNWAY" 
                             gradient="bg-micron-green" 

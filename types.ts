@@ -7,6 +7,7 @@ export type ModalLayout = 'default' | 'reverse' | 'vertical-text-top' | 'vertica
 export interface GalleryItem {
   url: string;
   className?: string; // Tailwind classes for grid configuration (e.g., col-span-2)
+  objectFit?: 'cover' | 'contain'; // Added for image display control
 }
 
 export interface ModalContent {

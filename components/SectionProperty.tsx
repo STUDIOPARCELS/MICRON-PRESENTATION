@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, ArrowUp, ArrowUpRight, Cpu, TreeDeciduous, Zap, Waves, Activity, Sprout, Clock, Car, Bot, Grape, Thermometer, ShieldCheck, History } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -177,49 +178,17 @@ export const SectionProperty: React.FC = () => {
       
       const galleryConfig = {
           main: {
-              folder: "MAIN FLOOR", 
+              folder: "UPPER FLOOR", 
               files: [
-                  { file: "1.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0700.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0701.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0703.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0705.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0706.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0708 copy.jpg", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0709 copy.jpg", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0710.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0735.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0736.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0737.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0738.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0739.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0751.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0754.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0755.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0761.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0762.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_0764.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_1369.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "IMG_1370.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "LIVING.0.jpg", aspect: "aspect-[4/3]" },
-                  { file: "Untitled-3.jpg", aspect: "aspect-[4/3]" },
-                  { file: "book.JPEG", aspect: "aspect-[3/4]" },
-                  { file: "dining.2.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "dining.6.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "entry.0.JPEG", aspect: "aspect-[3/4]" },
-                  { file: "entry.1.JPEG", aspect: "aspect-[3/4]" },
-                  { file: "kitchen.0.jpg", aspect: "aspect-[4/3]" },
-                  { file: "kitchen.1.jpg", aspect: "aspect-[4/3]" },
-                  { file: "kitchen.3.jpg", aspect: "aspect-[4/3]" },
-                  { file: "living.1.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "living.3.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "living.4.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "living.5.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "living.9.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "office.1.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "office.3.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "office.4.5.JPEG", aspect: "aspect-[4/3]" },
-                  { file: "office3.JPEG", aspect: "aspect-[4/3]" }
+                  { file: "BR1.7.jpg", aspect: "aspect-[4/3]" },
+                  { file: "BR2_8.jpg", aspect: "aspect-[4/3]" },
+                  { file: "MABA.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "br1.6.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "br2.3.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "br3.0.jpg", aspect: "aspect-[4/3]" },
+                  { file: "br3_0.jpg", aspect: "aspect-[4/3]" },
+                  { file: "dusting.jpeg", aspect: "aspect-[3/4]" },
+                  { file: "stairs.jpg", aspect: "aspect-[3/4]" }
               ]
           },
           upper: {
@@ -277,7 +246,9 @@ export const SectionProperty: React.FC = () => {
 
       const images: GalleryItem[] = config.files.map(item => ({
           url: buildUrl(config.folder, item.file),
-          className: item.aspect
+          className: item.aspect,
+          // UPDATED: Use 'contain' to ensure full image is visible without cropping
+          objectFit: 'contain'
       }));
 
       setModalData({
