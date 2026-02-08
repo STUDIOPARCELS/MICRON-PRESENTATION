@@ -117,7 +117,8 @@ export const Hero: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const bottomSectionRef = useRef(null);
   
-  const isInView = useInView(containerRef, { amount: 0.2 });
+  // UPDATED: Lowered threshold to 0.1 to ensure it triggers more reliably on desktop
+  const isInView = useInView(containerRef, { amount: 0.1 });
 
   // Start as null for blank state
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState<number | null>(null);
@@ -151,7 +152,9 @@ export const Hero: React.FC = () => {
     if (currentSentenceIndex === 0) {
         cycleDuration = baseDuration + 1300; // Extend first sentence slightly
     } else if (currentSentenceIndex === 1) {
-        cycleDuration = baseDuration * 2.0; // UPDATED: Double the pause before Sentence 3
+        // UPDATED: Reduced multiplier from 2.0 to 1.5. 
+        // 16s was likely too long and perceived as "not running". 12s is still a long pause but safer.
+        cycleDuration = baseDuration * 1.5; 
     }
 
     const timer = setTimeout(() => {
@@ -293,16 +296,16 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    // UPDATED: Mobile positioning: bottom-10 right-10 (nudged left). Desktop top-16 right-28.
-                    className="absolute bottom-10 right-10 w-fit md:top-16 md:right-28 md:bottom-auto md:left-auto md:mx-0 z-20"
+                    // UPDATED: Mobile positioning: bottom-8 right-8 (nudged left/up slightly). Desktop top-16 right-28.
+                    className="absolute bottom-8 right-8 w-fit md:top-16 md:right-28 md:bottom-auto md:left-auto md:mx-0 z-20"
                  >
                     <motion.img 
                         whileHover={{ rotate: 6 }}
                         transition={{ type: "spring", stiffness: 300, damping: 10 }}
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                         alt="Micron Logo"
-                        // UPDATED: Mobile size h-28 w-28 (approx 15% bigger). Desktop md:h-[11.5rem] md:w-[11.5rem]
-                        className="h-28 w-28 md:h-[11.5rem] md:w-[11.5rem] object-contain cursor-pointer"
+                        // UPDATED: Mobile size h-20 w-20 (smaller than previous 28). Desktop md:h-[11.5rem] md:w-[11.5rem]
+                        className="h-20 w-20 md:h-[11.5rem] md:w-[11.5rem] object-contain cursor-pointer"
                     />
                  </motion.div>
                  
