@@ -25,16 +25,6 @@ function App() {
       return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent scrolling when mobile menu is open
-  useEffect(() => {
-      if (mobileMenuOpen) {
-          document.body.style.overflow = 'hidden';
-      } else {
-          document.body.style.overflow = 'unset';
-      }
-      return () => { document.body.style.overflow = 'unset'; };
-  }, [mobileMenuOpen]);
-
   // Helper function to handle smooth scrolling with header offset
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -123,62 +113,49 @@ function App() {
         <AnimatePresence>
             {mobileMenuOpen && (
                 <>
-                    {/* Backdrop */}
-                    <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                    {/* Transparent Backdrop to close on click outside */}
+                    <div 
+                        className="fixed inset-0 z-[110]" 
                         onClick={() => setMobileMenuOpen(false)}
-                        className="fixed inset-0 bg-black/30 backdrop-blur-sm z-[110] md:hidden"
                     />
                     
-                    {/* Compact Menu Card */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: -20, x: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: -20, x: 20 }}
+                        initial={{ opacity: 0, scale: 0.95, originX: 1, originY: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="fixed top-2 right-2 z-[120] w-[calc(100vw-1rem)] max-w-[320px] bg-white rounded-2xl shadow-2xl border border-zinc-100 overflow-hidden md:hidden flex flex-col"
+                        className="fixed top-3 right-3 z-[120] w-64 bg-white rounded-xl shadow-2xl border border-zinc-100 flex flex-col overflow-hidden md:hidden"
                     >
-                        {/* Header with Close Button */}
-                        <div className="flex items-center justify-between p-4 pb-2">
-                             <div className="flex items-center gap-1.5 opacity-0">
-                                {/* Spacer */}
-                             </div>
+                        {/* Close Button Row */}
+                        <div className="flex justify-end p-2 border-b border-zinc-50">
                              <button 
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="p-2 -mr-2 text-zinc-800 hover:bg-zinc-100 rounded-full transition-colors"
+                                className="p-2 text-zinc-400 hover:text-zinc-900 rounded-full hover:bg-zinc-50 transition-colors"
                             >
-                                <X size={28} />
+                                <X size={24} />
                             </button>
                         </div>
 
-                        {/* Nav Links */}
-                        <div className="flex flex-col pb-4 px-1">
-                            {navLinks.map((link, i) => (
-                                <a 
-                                    key={link.id}
+                        {/* Links */}
+                        <div className="flex flex-col py-2">
+                             {navLinks.map(link => (
+                                 <a 
+                                    key={link.id} 
                                     href={`#${link.id}`} 
                                     onClick={(e) => scrollToSection(e, link.id)} 
-                                    className="group flex items-center justify-between px-6 py-4 border-b border-zinc-50 last:border-0 hover:bg-zinc-50 transition-colors"
-                                >
-                                    <span className="font-bold uppercase tracking-widest text-sm text-zinc-900 group-hover:text-micron-eggplant transition-colors">
-                                        {link.label}
-                                    </span>
-                                    <ArrowRight size={18} className="text-micron-green" />
-                                </a>
-                            ))}
+                                    className="px-6 py-3 text-sm font-bold uppercase tracking-widest text-zinc-700 hover:text-micron-eggplant hover:bg-zinc-50 flex justify-between items-center transition-colors group"
+                                 >
+                                    {link.label}
+                                    <ArrowRight size={14} className="text-micron-green transition-transform group-hover:translate-x-1" />
+                                 </a>
+                             ))}
                         </div>
-                        
-                        {/* Footer Contact Info */}
-                        <div className="bg-zinc-50 p-6 flex flex-col gap-3 border-t border-zinc-100">
-                             <div className="flex items-start gap-3">
-                                  <MapPin size={16} className="text-micron-green mt-0.5 shrink-0" />
-                                  <span className="text-xs text-zinc-500 font-medium leading-snug">1020 E Warm Springs Ave, Boise</span>
-                             </div>
-                             <div className="flex items-center gap-3">
-                                  <Mail size={16} className="text-micron-green shrink-0" />
-                                  <a href="mailto:inquiry@micronhouse.com" className="text-xs text-zinc-500 font-medium hover:text-micron-eggplant transition-colors">inquiry@micronhouse.com</a>
+
+                        {/* Compact Footer */}
+                        <div className="bg-zinc-50 p-4 border-t border-zinc-100">
+                             <div className="flex items-center gap-2 text-[10px] text-zinc-400 uppercase tracking-wider font-bold">
+                                  <MapPin size={12} className="text-micron-green" />
+                                  <span>Boise, ID 83712</span>
                              </div>
                         </div>
                     </motion.div>

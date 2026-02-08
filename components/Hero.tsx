@@ -139,28 +139,12 @@ export const Hero: React.FC = () => {
   const [key, setKey] = useState(0); 
   const [layoutShift, setLayoutShift] = useState(false);
   const [logoVisible, setLogoVisible] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false); // Track scroll for mobile quote
 
   // Timer Ref to manage cleanup
   const sequenceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Icon Controls
   const iconControls = useAnimation();
-
-  // Scroll Listener for Mobile Quote
-  useEffect(() => {
-    const handleScroll = () => {
-        if (window.scrollY > 20) {
-            setHasScrolled(true);
-        }
-    };
-    
-    // Check initially (in case user refreshes on page)
-    if (window.scrollY > 20) setHasScrolled(true);
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Unified Start Sequence Function
   // Resets everything, starts video immediately, waits 1.5s, starts text
@@ -456,11 +440,12 @@ export const Hero: React.FC = () => {
                  </div>
 
                  {/* MOBILE QUOTE - IN FLOW */}
-                 {/* UPDATED: Uses hasScrolled state to trigger animation only after user scrolls */}
+                 {/* UPDATED: Reverted to standard viewport triggering for guaranteed visibility */}
                  <div className="md:hidden w-full flex-grow pt-4 pb-12 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
-                         animate={hasScrolled ? "visible" : "hidden"}
+                         whileInView="visible"
+                         viewport={{ once: true, amount: 0.1 }}
                          variants={{
                              // UPDATED: Slowed down from 0.25 to 0.40 (approx 50% slower)
                              visible: { transition: { staggerChildren: 0.40, delayChildren: 0.1 } }, 
