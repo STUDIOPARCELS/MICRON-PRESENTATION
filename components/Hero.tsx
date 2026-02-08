@@ -140,7 +140,7 @@ export const Hero: React.FC = () => {
   const iconControls = useAnimation();
 
   // Unified Start Sequence Function
-  // Resets everything, starts video immediately, waits 1.0s, starts text
+  // Resets everything, starts video immediately, waits 3.0s (UPDATED), starts text
   const startSequence = () => {
     // 1. Clear any pending timers
     if (sequenceTimer.current) clearTimeout(sequenceTimer.current);
@@ -157,10 +157,10 @@ export const Hero: React.FC = () => {
         videoRef.current.play().catch((e) => console.log("Video play error:", e));
     }
 
-    // 4. Schedule Text Start (1.0s delay)
+    // 4. Schedule Text Start (3.0s delay as requested)
     sequenceTimer.current = setTimeout(() => {
         setCurrentSentenceIndex(0);
-    }, 1000);
+    }, 3000);
   };
 
   // Handle Video Loop (End of video triggers replay)
@@ -169,10 +169,11 @@ export const Hero: React.FC = () => {
   };
   
   // SYNC LOGO TO VIDEO TIME
-  // Trigger roughly when car rolls in (approx 4.0s mark)
+  // Trigger exactly at 30.0s mark as requested
   const handleVideoTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
       const time = e.currentTarget.currentTime;
-      if (time >= 4.0 && !logoVisible) {
+      // UPDATED: Changed from 4.0 to 30.0
+      if (time >= 30.0 && !logoVisible) {
           setLogoVisible(true);
           
           // Trigger Logo Animation
