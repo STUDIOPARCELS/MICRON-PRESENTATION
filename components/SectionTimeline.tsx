@@ -7,7 +7,8 @@ const roadmapItems = [
     id: 1, 
     date: "NOW", 
     title: "AGREEMENT", 
-    // Subtext removed
+    subtitle: "Architectural interface.", 
+    // UPDATED: Changed from bg-micron-black to bg-micron-grey1 to match "Real-World Inference"
     bg: "bg-micron-grey1",
     text: "text-white"
   },
@@ -15,7 +16,7 @@ const roadmapItems = [
     id: 2, 
     date: "MAR 1", 
     title: "PROTOCOL ASSESSMENT", 
-    // Subtext removed
+    subtitle: "Infrastructure install.", 
     bg: "bg-micron-eggplant-light", // Light Blue
     text: "text-white"
   },
@@ -23,7 +24,7 @@ const roadmapItems = [
     id: 3, 
     date: "APR 1", 
     title: "WELLNESS INSTALL", 
-    // Subtext removed
+    subtitle: "Core logic ingest.", 
     bg: "bg-micron-green",
     text: "text-white"
   },
@@ -31,7 +32,7 @@ const roadmapItems = [
     id: 4, 
     date: "MAY 1", 
     title: "ACCESS BEGINS", 
-    // Subtext removed
+    subtitle: "Executive residence.", 
     bg: "bg-[#878d9f]", // Grey/Slate manual override to match screenshot vibe
     text: "text-white"
   },
@@ -40,7 +41,7 @@ const roadmapItems = [
     // UPDATED: Changed from 'SEPT' to '2027' as requested
     date: "2027", 
     title: "FULL AUTONOMY", 
-    // Subtext removed
+    subtitle: "Zero human intervention.", 
     bg: "bg-micron-eggplant",
     text: "text-white"
   }
@@ -58,7 +59,7 @@ export const SectionTimeline: React.FC = () => {
           {/* Header Row - REMOVED OUTER BENTO WRAPPER */}
           <div className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8">
               <div className="flex-shrink-0">
-                  <span className="block text-lg font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">06 / DEPLOYMENT</span>
+                  <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">06 / DEPLOYMENT</span>
                   {/* UPDATED: Changed color to text-micron-green */}
                   <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-green leading-none font-sans">
                       ROADMAP
@@ -68,13 +69,12 @@ export const SectionTimeline: React.FC = () => {
               <div className="md:ml-auto max-w-2xl pb-1">
                  {/* Updated Header Structure to match other sections */}
                  <div className="pl-6 border-l-4 border-zinc-900/20 hover:border-zinc-900 transition-colors duration-500">
-                    {/* UPDATED: text-lg */}
-                    <p className="text-lg font-light text-zinc-600 leading-snug font-body">
+                    <p className="text-base font-light text-zinc-600 leading-snug font-body">
                        {/* UPDATED: Changed color to text-micron-green */}
                        <span className="font-bold text-micron-green block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                            TIMELINE
                        </span>
-                       {/* Increased description size to text-lg */}
+                       {/* Increased description size to text-base */}
                        From agreement to installation, then testing to full autonomy as Cybercab and Optimus deploy to the property.
                     </p>
                  </div>
@@ -114,16 +114,16 @@ export const SectionTimeline: React.FC = () => {
                     {/* Center Content */}
                     <div className="mt-auto relative z-10">
                         <div className="flex items-center gap-2 mb-3">
-                            <span className="text-lg font-bold uppercase tracking-widest opacity-90">{item.date}</span>
+                            <span className="text-xs font-bold uppercase tracking-widest opacity-90">{item.date}</span>
                             <div className="h-px bg-white/40 flex-1"></div>
                         </div>
                         
                         {/* UPDATED: Reduced font size to text-lg md:text-xl to ensure single line for "PROTOCOL ASSESSMENT" */}
-                        <h3 className="text-xl md:text-2xl font-black uppercase leading-[0.9] mb-2 tracking-tight drop-shadow-md whitespace-nowrap overflow-hidden text-ellipsis">
+                        <h3 className="text-lg md:text-xl font-black uppercase leading-[0.9] mb-2 tracking-tight drop-shadow-md whitespace-nowrap overflow-hidden text-ellipsis">
                             {item.title}
                         </h3>
                         
-                        {/* Subtitle removed as requested */}
+                        {/* UPDATED: Removed subtitle text per instructions */}
                     </div>
                 </motion.div>
             ))}

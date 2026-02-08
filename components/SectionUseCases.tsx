@@ -91,7 +91,6 @@ export const SectionUseCases: React.FC = () => {
       label: "Experience",
       subtitle: "Intimacy and Privacy",
       category: 'showcase',
-      // UPDATED: text-xl (20px)
       content: <p className="text-xl leading-relaxed text-zinc-300 font-body">{uc.text}</p>,
       tags: ['Exclusive', 'Private', 'Turnkey']
     });
@@ -113,14 +112,13 @@ export const SectionUseCases: React.FC = () => {
              className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-200 pb-8"
           >
             <div className="flex-shrink-0">
-               <span className="block text-lg font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">03 / USE CASE</span>
+               <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">03 / USE CASE</span>
                <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-zinc-400 leading-none font-sans">EXPERIENCES</h2>
             </div>
             
             <div className="md:ml-auto max-w-2xl pb-1">
                  <div className="pl-6 border-l-4 border-micron-eggplant-light/20 hover:border-micron-eggplant-light transition-colors duration-500">
-                    {/* UPDATED: text-lg */}
-                    <p className="text-lg font-light text-zinc-600 leading-snug font-body">
+                    <p className="text-base font-light text-zinc-600 leading-snug font-body">
                        <span className="font-bold text-micron-eggplant-light block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                            CURATED MOMENTS.
                        </span>
@@ -131,8 +129,7 @@ export const SectionUseCases: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2 mb-4 md:hidden">
-              {/* UPDATED: text-lg */}
-              <span className="text-lg text-zinc-400 uppercase tracking-wide">Swipe to explore →</span>
+              <span className="text-xs text-zinc-400 uppercase tracking-wide">Swipe to explore →</span>
           </div>
 
           <div className="
@@ -169,8 +166,7 @@ export const SectionUseCases: React.FC = () => {
                     </h3>
                 </div>
                 
-                {/* UPDATED: text-lg */}
-                <p className={`text-lg font-bold leading-relaxed font-sans tracking-wide ${uc.gradient === 'bg-micron-grey4' ? 'text-zinc-600' : 'text-white/80'}`}>
+                <p className={`text-sm font-bold leading-relaxed font-sans tracking-wide ${uc.gradient === 'bg-micron-grey4' ? 'text-zinc-600' : 'text-white/80'}`}>
                   {uc.text}
                 </p>
 

@@ -99,7 +99,6 @@ const departments: Department[] = [
     modalHeaderColor: "text-micron-grey1",
     modalIconColor: "text-zinc-400", 
     modalTagColor: "border-micron-eggplant-light",
-    // No aspect ratio constraints ensures it matches Travel & Entertainment style (natural grid)
     experiences: [
       {
         title: "Confidential Counsel",
@@ -124,8 +123,7 @@ const departments: Department[] = [
     modalHeaderColor: "text-micron-eggplant-light", 
     modalIconColor: "text-zinc-400", 
     modalTagColor: "border-micron-grey1",
-    modalMaxWidth: "max-w-md", // Keep compact width
-    // No aspect ratio ensures height adapts to content (removing extra padding)
+    modalMaxWidth: "max-w-md", 
     experiences: [
       {
         title: "Soft Landings",
@@ -204,7 +202,6 @@ const departments: Department[] = [
     modalHeaderColor: "text-micron-eggplant", 
     modalIconColor: "text-zinc-400", 
     modalTagColor: "border-micron-grey1",
-    // No aspect ratio constraints matches Travel & Entertainment style
     experiences: [
       {
         title: "Medical Proximity",
@@ -241,7 +238,6 @@ export const SectionServing: React.FC = () => {
         // REMOVED h-full from this wrapper to allow natural height sizing
         <div className="flex flex-col gap-8 pb-4">
              <div className={`border-l-4 ${dept.modalTagColor.replace('border-', 'border-')} pl-6 py-1`}>
-                {/* UPDATED: Increased font size to text-lg md:text-xl to denote header section relative to tiles */}
                 <p className="text-xl md:text-2xl font-light text-zinc-600 leading-relaxed font-body">
                     {dept.detail}
                 </p>
@@ -286,7 +282,8 @@ export const SectionServing: React.FC = () => {
             className="mb-12 flex flex-col md:flex-row md:items-end gap-12 border-b border-zinc-100 pb-8"
         >
             <div className="flex-shrink-0">
-                <span className="block text-lg font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">04 / STAKEHOLDERS</span>
+                {/* UPDATED: Renumbered to 03 */}
+                <span className="block text-sm font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">03 / STAKEHOLDERS</span>
                 <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-eggplant leading-none font-sans">
                     SERVING MICRON
                 </h2>
@@ -294,7 +291,6 @@ export const SectionServing: React.FC = () => {
             
             <div className="md:ml-auto max-w-2xl pb-1">
                  <div className="pl-6 border-l-4 border-micron-eggplant/20 hover:border-micron-eggplant transition-colors duration-500">
-                    {/* UPDATED: text-lg */}
                     <p className="text-lg font-light text-zinc-600 leading-snug font-body">
                        <span className="font-bold text-micron-eggplant block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                            STRATEGIC ALIGNMENT
@@ -323,13 +319,12 @@ export const SectionServing: React.FC = () => {
                     <div className="relative z-10 flex flex-col h-full">
                         <div>
                              <h3 className="text-2xl font-black uppercase tracking-tight leading-none text-white line-clamp-2 mb-1">{dept.title}</h3>
-                             {/* UPDATED: text-lg */}
-                             <p className="text-lg font-bold uppercase tracking-widest text-white/70 mb-4">{dept.value}</p>
+                             <p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">{dept.value}</p>
                              <div className="h-px w-full bg-white/30" />
                         </div>
                         
-                        {/* UPDATED: Increased font size to text-lg to match Wellness modal tiles standard. Reduced mt from 4 to 3. */}
-                        <p className="text-lg font-medium text-white/80 line-clamp-3 mt-3 leading-relaxed">
+                        {/* UPDATED: Increased text size from text-sm to text-base */}
+                        <p className="text-base font-medium text-white/80 line-clamp-3 mt-3 leading-relaxed">
                             {dept.detail}
                         </p>
                     </div>

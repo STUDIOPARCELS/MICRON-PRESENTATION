@@ -32,13 +32,13 @@ const InnerBento = ({ title, children, gradient, icon, className = "", delay = 0
             <div className="relative z-10 h-full flex flex-col gap-3">
                 {(title || icon) && (
                     <div className="mb-1 shrink-0">
-                        <h3 className={`text-lg font-black uppercase tracking-tight flex items-center gap-2 drop-shadow-md leading-none ${textColor === 'text-white' ? 'text-white/70' : ''}`}>
+                        <h3 className={`text-sm md:text-base font-black uppercase tracking-tight flex items-center gap-2 drop-shadow-md leading-none ${textColor === 'text-white' ? 'text-white/70' : ''}`}>
                             {icon && React.cloneElement(icon, { size: 18, strokeWidth: 2 })}
                             {title}
                         </h3>
                     </div>
                 )}
-                <div className={`leading-relaxed font-body font-normal text-lg flex-1 ${textColor === 'text-zinc-900' ? 'text-zinc-600' : 'text-white/80'}`}>
+                <div className={`leading-relaxed font-body font-normal flex-1 ${textColor === 'text-zinc-900' ? 'text-zinc-600' : 'text-white/80'}`}>
                     {children}
                 </div>
             </div>
@@ -108,7 +108,7 @@ export const SectionServingTesla: React.FC = () => {
                     >
                          <div className="mb-6">
                             <h4 className="text-3xl font-bold text-micron-eggplant mb-2 tracking-tight">Stewardship & Vision</h4>
-                            <p className="text-lg font-bold uppercase tracking-widest text-zinc-400">Lisa Wood • Founder</p>
+                            <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Lisa Wood • Founder</p>
                          </div>
                          <div className="w-12 h-1 bg-micron-green/20 mb-6"></div>
                          {/* UPDATED: Standardized font size to text-lg (18px) */}
@@ -141,10 +141,11 @@ export const SectionServingTesla: React.FC = () => {
                         <img 
                             src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-transparent.png" 
                             alt="Micron House Icon"
+                            // UPDATED: Doubled size from w-20 h-20 to w-40 h-40, increased mb to 6
                             className="w-40 h-40 object-contain opacity-90 mb-6"
                         />
                         <h3 className="text-2xl font-bold text-micron-eggplant leading-tight tracking-tight">Concept & Design</h3>
-                        <p className="text-lg text-zinc-500 mt-2 font-medium">
+                        <p className="text-sm text-zinc-500 mt-2 font-medium">
                             I designed this emblem to represent the convergence at play in this house. A visual map of the autonomous home.
                         </p>
                      </div>
@@ -154,36 +155,36 @@ export const SectionServingTesla: React.FC = () => {
                         <div className="bg-micron-green text-white rounded-xl p-5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10 flex flex-col gap-2">
                             <div className="flex items-center gap-2 mb-1">
                                 <Mountain size={18} className="text-white/80" />
-                                <span className="font-bold uppercase text-lg tracking-widest">Earth</span>
+                                <span className="font-bold uppercase text-xs tracking-widest">Earth</span>
                             </div>
-                            <p className="text-white/80 text-lg leading-relaxed font-medium">The foundation. Geothermal energy and renewable resources.</p>
+                            <p className="text-white/80 text-xs leading-relaxed font-medium">The foundation. Geothermal energy and renewable resources.</p>
                         </div>
 
                         {/* Sky - Blue */}
                         <div className="bg-micron-eggplant-light text-white rounded-xl p-5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10 flex flex-col gap-2">
                             <div className="flex items-center gap-2 mb-1">
                                 <Star size={18} className="text-white/80" />
-                                <span className="font-bold uppercase text-lg tracking-widest">Sky</span>
+                                <span className="font-bold uppercase text-xs tracking-widest">Sky</span>
                             </div>
-                            <p className="text-white/80 text-lg leading-relaxed font-medium">The stars. Infinite potential.</p>
+                            <p className="text-white/80 text-xs leading-relaxed font-medium">The stars. Infinite potential.</p>
                         </div>
 
                         {/* Memory - Eggplant */}
                         <div className="bg-micron-eggplant text-white rounded-xl p-5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10 flex flex-col gap-2">
                             <div className="flex items-center gap-2 mb-1">
                                 <Layers size={18} className="text-white/80" />
-                                <span className="font-bold uppercase text-lg tracking-widest">Memory</span>
+                                <span className="font-bold uppercase text-xs tracking-widest">Memory</span>
                             </div>
-                            <p className="text-white/80 text-lg leading-relaxed font-medium">The intelligence. Micron. Silicon memory and processing power.</p>
+                            <p className="text-white/80 text-xs leading-relaxed font-medium">The intelligence. Micron. Silicon memory and processing power.</p>
                         </div>
 
                         {/* Velocity - Grey */}
                         <div className="bg-micron-grey1 text-white rounded-xl p-5 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 border border-white/10 flex flex-col gap-2">
                             <div className="flex items-center gap-2 mb-1">
                                 <Zap size={18} className="text-white/80" />
-                                <span className="font-bold uppercase text-lg tracking-widest">Velocity</span>
+                                <span className="font-bold uppercase text-xs tracking-widest">Velocity</span>
                             </div>
-                            <p className="text-white/80 text-lg leading-relaxed font-medium">The autonomy. Tesla. SpaceX. The service and security layer.</p>
+                            <p className="text-white/80 text-xs leading-relaxed font-medium">The autonomy. Tesla. SpaceX. The service and security layer.</p>
                         </div>
                      </div>
                 </motion.div>
@@ -212,59 +213,12 @@ export const SectionServingTesla: React.FC = () => {
                     </div>
                 </motion.div>
 
-                {/* 2. WHITE FEATURE CARD (Full Width - Matches 'Service & Security Layer') */}
-                {/* UPDATED: Added floating shadow effects */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="w-full bg-white rounded-xl px-6 py-4 md:px-8 md:py-6 text-zinc-900 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
-                >
-                    <div className="flex items-baseline gap-4 mb-4 relative z-10">
-                        <h3 className="text-xl font-black uppercase tracking-tight text-micron-green flex items-center gap-2">
-                            <Activity size={20} /> CLOSED LOOP
-                        </h3>
-                        {/* UPDATED: Increased to text-lg */}
-                        <span className="text-lg font-bold uppercase tracking-widest text-zinc-400 hidden md:block">Proximity Advantage</span>
-                    </div>
-                    
-                    {/* UPDATED: Reduced bottom margin */}
-                    <div className="w-full h-px bg-zinc-200 mb-4 relative z-10" />
-
-                    {/* UPDATED: Standardized text to text-lg (18px), reduced grid gap */}
-                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 text-zinc-600 text-lg font-medium leading-relaxed relative z-10 items-center">
-                        <div className="flex flex-col gap-6 md:gap-8">
-                             <div>
-                                 <span className="block text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-none">15 <span className="text-2xl font-bold align-top text-zinc-400">min</span></span>
-                                 {/* UPDATED: Increased to text-lg */}
-                                 <span className="text-lg font-bold uppercase tracking-widest text-zinc-500">Fab to Front Door</span>
-                             </div>
-                             <div>
-                                 <span className="block text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-none">1</span>
-                                 {/* UPDATED: Increased to text-lg */}
-                                 <span className="text-lg font-bold uppercase tracking-widest text-zinc-500">Address</span>
-                             </div>
-                        </div>
-                        
-                        {/* Separator - Reduced height */}
-                        <div className="hidden md:flex justify-center h-full min-h-[80px]">
-                            <div className="w-[3px] bg-micron-green h-full rounded-full"></div>
-                        </div>
-                        <div className="md:hidden w-full h-[3px] bg-micron-green rounded-full"></div>
-
-                        <div className="flex flex-col gap-2">
-                             <p className="leading-snug">
-                                Optimus and Cybercab run on Micron silicon fabricated fifteen minutes from the front door. Executives host guests alongside machines powered by their own work. Feedback travels from the dining room to the fab floor by morning.
-                            </p>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* 3. BOTTOM GRID (Split 2/3 + 1/3) */}
+                {/* 2. BOTTOM GRID (Split 2/3 + 1/3) - MOVED UP AS REQUESTED */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
                     {/* LEFT: IMAGE (Col Span 2) */}
-                    <div className="lg:col-span-2 w-full h-full min-h-[400px]">
+                    {/* UPDATED: Changed to aspect-square and updated image source */}
+                    <div className="lg:col-span-2 w-full aspect-square">
                          <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -272,19 +226,12 @@ export const SectionServingTesla: React.FC = () => {
                             className="w-full h-full relative rounded-xl overflow-hidden border border-zinc-200 group shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
                          >
                             <img 
-                                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/tesla-optimus-gen-3-delay.png" 
-                                alt="Optimus Gen 3" 
-                                className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/UPPER%20FLOOR/stairs.jpg" 
+                                alt="Stairs" 
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
-                            <div className="absolute bottom-6 left-6 right-6">
-                                <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white text-lg font-bold uppercase tracking-widest mb-2">
-                                    Living Laboratory
-                                </div>
-                                <h4 className="text-white text-2xl font-black uppercase leading-none tracking-tight">
-                                    Intelligence Flow
-                                </h4>
-                            </div>
+                            {/* UPDATED: Removed text overlay from here as requested */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
                          </motion.div>
                     </div>
                     
@@ -299,11 +246,11 @@ export const SectionServingTesla: React.FC = () => {
                             padding="p-6"
                         >
                             <div className="flex flex-col mb-3">
-                                <h3 className="text-lg font-bold uppercase tracking-[0.2em] text-zinc-400 mb-1 font-sans flex items-center gap-2">
+                                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-1 font-sans flex items-center gap-2">
                                     <MessageSquare size={16} /> THE FEEDBACK LOOP
                                 </h3>
-                                {/* UPDATED: Increased to text-lg */}
-                                <span className="text-lg uppercase tracking-widest text-white/50">Training Ground</span>
+                                {/* UPDATED: Increased to text-xs */}
+                                <span className="text-xs uppercase tracking-widest text-white/50">Training Ground</span>
                             </div>
                             <div className="w-full h-px bg-white/20 mb-4" />
                             <ul className="space-y-3 mb-4">
@@ -319,8 +266,8 @@ export const SectionServingTesla: React.FC = () => {
                                     </li>
                                 ))}
                             </ul>
-                            {/* UPDATED: Increased to text-lg */}
-                            <p className="text-lg text-white/60 font-bold uppercase tracking-wide leading-relaxed border-t border-white/10 pt-3">
+                            {/* UPDATED: Increased to text-sm */}
+                            <p className="text-sm text-white/60 font-bold uppercase tracking-wide leading-relaxed border-t border-white/10 pt-3">
                                 Three scenarios. Three emotional registers. Each one training autonomous systems.
                             </p>
                         </InnerBento>
@@ -334,11 +281,11 @@ export const SectionServingTesla: React.FC = () => {
                             padding="p-6"
                         >
                             <div className="flex flex-col mb-3">
-                                <h3 className="text-lg font-bold uppercase tracking-[0.2em] text-zinc-400 mb-1 font-sans flex items-center gap-2">
+                                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-1 font-sans flex items-center gap-2">
                                     <ShieldCheck size={16} /> PRE-PUBLIC DEPLOYMENT
                                 </h3>
-                                {/* UPDATED: Increased to text-lg */}
-                                <span className="text-lg uppercase tracking-widest text-white/50">First Access</span>
+                                {/* UPDATED: Increased to text-xs */}
+                                <span className="text-xs uppercase tracking-widest text-white/50">First Access</span>
                             </div>
                             <div className="w-full h-px bg-white/20 mb-4" />
                             {/* UPDATED: Increased to text-lg (18px) */}
@@ -349,14 +296,57 @@ export const SectionServingTesla: React.FC = () => {
                                 <p>
                                     Operational variety builds institutional knowledge. Every scenario deepens the data, sharpens the model, and strengthens the partnership.
                                 </p>
-                                {/* UPDATED: Increased to text-lg */}
-                                <p className="text-lg font-bold uppercase tracking-widest text-micron-green pt-2">
+                                {/* UPDATED: Increased to text-sm */}
+                                <p className="text-sm font-bold uppercase tracking-widest text-micron-green pt-2">
                                     Confidential. Celebratory. Compassionate. Political.
                                 </p>
                             </div>
                         </InnerBento>
                     </div>
                 </div>
+
+                {/* 3. WHITE FEATURE CARD (Full Width - Matches 'Service & Security Layer') - MOVED BELOW GRID */}
+                {/* UPDATED: Reduced padding from px-6 py-4 to px-6 py-3 to remove extra space */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="w-full bg-white rounded-xl px-6 py-3 md:px-8 md:py-4 text-zinc-900 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
+                >
+                    {/* UPDATED: Reduced mb-4 to mb-2 */}
+                    <div className="flex items-baseline gap-4 mb-2 relative z-10">
+                        <h3 className="text-xl font-black uppercase tracking-tight text-micron-green flex items-center gap-2">
+                            <Activity size={20} /> CLOSED LOOP
+                        </h3>
+                        {/* DELETED: Proximity Advantage span as requested */}
+                    </div>
+                    
+                    {/* UPDATED: Reduced mb-4 to mb-3 */}
+                    <div className="w-full h-px bg-zinc-200 mb-3 relative z-10" />
+
+                    {/* UPDATED: Standardized text to text-lg (18px), reduced grid gap */}
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 text-zinc-600 text-lg font-medium leading-relaxed relative z-10 items-center">
+                        <div className="flex flex-col justify-center">
+                             <div>
+                                 <span className="block text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-none">15 <span className="text-2xl font-bold align-top text-zinc-400">min</span></span>
+                                 {/* UPDATED: Changed text to "Micron to Front Door", removed 1 address stat */}
+                                 <span className="text-sm font-bold uppercase tracking-widest text-zinc-500">Micron to Front Door</span>
+                             </div>
+                        </div>
+                        
+                        {/* Separator - Reduced height from 60px to 40px to reduce padding perception */}
+                        <div className="hidden md:flex justify-center h-full min-h-[40px]">
+                            <div className="w-[3px] bg-micron-green h-full rounded-full"></div>
+                        </div>
+                        <div className="md:hidden w-full h-[3px] bg-micron-green rounded-full"></div>
+
+                        <div className="flex flex-col gap-2">
+                             <p className="leading-snug">
+                                Optimus and Cybercab run on Micron silicon fabricated fifteen minutes from the front door. Executives host guests alongside machines powered by their own work. Feedback travels from the dining room to the fab floor by morning.
+                            </p>
+                        </div>
+                    </div>
+                </motion.div>
             </div>
         )
     }
@@ -398,36 +388,30 @@ export const SectionServingTesla: React.FC = () => {
             >
                 <div className="flex items-center gap-3 mb-2">
                     <Info size={24} className="text-zinc-400" />
-                    <h4 className="text-micron-eggplant font-bold uppercase text-lg tracking-[0.2em]">OPEN QUESTIONS</h4>
+                    <h4 className="text-micron-eggplant font-bold uppercase text-sm tracking-[0.2em]">OPEN QUESTIONS</h4>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* 1. SURVEILLANCE - Green */}
                     <div className="flex flex-col gap-3 bg-micron-green text-white p-6 rounded-xl border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300">
-                        {/* UPDATED: text-lg for subtitles */}
-                        <span className="text-white font-bold uppercase text-lg tracking-widest">SURVEILLANCE</span>
-                        {/* UPDATED: text-lg for description */}
-                        <p className="text-white/80 font-medium leading-relaxed text-lg">
+                        <span className="text-white font-bold uppercase text-xs tracking-widest">SURVEILLANCE</span>
+                        <p className="text-white/80 font-medium leading-relaxed text-sm">
                             Sensors moving through private spaces, sidewalks, schools, parks. What is being recorded, stored, and shared — and by whom?
                         </p>
                     </div>
                     
                     {/* 2. VISUAL VERNACULAR - Grey2 */}
                     <div className="flex flex-col gap-3 bg-micron-grey2 text-white p-6 rounded-xl border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300">
-                        {/* UPDATED: text-lg for subtitles */}
-                        <span className="text-white font-bold uppercase text-lg tracking-widest">VISUAL VERNACULAR</span>
-                        {/* UPDATED: text-lg for description */}
-                        <p className="text-white/80 font-medium leading-relaxed text-lg">
+                        <span className="text-white font-bold uppercase text-xs tracking-widest">VISUAL VERNACULAR</span>
+                        <p className="text-white/80 font-medium leading-relaxed text-sm">
                              Streets, homes, and neighborhoods filled with humanoid machines. How does permanent autonomous presence in everyday life change how people feel in their own communities?
                         </p>
                     </div>
                     
                     {/* 3. WORST CASE - Eggplant */}
                     <div className="flex flex-col gap-3 bg-micron-eggplant text-white p-6 rounded-xl border border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300">
-                        {/* UPDATED: text-lg for subtitles */}
-                        <span className="text-white font-bold uppercase text-lg tracking-widest">WORST CASE</span>
-                        {/* UPDATED: text-lg for description */}
-                        <p className="text-white/80 font-medium leading-relaxed text-lg">
+                        <span className="text-white font-bold uppercase text-xs tracking-widest">WORST CASE</span>
+                        <p className="text-white/80 font-medium leading-relaxed text-sm">
                             Mass malfunction. Security breach across millions of units. Coordinated exploit. What does preparedness look like before deployment — and who is in the room when those scenarios are discussed?
                         </p>
                     </div>
@@ -435,8 +419,7 @@ export const SectionServingTesla: React.FC = () => {
 
                 {/* Bottom Line */}
                 <div className="mt-4 pt-4 border-t border-zinc-100">
-                    {/* UPDATED: text-lg for bottom sentence */}
-                    <p className="text-zinc-600 font-medium italic text-center text-lg leading-relaxed">
+                    <p className="text-zinc-600 font-medium italic text-center text-sm md:text-base leading-relaxed">
                         Micron House is where these concerns are explored — in person, between the people designing the systems and the people governing them.
                     </p>
                 </div>
@@ -468,7 +451,7 @@ export const SectionServingTesla: React.FC = () => {
           >
               <div className="flex-shrink-0">
                   {/* UPDATED: Changed label from '05 / LIVING LAB' to '05 / PARTNERSHIP' */}
-                  <span className="block text-lg font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">05 / PARTNERSHIP</span>
+                  <span className="block text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 font-sans">05 / PARTNERSHIP</span>
                   {/* UPDATED: Changed 'TESLA' to 'LIVING LAB' and color to text-micron-grey1 */}
                   <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tight text-micron-grey1 leading-none font-sans">
                       LIVING LAB
@@ -477,7 +460,7 @@ export const SectionServingTesla: React.FC = () => {
               
               <div className="md:ml-auto max-w-2xl pb-1">
                    <div className="pl-6 border-l-4 border-micron-eggplant-light/20 hover:border-micron-eggplant-light transition-colors duration-500">
-                      <p className="text-lg font-light text-zinc-600 leading-snug font-body">
+                      <p className="text-base font-light text-zinc-600 leading-snug font-body">
                          {/* UPDATED: Changed color to text-micron-grey1 to match the bento box gray */}
                          <span className="font-bold text-micron-grey1 block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                              AUTONOMOUS ECOSYSTEM
@@ -507,7 +490,7 @@ export const SectionServingTesla: React.FC = () => {
                                <h3 className={`text-3xl font-black uppercase tracking-tight leading-none mb-2 text-white transition-colors duration-300 ${card.titleHoverColor}`}>
                                    {card.title}
                                </h3>
-                               <p className={`text-lg font-bold uppercase tracking-widest mb-6 ${card.subtitleColor}`}>
+                               <p className={`text-xs font-bold uppercase tracking-widest mb-6 ${card.subtitleColor}`}>
                                    {card.subtitle}
                                </p>
                                <div className="w-full h-px bg-white/20 mb-6" />

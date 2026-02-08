@@ -52,6 +52,7 @@ const InteractiveParadigmTitle: React.FC = () => {
     const cLightGreen = "#008f25"; 
     const cDarkGreen = "#14532d"; 
     const cPurple = "#2c0f38"; 
+    const cWhite = "#ffffff";
 
     // Animation Variants
     // Transitions from Light Green -> Dark Green -> Purple -> Final Color
@@ -60,12 +61,14 @@ const InteractiveParadigmTitle: React.FC = () => {
         visible: (customDelay: number) => ({
             y: 0, 
             opacity: 1,
+            // UPDATED: Explicit color array for the micro-interaction
             color: [cLightGreen, cDarkGreen, cPurple, finalColor],
             transition: { 
                 y: { duration: 1.5, ease: "easeOut", delay: customDelay },
                 opacity: { duration: 1.5, ease: "easeOut", delay: customDelay },
+                // UPDATED: Color transition matches the duration to ensure visibility
                 color: { 
-                    duration: 2.5, 
+                    duration: 3.0, 
                     ease: "easeInOut", 
                     times: [0, 0.33, 0.66, 1],
                     delay: customDelay 
@@ -81,11 +84,11 @@ const InteractiveParadigmTitle: React.FC = () => {
                 {paradigmLine1.map((word, i) => (
                     <motion.span
                         key={`l1-${i}`}
-                        custom={0.5} // Delay
+                        custom={0.2} // Delay
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }} // Plays once
-                        variants={getVariant(cPurple)}
+                        variants={getVariant(cPurple)} // Ends in Purple
                         className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block"
                     >
                         {word}
@@ -95,11 +98,11 @@ const InteractiveParadigmTitle: React.FC = () => {
                 {paradigmLine2.map((word, i) => (
                     <motion.span
                         key={`l2-${i}`}
-                        custom={0.7} // Delay
+                        custom={0.4} // Delay
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }} // Plays once
-                        variants={getVariant(cPurple)}
+                        variants={getVariant(cPurple)} // Ends in Purple
                         className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] inline-block"
                     >
                         {word}
@@ -111,7 +114,7 @@ const InteractiveParadigmTitle: React.FC = () => {
                 {paradigmLine3.map((word, i) => (
                     <motion.span
                         key={`l3-${i}`}
-                        custom={0.9} // Delay
+                        custom={0.6} // Delay
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }} // Plays once
@@ -229,15 +232,19 @@ export const Hero: React.FC = () => {
     if (currentSentenceIndex === null) return;
     if (currentSentenceIndex >= sentences.length - 1) return;
 
-    let cycleDuration = 8000; // default base fallback
+    // Cycle duration to allow slower word population (8000ms = 33% slower than 6000)
+    const baseDuration = 8000;
     
-    // HARDCODED TIMING LOGIC
+    // UPDATED: Logic for durations
+    let cycleDuration = baseDuration;
+    
     if (currentSentenceIndex === 0) {
-        // Reduced by another second (was ~18000)
-        cycleDuration = 17000; 
+        // UPDATED: Doubled the pause (approx 18s total) as requested
+        cycleDuration = baseDuration * 2.25; 
     } else if (currentSentenceIndex === 1) {
-        // Added 2 seconds (was ~12000)
-        cycleDuration = 14000; 
+        // UPDATED: Reduced multiplier from 2.0 to 1.5. 
+        // 16s was likely too long and perceived as "not running". 12s is still a long pause but safer.
+        cycleDuration = baseDuration * 1.5; 
     }
 
     const timer = setTimeout(() => {
@@ -300,6 +307,28 @@ export const Hero: React.FC = () => {
   // UPDATED: Single Paragraph Quote with hyphen and lowercase 'd'
   const quoteText = "A convergence of historic stewardship and autonomous future. The first corporate residence - designed for the era of artificial intelligence.";
   const quoteWords = quoteText.split(" ");
+
+  // Shared container variants for the word-by-word animation
+  const quoteContainerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: { 
+        opacity: 1, 
+        transition: { 
+            // UPDATED: Faster stagger (0.08) for word-by-word typing effect
+            staggerChildren: 0.08, 
+            delayChildren: 0.2 
+        } 
+    }
+  };
+
+  const quoteWordVariants: Variants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { 
+        opacity: 1, 
+        y: 0, 
+        transition: { duration: 0.5, ease: "easeOut" } 
+    }
+  };
 
   return (
     <section 
@@ -366,7 +395,7 @@ export const Hero: React.FC = () => {
                                   hidden: { opacity: 1 },
                                   visible: { 
                                       opacity: 1,
-                                      // UPDATED: Slower stagger (0.7s was 0.5s) to slow down by ~25%
+                                      // UPDATED: Slower stagger (0.7s was 0.55s) to slow down by ~25%
                                       transition: { staggerChildren: 0.7 } 
                                   },
                                   exit: { 
@@ -406,7 +435,7 @@ export const Hero: React.FC = () => {
                     onTimeUpdate={handleVideoTimeUpdate}
                     className="absolute inset-0 w-full h-full object-cover opacity-100"
                 >
-                     <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/DA%20MICRON%20HOUSE.mp4" type="video/mp4" />
+                     <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/NEW%20MICRON%20HOUSE.mp4" type="video/mp4" />
                 </video>
             </motion.div>
 
@@ -414,13 +443,14 @@ export const Hero: React.FC = () => {
 
         {/* BOTTOM SECTION: PARADIGM & QUOTE */}
         {/* UPDATED: Changed to whileInView for scroll activation on desktop */}
+        {/* UPDATED: Removed mt-4 to tighten gap with top section */}
         <motion.div 
             ref={bottomSectionRef}
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 2.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row md:items-stretch min-h-[400px] md:min-h-[360px] mt-4 p-8 md:p-8 gap-4 md:gap-8 group"
+            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row md:items-stretch min-h-[400px] md:min-h-[360px] p-8 md:p-8 gap-4 md:gap-8 group"
         >
             {/* LEFT: Title + Address Block (Flex-1) */}
             {/* UPDATED: Increased gap to gap-10 on mobile to double the pattern */}
@@ -433,27 +463,18 @@ export const Hero: React.FC = () => {
                  {/* UPDATED: Added h-fit to prevent line stretching, removed mt logic due to gap-10 */}
                  <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4 relative z-10 mt-auto md:mt-auto h-fit">
                         <h3 className="text-white font-bold text-xl uppercase tracking-wider">Micron House</h3>
-                        {/* UPDATED: text-lg */}
-                        <p className="text-micron-eggplant font-bold text-lg uppercase tracking-widest whitespace-nowrap">1020 East Warm Springs Ave</p>
-                        {/* UPDATED: text-lg */}
-                        <p className="text-micron-eggplant/80 text-lg uppercase tracking-widest">Boise, Idaho 83712</p>
+                        <p className="text-micron-eggplant font-bold text-sm md:text-lg uppercase tracking-widest whitespace-nowrap">1020 East Warm Springs Ave</p>
+                        <p className="text-micron-eggplant/80 text-sm md:text-lg uppercase tracking-widest">Boise, Idaho 83712</p>
                  </div>
 
                  {/* MOBILE QUOTE - IN FLOW */}
-                 {/* UPDATED: Reverted to standard viewport triggering for guaranteed visibility */}
+                 {/* UPDATED: Now uses word-by-word staggered animation on scroll */}
                  <div className="md:hidden w-full flex-grow pt-4 pb-12 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
                          whileInView="visible"
-                         viewport={{ once: true, amount: 0.1 }}
-                         variants={{
-                             // UPDATED: Added opacity: 1 to ensure visibility when triggered
-                             visible: { 
-                                opacity: 1, 
-                                transition: { staggerChildren: 0.40, delayChildren: 0.1 } 
-                             }, 
-                             hidden: { opacity: 0 }
-                         }}
+                         viewport={{ once: true, amount: 0.2 }}
+                         variants={quoteContainerVariants}
                          className="font-micron text-2xl text-center text-white leading-relaxed -rotate-3"
                       >
                          {/* Joined into one paragraph block */}
@@ -461,11 +482,7 @@ export const Hero: React.FC = () => {
                              {quoteWords.map((word, i) => (
                                 <motion.span
                                     key={i}
-                                    variants={{
-                                        hidden: { opacity: 0 },
-                                        // UPDATED: Slower fade duration 1.0s (was 0.5s)
-                                        visible: { opacity: 1, transition: { duration: 1.0, ease: "easeInOut" } }
-                                    }}
+                                    variants={quoteWordVariants}
                                     className="mr-1.5 inline-block"
                                 >
                                     {word}
@@ -481,14 +498,9 @@ export const Hero: React.FC = () => {
                 <motion.div
                         initial="hidden"
                         whileInView="visible"
-                        // UPDATED: Aggressive viewport settings to ensure scroll trigger. 
-                        // margin-bottom of -250px forces element to be well within view before triggering.
-                        viewport={{ once: true, amount: 0.5, margin: "0px 0px -250px 0px" }}
-                        variants={{
-                            // UPDATED: Reduced delayChildren slightly since we rely on scroll trigger
-                            visible: { transition: { staggerChildren: 0.40, delayChildren: 0.2 } },
-                            hidden: {}
-                        }}
+                        // UPDATED: Standardized viewport and stagger for consistent scroll trigger
+                        viewport={{ once: true, amount: 0.2 }}
+                        variants={quoteContainerVariants}
                         className="font-micron text-2xl md:text-3xl text-white leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4"
                 >
                      {/* Joined into one paragraph block */}
@@ -496,11 +508,7 @@ export const Hero: React.FC = () => {
                         {quoteWords.map((word, i) => (
                         <motion.span
                             key={i}
-                            variants={{
-                                hidden: { opacity: 0, y: 5 },
-                                // UPDATED: Slower fade duration 1.0s (was 0.5s)
-                                visible: { opacity: 1, y: 0, transition: { duration: 1.0, ease: "easeOut" } }
-                            }}
+                            variants={quoteWordVariants}
                             className="mr-2 inline-block"
                         >
                             {word}
