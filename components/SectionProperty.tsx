@@ -10,8 +10,11 @@ const BUCKET_BASE_URL = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/obj
 
 // Helper to build URL based on folder presence
 const buildUrl = (folder: string, filename: string) => {
+    // UPDATED: Encode folder and filename to handle spaces (e.g., "MAIN FLOOR" -> "MAIN%20FLOOR")
+    const encodedFolder = folder ? encodeURIComponent(folder) : '';
+    const encodedFile = encodeURIComponent(filename);
     // If folder is empty, return path from root, otherwise add folder slash
-    const path = folder ? `${folder}/${filename}` : filename;
+    const path = encodedFolder ? `${encodedFolder}/${encodedFile}` : encodedFile;
     return `${BUCKET_BASE_URL}/${path}`;
 };
 
@@ -169,50 +172,112 @@ export const SectionProperty: React.FC = () => {
       let title = "";
       
       // CONFIGURATION FOR GALLERIES
-      // INSTRUCTION: Once you upload images to folders in Supabase, 
-      // change 'folder' to "main", "upper", or "grounds" and update filenames.
+      // UPDATED: All aspect ratios are now strictly 4:3 (Landscape) or 3:4 (Portrait)
+      // aspect-[4/3] = Landscape
+      // aspect-[3/4] = Portrait
       
       const galleryConfig = {
           main: {
-              folder: "", // CHANGE TO "main" when ready
+              folder: "MAIN FLOOR", 
               files: [
-                  { file: "dining.1.JPEG", aspect: "aspect-[3/2]" },
-                  { file: "dining.6.JPEG", aspect: "aspect-[3/2]" },
-                  { file: "entry.0.JPEG", aspect: "aspect-[2/3]" },
-                  { file: "entry.3.JPEG", aspect: "aspect-[2/3]" },
-                  { file: "dusting2.png", aspect: "aspect-[3/2]" },
-                  { file: "dusting.jpeg", aspect: "aspect-[3/2]" },
-                  { file: "stairs.jpg", aspect: "aspect-[2/3]" }
+                  { file: "1.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0700.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0701.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0703.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0705.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0706.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0708 copy.jpg", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0709 copy.jpg", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0710.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0735.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0736.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0737.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0738.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0739.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0751.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0754.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0755.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0761.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0762.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0764.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_1369.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_1370.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "LIVING.0.jpg", aspect: "aspect-[4/3]" },
+                  { file: "Untitled-3.jpg", aspect: "aspect-[4/3]" },
+                  { file: "book.JPEG", aspect: "aspect-[3/4]" },
+                  { file: "dining.2.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "dining.6.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "entry.0.JPEG", aspect: "aspect-[3/4]" },
+                  { file: "entry.1.JPEG", aspect: "aspect-[3/4]" },
+                  { file: "kitchen.0.jpg", aspect: "aspect-[4/3]" },
+                  { file: "kitchen.1.jpg", aspect: "aspect-[4/3]" },
+                  { file: "kitchen.3.jpg", aspect: "aspect-[4/3]" },
+                  { file: "living.1.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "living.3.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "living.4.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "living.5.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "living.9.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "office.1.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "office.3.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "office.4.5.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "office3.JPEG", aspect: "aspect-[4/3]" }
               ]
           },
           upper: {
-              folder: "", // CHANGE TO "upper" when ready
+              folder: "UPPER FLOOR", 
               files: [
-                  { file: "br1.3.JPEG", aspect: "aspect-[3/2]" },
-                  { file: "br2.4.JPEG", aspect: "aspect-[3/2]" },
-                  { file: "br1.5.JPEG", aspect: "aspect-[3/2]" },
-                  { file: "br2.6.JPEG", aspect: "aspect-[2/3]" },
-                  { file: "br2.5.JPEG", aspect: "aspect-[3/2]" },
-                  { file: "BR2.8.jpg", aspect: "aspect-[2/3]" }
+                  { file: "3rd BA_2.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "BR1.7.jpg", aspect: "aspect-[4/3]" },
+                  { file: "BR2.7.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "BR2_8.jpg", aspect: "aspect-[4/3]" },
+                  { file: "BR3.1.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0728.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0731.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "MABA.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "br1.3.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "br1.6.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "br2.3.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "br2.4.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "br2.6.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "br3.0.jpg", aspect: "aspect-[4/3]" },
+                  { file: "br3_0.jpg", aspect: "aspect-[4/3]" },
+                  { file: "dusting.jpeg", aspect: "aspect-[4/3]" },
+                  { file: "dusting2.png", aspect: "aspect-[4/3]" },
+                  { file: "stairs.jpg", aspect: "aspect-[3/4]" }
               ]
           },
           grounds: {
-              folder: "", // CHANGE TO "grounds" when ready
+              folder: "GROUNDS", 
               files: [
-                  { file: "exterior_4.JPG", aspect: "aspect-[3/2]" },
-                  { file: "exterior.3.jpg", aspect: "aspect-[3/2]" },
-                  { file: "exterior.4.JPEG", aspect: "aspect-[3/2]" },
-                  { file: "exterior.4.jpg", aspect: "aspect-[3/2]" },
-                  { file: "fall.jpg", aspect: "aspect-[3/2]" }
+                  { file: "GARDEN.2.jpg", aspect: "aspect-[4/3]" },
+                  { file: "IMG_0304.JPEG", aspect: "aspect-[3/4]" },
+                  { file: "IMG_2422.jpg", aspect: "aspect-[4/3]" },
+                  { file: "back_yard_1.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "back_yard_3.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "back_yard_4.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "back_yard_5.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "back_yard_6.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "exterior.3.jpg", aspect: "aspect-[4/3]" },
+                  { file: "exterior.4.JPEG", aspect: "aspect-[4/3]" },
+                  // REMOVED: exterior.4.jpg (Duplicate)
+                  // REMOVED: exterior_3.JPG (Duplicate)
+                  // REMOVED: exterior_4.JPG (Duplicate)
+                  { file: "fall.jpg", aspect: "aspect-[4/3]" },
+                  { file: "front.jpg", aspect: "aspect-[4/3]" },
+                  { file: "front.winter.png", aspect: "aspect-[4/3]" },
+                  { file: "fruit.3.jpg", aspect: "aspect-[3/4]" },
+                  { file: "garden.10.JPEG", aspect: "aspect-[4/3]" },
+                  { file: "night.jpg", aspect: "aspect-[4/3]" }
               ]
           }
       };
 
       const config = galleryConfig[level];
       
-      if (level === 'main') title = "MAIN LEVEL GALLERY";
-      if (level === 'upper') title = "UPPER LEVEL GALLERY";
-      if (level === 'grounds') title = "EXTERIOR GALLERY";
+      // UPDATED: Removed 'GALLERY' from titles as requested
+      if (level === 'main') title = "MAIN LEVEL";
+      if (level === 'upper') title = "UPPER LEVEL";
+      if (level === 'grounds') title = "EXTERIOR";
 
       const images: GalleryItem[] = config.files.map(item => ({
           url: buildUrl(config.folder, item.file),
@@ -417,7 +482,7 @@ export const SectionProperty: React.FC = () => {
                  <div className="md:ml-auto max-w-2xl pl-4 md:pl-6 border-l-4 border-micron-eggplant-light/20">
                      <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tighter text-micron-eggplant-light mb-2 font-sans block">HISTORIC CONTEXT</h3>
                      <p className="text-base font-light text-zinc-600 leading-snug font-body">
-                         A modest home within North America's oldest continuously operating geothermal district (est. 1890), tapping the nation's largest historic direct-use aquifer. <span className="font-bold text-zinc-900">Where the legacy of energy innovation converges with energy from the stars.</span>
+                         A modest home within North America's oldest continuously operating geothermal district (est. 1890), tapping the nation's largest direct-use aquifer. <span className="font-bold text-zinc-900">Where the legacy of energy innovation converges with energy from the stars.</span>
                      </p>
                  </div>
             </div>

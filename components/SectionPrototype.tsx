@@ -600,7 +600,7 @@ export const SectionPrototype: React.FC = () => {
                                 transition={{ duration: 1.5, delay: (mainTitleWords.length * 0.2) + 0.2 }}
                                 className="text-micron-eggplant block text-base"
                         >
-                            Creating the first autonomous corporate residence. Where Micron's semiconductor revolution, Tesla's autonomous ecosystem, and Boise's emergence as a global tech hub <strong className="font-bold">converge at an inflection point to deliver the first tangible glimpse of the autonomous era</strong>.
+                            Micron's $200 billion commitment. Tesla's robotics and autonomous vehicles entering residential life. Boise's emergence as a global tech hub. <strong className="font-bold">Three forces converging at an inflection point to deliver the first tangible glimpse of the autonomous era.</strong>
                         </motion.span>
                     </div>
                 </div>

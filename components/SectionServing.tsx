@@ -297,7 +297,7 @@ export const SectionServing: React.FC = () => {
                        <span className="font-bold text-micron-eggplant block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                            STRATEGIC ALIGNMENT
                        </span>
-                       A new class of corporate asset. The first autonomous residence purpose-built to serve corporate executives, recruits, partners, and community — across every department that touches people.
+                       A new class of corporate asset. The first residence powered by Tesla Optimus and Cybercab, purpose-built to serve corporate executives, recruits, partners, and community — across every department that touches people.
                     </p>
                  </div>
             </div>
