@@ -365,11 +365,11 @@ export const Hero: React.FC = () => {
         // UPDATED: pt-24 on mobile (was pt-32) to reduce padding by ~20%. md:pt-24 remains.
         className="relative w-full bg-white text-zinc-900 pt-32 md:pt-40 pb-12 md:pb-16 flex flex-col justify-end"
     >
-      <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4">
+      <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-16">
         
         {/* TOP SECTION */}
         {/* UPDATED: Changed grid layout to [55fr_45fr] for desktop to make video wider */}
-        <div className="flex flex-col lg:grid lg:grid-cols-[55fr_45fr] gap-4 h-auto md:h-[450px] w-full">
+        <div className="flex flex-col lg:grid lg:grid-cols-[55fr_45fr] gap-4 h-auto lg:h-[450px] w-full">
             
             {/* 1. TEXT ANIMATION AREA (White Bento) */}
             {/* UPDATED: Changed order to order-2 (Bottom on Mobile, Right on Desktop) */}
@@ -388,7 +388,7 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    className="hidden md:block absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-[120%] z-20"
+                    className="hidden md:block absolute md:top-[30%] md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-20"
                  >
                     <motion.img 
                         whileHover={{ rotate: 6 }}
