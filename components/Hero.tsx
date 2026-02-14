@@ -197,9 +197,9 @@ export const Hero: React.FC = () => {
     // Sentence 2 out at 32s
     sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 32000));
     // Sentence 3 at 37s (Capitol → House)
-    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(2), 37000));
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(2), 38000));
     // Sentence 3 out at 47s — fades to white
-    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 47000));
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 50000));
     // Logo rolls into center at 48s (after white)
     sentenceTimers.current.push(setTimeout(() => {
         setLogoVisible(true);
@@ -208,9 +208,9 @@ export const Hero: React.FC = () => {
             transition: { type: "spring", stiffness: 20, damping: 15, duration: 4.0, bounce: 0 }
         });
         setTimeout(() => setLayoutShift(true), 1000);
-    }, 48000));
-    // Blue bento box at 52s
-    sentenceTimers.current.push(setTimeout(() => setVideoCompleted(true), 52000));
+    }, 53000));
+    // Blue bento box at 57s
+    sentenceTimers.current.push(setTimeout(() => setVideoCompleted(true), 57000));
   };
 
   // Handle Video End — freeze on last frame
@@ -366,7 +366,7 @@ export const Hero: React.FC = () => {
         // UPDATED: pt-24 on mobile (was pt-32) to reduce padding by ~20%. md:pt-24 remains.
         className="relative w-full bg-white text-zinc-900 pt-32 md:pt-40 pb-12 md:pb-16 flex flex-col justify-end"
     >
-      <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-16">
+      <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4 xl:gap-16">
         
         {/* TOP SECTION */}
         {/* UPDATED: Changed grid layout to [55fr_45fr] for desktop to make video wider */}
