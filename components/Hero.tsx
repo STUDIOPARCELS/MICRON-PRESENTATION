@@ -497,6 +497,12 @@ export const Hero: React.FC = () => {
                     loop={false} 
                     muted 
                     playsInline
+                    preload="auto"
+                    onLoadedData={() => {
+                        if (videoRef.current) {
+                            videoRef.current.play().catch(() => {});
+                        }
+                    }}
                     onPlaying={() => startSentenceTimers()}
                     onEnded={handleVideoEnd}
                     onTimeUpdate={handleVideoTimeUpdate}
