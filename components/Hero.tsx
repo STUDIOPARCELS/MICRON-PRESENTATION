@@ -200,13 +200,13 @@ export const Hero: React.FC = () => {
     // Sentence 3 at 37s (Capitol → House)
     sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(2), 38000));
     // Sentence 3 out at 50s — fades to white
-    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 62000));
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 61000));
     // Logo rolls in at 63s (1s after fade to white at 62s)
     sentenceTimers.current.push(setTimeout(() => {
         setLogoVisible(true);
         iconControls.start({
             x: 0, rotate: 0, opacity: 1,
-            transition: { type: "spring", stiffness: 20, damping: 15, duration: 4.0, bounce: 0 }
+            transition: { type: "spring", stiffness: 10, damping: 20, duration: 8.0, bounce: 0 }
         });
         setTimeout(() => setLayoutShift(true), 1000);
     }, 63000));
@@ -426,7 +426,7 @@ export const Hero: React.FC = () => {
                                   },
                                   exit: { 
                                       opacity: 1, 
-                                      transition: { staggerChildren: 0.1, staggerDirection: -1 } 
+                                      transition: { staggerChildren: 0.15, staggerDirection: -1, duration: 1.5 } 
                                   }
                               }}
                            >
