@@ -421,7 +421,7 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    className="hidden xl:flex absolute inset-0 items-center justify-center z-20 pointer-events-none"
+                    className="flex absolute inset-0 items-center justify-center z-20 pointer-events-none"
                  >
                     <motion.img 
                         whileHover={{ rotate: 6 }}
@@ -429,7 +429,7 @@ export const Hero: React.FC = () => {
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                         alt="Micron Logo"
                         // UPDATED: Logo reduced 20%
-                        className="xl:h-[320px] xl:w-[320px] object-contain cursor-pointer"
+                        className="h-[160px] w-[160px] md:h-[200px] md:w-[200px] xl:h-[320px] xl:w-[320px] object-contain cursor-pointer"
                     />
                  </motion.div>
                  
