@@ -27,8 +27,10 @@ const sentences = [
         highlightColor: "text-micron-green",
         hoverColor: "hover:text-green-900", 
         highlights: ["PLACE,", "PERSPECTIVE."],
-        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-7xl",
-        layout: "default"
+        textSize: "text-3xl sm:text-3xl md:text-4xl lg:text-[3.5rem] lg:leading-[1.3]",
+        layout: "default",
+        wordSizeOverrides: { "NO": "text-3xl sm:text-3xl md:text-4xl lg:text-[2.5rem] lg:leading-[1.3]" },
+        wordWeightOverrides: { "NO": "font-extrabold" }
     },
 ];
 
@@ -49,8 +51,8 @@ const InteractiveParadigmTitle: React.FC = () => {
         visible: (i: number) => ({
             y: 0, opacity: 1, color: cEggplant,
             transition: { 
-                y: { duration: 1.2, ease: "easeOut", delay: 0.3 + (i * 0.15) },
-                opacity: { duration: 1.2, ease: "easeOut", delay: 0.3 + (i * 0.15) },
+                y: { duration: 1.6, ease: "easeOut", delay: 0.3 + (i * 0.15) },
+                opacity: { duration: 1.6, ease: "easeOut", delay: 0.3 + (i * 0.15) },
             }
         }),
         hover: {
@@ -66,8 +68,8 @@ const InteractiveParadigmTitle: React.FC = () => {
             y: 0, opacity: 1, 
             color: [cEggplant, cDarkGreen, cWhite],
             transition: { 
-                y: { duration: 1.2, ease: "easeOut", delay: 0.3 + (i * 0.15) },
-                opacity: { duration: 1.2, ease: "easeOut", delay: 0.3 + (i * 0.15) },
+                y: { duration: 1.6, ease: "easeOut", delay: 0.3 + (i * 0.15) },
+                opacity: { duration: 1.6, ease: "easeOut", delay: 0.3 + (i * 0.15) },
                 color: { duration: 6.0, ease: "easeInOut", delay: 1.5, times: [0, 0.5, 1] }
             }
         }),
@@ -199,10 +201,18 @@ export const Hero: React.FC = () => {
     // Sentence 3 at 37s (Capitol → House)
     sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(2), 38000));
     // Sentence 3 out at 50s — fades to white
-    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 50000));
-    // Logo now triggered by video timeUpdate when earth appears
-    // Blue bento box at 57s
-    sentenceTimers.current.push(setTimeout(() => setVideoCompleted(true), 57000));
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 62000));
+    // Logo rolls in at 63s (1s after fade to white at 62s)
+    sentenceTimers.current.push(setTimeout(() => {
+        setLogoVisible(true);
+        iconControls.start({
+            x: 0, rotate: 0, opacity: 1,
+            transition: { type: "spring", stiffness: 20, damping: 15, duration: 4.0, bounce: 0 }
+        });
+        setTimeout(() => setLayoutShift(true), 1000);
+    }, 63000));
+    // Blue bento box at 68s
+    sentenceTimers.current.push(setTimeout(() => setVideoCompleted(true), 68000));
   };
 
   // Handle Video End — freeze on last frame
@@ -232,15 +242,7 @@ export const Hero: React.FC = () => {
   
   const handleVideoTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
       const time = e.currentTarget.currentTime;
-      // Logo rolls in when earth comes into view (~20s video time)
-      if (time >= 20 && !logoVisible && currentSentenceIndex === null) {
-          setLogoVisible(true);
-          iconControls.start({
-              x: 0, rotate: 0, opacity: 1,
-              transition: { type: "spring", stiffness: 20, damping: 15, duration: 4.0, bounce: 0 }
-          });
-          setTimeout(() => setLayoutShift(true), 1000);
-      }
+      // Logo handled by timer now
       // Blue bento at video time 31s  
       if (time >= 31 && !videoCompleted) {
           setVideoCompleted(true);
@@ -302,6 +304,8 @@ export const Hero: React.FC = () => {
           layoutClass = currentSet.layoutOverrides[i];
       }
 
+      const fontWeight = currentSet.wordWeightOverrides?.[word] || "font-black";
+
       return (
            <motion.span
                key={`${word}-${i}`}
@@ -309,14 +313,14 @@ export const Hero: React.FC = () => {
                    hidden: { opacity: 0, y: 8 },
                    visible: { 
                        opacity: 1, y: 0,
-                       transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] } 
+                       transition: { duration: 1.6, ease: [0.22, 1, 0.36, 1] } 
                    },
                    exit: {
                        opacity: 0, y: -4,
                        transition: { duration: 0.5, ease: "easeIn" }
                    }
                }}
-               className={`${sizeClass} ${layoutClass} font-black uppercase tracking-tighter leading-[0.9] cursor-default transition-colors duration-300 ${colorClass} ${hoverClass}`}
+               className={`${sizeClass} ${layoutClass} ${fontWeight} uppercase tracking-tighter leading-[0.9] cursor-default transition-colors duration-300 ${colorClass} ${hoverClass}`}
            >
                {word}
            </motion.span>
@@ -390,7 +394,7 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    className="hidden xl:block absolute xl:top-1/2 xl:left-1/2 xl:-translate-x-1/2 xl:-translate-y-1/2 z-20"
+                    className="hidden xl:flex absolute inset-0 items-center justify-center z-20 pointer-events-none"
                  >
                     <motion.img 
                         whileHover={{ rotate: 6 }}
@@ -398,7 +402,7 @@ export const Hero: React.FC = () => {
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                         alt="Micron Logo"
                         // UPDATED: Logo reduced 20%
-                        className="xl:h-[288px] xl:w-[288px] object-contain cursor-pointer"
+                        className="xl:h-[320px] xl:w-[320px] object-contain cursor-pointer"
                     />
                  </motion.div>
                  
