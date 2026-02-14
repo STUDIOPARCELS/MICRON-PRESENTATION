@@ -296,7 +296,8 @@ const getCardData = (id: number): ModalContent => {
                             </motion.div>
                        </div>
 
-                       {/* RECREATION (Blue) - Was BOISE'S MOMENT */}
+                       {/* RECREATION (Blue) - Hidden on mobile, shown in desktop left column */}
+                       <div className="hidden lg:block">
                        <InnerBento 
                             title="RECREATION" 
                             gradient="bg-micron-eggplant-light" 
@@ -312,6 +313,7 @@ const getCardData = (id: number): ModalContent => {
                                 </p>
                             </div>
                         </InnerBento>
+                       </div>
                    </div>
                    
                    {/* RIGHT COLUMN: NEW INTRO TILE + PURPLE + GREEN TILES */}
@@ -361,6 +363,25 @@ const getCardData = (id: number): ModalContent => {
                                 Micron executives, employees, and their guests live alongside, interact, and engage with the technology before the world does.
                             </p>
                         </InnerBento>
+
+                        {/* RECREATION (Blue) - Mobile only, appears after Runway */}
+                        <div className="lg:hidden">
+                        <InnerBento 
+                            title="RECREATION" 
+                            gradient="bg-micron-eggplant-light" 
+                            icon={<Mountain />} 
+                            className="flex-1" 
+                            padding="pt-6 pb-6 px-8"
+                            delay={0.2}
+                        >
+                            <div className="w-full h-px bg-white/20 mb-4" />
+                            <div className="space-y-4 text-base md:text-lg text-white/90 leading-relaxed">
+                                <p>
+                                    The Boise River Greenbelt connects 25 miles of parkland through the city center. Bogus Basin is 45 minutes from downtown. Some of the best fly fishing, whitewater, and backcountry skiing in North America are all within reach.
+                                </p>
+                            </div>
+                        </InnerBento>
+                        </div>
                    </div>
                </div>
             </div>
