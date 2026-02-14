@@ -104,13 +104,12 @@ export const SectionServingTesla: React.FC = () => {
                     >
                          <div className="mb-6">
                             <h4 className="text-3xl font-bold text-micron-eggplant mb-2 tracking-tight">Stewardship & Vision</h4>
-                            <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Lisa Wood • Founder</p>
+                            <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Lisa Wood</p>
                          </div>
                          <div className="w-12 h-1 bg-micron-green/20 mb-6"></div>
                          <div className="space-y-4 text-zinc-600 leading-relaxed text-lg font-medium">
-                            <p>Three decades in tech. Mother, artist, athlete, explorer, researcher.</p>
-                            <p>I own this Boise property — 25 years now, barely used. I love what Micron and Tesla are building. I also respect what it demands of us.</p>
-                            <p>I created the Micron House concept — the strategy, the design, the branding — to propose a partnership that puts this historic asset to its highest use.</p>
+                            <p>I am a mother, an artist, an athlete, and a researcher. I have lived in Idaho since 1992 and owned the property on Warm Springs Avenue since 2000. I spent three decades in technology and retired in 2023.</p>
+                            <p>I have driven past the Micron campus for twenty-five years. When Tesla announced Optimus and Cybercab, everything converged. I created the Micron House concept — strategy, design, branding — to propose a partnership that activates a historic property for the autonomous era.</p>
                          </div>
                     </motion.div>
 
