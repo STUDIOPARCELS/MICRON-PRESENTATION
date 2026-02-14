@@ -292,6 +292,7 @@ export const Hero: React.FC = () => {
       const isHighlight = currentSet.highlights.includes(word);
       const colorClass = isHighlight ? currentSet.highlightColor : currentSet.color;
       const hoverClass = isHighlight ? currentSet.hoverColor : "";
+      const sizeClass = currentSet.wordSizeOverrides?.[word] || currentSet.textSize;
       
       let layoutClass = "";
       if (currentSet.layout === "vertical_all") {
@@ -314,7 +315,7 @@ export const Hero: React.FC = () => {
                        transition: { duration: 0.5, ease: "easeIn" }
                    }
                }}
-               className={`${currentSet.textSize} ${layoutClass} font-black uppercase tracking-tighter leading-[0.9] cursor-default transition-colors duration-300 ${colorClass} ${hoverClass}`}
+               className={`${sizeClass} ${layoutClass} font-black uppercase tracking-tighter leading-[0.9] cursor-default transition-colors duration-300 ${colorClass} ${hoverClass}`}
            >
                {word}
            </motion.span>
@@ -369,7 +370,7 @@ export const Hero: React.FC = () => {
         
         {/* TOP SECTION */}
         {/* UPDATED: Changed grid layout to [55fr_45fr] for desktop to make video wider */}
-        <div className="flex flex-col lg:grid lg:grid-cols-[55fr_45fr] gap-4 h-auto lg:h-[450px] w-full">
+        <div className="flex flex-col lg:grid lg:grid-cols-[55fr_45fr] gap-4 h-auto lg:h-[500px] w-full">
             
             {/* 1. TEXT ANIMATION AREA (White Bento) */}
             {/* UPDATED: Changed order to order-2 (Bottom on Mobile, Right on Desktop) */}
@@ -396,7 +397,7 @@ export const Hero: React.FC = () => {
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                         alt="Micron Logo"
                         // UPDATED: Logo reduced 20%
-                        className="md:h-40 md:w-40 object-contain cursor-pointer"
+                        className="md:h-[200px] md:w-[200px] object-contain cursor-pointer"
                     />
                  </motion.div>
                  
