@@ -365,11 +365,11 @@ export const Hero: React.FC = () => {
         // UPDATED: pt-24 on mobile (was pt-32) to reduce padding by ~20%. md:pt-24 remains.
         className="relative w-full bg-white text-zinc-900 pt-32 md:pt-40 pb-12 md:pb-16 flex flex-col justify-end"
     >
-      <div className="max-w-screen-xl mx-auto px-4 md:px-8 h-full flex flex-col gap-12">
+      <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4">
         
         {/* TOP SECTION */}
         {/* UPDATED: Changed grid layout to [55fr_45fr] for desktop to make video wider */}
-        <div className="flex flex-col lg:grid lg:grid-cols-[55fr_45fr] gap-6 h-auto w-full">
+        <div className="flex flex-col lg:grid lg:grid-cols-[55fr_45fr] gap-4 h-auto w-full">
             
             {/* 1. TEXT ANIMATION AREA (White Bento) */}
             {/* UPDATED: Changed order to order-2 (Bottom on Mobile, Right on Desktop) */}
@@ -379,7 +379,7 @@ export const Hero: React.FC = () => {
                 className={`
                     /* Text bento matches video height */
                     min-h-[180px] p-6 justify-end
-                    md:min-h-0 md:h-full md:justify-end md:p-10
+                    md:min-h-[300px] md:h-full md:justify-end md:p-10
                     w-full flex flex-col items-start order-2 bg-white rounded-3xl 
                     shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] border border-zinc-200 relative overflow-hidden group
                 `}
@@ -456,7 +456,7 @@ export const Hero: React.FC = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="aspect-video h-auto w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-1 group"
+                className="aspect-[1.4/1] h-auto md:aspect-auto md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-1 group"
             >
                 <video 
                     ref={videoRef}
