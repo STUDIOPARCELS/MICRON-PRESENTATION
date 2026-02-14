@@ -5,7 +5,7 @@ import { SectionProperty } from './components/SectionProperty';
 import { SectionServing } from './components/SectionServing';
 import { SectionServingTesla } from './components/SectionServingTesla';
 import { SectionTimeline } from './components/SectionTimeline';
-import { Menu, X, ArrowRight, MapPin, Mail, ArrowUp } from 'lucide-react';
+import { Menu, X, ArrowRight, MapPin, Mail, Phone, ArrowUp } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 function App() {
@@ -227,11 +227,15 @@ function App() {
                         <ul className="space-y-4 text-base">
                             <li className="flex items-center gap-3">
                                 <Mail size={20} />
-                                <a href="mailto:inquiry@micronhouse.com" className="hover:text-white transition-colors">inquiry@micronhouse.com</a>
+                                <a href="mailto:lisa@lisawoodstudio.com" className="hover:text-white transition-colors">lisa@lisawoodstudio.com</a>
+                            </li>
+                            <li className="flex items-center gap-3">
+                                <Phone size={20} />
+                                <a href="tel:2087202433" className="hover:text-white transition-colors">208.720.2433</a>
                             </li>
                             <li className="mt-8">
                                 <span className="inline-block px-4 py-1.5 border border-white/20 rounded-full text-sm text-zinc-500 uppercase tracking-widest">
-                                    Proposal v1.2
+                                    Proposal v1
                                 </span>
                             </li>
                         </ul>
@@ -241,11 +245,6 @@ function App() {
                 {/* Footer Bottom */}
                 <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-zinc-600 uppercase tracking-wider font-medium">
                     <p>© 2026 Lisa Wood Studio</p>
-                    <div className="flex gap-8">
-                        <span className="cursor-pointer hover:text-zinc-400 transition-colors">Privacy</span>
-                        <span className="cursor-pointer hover:text-zinc-400 transition-colors">Terms</span>
-                        <span className="cursor-pointer hover:text-zinc-400 transition-colors">Security</span>
-                    </div>
                 </div>
             </div>
           </footer>

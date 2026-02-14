@@ -447,7 +447,8 @@ export const SectionServingTesla: React.FC = () => {
                       borderColor={card.border}
                       delay={i * 0.1}
                       hoverEffect={true}
-                      hideArrow={true}
+                      hideArrow={false}
+                      arrowPosition="bottom-right"
                       onClick={() => openModal(card)}
                   >
                        <div className="relative z-10 flex flex-col h-full">
