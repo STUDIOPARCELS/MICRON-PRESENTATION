@@ -410,10 +410,10 @@ export const SectionProperty: React.FC = () => {
                                 <h3 className="text-2xl font-black uppercase tracking-tight">ORIGINS</h3>
                              </div>
                              <div className="w-12 h-1 bg-micron-eggplant-light mb-4" />
-                             <p className="text-white/90 text-lg leading-relaxed font-medium">
+                             <p className="text-white/70 text-base leading-relaxed font-medium">
                                 In 1890, Christopher W. Moore, founder of the First National Bank of Idaho, drilled two wells near the base of Table Rock. He struck 170-degree water.
                              </p>
-                             <p className="text-white/90 text-lg leading-relaxed font-medium mt-4">
+                             <p className="text-white/70 text-base leading-relaxed font-medium mt-4">
                                 By 1892, he had piped it to his mansion on Warm Springs Avenue—marking the first use of geothermal water for home heating in the United States.
                              </p>
                         </div>
@@ -426,10 +426,10 @@ export const SectionProperty: React.FC = () => {
                                 <h3 className="text-2xl font-black uppercase tracking-tight">CONTINUITY</h3>
                              </div>
                              <div className="w-12 h-1 bg-micron-green mb-4" />
-                             <p className="text-white/90 text-lg leading-relaxed font-medium">
+                             <p className="text-white/70 text-base leading-relaxed font-medium">
                                 Today, the Boise Warm Springs Water District remains the oldest continuously operating geothermal district in North America.
                              </p>
-                             <p className="text-white/90 text-lg leading-relaxed font-medium mt-4">
+                             <p className="text-white/70 text-base leading-relaxed font-medium mt-4">
                                 The Micron House sits on this historic line, utilizing the same clean, ancient energy source that Moore tapped over 130 years ago. It is a National Register of Historic Places corridor defined by energy innovation.
                              </p>
                         </div>

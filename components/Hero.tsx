@@ -378,8 +378,8 @@ export const Hero: React.FC = () => {
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                 className={`
                     /* Text bento matches video height */
-                    min-h-[180px] p-6 justify-center
-                    md:min-h-[300px] md:h-full md:justify-center md:p-12
+                    min-h-[180px] p-6 justify-end pb-8
+                    md:min-h-[300px] md:h-full md:justify-end md:p-12
                     w-full flex flex-col items-start order-2 bg-white rounded-3xl 
                     shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] border border-zinc-200 relative overflow-hidden group
                 `}
@@ -388,7 +388,7 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    className="hidden md:block absolute md:top-14 md:right-20 md:left-auto md:mx-0 z-20"
+                    className="hidden md:block absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-[120%] z-20"
                  >
                     <motion.img 
                         whileHover={{ rotate: 6 }}
