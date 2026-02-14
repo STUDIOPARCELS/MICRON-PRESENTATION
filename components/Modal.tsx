@@ -360,8 +360,9 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
                                 <img 
                                     src={img.url} 
                                     alt={img.caption || "Property gallery photo"} 
-                                    loading="lazy"
+                                    loading="eager"
                                     decoding="async"
+                                    fetchPriority="high"
                                     className="w-full h-full object-contain drop-shadow-sm" 
                                 />
                             </div>

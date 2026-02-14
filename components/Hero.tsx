@@ -220,7 +220,7 @@ export const Hero: React.FC = () => {
         setLogoVisible(true);
         iconControls.start({
             x: 0, rotate: 0, opacity: 1,
-            transition: { type: "spring", stiffness: 12, damping: 18, duration: 6.4, bounce: 0 }
+            transition: { type: "spring", stiffness: 15, damping: 18, duration: 5.1, bounce: 0 }
         });
         setTimeout(() => setLayoutShift(true), 1000);
     }, 63000));
@@ -396,7 +396,7 @@ export const Hero: React.FC = () => {
     <section 
         ref={containerRef}
         // UPDATED: pt-24 on mobile (was pt-32) to reduce padding by ~20%. md:pt-24 remains.
-        className="relative w-full bg-white text-zinc-900 pt-24 md:pt-40 pb-12 md:pb-16 flex flex-col justify-end"
+        className="relative w-full bg-white text-zinc-900 pt-20 md:pt-40 pb-12 md:pb-16 flex flex-col justify-end"
     >
       <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4 xl:gap-16">
         
