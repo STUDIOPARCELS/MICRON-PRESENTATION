@@ -65,7 +65,7 @@ function App() {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
               <motion.img 
-                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-transparent.png"
+                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                 alt="Micron House Logo"
                 className="h-[2.9rem] w-[2.9rem] md:h-[3.4rem] md:w-[3.4rem] object-contain"
                 initial={{ opacity: 0 }}

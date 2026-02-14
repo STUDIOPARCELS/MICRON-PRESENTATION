@@ -147,7 +147,7 @@ export const SectionServingTesla: React.FC = () => {
                 >
                      <div className="flex flex-col items-center text-center pb-4 border-b border-zinc-100">
                         <img 
-                            src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-transparent.png" 
+                            src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png" 
                             alt="Micron House Icon"
                             className="w-40 h-40 object-contain opacity-90 mb-6"
                         />
