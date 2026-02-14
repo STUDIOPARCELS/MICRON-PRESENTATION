@@ -325,7 +325,7 @@ export const SectionServing: React.FC = () => {
                         </div>
                         
                         {/* UPDATED: Increased text size from text-sm to text-base */}
-                        <p className="text-base font-medium text-white/80 line-clamp-3 mt-3 leading-relaxed">
+                        <p className="text-base font-medium text-white/80 mt-3 leading-relaxed">
                             {dept.detail}
                         </p>
                     </div>
