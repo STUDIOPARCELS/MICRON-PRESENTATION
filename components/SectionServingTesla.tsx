@@ -175,7 +175,7 @@ export const SectionServingTesla: React.FC = () => {
                                 <Star size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Sky</span>
                             </div>
-                            <p className="text-white/80 text-lg leading-relaxed font-medium">Starlink, Energy</p>
+                            <p className="text-white/80 text-lg leading-relaxed font-medium">Starlink, Energy, Connectivity</p>
                         </div>
 
                         {/* Memory - Eggplant */}
@@ -193,7 +193,7 @@ export const SectionServingTesla: React.FC = () => {
                                 <Eye size={18} className="text-white/80" />
                                 <span className="font-bold uppercase text-xs tracking-widest">Vision</span>
                             </div>
-                            <p className="text-white/80 text-lg leading-relaxed font-medium">Abundance, Autonomy, Tesla, SpaceX</p>
+                            <p className="text-white/80 text-lg leading-relaxed font-medium">Tesla, SpaceX, Autonomy, Abundance</p>
                         </div>
                      </div>
                 </motion.div>
