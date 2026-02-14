@@ -174,62 +174,64 @@ export const SectionProperty: React.FC = () => {
       
       const galleryConfig = {
           main: {
-              folder: "MAIN FLOOR", 
+              folder: "MAIN_FLOOR", 
               files: [
-                  "1.JPEG",
-                  "IMG_0701.JPEG",
-                  "IMG_0705.JPEG",
-                  "IMG_0709 copy.jpg",
-                  "IMG_0710.JPEG",
-                  "IMG_0735.JPEG",
-                  "IMG_0736.JPEG",
-                  "IMG_0737.JPEG",
-                  "IMG_0738.JPEG",
-                  "IMG_0754.JPEG",
-                  "IMG_0761.JPEG",
-                  "IMG_0762.JPEG",
-                  "LIVING.0.jpg",
-                  "dining.2.JPEG",
-                  "dining.6.JPEG",
-                  "entry.0.JPEG",
-                  "entry.1.JPEG",
-                  "kitchen.1.jpg",
-                  "living.3.JPEG",
-                  "living.4.JPEG",
-                  "living.5.JPEG",
-                  "living.9.JPEG",
-                  "office.1.JPEG",
-                  "office.3.JPEG"
+                  "1.webp",
+                  "img_0701.webp",
+                  "img_0705.webp",
+                  "img_0709-copy.webp",
+                  "img_0710.webp",
+                  "img_0735.webp",
+                  "img_0736.webp",
+                  "img_0737.webp",
+                  "img_0738.webp",
+                  "img_0754.webp",
+                  "img_0761.webp",
+                  "img_0762.webp",
+                  "living.0.webp",
+                  "dining.2.webp",
+                  "dining.6.webp",
+                  "entry-0.webp",
+                  "entry-1.webp",
+                  "kitchen.1.webp",
+                  "living.3.webp",
+                  "living.4.webp",
+                  "living.5.webp",
+                  "living.9.webp",
+                  "office.1.webp",
+                  "office.3.webp"
               ]
           },
           upper: {
-              folder: "UPPER FLOOR", 
+              folder: "UPPER_FLOOR", 
               files: [
-                  "br3_0.jpg",
-                  "br2.3.JPEG",
-                  "br1.6.JPEG",
-                  "BR2_8.jpg",
-                  "BR2.7.JPEG",
-                  "BR1.7.jpg",
-                  "stairs.jpg",
-                  // Removed "MABA.JPEG" due to broken link
-                  "3rd BA_2.JPEG"
+                  "br3_0.webp",
+                  "br2.3.webp",
+                  "br1.6.webp",
+                  "br2_8.webp",
+                  "br2.7.webp",
+                  "br1.7.webp",
+                  "stairs.webp",
+                  "3rd-ba_2.webp",
+                  "dusting.webp",
+                  "dusting2.webp",
+                  "img_0728.webp"
               ]
           },
           grounds: {
-              folder: "GROUNDS", 
+              folder: "HOUSE_GROUNDS", 
               files: [
-                  "GARDEN.2.jpg",
-                  "IMG_0304.JPEG",
-                  "back_yard_1.JPEG",
-                  "exterior.3.jpg",
-                  "exterior.4.jpg",
-                  "exterior_3.JPG",
-                  "exterior_4.JPG",
-                  "fall.jpg",
-                  "front.winter.png",
-                  "garden.10.JPEG",
-                  "night.jpg"
+                  "garden.2.webp",
+                  "img_0304.webp",
+                  "back-yard.webp",
+                  "exterior.3.webp",
+                  "exterior-4b.webp",
+                  "exterior_3.webp",
+                  "exterior_4.webp",
+                  "fall.webp",
+                  "front.winter.webp",
+                  "garden.10.webp",
+                  "night.webp"
               ]
           }
       };
@@ -391,7 +393,7 @@ export const SectionProperty: React.FC = () => {
                                 className="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                                 onError={(e) => {
                                     // Fallback to one of the gallery images if specific one fails
-                                    e.currentTarget.src = buildUrl("GROUNDS", "exterior_4.JPG");
+                                    e.currentTarget.src = buildUrl("HOUSE_GROUNDS", "exterior_4.webp");
                                 }}
                              />
                              <div className="absolute inset-0 bg-zinc-900/10 pointer-events-none" />
@@ -467,14 +469,14 @@ export const SectionProperty: React.FC = () => {
             
             <div className="md:ml-auto max-w-2xl pb-1">
                  <div className="pl-6 border-l-4 border-micron-eggplant-light/20 hover:border-micron-eggplant-light transition-colors duration-500">
-                    <div className="text-lg font-light text-zinc-600 leading-snug font-body">
+                    <div className="text-base font-light text-zinc-600 leading-snug font-body">
                        <span className="font-bold text-micron-eggplant-light block mb-2 text-2xl md:text-3xl uppercase tracking-tighter font-sans">
                            HISTORIC CONTEXT
                        </span>
                        <p className="mb-4">
                            A modest home drawing on North America's oldest continuously operating geothermal district (est. 1890). This site taps into the nation's largest direct-use aquifer.
                        </p>
-                       <p className="font-bold text-micron-eggplant">
+                       <p className="font-semibold text-micron-eggplant">
                            A profound convergence of harnessed earth energy and energy from the stars.
                        </p>
                     </div>

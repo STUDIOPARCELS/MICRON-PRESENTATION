@@ -68,7 +68,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
             onClick={onClose}
             className="fixed inset-0 z-[99] bg-zinc-950/80 backdrop-blur-sm"
           />
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none overflow-hidden">
+          <div className="fixed top-16 left-0 right-0 bottom-0 z-[100] flex items-center justify-center p-4 pointer-events-none overflow-hidden">
              {(() => {
                 switch (data.category) {
                   case 'cinematic':
@@ -317,19 +317,17 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
             
             {/* Gallery Container - Grid Layout */}
             <div className="flex-1 w-full h-full overflow-y-auto custom-scrollbar relative z-10 px-8 md:px-10 pb-12 overscroll-contain">
-                 {/* CSS Grid for Perfect Layout with Mixed Aspect Ratios */}
-                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-8">
+                 {/* CSS Grid for Gallery — Polaroid cards */}
+                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 pb-8 max-w-7xl mx-auto">
                     {items.map((img, i) => {
                         return (
                             <div 
                                 key={`${img.url}-${i}`}
-                                // UPDATED: "Very visible floating" effect added here
-                                // Increased shadow intensity, added subtle border, and ensured hover lift
-                                className="relative aspect-square w-full rounded-2xl overflow-hidden bg-white border border-zinc-100 flex items-center justify-center p-6 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.35)] hover:-translate-y-2 transition-all duration-300"
+                                className="relative aspect-square w-full rounded-xl overflow-hidden bg-white border border-zinc-100 flex items-center justify-center p-4 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.22)] hover:shadow-[0_28px_55px_-10px_rgba(0,0,0,0.32)] hover:-translate-y-1 transition-all duration-300"
                             >
                                 <img 
                                     src={img.url} 
-                                    alt="Gallery Item" 
+                                    alt={img.caption || "Property gallery photo"} 
                                     loading="lazy"
                                     decoding="async"
                                     className="w-full h-full object-contain drop-shadow-sm" 

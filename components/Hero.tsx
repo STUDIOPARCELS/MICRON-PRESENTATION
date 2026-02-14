@@ -4,40 +4,31 @@ import { motion, useInView, AnimatePresence, useAnimation, Variants } from 'fram
 // Defined outside to prevent re-creation on render
 const sentences = [
     {
-        // Sentence 1
         words: ["WITHOUT", "VISION,", "THERE'S", "NO", "VELOCITY."],
-        color: "text-zinc-400",
-        highlightColor: "text-zinc-700",
+        color: "text-[#878d9f]",
+        highlightColor: "text-[#5d6270]",
         hoverColor: "hover:text-black", 
         highlights: ["VISION,", "VELOCITY."],
-        textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
+        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-7xl",
         layout: "default"
     },
     {
-        // Sentence 2
         words: ["WITHOUT", "MEMORY,", "THERE'S", "NO", "MEANING."],
-        color: "text-zinc-400",
+        color: "text-[#878d9f]",
         highlightColor: "text-micron-eggplant",
         hoverColor: "hover:text-micron-eggplant/60", 
         highlights: ["MEMORY,", "MEANING."],
-        textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
+        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-7xl",
         layout: "default"
     },
     {
-        // Sentence 3
         words: ["WITHOUT", "PLACE,", "THERE'S", "NO", "PERSPECTIVE."], 
-        color: "text-zinc-400",
+        color: "text-[#878d9f]",
         highlightColor: "text-micron-green",
         hoverColor: "hover:text-green-900", 
         highlights: ["PLACE,", "PERSPECTIVE."],
-        textSize: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl",
-        // UPDATED: Changed layout to mixed to support manual line breaking
-        layout: "mixed",
-        layoutOverrides: {
-            0: "md:w-full md:basis-full", // WITHOUT (Inline mobile, Stacked desktop)
-            1: "md:w-full md:basis-full"  // PLACE, (Inline mobile, Stacked desktop)
-            // THERE'S (starts Line 3 automatically on desktop, flows on mobile)
-        }
+        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-7xl",
+        layout: "default"
     },
 ];
 
@@ -47,61 +38,42 @@ const InteractiveParadigmTitle: React.FC = () => {
     const paradigmLine3 = ["SHIFTS."];
 
     // Colors
-    const cLightGreen = "#008f25"; 
+    const cGreen = "#008f25";
     const cDarkGreen = "#14532d"; 
     const cEggplant = "#2c0f38"; 
+    const cWhite = "#ffffff";
 
-    // Animation for "THE PARADIGM" (Ends in Eggplant/Purple)
-    // Hover: Green -> Dark Green -> Eggplant
+    // "THE PARADIGM" — Eggplant base, slowly cycles eggplant→dark green→green→eggplant
     const standardVariant: Variants = {
         hidden: { y: 20, opacity: 0, color: cEggplant },
         visible: (i: number) => ({
-            y: 0, 
-            opacity: 1,
-            color: cEggplant, // Static end state
+            y: 0, opacity: 1, color: cEggplant,
             transition: { 
-                y: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) },
-                opacity: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) },
-                // Slow return transition if hover is interrupted
-                color: { duration: 3.0, ease: "easeInOut" }
+                y: { duration: 1.2, ease: "easeOut", delay: 0.3 + (i * 0.15) },
+                opacity: { duration: 1.2, ease: "easeOut", delay: 0.3 + (i * 0.15) },
             }
         }),
         hover: {
-            color: [cEggplant, cLightGreen, cDarkGreen, cEggplant],
-            // UPDATED: Very slow, delayed interaction
-            transition: { 
-                duration: 5.0, 
-                ease: "easeInOut", 
-                delay: 1.0, // Long delay before starting
-                times: [0, 0.2, 0.5, 1] 
-            }
+            color: [cEggplant, cDarkGreen, cGreen, cDarkGreen, cEggplant],
+            transition: { duration: 8.0, ease: "easeInOut", times: [0, 0.25, 0.5, 0.75, 1], repeat: Infinity }
         }
     };
 
-    // Animation for "SHIFTS." (Ends in Light Green)
-    // Hover: Green -> Dark Green -> Eggplant -> Light Green
+    // "SHIFTS." — Starts eggplant, settles on white. Hover: white→green→dark green→green→white
     const shiftsVariant: Variants = {
-        hidden: { y: 20, opacity: 0, color: cLightGreen },
+        hidden: { y: 20, opacity: 0, color: cEggplant },
         visible: (i: number) => ({
-            y: 0, 
-            opacity: 1,
-            color: cLightGreen, // Static end state
+            y: 0, opacity: 1, 
+            color: [cEggplant, cDarkGreen, cWhite],
             transition: { 
-                y: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) },
-                opacity: { duration: 1.0, ease: "easeOut", delay: 0.2 + (i * 0.1) },
-                 // Slow return transition if hover is interrupted
-                color: { duration: 3.0, ease: "easeInOut" }
+                y: { duration: 1.2, ease: "easeOut", delay: 0.3 + (i * 0.15) },
+                opacity: { duration: 1.2, ease: "easeOut", delay: 0.3 + (i * 0.15) },
+                color: { duration: 6.0, ease: "easeInOut", delay: 1.5, times: [0, 0.5, 1] }
             }
         }),
         hover: {
-            color: [cLightGreen, cDarkGreen, cEggplant, cLightGreen],
-            // UPDATED: Very slow, delayed interaction
-            transition: { 
-                duration: 5.0, 
-                ease: "easeInOut", 
-                delay: 1.0, // Long delay before starting
-                times: [0, 0.33, 0.66, 1] 
-            }
+            color: [cWhite, cGreen, cDarkGreen, cGreen, cWhite],
+            transition: { duration: 8.0, ease: "easeInOut", times: [0, 0.25, 0.5, 0.75, 1], repeat: Infinity }
         }
     };
 
@@ -212,43 +184,65 @@ export const Hero: React.FC = () => {
         videoRef.current.play().catch((e) => console.log("Video play error:", e));
     }
 
-    // 4. Schedule Text Start (UPDATED: Added 2 seconds, now 5000ms/5s)
-    sequenceTimer.current = setTimeout(() => {
-        setCurrentSentenceIndex(0);
-    }, 7000);
+    // 4. Sentence timeline (real time at 0.6x playback)
+    sentenceTimers.current.forEach(t => clearTimeout(t));
+    sentenceTimers.current = [];
+    
+    // Sentence 1 at 3s (rockets)
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(0), 3000));
+    // Sentence 1 out at 14s
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 14000));
+    // Sentence 2 at 20s (Micron) — 2s more delay
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(1), 20000));
+    // Sentence 2 out at 30s
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 30000));
+    // Sentence 3 at 32s (Capitol → House)
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(2), 32000));
+    // Blue bento box at 37s
+    sentenceTimers.current.push(setTimeout(() => setVideoCompleted(true), 37000));
   };
 
-  // Handle Video Loop (End of video triggers replay)
-  const handleVideoLoop = () => {
-      setVideoCompleted(true); // Enable quote animation on first loop complete
-      startSequence();
+  // Handle Video End — freeze on last frame
+  const handleVideoEnd = () => {
+      // videoCompleted already set at 32.5s mark
+      // Video naturally pauses on last frame since loop={false}
   };
   
-  // SYNC LOGO TO VIDEO TIME
-  // Trigger exactly at 24.0s mark
+  // SYNC ALL ANIMATIONS TO VIDEO TIME
+  // Video is 34.8s at 1x, plays at 0.6x = ~58s real time
+  // Scene map (real time at 0.6x):
+  //   0-13s:  Space → Starbase → Rockets  
+  //   13-23s: Mountains → Micron facility
+  //   23-30s: Capitol → transition
+  //   30-40s: Warm Springs Ave → House approach  
+  //   40-57s: House close-up
+  //
+  // Animation timeline (real time):
+  //   5s:  Sentence 1 starts (rockets)
+  //   22s: Sentence 1 fades out
+  //   24s: Sentence 2 starts (Micron)
+  //   38s: Sentence 2 fades out  
+  //   40s: Sentence 3 starts (Capitol→House)
+  //   50s: Logo slides in
+  //   52s: Blue bento appears
+  const sentenceTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  
   const handleVideoTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
       const time = e.currentTarget.currentTime;
-      if (time >= 24.0 && !logoVisible) {
+      // Logo at video time 30s (5 seconds before end)
+      // Only after sentence 3 has started populating
+      if (time >= 30 && !logoVisible) {
           setLogoVisible(true);
-          
-          // Trigger Logo Animation
           iconControls.start({
-              x: 0,
-              rotate: 0, // End rotation
-              opacity: 1,
-              transition: { 
-                  type: "spring",
-                  stiffness: 30, 
-                  damping: 20,   
-                  duration: 3.0, 
-                  bounce: 0
-              }
+              x: 0, rotate: 0, opacity: 1,
+              transition: { type: "spring", stiffness: 20, damping: 15, duration: 4.0, bounce: 0 }
           });
-
-          // Trigger Layout Shift (Bento Expand) shortly after logo starts moving
-          setTimeout(() => {
-              setLayoutShift(true);
-          }, 800);
+          // Layout shift 1 second after logo starts
+          setTimeout(() => setLayoutShift(true), 1000);
+      }
+      // Blue bento at video time 31s (real ~52s)  
+      if (time >= 31 && !videoCompleted) {
+          setVideoCompleted(true);
       }
   };
 
@@ -257,58 +251,40 @@ export const Hero: React.FC = () => {
   useEffect(() => {
       if (isInView) {
           startSequence();
+          // Fallback: if video doesn't trigger videoCompleted (e.g. autoplay blocked),
+          // show the blue bento box after 45 seconds anyway
+          const fallback = setTimeout(() => {
+              if (!videoCompleted) setVideoCompleted(true);
+          }, 35000);
+          return () => clearTimeout(fallback);
       } else {
           // Clean up if we scroll away
           if (sequenceTimer.current) clearTimeout(sequenceTimer.current);
+          sentenceTimers.current.forEach(t => clearTimeout(t));
           setCurrentSentenceIndex(null);
           setLayoutShift(false);
           setLogoVisible(false);
+          setVideoCompleted(false);
           iconControls.set({ x: 200, rotate: -360, opacity: 0 });
       }
 
       return () => {
           if (sequenceTimer.current) clearTimeout(sequenceTimer.current);
       };
-  }, [isInView]); // Removed other dependencies to rely purely on visibility toggle
+  }, [isInView]);
   
-  // Effect to cycle through sentences (Once started)
+  // Sentence cycling is now fully driven by setTimeout in startSequence
+  // Clean up all timers on unmount or view change
   useEffect(() => {
-    // If not started, or at end, stop automatic cycling
-    if (currentSentenceIndex === null) return;
-    if (currentSentenceIndex >= sentences.length - 1) return;
+    return () => {
+        sentenceTimers.current.forEach(t => clearTimeout(t));
+    };
+  }, []);
 
-    // Cycle duration to allow slower word population (8000ms = 33% slower than 6000)
-    const baseDuration = 8000;
-    
-    // UPDATED: Logic for durations
-    let cycleDuration = baseDuration;
-    
-    if (currentSentenceIndex === 0) {
-        // UPDATED: Doubled the pause (approx 18s total) as requested
-        cycleDuration = baseDuration * 2.25; 
-    } else if (currentSentenceIndex === 1) {
-        // UPDATED: Reduced multiplier from 2.0 to 1.5. 
-        cycleDuration = baseDuration * 1.5; 
-    }
-
-    const timer = setTimeout(() => {
-        setCurrentSentenceIndex((prev) => {
-            if (prev === null) return 0;
-            if (prev < sentences.length - 1) {
-                return prev + 1;
-            } else {
-                return prev;
-            }
-        });
-    }, cycleDuration);
-
-    return () => clearTimeout(timer);
-  }, [currentSentenceIndex]);
-
-  // Video Speed Control
+  // Video Speed — 0.45x for slower cinematic feel (25% slower than 0.6x)
   useEffect(() => {
     if (videoRef.current) {
-        videoRef.current.playbackRate = 0.6;
+        videoRef.current.playbackRate = 0.45;
     }
   }, []);
 
@@ -328,17 +304,14 @@ export const Hero: React.FC = () => {
            <motion.span
                key={`${word}-${i}`}
                variants={{
-                   hidden: { y: 30, opacity: 0 },
+                   hidden: { opacity: 0 },
                    visible: { 
-                       y: 0, 
                        opacity: 1, 
-                       // UPDATED: Slower entry duration (0.9s was 0.7s) to slow down by ~25%
                        transition: { duration: 0.9, ease: "easeOut" } 
                    },
                    exit: {
-                       y: -30,
                        opacity: 0,
-                       transition: { duration: 0.3, ease: "easeIn" }
+                       transition: { duration: 0.4, ease: "easeIn" }
                    }
                }}
                className={`${currentSet.textSize} ${layoutClass} font-black uppercase tracking-tighter leading-[0.9] cursor-default transition-colors duration-300 ${colorClass} ${hoverClass}`}
@@ -383,16 +356,14 @@ export const Hero: React.FC = () => {
     }
   };
 
-  // Logic to determine if quote should show
-  // Using isInView to ensure visibility on mobile/desktop without strict scroll gating, 
-  // but preserving animation reset capability.
-  const shouldShowQuote = isInView;
+  // Quote shows only after the hero video sequence finishes
+  const shouldShowQuote = videoCompleted;
 
   return (
     <section 
         ref={containerRef}
         // UPDATED: pt-24 on mobile (was pt-32) to reduce padding by ~20%. md:pt-24 remains.
-        className="relative w-full bg-white text-zinc-900 pt-24 md:pt-24 pb-12 md:pb-16 flex flex-col justify-end"
+        className="relative w-full bg-white text-zinc-900 pt-32 md:pt-40 pb-12 md:pb-16 flex flex-col justify-end"
     >
       <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4">
         
@@ -406,16 +377,9 @@ export const Hero: React.FC = () => {
                 layout
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                 className={`
-                    /* UPDATED: Mobile Logic 
-                       - Reduced padding from p-3 to p-1.5 (Another 50% reduction).
-                       - Reduced min-height from 220px to 180px to remove excess whitespace.
-                       
-                       Desktop Logic (md:):
-                       - Retains original behavior but relies on layoutShift for desktop expansion if needed, 
-                         though simplified to standard layout.
-                    */
-                    min-h-[180px] p-1.5 justify-center
-                    md:min-h-[300px] md:h-full md:justify-end md:px-12 md:pt-12 md:pb-12
+                    /* UPDATED: Reduced padding for more text room */
+                    min-h-[180px] p-4 justify-center
+                    md:min-h-[300px] md:h-full md:justify-center md:p-8
                     w-full flex flex-col items-start order-2 bg-white rounded-3xl 
                     shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] border border-zinc-200 relative overflow-hidden group
                 `}
@@ -453,19 +417,31 @@ export const Hero: React.FC = () => {
                                   hidden: { opacity: 1 },
                                   visible: { 
                                       opacity: 1,
-                                      // UPDATED: Slower stagger (0.7s was 0.55s) to slow down by ~25%
-                                      transition: { staggerChildren: 0.7 } 
+                                      transition: { staggerChildren: 1.0 } 
                                   },
                                   exit: { 
                                       opacity: 1, 
-                                      transition: { staggerChildren: 0.05, staggerDirection: -1 } 
+                                      transition: { staggerChildren: 0.1, staggerDirection: -1 } 
                                   }
                               }}
                            >
-                             {sentences[currentSentenceIndex].words.map((wordOrGroup, i) => {
+                             {(() => {
                                  const currentSet = sentences[currentSentenceIndex];
-                                 return renderWord(wordOrGroup as string, i, currentSet);
-                             })}
+                                 if (currentSet.lines) {
+                                     // Forced line layout: render each line as a block
+                                     let wordIndex = 0;
+                                     return currentSet.lines.map((line: string[], lineIdx: number) => (
+                                         <div key={`line-${lineIdx}`} className="w-full flex flex-wrap gap-x-4 md:gap-x-6">
+                                             {line.map((word: string) => {
+                                                 const el = renderWord(word, wordIndex, currentSet);
+                                                 wordIndex++;
+                                                 return el;
+                                             })}
+                                         </div>
+                                     ));
+                                 }
+                                 return currentSet.words.map((word: string, i: number) => renderWord(word, i, currentSet));
+                             })()}
                            </motion.div>
                        )}
                      </AnimatePresence>
@@ -479,28 +455,27 @@ export const Hero: React.FC = () => {
             <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, ease: "easeOut" }} // Fast fade-in, no delay
+                transition={{ duration: 0.8, ease: "easeOut" }}
                 className="aspect-[1.4/1] h-auto md:aspect-auto md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-1 group"
             >
                 <video 
                     ref={videoRef}
                     autoPlay 
-                    // UPDATED: Removed loop to allow onEnded trigger for sync
                     loop={false} 
                     muted 
                     playsInline 
-                    onEnded={handleVideoLoop}
+                    onEnded={handleVideoEnd}
                     onTimeUpdate={handleVideoTimeUpdate}
                     className="absolute inset-0 w-full h-full object-cover opacity-100"
                 >
-                     <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/NEW%20MICRON%20HOUSE.mp4" type="video/mp4" />
+                     <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/micron-house-hero-compressed.mp4" type="video/mp4" />
                 </video>
             </motion.div>
 
         </div>
 
         {/* BOTTOM SECTION: PARADIGM & QUOTE */}
-        {/* UPDATED: Removed 'whileInView' and linked animation to 'isInView' of the parent container to insure mobile population */}
+        {/* Appears on scroll like all other sections */}
         <motion.div 
             initial={{ opacity: 0, y: 100 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
@@ -516,10 +491,10 @@ export const Hero: React.FC = () => {
                  
                  {/* ADDRESS BLOCK */}
                  {/* UPDATED: Added h-fit to prevent line stretching, removed mt logic due to gap-10 */}
-                 <div className="flex flex-col gap-1 border-l-4 border-micron-eggplant pl-4 relative z-10 mt-auto md:mt-auto h-fit">
-                        <h3 className="text-white font-bold text-xl uppercase tracking-wider">Micron House</h3>
-                        <p className="text-micron-eggplant font-bold text-sm md:text-lg uppercase tracking-widest whitespace-nowrap">1020 East Warm Springs Ave</p>
-                        <p className="text-micron-eggplant/80 text-sm md:text-lg uppercase tracking-widest">Boise, Idaho 83712</p>
+                 <div className="flex flex-col gap-0 border-l-4 border-micron-eggplant pl-3 relative z-10 mt-auto md:mt-auto h-fit">
+                        <h3 className="text-white font-bold text-lg uppercase tracking-wider leading-tight">Micron House</h3>
+                        <p className="text-micron-eggplant font-semibold text-sm md:text-base uppercase tracking-widest leading-tight whitespace-nowrap overflow-hidden text-ellipsis">1020 East Warm Springs Ave</p>
+                        <p className="text-micron-eggplant/80 text-xs md:text-sm uppercase tracking-widest leading-tight">Boise, Idaho 83712</p>
                  </div>
 
                  {/* MOBILE QUOTE - IN FLOW */}
@@ -530,7 +505,7 @@ export const Hero: React.FC = () => {
                          initial="hidden"
                          animate={shouldShowQuote ? "visible" : "hidden"} // UPDATED: Gated by scroll or video
                          variants={quoteContainerVariants}
-                         className="font-micron text-2xl text-center text-white font-thin leading-relaxed -rotate-3 pb-4 will-change-transform" // Added pb-4 and will-change to fix clipping
+                         className="font-micron text-xl text-center text-white font-extralight leading-relaxed -rotate-3 pb-4 will-change-transform" // Added pb-4 and will-change to fix clipping
                       >
                          {/* Joined into one paragraph block */}
                          <p className="inline">
@@ -555,7 +530,7 @@ export const Hero: React.FC = () => {
                         initial="hidden"
                         animate={shouldShowQuote ? "visible" : "hidden"} // UPDATED: Gated by scroll or video
                         variants={quoteContainerVariants}
-                        className="font-micron text-2xl md:text-3xl text-white font-thin leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4 pb-4 will-change-transform" // Added pb-4 and will-change to fix clipping
+                        className="font-micron text-xl md:text-2xl text-white font-extralight leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4 pb-4 will-change-transform" // Added pb-4 and will-change to fix clipping
                 >
                      {/* Joined into one paragraph block */}
                      <p className="inline">

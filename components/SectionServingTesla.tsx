@@ -108,8 +108,8 @@ export const SectionServingTesla: React.FC = () => {
                          </div>
                          <div className="w-12 h-1 bg-micron-green/20 mb-6"></div>
                          <div className="space-y-4 text-zinc-600 leading-relaxed text-lg font-medium">
-                            <p>Three decades in tech. Artist, athlete, explorer, researcher.</p>
-                            <p>This Boise property has been a second home for 25 years — barely used. I love what Micron and Tesla are building. I also respect what it demands of us.</p>
+                            <p>Three decades in tech. Mother, artist, athlete, explorer, researcher.</p>
+                            <p>I own this Boise property — 25 years now, barely used. I love what Micron and Tesla are building. I also respect what it demands of us.</p>
                             <p>I created the Micron House concept — the strategy, the design, the branding — to propose a partnership that puts this historic asset to its highest use.</p>
                          </div>
                     </motion.div>
@@ -218,7 +218,7 @@ export const SectionServingTesla: React.FC = () => {
                             className="w-full h-full relative rounded-xl overflow-hidden border border-zinc-200 group shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_45px_80px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300"
                          >
                             <img 
-                                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/UPPER%20FLOOR/stairs.jpg" 
+                                src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/UPPER_FLOOR/stairs.webp" loading="lazy" 
                                 alt="Stairs" 
                                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />

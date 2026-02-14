@@ -78,7 +78,7 @@ function App() {
               <motion.span 
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.0, duration: 0.8 }}
+                transition={{ delay: 1.5, duration: 2.4, ease: "easeOut" }}
                 className="text-lg md:text-xl font-black tracking-tight text-micron-eggplant/80 uppercase font-sans"
               >
                 Micron House
@@ -86,7 +86,7 @@ function App() {
             </div>
             
             {/* Desktop Menu */}
-            <div className="hidden md:flex gap-8 text-base font-bold uppercase tracking-widest text-zinc-500">
+            <div className="hidden md:flex gap-5 text-sm font-semibold uppercase tracking-wider text-zinc-600">
                {navLinks.map(link => (
                  <a 
                     key={link.id}
@@ -240,7 +240,7 @@ function App() {
 
                 {/* Footer Bottom */}
                 <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-zinc-600 uppercase tracking-wider font-medium">
-                    <p>© 2025 Proposal for Micron Technology</p>
+                    <p>© 2026 Lisa Wood Studio</p>
                     <div className="flex gap-8">
                         <span className="cursor-pointer hover:text-zinc-400 transition-colors">Privacy</span>
                         <span className="cursor-pointer hover:text-zinc-400 transition-colors">Terms</span>

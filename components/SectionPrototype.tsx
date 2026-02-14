@@ -7,10 +7,10 @@ import { Play, Zap, ShieldCheck, TrendingUp, Globe, Activity, Cpu, Bot, Building
 import { motion, useInView } from 'framer-motion';
 
 // --- VIDEO ASSETS ---
-const VIDEO_TIMING = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/cropped%20POTATO%20MICRON%20SEQUENCE.mp4";
-const VIDEO_COLLAB = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/FINAL%20FINAL.mp4";
-const VIDEO_PLACE = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/FINAL%20CW%20MOORE%20FULL.mp4"; 
-const VIDEO_PROTOTYPE = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/CYPEROPTIMUS%20FINAL.mp4";
+const VIDEO_TIMING = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/micron-boise-timing.mp4";
+const VIDEO_COLLAB = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/micron-house-collaboration.mp4";
+const VIDEO_PLACE = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/cw-moore-history.mp4"; 
+const VIDEO_PROTOTYPE = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/micron-house-prototype.mp4";
 
 // --- HELPER COMPONENTS ---
 
@@ -59,22 +59,22 @@ const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: st
     const videoRef = useRef<HTMLVideoElement>(null);
     const containerRef = useRef(null);
     const isInView = useInView(containerRef, { amount: 0.6 });
+    const [hasPlayed, setHasPlayed] = useState(false);
 
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
 
-        const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
-        const shouldPlay = isTouch ? isInView : isHovering;
+        // Autoplay on scroll into view (all devices), replay on hover
+        const shouldPlay = isInView || isHovering;
 
         if (shouldPlay) {
-            // Only play if it's not already playing to prevent restarting or jitter
             if (video.paused) {
+                if (video.ended || hasPlayed) video.currentTime = 0;
                 video.play().catch(() => {});
             }
-        } else {
-            video.pause();
         }
+        // Don't pause on scroll-away — let it finish playing
     }, [isInView, isHovering, src]);
 
     return (
@@ -90,6 +90,8 @@ const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: st
                 className="absolute inset-0 w-full h-full object-cover" 
                 muted 
                 playsInline 
+                loop={false}
+                onEnded={() => setHasPlayed(true)}
             />
         </div>
     );
@@ -259,7 +261,7 @@ const getCardData = (id: number): ModalContent => {
                         <div className="w-full h-px bg-white/20 mb-4" />
                         <div className="space-y-4 text-white/70 text-lg font-medium leading-relaxed flex-1">
                             <p className="font-bold text-white text-xl">Scaling to Billions.</p>
-                            <p>Tesla is producing Optimus at million-unit annual capacity. Micron House is operational at the earliest stage of that curve — generating institutional knowledge from day one.</p>
+                            <p>Tesla is scaling Optimus Gen 3 production at its Fremont factory, with over 1,000 units already deployed internally and a dedicated line targeting one million units annually. Micron House is operational at the earliest stage of that curve — generating institutional knowledge from day one.</p>
                         </div>
                     </InnerBento>
 
@@ -479,7 +481,7 @@ const getCardData = (id: number): ModalContent => {
                                 In June 2025, Micron announced <strong className="text-micron-eggplant">$200 billion</strong> in U.S. semiconductor manufacturing — the largest memory infrastructure commitment in American history.
                             </p>
                             <p>
-                                Tesla is targeting <strong className="text-micron-eggplant">50,000 Optimus units by this year and million-unit annual capacity</strong>. Every unit is a mobile supercomputer requiring Micron silicon.
+                                Tesla is scaling toward <strong className="text-micron-eggplant">one million Optimus units per year at Fremont, with consumer sales targeted by late 2026</strong>. Every unit is a mobile supercomputer requiring Micron silicon.
                             </p>
                             <p>
                                 Musk and Mehrotra are building toward a <strong className="text-micron-eggplant">future where autonomous systems outnumber people</strong>. The pace of that deployment carries weight — and Micron House is where the implications are explored firsthand.

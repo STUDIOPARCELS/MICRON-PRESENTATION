@@ -15,7 +15,7 @@ const roadmapItems = [
   { 
     id: 2, 
     date: "MAR 1", 
-    title: "PROTOCOL ASSESSMENT", 
+    title: "SYSTEMS ALIGNMENT", 
     subtitle: "Infrastructure install.", 
     bg: "bg-micron-eggplant-light", // Light Blue
     text: "text-white"
