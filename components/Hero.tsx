@@ -27,10 +27,9 @@ const sentences = [
         highlightColor: "text-micron-green",
         hoverColor: "hover:text-green-900", 
         highlights: ["PLACE,", "PERSPECTIVE."],
-        textSize: "text-3xl sm:text-3xl md:text-4xl lg:text-[3.5rem] lg:leading-[1.3]",
+        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem]",
         layout: "default",
-        wordSizeOverrides: { "NO": "text-3xl sm:text-3xl md:text-4xl lg:text-[2.5rem] lg:leading-[1.3]" },
-        wordWeightOverrides: { "NO": "font-extrabold" }
+        lines: [["WITHOUT", "PLACE,"], ["THERE'S", "NO"], ["PERSPECTIVE."]],
     },
 ];
 
