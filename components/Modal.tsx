@@ -318,7 +318,7 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
             {/* Gallery Container - Grid Layout */}
             <div className="flex-1 w-full h-full overflow-y-auto custom-scrollbar relative z-10 px-8 md:px-10 pb-12 overscroll-contain">
                  {/* CSS Grid for Gallery — Polaroid cards */}
-                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 pb-8 w-full">
+                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 pb-8 max-w-6xl mx-auto">
                     {items.map((img, i) => {
                         return (
                             <div 

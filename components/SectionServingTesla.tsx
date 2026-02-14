@@ -152,9 +152,11 @@ export const SectionServingTesla: React.FC = () => {
                             className="w-40 h-40 object-contain opacity-90 mb-6"
                         />
                         <h3 className="text-2xl font-bold text-micron-eggplant leading-tight tracking-tight">Concept & Design</h3>
-                        <p className="text-lg text-zinc-500 mt-2 font-medium">
-                            I designed the emblem around a single idea: balance. Earth and Sky represent the world we inherited. Intelligence and Vision represent the world Micron and Tesla are building. The star at the center is where all four forces converge — the spark of something new. An icon for the autonomous home of the future.
-                        </p>
+                        <div className="text-base text-zinc-500 mt-3 font-medium text-left space-y-3 max-w-md">
+                            <p>I designed the emblem around a single idea: balance.</p>
+                            <p>Earth and Sky represent the world we inherited. Intelligence and Vision represent the world Micron and Tesla are building.</p>
+                            <p>The star at the center is where all four forces converge — the spark of something new. An icon for the autonomous home of the future.</p>
+                        </div>
                      </div>
 
                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
