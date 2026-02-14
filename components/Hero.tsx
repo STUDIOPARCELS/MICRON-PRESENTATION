@@ -27,7 +27,7 @@ const sentences = [
         highlightColor: "text-micron-green",
         hoverColor: "hover:text-green-900", 
         highlights: ["PLACE,", "PERSPECTIVE."],
-        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-7xl",
+        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-[4rem]",
         layout: "default"
     },
 ];
@@ -304,14 +304,14 @@ export const Hero: React.FC = () => {
            <motion.span
                key={`${word}-${i}`}
                variants={{
-                   hidden: { opacity: 0 },
+                   hidden: { opacity: 0, y: 8 },
                    visible: { 
-                       opacity: 1, 
-                       transition: { duration: 0.9, ease: "easeOut" } 
+                       opacity: 1, y: 0,
+                       transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] } 
                    },
                    exit: {
-                       opacity: 0,
-                       transition: { duration: 0.4, ease: "easeIn" }
+                       opacity: 0, y: -4,
+                       transition: { duration: 0.5, ease: "easeIn" }
                    }
                }}
                className={`${currentSet.textSize} ${layoutClass} font-black uppercase tracking-tighter leading-[0.9] cursor-default transition-colors duration-300 ${colorClass} ${hoverClass}`}
