@@ -196,10 +196,10 @@ export const Hero: React.FC = () => {
     sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(1), 20000));
     // Sentence 2 out at 30s
     sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 30000));
-    // Sentence 3 at 32s (Capitol → House)
-    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(2), 32000));
-    // Blue bento box at 37s
-    sentenceTimers.current.push(setTimeout(() => setVideoCompleted(true), 37000));
+    // Sentence 3 at 34s (Capitol → House) — 2s more delay
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(2), 34000));
+    // Blue bento box at 39s
+    sentenceTimers.current.push(setTimeout(() => setVideoCompleted(true), 39000));
   };
 
   // Handle Video End — freeze on last frame
