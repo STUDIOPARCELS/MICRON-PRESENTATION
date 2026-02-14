@@ -167,8 +167,11 @@ export const Hero: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Track if video has actually started playing
+  const videoStarted = useRef(false);
+
   // Unified Start Sequence Function
-  // Resets everything, starts video immediately, waits for delay, starts text
+  // Resets everything, starts video immediately, waits for video to play before starting text
   const startSequence = () => {
     // 1. Clear any pending timers
     if (sequenceTimer.current) clearTimeout(sequenceTimer.current);
@@ -180,12 +183,23 @@ export const Hero: React.FC = () => {
     iconControls.set({ x: 200, rotate: -360, opacity: 0 });
 
     // 3. Restart Video Immediately (No Delay)
+    videoStarted.current = false;
     if (videoRef.current) {
         videoRef.current.currentTime = 0;
-        videoRef.current.play().catch((e) => console.log("Video play error:", e));
+        videoRef.current.play().catch((e) => {
+            console.log("Video play error:", e);
+            // If autoplay blocked, start timers anyway
+            startSentenceTimers();
+        });
     }
+  };
 
-    // 4. Sentence timeline (real time at 0.6x playback)
+  // Start sentence timers - called when video actually plays or as fallback
+  const startSentenceTimers = () => {
+    if (videoStarted.current) return; // Prevent double-start
+    videoStarted.current = true;
+
+    // 4. Sentence timeline (real time at 0.45x playback)
     sentenceTimers.current.forEach(t => clearTimeout(t));
     sentenceTimers.current = [];
     
@@ -283,11 +297,25 @@ export const Hero: React.FC = () => {
     };
   }, []);
 
-  // Video Speed — 0.45x for slower cinematic feel (25% slower than 0.6x)
+  // Video Speed — 0.45x for slower cinematic feel
   useEffect(() => {
     if (videoRef.current) {
         videoRef.current.playbackRate = 0.45;
     }
+    // Force play on first touch for mobile browsers
+    const forcePlay = () => {
+        if (videoRef.current && videoRef.current.paused) {
+            videoRef.current.play().catch(() => {});
+        }
+        document.removeEventListener('touchstart', forcePlay);
+        document.removeEventListener('click', forcePlay);
+    };
+    document.addEventListener('touchstart', forcePlay, { once: true });
+    document.addEventListener('click', forcePlay, { once: true });
+    return () => {
+        document.removeEventListener('touchstart', forcePlay);
+        document.removeEventListener('click', forcePlay);
+    };
   }, []);
 
   const renderWord = (word: string, i: number, currentSet: any) => {
@@ -468,7 +496,8 @@ export const Hero: React.FC = () => {
                     autoPlay 
                     loop={false} 
                     muted 
-                    playsInline 
+                    playsInline
+                    onPlaying={() => startSentenceTimers()}
                     onEnded={handleVideoEnd}
                     onTimeUpdate={handleVideoTimeUpdate}
                     className="absolute inset-0 w-full h-full object-cover opacity-100"
