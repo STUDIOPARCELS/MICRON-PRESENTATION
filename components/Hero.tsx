@@ -498,6 +498,7 @@ export const Hero: React.FC = () => {
                     muted 
                     playsInline
                     preload="auto"
+                    poster="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/hero-poster.jpg"
                     onLoadedData={() => {
                         if (videoRef.current) {
                             videoRef.current.play().catch(() => {});
