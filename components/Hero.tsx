@@ -191,24 +191,16 @@ export const Hero: React.FC = () => {
     // Sentence 1 at 3s (rockets)
     sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(0), 4000));
     // Sentence 1 out at 14s
-    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 15000));
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 19000));
     // Sentence 2 at 22s (Micron)
-    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(1), 22000));
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(1), 23000));
     // Sentence 2 out at 32s
-    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 32000));
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 35000));
     // Sentence 3 at 37s (Capitol → House)
     sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(2), 38000));
-    // Sentence 3 out at 47s — fades to white
+    // Sentence 3 out at 50s — fades to white
     sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 50000));
-    // Logo rolls into center at 48s (after white)
-    sentenceTimers.current.push(setTimeout(() => {
-        setLogoVisible(true);
-        iconControls.start({
-            x: 0, rotate: 0, opacity: 1,
-            transition: { type: "spring", stiffness: 20, damping: 15, duration: 4.0, bounce: 0 }
-        });
-        setTimeout(() => setLayoutShift(true), 1000);
-    }, 53000));
+    // Logo now triggered by video timeUpdate when earth appears
     // Blue bento box at 57s
     sentenceTimers.current.push(setTimeout(() => setVideoCompleted(true), 57000));
   };
@@ -240,6 +232,15 @@ export const Hero: React.FC = () => {
   
   const handleVideoTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
       const time = e.currentTarget.currentTime;
+      // Logo rolls in when earth comes into view (~20s video time)
+      if (time >= 20 && !logoVisible && currentSentenceIndex === null) {
+          setLogoVisible(true);
+          iconControls.start({
+              x: 0, rotate: 0, opacity: 1,
+              transition: { type: "spring", stiffness: 20, damping: 15, duration: 4.0, bounce: 0 }
+          });
+          setTimeout(() => setLayoutShift(true), 1000);
+      }
       // Blue bento at video time 31s  
       if (time >= 31 && !videoCompleted) {
           setVideoCompleted(true);
@@ -389,7 +390,7 @@ export const Hero: React.FC = () => {
                  <motion.div 
                     initial={{ x: 200, rotate: -360, opacity: 0 }}
                     animate={iconControls}
-                    className="hidden xl:block absolute xl:top-[30%] xl:left-1/2 xl:-translate-x-1/2 xl:-translate-y-1/2 z-20"
+                    className="hidden xl:block absolute xl:top-1/2 xl:left-1/2 xl:-translate-x-1/2 xl:-translate-y-1/2 z-20"
                  >
                     <motion.img 
                         whileHover={{ rotate: 6 }}
@@ -397,7 +398,7 @@ export const Hero: React.FC = () => {
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                         alt="Micron Logo"
                         // UPDATED: Logo reduced 20%
-                        className="md:h-[240px] md:w-[240px] object-contain cursor-pointer"
+                        className="xl:h-[288px] xl:w-[288px] object-contain cursor-pointer"
                     />
                  </motion.div>
                  
