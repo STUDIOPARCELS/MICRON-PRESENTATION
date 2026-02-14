@@ -237,8 +237,8 @@ export const SectionServing: React.FC = () => {
         // REMOVED h-full from this wrapper to allow natural height sizing
         <div className="flex flex-col gap-8 pb-4">
              <div className={`border-l-4 ${dept.modalTagColor.replace('border-', 'border-')} pl-6 py-1`}>
-                {/* UPDATED: Changed from text-xl md:text-2xl to text-xl (20px) */}
-                <p className="text-xl font-light text-zinc-600 leading-relaxed font-body">
+                {/* UPDATED: Reduced to text-base to match Living Lab subtitle */}
+                <p className="text-base font-light text-zinc-600 leading-relaxed font-body">
                     {dept.detail}
                 </p>
             </div>
@@ -314,6 +314,7 @@ export const SectionServing: React.FC = () => {
                     borderColor="border-white/10"
                     delay={staggeredDelays[i] || 0}
                     hoverEffect={true}
+                    arrowPosition="bottom-right"
                     onClick={() => openModal(dept)}
                 >
                     <div className="relative z-10 flex flex-col h-full">
