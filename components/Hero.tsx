@@ -9,7 +9,7 @@ const sentences = [
         highlightColor: "text-[#5d6270]",
         hoverColor: "hover:text-black", 
         highlights: ["VISION,", "VELOCITY."],
-        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-8xl",
+        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-7xl",
         layout: "default"
     },
     {
@@ -18,7 +18,7 @@ const sentences = [
         highlightColor: "text-micron-eggplant",
         hoverColor: "hover:text-micron-eggplant/60", 
         highlights: ["MEMORY,", "MEANING."],
-        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-8xl",
+        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-7xl",
         layout: "default"
     },
     {
@@ -27,7 +27,7 @@ const sentences = [
         highlightColor: "text-micron-green",
         hoverColor: "hover:text-green-900", 
         highlights: ["PLACE,", "PERSPECTIVE."],
-        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-8xl",
+        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-7xl",
         layout: "default"
     },
 ];
@@ -369,7 +369,7 @@ export const Hero: React.FC = () => {
         
         {/* TOP SECTION */}
         {/* UPDATED: Changed grid layout to [55fr_45fr] for desktop to make video wider */}
-        <div className="flex flex-col lg:grid lg:grid-cols-[60fr_40fr] gap-4 h-auto md:h-[450px] w-full">
+        <div className="flex flex-col lg:grid lg:grid-cols-[55fr_45fr] gap-4 h-auto w-full">
             
             {/* 1. TEXT ANIMATION AREA (White Bento) */}
             {/* UPDATED: Changed order to order-2 (Bottom on Mobile, Right on Desktop) */}
@@ -377,9 +377,9 @@ export const Hero: React.FC = () => {
                 layout
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                 className={`
-                    /* UPDATED: Reduced padding for more text room */
-                    min-h-[180px] p-4 justify-center
-                    md:min-h-[300px] md:h-full md:justify-center md:p-8
+                    /* Text bento matches video height */
+                    min-h-[180px] p-6 justify-center
+                    md:min-h-0 md:h-full md:justify-center md:p-10
                     w-full flex flex-col items-start order-2 bg-white rounded-3xl 
                     shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] border border-zinc-200 relative overflow-hidden group
                 `}
@@ -456,7 +456,7 @@ export const Hero: React.FC = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="aspect-[1.4/1] h-auto md:aspect-auto md:h-full w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-1 group"
+                className="aspect-video h-auto w-full rounded-3xl overflow-hidden relative shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform duration-500 bg-black order-1 group"
             >
                 <video 
                     ref={videoRef}
