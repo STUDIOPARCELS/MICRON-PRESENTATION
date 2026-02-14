@@ -365,11 +365,11 @@ export const Hero: React.FC = () => {
         // UPDATED: pt-24 on mobile (was pt-32) to reduce padding by ~20%. md:pt-24 remains.
         className="relative w-full bg-white text-zinc-900 pt-32 md:pt-40 pb-12 md:pb-16 flex flex-col justify-end"
     >
-      <div className="container mx-auto px-4 md:px-12 h-full flex flex-col gap-4">
+      <div className="max-w-screen-2xl mx-auto px-4 md:px-8 h-full flex flex-col gap-6">
         
         {/* TOP SECTION */}
         {/* UPDATED: Changed grid layout to [55fr_45fr] for desktop to make video wider */}
-        <div className="flex flex-col lg:grid lg:grid-cols-[55fr_45fr] gap-4 h-auto w-full">
+        <div className="flex flex-col lg:grid lg:grid-cols-[55fr_45fr] gap-6 h-auto w-full">
             
             {/* 1. TEXT ANIMATION AREA (White Bento) */}
             {/* UPDATED: Changed order to order-2 (Bottom on Mobile, Right on Desktop) */}
