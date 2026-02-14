@@ -293,6 +293,8 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
         setItems(data.galleryImages || []);
     }, [data.galleryImages]);
 
+    const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
@@ -301,6 +303,35 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
             className="pointer-events-auto relative w-full h-full max-w-[95vw] max-h-[92vh] rounded-[2rem] bg-white shadow-2xl flex flex-col overflow-hidden"
         >
+            {/* Lightbox Overlay */}
+            <AnimatePresence>
+                {lightboxImg && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center cursor-pointer backdrop-blur-sm"
+                        onClick={() => setLightboxImg(null)}
+                    >
+                        <motion.img
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                            src={lightboxImg}
+                            alt="Enlarged view"
+                            className="max-w-[50vw] max-h-[80vh] object-contain rounded-xl shadow-2xl"
+                        />
+                        <button 
+                            className="absolute top-6 right-6 rounded-full bg-white/10 p-3 text-white hover:bg-white/20 transition-colors"
+                            onClick={() => setLightboxImg(null)}
+                        >
+                            <X size={24} />
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
             {/* Header */}
             <div className="flex justify-between items-center p-8 md:p-10 pb-4 flex-shrink-0 z-20 bg-white">
                 <div>
@@ -323,7 +354,8 @@ const GalleryModalContent: React.FC<{ data: ModalContent; onClose: () => void }>
                         return (
                             <div 
                                 key={`${img.url}-${i}`}
-                                className="relative aspect-square w-full rounded-xl overflow-hidden bg-white border border-zinc-100 flex items-center justify-center p-4 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.22)] hover:shadow-[0_28px_55px_-10px_rgba(0,0,0,0.32)] hover:-translate-y-1 transition-all duration-300"
+                                className="relative aspect-square w-full rounded-xl overflow-hidden bg-white border border-zinc-100 flex items-center justify-center p-4 shadow-[0_18px_40px_-8px_rgba(0,0,0,0.22)] hover:shadow-[0_28px_55px_-10px_rgba(0,0,0,0.32)] hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                                onClick={() => setLightboxImg(img.url)}
                             >
                                 <img 
                                     src={img.url} 

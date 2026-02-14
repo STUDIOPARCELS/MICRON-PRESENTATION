@@ -27,7 +27,7 @@ const sentences = [
         highlightColor: "text-micron-green",
         hoverColor: "hover:text-green-900", 
         highlights: ["PLACE,", "PERSPECTIVE."],
-        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-[4rem]",
+        textSize: "text-3xl sm:text-4xl md:text-5xl lg:text-7xl",
         layout: "default"
     },
 ];
@@ -378,8 +378,8 @@ export const Hero: React.FC = () => {
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                 className={`
                     /* Text bento matches video height */
-                    min-h-[180px] p-6 justify-end
-                    md:min-h-[300px] md:h-full md:justify-end md:p-10
+                    min-h-[180px] p-6 justify-center
+                    md:min-h-[300px] md:h-full md:justify-center md:p-12
                     w-full flex flex-col items-start order-2 bg-white rounded-3xl 
                     shadow-[0_20px_60px_-10px_rgba(0,0,0,0.3)] border border-zinc-200 relative overflow-hidden group
                 `}
@@ -396,7 +396,7 @@ export const Hero: React.FC = () => {
                         src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/micron-overlap-no-border.png"
                         alt="Micron Logo"
                         // UPDATED: Logo reduced 20%
-                        className="md:h-32 md:w-32 object-contain cursor-pointer"
+                        className="md:h-40 md:w-40 object-contain cursor-pointer"
                     />
                  </motion.div>
                  
