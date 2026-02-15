@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, ArrowUp, ArrowUpRight, Cpu, TreeDeciduous, Zap, Waves, Activity, Sprout, Clock, Car, Bot, Grape, Thermometer, ShieldCheck, History, Landmark, Timer } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { MapPin, Plane, Building2, Leaf, GraduationCap, Stethoscope, Home, ArrowUp, ArrowUpRight, Cpu, TreeDeciduous, Zap, Waves, Activity, Sprout, Clock, Car, Bot, Grape, Thermometer, ShieldCheck, History, Landmark, Timer, FileText, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Modal } from './Modal';
 import { BentoCard } from './BentoCard'; 
@@ -166,8 +167,63 @@ const ModalCard = ({ title, description, colorClass, icon, image, textColor="tex
   </div>
 );
 
+// PDF Whitepaper Viewer — opens as a lightbox overlay on top of existing modals
+const WhitepaperViewer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => { setMounted(true); return () => setMounted(false); }, []);
+    useEffect(() => {
+        if (isOpen) {
+            const handleEsc = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+            document.addEventListener('keydown', handleEsc);
+            return () => document.removeEventListener('keydown', handleEsc);
+        }
+    }, [isOpen, onClose]);
+
+    if (!mounted || !isOpen) return null;
+
+    return createPortal(
+        <>
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={onClose}
+                className="fixed inset-0 z-[200] bg-zinc-950/80 backdrop-blur-md"
+            />
+            <div className="fixed inset-0 z-[201] flex items-center justify-center p-4 md:p-8 pointer-events-none">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                    transition={{ type: "spring", damping: 30, stiffness: 350 }}
+                    className="pointer-events-auto relative w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden rounded-2xl md:rounded-3xl bg-zinc-950 shadow-2xl border border-white/10 ring-1 ring-white/5"
+                >
+                    <div className="px-6 md:px-8 py-5 flex justify-between items-center border-b border-white/10 bg-black/50 flex-shrink-0">
+                        <div>
+                            <h2 className="text-lg md:text-xl font-bold uppercase tracking-tight text-white">Lost Vibrations</h2>
+                            <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-zinc-400 mt-0.5">White Paper — Lisa Wood 2025</p>
+                        </div>
+                        <button onClick={onClose} className="rounded-full bg-white/5 p-2 text-zinc-400 hover:text-white hover:bg-white/10 transition-colors border border-white/10">
+                            <X size={20} />
+                        </button>
+                    </div>
+                    <div className="flex-1 min-h-0">
+                        <iframe
+                            src={`${BUCKET_BASE_URL}/LOST-VIBRATIONS-WHITEPAPER%20(1).pdf`}
+                            className="w-full h-full border-0"
+                            title="Lost Vibrations White Paper"
+                        />
+                    </div>
+                </motion.div>
+            </div>
+        </>,
+        document.body
+    );
+};
+
 export const SectionProperty: React.FC = () => {
   const [modalData, setModalData] = useState<ModalContent | null>(null);
+  const [showWhitepaper, setShowWhitepaper] = useState(false);
 
   const openLevelGallery = (level: 'main' | 'upper' | 'grounds') => {
       let title = "";
@@ -294,6 +350,14 @@ export const SectionProperty: React.FC = () => {
                                 <>
                                     <p>Invented in 1960 by Vladimir Nazarov for the Soviet Space Program to combat zero-gravity bone loss.</p>
                                     <p>By engaging 90% of muscle fibers (vs. 40% in standard training), it <strong className="text-white font-bold drop-shadow-md">rapidly builds bone density</strong>, counteracts neuropathy, and stimulates neuro-repair for improved mental health.</p>
+                                    <button 
+                                        onClick={() => setShowWhitepaper(true)}
+                                        className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-white/60 hover:text-white/95 transition-all duration-300 group/link bg-transparent border-0 cursor-pointer p-0"
+                                    >
+                                        <FileText size={12} strokeWidth={2} className="opacity-70 group-hover/link:opacity-100 transition-opacity" />
+                                        Read the White Paper
+                                        <ArrowUpRight size={10} strokeWidth={2.5} className="opacity-60 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all duration-300" />
+                                    </button>
                                 </>
                             }
                         />
@@ -605,6 +669,7 @@ export const SectionProperty: React.FC = () => {
         </div>
 
         <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
+        <WhitepaperViewer isOpen={showWhitepaper} onClose={() => setShowWhitepaper(false)} />
     </section>
   );
 };
