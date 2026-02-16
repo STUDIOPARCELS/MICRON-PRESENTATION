@@ -186,9 +186,12 @@ export const Hero: React.FC = () => {
     videoStarted.current = false;
     if (videoRef.current) {
         videoRef.current.currentTime = 0;
-        videoRef.current.play().catch((e) => {
+        videoRef.current.muted = true; // Ensure muted for autoplay compliance
+        videoRef.current.play().then(() => {
+            if (videoRef.current) videoRef.current.playbackRate = 0.45;
+        }).catch((e) => {
             console.log("Video play error:", e);
-            // If autoplay blocked, start timers anyway
+            // If autoplay blocked, start timers anyway so animation sequence runs
             startSentenceTimers();
         });
     }
@@ -298,23 +301,35 @@ export const Hero: React.FC = () => {
   }, []);
 
   // Video Speed — 0.45x for slower cinematic feel
+  // playbackRate is now set in onLoadedData to avoid interfering with mobile autoplay
   useEffect(() => {
-    if (videoRef.current) {
-        videoRef.current.playbackRate = 0.45;
-    }
-    // Force play on first touch for mobile browsers
+    // Force play on first interaction for mobile browsers that block autoplay
     const forcePlay = () => {
-        if (videoRef.current && videoRef.current.paused) {
+        if (videoRef.current) {
+            videoRef.current.muted = true; // Ensure muted (required for autoplay)
+            videoRef.current.playbackRate = 0.45;
             videoRef.current.play().catch(() => {});
         }
-        document.removeEventListener('touchstart', forcePlay);
-        document.removeEventListener('click', forcePlay);
     };
     document.addEventListener('touchstart', forcePlay, { once: true });
     document.addEventListener('click', forcePlay, { once: true });
+    
+    // Additional aggressive retry: try playing every 500ms for 3 seconds
+    const retries: ReturnType<typeof setTimeout>[] = [];
+    for (let i = 1; i <= 6; i++) {
+        retries.push(setTimeout(() => {
+            if (videoRef.current && videoRef.current.paused) {
+                videoRef.current.muted = true;
+                videoRef.current.playbackRate = 0.45;
+                videoRef.current.play().catch(() => {});
+            }
+        }, i * 500));
+    }
+    
     return () => {
         document.removeEventListener('touchstart', forcePlay);
         document.removeEventListener('click', forcePlay);
+        retries.forEach(t => clearTimeout(t));
     };
   }, []);
 
@@ -497,10 +512,12 @@ export const Hero: React.FC = () => {
                     loop={false} 
                     muted 
                     playsInline
+                    // @ts-ignore — needed for older iOS Safari
+                    webkit-playsinline="true"
                     preload="auto"
-                    poster="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/hero-poster.jpg"
                     onLoadedData={() => {
                         if (videoRef.current) {
+                            videoRef.current.playbackRate = 0.45;
                             videoRef.current.play().catch(() => {});
                         }
                     }}
@@ -508,6 +525,7 @@ export const Hero: React.FC = () => {
                     onEnded={handleVideoEnd}
                     onTimeUpdate={handleVideoTimeUpdate}
                     className="absolute inset-0 w-full h-full object-cover opacity-100"
+                    style={{ WebkitMediaPlaybackRequiresUserAction: false } as any}
                 >
                      <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/micron-house-hero-compressed.mp4" type="video/mp4" />
                 </video>
