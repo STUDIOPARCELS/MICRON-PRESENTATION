@@ -149,6 +149,7 @@ export const Hero: React.FC = () => {
   // New States for Quote Animation Control
   const [hasScrolled, setHasScrolled] = useState(false);
   const [videoCompleted, setVideoCompleted] = useState(false);
+  const [videoIsPlaying, setVideoIsPlaying] = useState(false);
 
   // Timer Ref to manage cleanup
   const sequenceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -180,16 +181,19 @@ export const Hero: React.FC = () => {
     setCurrentSentenceIndex(null);
     setLayoutShift(false);
     setLogoVisible(false);
+    setVideoIsPlaying(false);
     iconControls.set({ x: 200, rotate: -360, opacity: 0 });
 
-    // 3. Restart Video Immediately (No Delay)
+    // 3. Start Video — programmatic play only (no autoPlay attribute), matching bento pattern
+    // If play succeeds: onPlaying fires → poster fades → sentence timers start (all synced)
+    // If play blocked: poster stays visible, nothing else happens until user taps
     videoStarted.current = false;
     if (videoRef.current) {
         videoRef.current.currentTime = 0;
-        videoRef.current.play().catch((e) => {
-            console.log("Video play error:", e);
-            // If autoplay blocked, start timers anyway
-            startSentenceTimers();
+        videoRef.current.muted = true;
+        videoRef.current.play().catch(() => {
+            // Autoplay blocked — do nothing. User will tap, forcePlay triggers, onPlaying syncs everything.
+            console.log("Autoplay blocked — waiting for user interaction");
         });
     }
   };
@@ -267,12 +271,6 @@ export const Hero: React.FC = () => {
   useEffect(() => {
       if (isInView) {
           startSequence();
-          // Fallback: if video doesn't trigger videoCompleted (e.g. autoplay blocked),
-          // show the blue bento box after 45 seconds anyway
-          const fallback = setTimeout(() => {
-              if (!videoCompleted) setVideoCompleted(true);
-          }, 35000);
-          return () => clearTimeout(fallback);
       } else {
           // Clean up if we scroll away
           if (sequenceTimer.current) clearTimeout(sequenceTimer.current);
@@ -281,6 +279,7 @@ export const Hero: React.FC = () => {
           setLayoutShift(false);
           setLogoVisible(false);
           setVideoCompleted(false);
+          setVideoIsPlaying(false);
           iconControls.set({ x: 200, rotate: -360, opacity: 0 });
       }
 
@@ -298,18 +297,15 @@ export const Hero: React.FC = () => {
   }, []);
 
   // Video Speed — 0.45x for slower cinematic feel
-  // IMPORTANT: Do NOT set playbackRate before play() — iOS Safari blocks autoplay if you do.
-  // It's set in onPlaying instead.
+  // playbackRate is set in onPlaying callback to avoid blocking autoplay on mobile
   useEffect(() => {
-    // Force play on first touch for mobile browsers
+    // Force play on first user interaction — for mobile browsers that block autoplay
+    // When play succeeds, onPlaying fires → poster fades → timers start (all synced)
     const forcePlay = () => {
         if (videoRef.current && videoRef.current.paused) {
-            videoRef.current.play().then(() => {
-                if (videoRef.current) videoRef.current.playbackRate = 0.45;
-            }).catch(() => {});
+            videoRef.current.muted = true;
+            videoRef.current.play().catch(() => {});
         }
-        document.removeEventListener('touchstart', forcePlay);
-        document.removeEventListener('click', forcePlay);
     };
     document.addEventListener('touchstart', forcePlay, { once: true });
     document.addEventListener('click', forcePlay, { once: true });
@@ -494,19 +490,13 @@ export const Hero: React.FC = () => {
             >
                 <video 
                     ref={videoRef}
-                    autoPlay 
                     loop={false} 
                     muted 
                     playsInline
-                    preload="auto"
-                    poster="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/hero-poster.jpg"
-                    onLoadedData={() => {
-                        if (videoRef.current) {
-                            videoRef.current.play().catch(() => {});
-                        }
-                    }}
+                    preload="metadata"
                     onPlaying={() => {
                         if (videoRef.current) videoRef.current.playbackRate = 0.45;
+                        setVideoIsPlaying(true);
                         startSentenceTimers();
                     }}
                     onEnded={handleVideoEnd}
@@ -515,6 +505,17 @@ export const Hero: React.FC = () => {
                 >
                      <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/micron-house-hero-compressed.mp4" type="video/mp4" />
                 </video>
+                {/* Invisible overlay blocks iOS from rendering native play button — matches bento video pattern */}
+                <div className="absolute inset-0 z-[1]" style={{ WebkitTapHighlightColor: 'transparent' }} />
+                {/* Poster image overlay — shows until video actually plays, then fades out */}
+                <motion.img
+                    src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/hero-poster.jpg"
+                    alt=""
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: videoIsPlaying ? 0 : 1 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[2]"
+                />
             </motion.div>
 
         </div>
