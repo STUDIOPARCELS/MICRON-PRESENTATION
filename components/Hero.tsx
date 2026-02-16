@@ -342,7 +342,12 @@ export const Hero: React.FC = () => {
                    hidden: { opacity: 0, y: 8 },
                    visible: { 
                        opacity: 1, y: 0,
-                       transition: { duration: 1.6, ease: [0.22, 1, 0.36, 1] } 
+                       transition: { 
+                           duration: 1.6, 
+                           ease: [0.22, 1, 0.36, 1],
+                           // 1s per word + 1s extra pause after the comma word (index 1)
+                           delay: i * 1.0 + (i >= 2 ? 1.0 : 0)
+                       } 
                    },
                    exit: {
                        opacity: 0, y: -4,
@@ -452,7 +457,7 @@ export const Hero: React.FC = () => {
                                   hidden: { opacity: 1 },
                                   visible: { 
                                       opacity: 1,
-                                      transition: { staggerChildren: 1.0 } 
+                                      transition: { staggerChildren: 0 } 
                                   },
                                   exit: { 
                                       opacity: 1, 
@@ -554,9 +559,10 @@ export const Hero: React.FC = () => {
                  <div className="md:hidden w-full flex-grow pt-4 pb-12 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
-                         animate={shouldShowQuote ? "visible" : "hidden"} // UPDATED: Gated by scroll or video
+                         whileInView="visible"
+                         viewport={{ once: false, amount: 0.3 }}
                          variants={quoteContainerVariants}
-                         className="font-micron text-xl text-center text-white font-extralight leading-relaxed -rotate-3 pb-4 will-change-transform" // Added pb-4 and will-change to fix clipping
+                         className="font-micron text-xl text-center text-white font-extralight leading-relaxed -rotate-3 pb-4 will-change-transform"
                       >
                          {/* Joined into one paragraph block */}
                          <p className="inline">
@@ -579,9 +585,10 @@ export const Hero: React.FC = () => {
                 {/* UPDATED: Changed text to text-white (Bright White) and font-thin for reduced heaviness */}
                 <motion.div
                         initial="hidden"
-                        animate={shouldShowQuote ? "visible" : "hidden"} // UPDATED: Gated by scroll or video
+                        whileInView="visible"
+                        viewport={{ once: false, amount: 0.3 }}
                         variants={quoteContainerVariants}
-                        className="font-micron text-xl md:text-2xl text-white font-extralight leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4 pb-4 will-change-transform" // Added pb-4 and will-change to fix clipping
+                        className="font-micron text-xl md:text-2xl text-white font-extralight leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4 pb-4 will-change-transform"
                 >
                      {/* Joined into one paragraph block */}
                      <p className="inline">
