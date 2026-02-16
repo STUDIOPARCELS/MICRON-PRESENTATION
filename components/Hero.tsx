@@ -346,7 +346,8 @@ export const Hero: React.FC = () => {
                            duration: 1.6, 
                            ease: [0.22, 1, 0.36, 1],
                            // 1s per word + 1s extra pause after the comma word (index 1)
-                           delay: i * 1.0 + (i >= 2 ? 4.0 : 0)
+                           // First part: 2s between words. Second part: 6s after VISION, then 1s stagger
+                           delay: i < 2 ? i * 2.0 : 8.0 + (i - 2) * 1.0
                        } 
                    },
                    exit: {
