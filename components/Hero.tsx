@@ -149,6 +149,7 @@ export const Hero: React.FC = () => {
   // New States for Quote Animation Control
   const [hasScrolled, setHasScrolled] = useState(false);
   const [videoCompleted, setVideoCompleted] = useState(false);
+  const [videoIsPlaying, setVideoIsPlaying] = useState(false);
 
   // Timer Ref to manage cleanup
   const sequenceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -180,6 +181,7 @@ export const Hero: React.FC = () => {
     setCurrentSentenceIndex(null);
     setLayoutShift(false);
     setLogoVisible(false);
+    setVideoIsPlaying(false);
     iconControls.set({ x: 200, rotate: -360, opacity: 0 });
 
     // 3. Restart Video Immediately (No Delay)
@@ -521,7 +523,10 @@ export const Hero: React.FC = () => {
                             videoRef.current.play().catch(() => {});
                         }
                     }}
-                    onPlaying={() => startSentenceTimers()}
+                    onPlaying={() => {
+                        setVideoIsPlaying(true);
+                        startSentenceTimers();
+                    }}
                     onEnded={handleVideoEnd}
                     onTimeUpdate={handleVideoTimeUpdate}
                     className="absolute inset-0 w-full h-full object-cover opacity-100"
@@ -529,6 +534,16 @@ export const Hero: React.FC = () => {
                 >
                      <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/micron-house-hero-compressed.mp4" type="video/mp4" />
                 </video>
+                {/* Poster overlay — replaces the video poster attribute to avoid iOS native play button */}
+                <motion.img
+                    src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/hero-poster.jpg"
+                    alt=""
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: videoIsPlaying ? 0 : 1 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                    style={{ zIndex: 1 }}
+                />
             </motion.div>
 
         </div>
