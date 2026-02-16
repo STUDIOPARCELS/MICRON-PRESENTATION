@@ -170,7 +170,13 @@ const ModalCard = ({ title, description, colorClass, icon, image, textColor="tex
 // PDF Whitepaper Viewer — opens as a lightbox overlay on top of existing modals
 const WhitepaperViewer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
     const [mounted, setMounted] = useState(false);
-    useEffect(() => { setMounted(true); return () => setMounted(false); }, []);
+    const [isMobile, setIsMobile] = useState(false);
+    
+    useEffect(() => { 
+        setMounted(true); 
+        setIsMobile(window.innerWidth < 768);
+        return () => setMounted(false); 
+    }, []);
     useEffect(() => {
         if (isOpen) {
             const handleEsc = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -181,6 +187,12 @@ const WhitepaperViewer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ 
 
     if (!mounted || !isOpen) return null;
 
+    const pdfUrl = `${BUCKET_BASE_URL}/LOST-VIBRATIONS-WHITEPAPER%20(1).pdf`;
+    // Google Docs viewer scales PDFs properly on mobile
+    const viewerUrl = isMobile 
+        ? `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(pdfUrl)}`
+        : pdfUrl;
+
     return createPortal(
         <>
             <motion.div
@@ -190,28 +202,29 @@ const WhitepaperViewer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ 
                 onClick={onClose}
                 className="fixed inset-0 z-[200] bg-zinc-950/80 backdrop-blur-md"
             />
-            <div className="fixed inset-0 z-[201] flex items-center justify-center p-4 md:p-8 pointer-events-none">
+            <div className="fixed inset-0 z-[201] flex items-center justify-center p-2 md:p-8 pointer-events-none">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: 20 }}
                     transition={{ type: "spring", damping: 30, stiffness: 350 }}
-                    className="pointer-events-auto relative w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden rounded-2xl md:rounded-3xl bg-zinc-950 shadow-2xl border border-white/10 ring-1 ring-white/5"
+                    className="pointer-events-auto relative w-full max-w-4xl h-[92vh] md:h-[90vh] flex flex-col overflow-hidden rounded-2xl md:rounded-3xl bg-zinc-950 shadow-2xl border border-white/10 ring-1 ring-white/5"
                 >
-                    <div className="px-6 md:px-8 py-5 flex justify-between items-center border-b border-white/10 bg-black/50 flex-shrink-0">
+                    <div className="px-4 md:px-8 py-4 md:py-5 flex justify-between items-center border-b border-white/10 bg-black/50 flex-shrink-0">
                         <div>
-                            <h2 className="text-lg md:text-xl font-bold uppercase tracking-tight text-white">Lost Vibrations</h2>
-                            <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-zinc-400 mt-0.5">White Paper — Lisa Wood 2025</p>
+                            <h2 className="text-base md:text-xl font-bold uppercase tracking-tight text-white">Lost Vibrations</h2>
+                            <p className="text-[9px] md:text-xs font-bold uppercase tracking-widest text-zinc-400 mt-0.5">White Paper — Lisa Wood 2025</p>
                         </div>
                         <button onClick={onClose} className="rounded-full bg-white/5 p-2 text-zinc-400 hover:text-white hover:bg-white/10 transition-colors border border-white/10">
                             <X size={20} />
                         </button>
                     </div>
-                    <div className="flex-1 min-h-0">
+                    <div className="flex-1 min-h-0 bg-white">
                         <iframe
-                            src={`${BUCKET_BASE_URL}/LOST-VIBRATIONS-WHITEPAPER%20(1).pdf`}
+                            src={viewerUrl}
                             className="w-full h-full border-0"
                             title="Lost Vibrations White Paper"
+                            allow="autoplay"
                         />
                     </div>
                 </motion.div>
