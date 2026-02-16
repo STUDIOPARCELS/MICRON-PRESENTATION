@@ -6,6 +6,27 @@ import { ModalContent } from '../types';
 import { Play, Zap, ShieldCheck, TrendingUp, Globe, Activity, Cpu, Bot, Building2, Check, ArrowRight, MessageSquare, Quote, Mountain } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 
+// --- GLOBAL iOS VIDEO UNLOCK ---
+// iOS blocks programmatic video.play() until first user gesture.
+// On first tap/click anywhere, try to play every video on the page.
+let videoUnlocked = false;
+const unlockVideos = () => {
+    if (videoUnlocked) return;
+    videoUnlocked = true;
+    document.querySelectorAll('video').forEach(v => {
+        if (v.paused) {
+            v.muted = true;
+            v.play().catch(() => {});
+        }
+    });
+    document.removeEventListener('touchstart', unlockVideos);
+    document.removeEventListener('click', unlockVideos);
+};
+if (typeof document !== 'undefined') {
+    document.addEventListener('touchstart', unlockVideos, { once: true });
+    document.addEventListener('click', unlockVideos, { once: true });
+}
+
 // --- VIDEO ASSETS ---
 const VIDEO_TIMING = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/micron-boise-timing.mp4";
 const VIDEO_COLLAB = "https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/micron-house-collaboration.mp4";
@@ -91,7 +112,7 @@ const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: st
                 className="absolute inset-0 w-full h-full object-cover" 
                 muted 
                 playsInline 
-                preload="metadata"
+                preload="auto"
                 loop={false}
                 onEnded={() => setHasPlayed(true)}
             />

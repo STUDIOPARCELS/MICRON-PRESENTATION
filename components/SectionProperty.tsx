@@ -365,11 +365,11 @@ export const SectionProperty: React.FC = () => {
                                     <p>By engaging 90% of muscle fibers (vs. 40% in standard training), it <strong className="text-white font-bold drop-shadow-md">rapidly builds bone density</strong>, counteracts neuropathy, and stimulates neuro-repair for improved mental health.</p>
                                     <button 
                                         onClick={() => setShowWhitepaper(true)}
-                                        className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-white/60 hover:text-white/95 transition-all duration-300 group/link bg-transparent border-0 cursor-pointer p-0"
+                                        className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-sky-300/80 hover:text-sky-200 transition-all duration-300 group/link bg-transparent border-0 cursor-pointer p-0"
                                     >
-                                        <FileText size={12} strokeWidth={2} className="opacity-70 group-hover/link:opacity-100 transition-opacity" />
+                                        <FileText size={12} strokeWidth={2} className="opacity-80 group-hover/link:opacity-100 transition-opacity" />
                                         Read the White Paper
-                                        <ArrowUpRight size={10} strokeWidth={2.5} className="opacity-60 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all duration-300" />
+                                        <ArrowUpRight size={10} strokeWidth={2.5} className="opacity-70 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all duration-300" />
                                     </button>
                                 </>
                             }
