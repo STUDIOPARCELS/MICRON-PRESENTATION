@@ -91,11 +91,12 @@ const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: st
                 className="absolute inset-0 w-full h-full object-cover" 
                 muted 
                 playsInline 
-                autoPlay
-                preload="auto"
+                preload="metadata"
                 loop={false}
                 onEnded={() => setHasPlayed(true)}
             />
+            {/* Invisible overlay blocks iOS from rendering native play button */}
+            <div className="absolute inset-0 z-10" style={{ WebkitTapHighlightColor: 'transparent' }} />
         </div>
     );
 };
@@ -105,19 +106,20 @@ const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: st
 const ModalVideo = ({ src, className = "" }: { src: string; className?: string }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
-    // UPDATED: Reduced threshold to 0.1 to ensure immediate detection on mount
     const isInView = useInView(containerRef, { amount: 0.1 });
     const [hasPlayed, setHasPlayed] = useState(false);
 
+    // Play via JS when in view (works on mobile without showing native controls)
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
 
-        // If video comes into view and has already finished previously, restart it.
-        // "Loops through again" when they scroll over it.
-        if (isInView && hasPlayed && video.paused) {
-            video.currentTime = 0;
-            video.play().catch(() => {});
+        if (isInView) {
+            if (video.paused) {
+                if (video.ended || hasPlayed) video.currentTime = 0;
+                video.muted = true;
+                video.play().catch(() => {});
+            }
         }
     }, [isInView, hasPlayed]);
 
@@ -128,7 +130,6 @@ const ModalVideo = ({ src, className = "" }: { src: string; className?: string }
     const handleMouseEnter = () => {
         const video = videoRef.current;
         if (video) {
-             // Restart on hover only if paused or ended
              if (video.paused) {
                  if (video.ended) video.currentTime = 0;
                  video.play().catch(() => {});
@@ -146,15 +147,14 @@ const ModalVideo = ({ src, className = "" }: { src: string; className?: string }
                 ref={videoRef}
                 src={src} 
                 className="w-full h-full object-cover" 
-                autoPlay 
                 muted 
                 playsInline 
-                // UPDATED: Added preload="auto" to prioritize loading
-                preload="auto"
+                preload="metadata"
                 onEnded={handleEnded}
-                // Important: loop is false so it plays once then stops
                 loop={false}
             />
+            {/* Invisible overlay blocks iOS native play button */}
+            <div className="absolute inset-0 z-10" style={{ WebkitTapHighlightColor: 'transparent' }} />
         </div>
     )
 }

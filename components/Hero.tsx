@@ -510,12 +510,9 @@ export const Hero: React.FC = () => {
             >
                 <video 
                     ref={videoRef}
-                    autoPlay 
                     loop={false} 
                     muted 
                     playsInline
-                    // @ts-ignore — needed for older iOS Safari
-                    webkit-playsinline="true"
                     preload="auto"
                     onLoadedData={() => {
                         if (videoRef.current) {
@@ -530,7 +527,6 @@ export const Hero: React.FC = () => {
                     onEnded={handleVideoEnd}
                     onTimeUpdate={handleVideoTimeUpdate}
                     className="absolute inset-0 w-full h-full object-cover opacity-100"
-                    style={{ WebkitMediaPlaybackRequiresUserAction: false } as any}
                 >
                      <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/micron-house-hero-compressed.mp4" type="video/mp4" />
                 </video>
