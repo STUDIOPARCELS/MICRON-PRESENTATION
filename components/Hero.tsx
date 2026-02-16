@@ -149,7 +149,6 @@ export const Hero: React.FC = () => {
   // New States for Quote Animation Control
   const [hasScrolled, setHasScrolled] = useState(false);
   const [videoCompleted, setVideoCompleted] = useState(false);
-  const [videoIsPlaying, setVideoIsPlaying] = useState(false);
 
   // Timer Ref to manage cleanup
   const sequenceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -181,19 +180,15 @@ export const Hero: React.FC = () => {
     setCurrentSentenceIndex(null);
     setLayoutShift(false);
     setLogoVisible(false);
-    setVideoIsPlaying(false);
     iconControls.set({ x: 200, rotate: -360, opacity: 0 });
 
     // 3. Restart Video Immediately (No Delay)
     videoStarted.current = false;
     if (videoRef.current) {
         videoRef.current.currentTime = 0;
-        videoRef.current.muted = true; // Ensure muted for autoplay compliance
-        videoRef.current.play().then(() => {
-            if (videoRef.current) videoRef.current.playbackRate = 0.45;
-        }).catch((e) => {
+        videoRef.current.play().catch((e) => {
             console.log("Video play error:", e);
-            // If autoplay blocked, start timers anyway so animation sequence runs
+            // If autoplay blocked, start timers anyway
             startSentenceTimers();
         });
     }
@@ -303,35 +298,24 @@ export const Hero: React.FC = () => {
   }, []);
 
   // Video Speed — 0.45x for slower cinematic feel
-  // playbackRate is now set in onLoadedData to avoid interfering with mobile autoplay
+  // IMPORTANT: Do NOT set playbackRate before play() — iOS Safari blocks autoplay if you do.
+  // It's set in onPlaying instead.
   useEffect(() => {
-    // Force play on first interaction for mobile browsers that block autoplay
+    // Force play on first touch for mobile browsers
     const forcePlay = () => {
-        if (videoRef.current) {
-            videoRef.current.muted = true; // Ensure muted (required for autoplay)
-            videoRef.current.playbackRate = 0.45;
-            videoRef.current.play().catch(() => {});
+        if (videoRef.current && videoRef.current.paused) {
+            videoRef.current.play().then(() => {
+                if (videoRef.current) videoRef.current.playbackRate = 0.45;
+            }).catch(() => {});
         }
+        document.removeEventListener('touchstart', forcePlay);
+        document.removeEventListener('click', forcePlay);
     };
     document.addEventListener('touchstart', forcePlay, { once: true });
     document.addEventListener('click', forcePlay, { once: true });
-    
-    // Additional aggressive retry: try playing every 500ms for 3 seconds
-    const retries: ReturnType<typeof setTimeout>[] = [];
-    for (let i = 1; i <= 6; i++) {
-        retries.push(setTimeout(() => {
-            if (videoRef.current && videoRef.current.paused) {
-                videoRef.current.muted = true;
-                videoRef.current.playbackRate = 0.45;
-                videoRef.current.play().catch(() => {});
-            }
-        }, i * 500));
-    }
-    
     return () => {
         document.removeEventListener('touchstart', forcePlay);
         document.removeEventListener('click', forcePlay);
-        retries.forEach(t => clearTimeout(t));
     };
   }, []);
 
@@ -510,18 +494,19 @@ export const Hero: React.FC = () => {
             >
                 <video 
                     ref={videoRef}
+                    autoPlay 
                     loop={false} 
                     muted 
                     playsInline
                     preload="auto"
+                    poster="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/hero-poster.jpg"
                     onLoadedData={() => {
                         if (videoRef.current) {
-                            videoRef.current.playbackRate = 0.45;
                             videoRef.current.play().catch(() => {});
                         }
                     }}
                     onPlaying={() => {
-                        setVideoIsPlaying(true);
+                        if (videoRef.current) videoRef.current.playbackRate = 0.45;
                         startSentenceTimers();
                     }}
                     onEnded={handleVideoEnd}
@@ -530,16 +515,6 @@ export const Hero: React.FC = () => {
                 >
                      <source src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/micron-house-hero-compressed.mp4" type="video/mp4" />
                 </video>
-                {/* Poster overlay — replaces the video poster attribute to avoid iOS native play button */}
-                <motion.img
-                    src="https://acwgirrldntjpzrhqmdh.supabase.co/storage/v1/object/public/MICRON%20HOUSE/MH_VIDEOS/hero-poster.jpg"
-                    alt=""
-                    initial={{ opacity: 1 }}
-                    animate={{ opacity: videoIsPlaying ? 0 : 1 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-                    style={{ zIndex: 1 }}
-                />
             </motion.div>
 
         </div>
