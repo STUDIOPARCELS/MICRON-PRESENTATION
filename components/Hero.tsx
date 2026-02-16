@@ -299,8 +299,13 @@ export const Hero: React.FC = () => {
   // Video Speed — 0.45x for slower cinematic feel
   // playbackRate is set in onPlaying callback to avoid blocking autoplay on mobile
   useEffect(() => {
-    // Force play on first user interaction — for mobile browsers that block autoplay
-    // When play succeeds, onPlaying fires → poster fades → timers start (all synced)
+    // Try to play immediately on mount — hero is always at top of page
+    if (videoRef.current) {
+        videoRef.current.muted = true;
+        videoRef.current.play().catch(() => {});
+    }
+    
+    // Force play on first user interaction — fallback for mobile browsers that block autoplay
     const forcePlay = () => {
         if (videoRef.current && videoRef.current.paused) {
             videoRef.current.muted = true;
@@ -493,7 +498,7 @@ export const Hero: React.FC = () => {
                     loop={false} 
                     muted 
                     playsInline
-                    preload="metadata"
+                    preload="auto"
                     onPlaying={() => {
                         if (videoRef.current) videoRef.current.playbackRate = 0.45;
                         setVideoIsPlaying(true);
