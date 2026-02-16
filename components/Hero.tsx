@@ -392,7 +392,7 @@ export const Hero: React.FC = () => {
   };
 
   // Quote shows only after the hero video sequence finishes
-  const shouldShowQuote = videoCompleted;
+  const shouldShowQuote = videoCompleted || hasScrolled;
 
   return (
     <section 
