@@ -208,7 +208,7 @@ export const Hero: React.FC = () => {
     sentenceTimers.current = [];
     
     // Sentence 1 at 3s (rockets)
-    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(0), 4000));
+    sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(0), 5000));
     // Sentence 1 out at 14s
     sentenceTimers.current.push(setTimeout(() => setCurrentSentenceIndex(null), 19000));
     // Sentence 2 at 22s (Micron)
