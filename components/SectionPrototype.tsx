@@ -58,7 +58,7 @@ const InnerBento = ({ title, children, gradient, icon, className = "", delay = 0
 const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: string; className?: string; isHovering?: boolean }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const containerRef = useRef(null);
-    const isInView = useInView(containerRef, { amount: 0.6 });
+    const isInView = useInView(containerRef, { amount: 0.3 });
     const [hasPlayed, setHasPlayed] = useState(false);
 
     useEffect(() => {
@@ -71,6 +71,7 @@ const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: st
         if (shouldPlay) {
             if (video.paused) {
                 if (video.ended || hasPlayed) video.currentTime = 0;
+                video.muted = true;
                 video.play().catch(() => {});
             }
         }
@@ -90,6 +91,8 @@ const HoverVideoPlayer = ({ src, className = "", isHovering = false }: { src: st
                 className="absolute inset-0 w-full h-full object-cover" 
                 muted 
                 playsInline 
+                autoPlay
+                preload="auto"
                 loop={false}
                 onEnded={() => setHasPlayed(true)}
             />
