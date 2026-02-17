@@ -767,6 +767,7 @@ export const SectionPrototype: React.FC = () => {
             </BentoCard>
 
         </div>
+
       <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
     </section>
   );

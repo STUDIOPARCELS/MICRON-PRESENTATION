@@ -537,17 +537,17 @@ export const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 100 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
             transition={{ duration: 2.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col md:flex-row md:items-stretch min-h-[400px] md:min-h-[360px] p-8 md:p-8 gap-4 md:gap-8 group"
+            className="w-full bg-micron-eggplant-light rounded-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-white/20 relative overflow-hidden flex flex-col p-8 md:p-8 gap-6 md:gap-8 group"
         >
+            {/* TOP ROW: Paradigm + Quote + Map */}
+            <div className="flex flex-col md:flex-row md:items-stretch flex-1 gap-4 md:gap-8">
             {/* LEFT: Title + Address Block (Flex-1) */}
-            {/* UPDATED: Increased gap to gap-10 on mobile to double the pattern */}
             <div className="flex-shrink-0 flex flex-col justify-between items-start z-10 relative h-full md:w-auto gap-10 md:gap-12">
                  <div className="relative z-10 w-full">
                     <InteractiveParadigmTitle />
                  </div>
                  
                  {/* ADDRESS BLOCK */}
-                 {/* UPDATED: Added h-fit to prevent line stretching, removed mt logic due to gap-10 */}
                  <div className="flex flex-col gap-0 border-l-4 border-micron-eggplant pl-3 relative z-10 mt-auto md:mt-auto h-fit">
                         <h3 className="text-white font-bold text-lg uppercase tracking-wider leading-tight">Micron House</h3>
                         <p className="text-micron-eggplant font-semibold text-sm md:text-base uppercase tracking-widest leading-tight whitespace-nowrap overflow-hidden text-ellipsis">1020 East Warm Springs Ave</p>
@@ -555,8 +555,6 @@ export const Hero: React.FC = () => {
                  </div>
 
                  {/* MOBILE QUOTE - IN FLOW */}
-                 {/* UPDATED: Now uses word-by-word staggered animation on scroll */}
-                 {/* UPDATED: Changed text to text-white (Bright White) and font-thin for reduced heaviness */}
                  <div className="md:hidden w-full flex-grow pt-4 pb-12 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
@@ -565,7 +563,6 @@ export const Hero: React.FC = () => {
                          variants={quoteContainerVariants}
                          className="font-micron text-xl text-center text-white font-extralight leading-relaxed -rotate-3 pb-4 will-change-transform"
                       >
-                         {/* Joined into one paragraph block */}
                          <p className="inline">
                              {quoteWords.map((word, i) => (
                                 <motion.span
@@ -583,7 +580,6 @@ export const Hero: React.FC = () => {
 
             {/* CENTER: DESKTOP QUOTE CONTAINER (Flex-Grow) */}
             <div className="hidden md:flex flex-grow items-center justify-center relative px-4 z-10">
-                {/* UPDATED: Changed text to text-white (Bright White) and font-thin for reduced heaviness */}
                 <motion.div
                         initial="hidden"
                         whileInView="visible"
@@ -591,7 +587,6 @@ export const Hero: React.FC = () => {
                         variants={quoteContainerVariants}
                         className="font-micron text-xl md:text-2xl text-white font-extralight leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4 pb-4 will-change-transform"
                 >
-                     {/* Joined into one paragraph block */}
                      <p className="inline">
                         {quoteWords.map((word, i) => (
                         <motion.span
@@ -618,6 +613,56 @@ export const Hero: React.FC = () => {
                     title="Micron House Map"
                     className="absolute inset-0 w-full h-full opacity-90"
                 />
+            </div>
+            </div>
+
+            {/* BOTTOM ROW: MANIFESTO — Word by word after quote finishes */}
+            <div className="w-full pt-4 border-t border-white/10 select-none z-10 relative">
+                <motion.p 
+                    className="text-sm md:text-base lg:text-lg font-black uppercase tracking-wide leading-snug md:whitespace-nowrap"
+                    style={{ wordSpacing: '0.3em' }}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.5 }}
+                    variants={{
+                        hidden: { opacity: 0 },
+                        visible: { 
+                            opacity: 1, 
+                            transition: { staggerChildren: 0.36, delayChildren: 14 }
+                        }
+                    }}
+                >
+                    {[
+                        { text: "Without ", color: "rgba(255,255,255,0.3)" },
+                        { text: "Vision ", color: "rgba(53,57,66,0.6)" },
+                        { text: "there's ", color: "rgba(255,255,255,0.3)" },
+                        { text: "no ", color: "rgba(255,255,255,0.3)" },
+                        { text: "Velocity.", color: "rgba(53,57,66,0.6)" },
+                        { text: "\u00A0\u00A0\u00A0", color: "transparent" },
+                        { text: "Without ", color: "rgba(255,255,255,0.3)" },
+                        { text: "Memory ", color: "rgba(44,15,56,0.7)" },
+                        { text: "there's ", color: "rgba(255,255,255,0.3)" },
+                        { text: "no ", color: "rgba(255,255,255,0.3)" },
+                        { text: "Meaning.", color: "rgba(44,15,56,0.7)" },
+                        { text: "\u00A0\u00A0\u00A0", color: "transparent" },
+                        { text: "Without ", color: "rgba(255,255,255,0.3)" },
+                        { text: "Place ", color: "rgba(0,143,37,0.5)" },
+                        { text: "there's ", color: "rgba(255,255,255,0.3)" },
+                        { text: "no ", color: "rgba(255,255,255,0.3)" },
+                        { text: "Perspective.", color: "rgba(0,143,37,0.5)" },
+                    ].map((w, i) => (
+                        <motion.span
+                            key={i}
+                            variants={{
+                                hidden: { opacity: 0, y: 6 },
+                                visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: "easeOut" } }
+                            }}
+                            style={{ color: w.color }}
+                        >
+                            {w.text}
+                        </motion.span>
+                    ))}
+                </motion.p>
             </div>
         </motion.div>
 
