@@ -373,8 +373,7 @@ export const Hero: React.FC = () => {
     visible: { 
         opacity: 1, 
         transition: { 
-            // RESTORED: 0.6s stagger
-            staggerChildren: 0.6, 
+            staggerChildren: 0.48, 
             delayChildren: 0.2 
         } 
     }
@@ -558,8 +557,7 @@ export const Hero: React.FC = () => {
                  <div className="md:hidden w-full flex-grow pt-4 pb-12 flex items-center justify-center relative z-20">
                       <motion.div
                          initial="hidden"
-                         whileInView="visible"
-                         viewport={{ once: false, amount: 0.3 }}
+                         animate={shouldShowQuote ? "visible" : "hidden"}
                          variants={quoteContainerVariants}
                          className="font-micron text-xl text-center text-white font-extralight leading-relaxed -rotate-3 pb-4 will-change-transform"
                       >
@@ -582,8 +580,7 @@ export const Hero: React.FC = () => {
             <div className="hidden md:flex flex-grow items-center justify-center relative px-4 z-10">
                 <motion.div
                         initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: false, amount: 0.3 }}
+                        animate={shouldShowQuote ? "visible" : "hidden"}
                         variants={quoteContainerVariants}
                         className="font-micron text-xl md:text-2xl text-white font-extralight leading-relaxed text-left -rotate-6 max-w-lg w-full -translate-x-4 pb-4 will-change-transform"
                 >
@@ -622,13 +619,12 @@ export const Hero: React.FC = () => {
                     className="text-sm md:text-base lg:text-lg font-black uppercase tracking-wide leading-snug md:whitespace-nowrap"
                     style={{ wordSpacing: '0.3em' }}
                     initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: false, amount: 0.5 }}
+                    animate={shouldShowQuote ? "visible" : "hidden"}
                     variants={{
                         hidden: { opacity: 0 },
                         visible: { 
                             opacity: 1, 
-                            transition: { staggerChildren: 0.36, delayChildren: 14 }
+                            transition: { staggerChildren: 0.36, delayChildren: 11 }
                         }
                     }}
                 >
